@@ -1,0 +1,1 @@
+{!! Form::textarea($field['name'], $field['value'] ?: $field['default'], ['class' => 'form-control editor', 'autocomplete' => 'off', 'data-lang' => config()->get('app.locale')] + $field['attributes']) !!}

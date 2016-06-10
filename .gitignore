@@ -1,0 +1,8 @@
+/vendor
+/node_modules
+/public
+Homestead.yaml
+Homestead.json
+.env
+sftp-config.json
+.remote-sync.json

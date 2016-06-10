@@ -1,0 +1,1 @@
+{!! Form::select($field['name'], ['' => '-'] + $crud['model']::getPossibleEnumValues($field['name']), $field['value'] ?: $field['default'], array_merge(['class' => 'form-control'], $field['attributes'])) !!}

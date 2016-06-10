@@ -1,0 +1,1 @@
+{!! Form::textarea($field['name'], $field['value'] ?: $field['default'], ['class' => 'form-control ckeditor', 'autocomplete' => 'off'/*, 'id' => "ckeditor-{$field['name']}"*/] + $field['attributes']) !!}
