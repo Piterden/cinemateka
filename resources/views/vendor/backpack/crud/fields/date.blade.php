@@ -1,5 +1,5 @@
 <!-- html5 date input -->
-  <div class="form-group">
+  <div class="form-group col-md-{{ $field['colspan'] or 12 }} {{ $field['cssclass'] or '' }}">
     <label>{{ $field['label'] }}</label>
     <input
         type="date"

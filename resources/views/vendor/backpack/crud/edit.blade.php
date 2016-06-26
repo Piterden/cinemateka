@@ -15,7 +15,7 @@
 
 @section('content')
 <div class="row">
-	<div class="col-md-8 col-md-offset-2">
+	<div class="col-md-12">
 		<!-- Default box -->
 		@if ($crud->hasAccess('list'))
 			<a href="{{ url($crud->route) }}"><i class="fa fa-angle-double-left"></i> {{ trans('backpack::crud.back_to_all') }} <span class="text-lowercase">{{ $crud->entity_name_plural }}</span></a><br><br>
@@ -26,7 +26,7 @@
 		    <div class="box-header with-border">
 		      <h3 class="box-title">{{ trans('backpack::crud.edit') }}</h3>
 		    </div>
-		    <div class="box-body">
+		    <div class="box-body row">
 		      <!-- load the view from the application if it exists, otherwise load the one in the package -->
 		      @if(view()->exists('vendor.dick.crud.form_content'))
 		      	@include('vendor.dick.crud.form_content')

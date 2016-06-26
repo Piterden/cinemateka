@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeds;
+
 use Illuminate\Database\Seeder;
 
 class SlideTableSeeder extends Seeder

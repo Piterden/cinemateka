@@ -1,4 +1,5 @@
 <?php
+namespace Database\Seeds;
 
 use Illuminate\Database\Seeder;
 
@@ -21,20 +22,20 @@ class PageTableSeeder extends Seeder
             'content'  => $faker->paragraph(25),
         ]);
 
-        DB::table('pages')->insert([
-            'name'     => 'about',
-            'template' => 'static_page',
-            'title'    => 'О проекте',
-            'slug'     => 'about',
-            'content'  => $faker->paragraph(25),
-        ]);
-
-        DB::table('pages')->insert([
-            'name'     => 'contacts',
-            'template' => 'static_page',
-            'title'    => 'Контакты',
-            'slug'     => 'contacts',
-            'content'  => $faker->paragraph(25),
-        ]);
+    //     DB::table('pages')->insert([
+    //         'name'     => 'about',
+    //         'template' => 'static_page',
+    //         'title'    => 'О проекте',
+    //         'slug'     => 'about',
+    //         'content'  => $faker->paragraph(25),
+    //     ]);
+    //
+    //     DB::table('pages')->insert([
+    //         'name'     => 'contacts',
+    //         'template' => 'static_page',
+    //         'title'    => 'Контакты',
+    //         'slug'     => 'contacts',
+    //         'content'  => $faker->paragraph(25),
+    //     ]);
     }
 }

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Backpack\CRUD\CrudTrait;
 
-class Seance extends Model
+class Place extends Model
 {
     use CrudTrait;
 
@@ -15,25 +15,20 @@ class Seance extends Model
     |--------------------------------------------------------------------------
     */
 
-    protected $table = 'seances';
+    protected $table = 'places';
     public $timestamps = true;
+    // protected $guarded = ['id'];
     protected $fillable = [
-        'start_time',
-        'place',
-        'price',
+        'published',
+        'title',
         'description',
-        'speaker_info',
+        'address',
+        'metro',
         'images',
-        'videos',
-        'properties',
-    ];
-    protected $fakeColumns = [
-        'images',
-        'videos',
         'properties'
     ];
-    protected $dates = ['start_time'];
     // protected $hidden = [];
+    // protected $dates = [];
 
     /*
     |--------------------------------------------------------------------------
@@ -46,15 +41,6 @@ class Seance extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-    public function event()
-    {
-        return $this->belongsTo('App\Models\Event');
-    }
-
-    public function program()
-    {
-        return $this->belongsTo('App\Models\Program');
-    }
 
     /*
     |--------------------------------------------------------------------------

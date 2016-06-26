@@ -1,5 +1,5 @@
 <!-- text input -->
-  <div class="form-group">
+  <div class="form-group col-md-{{ $field['colspan'] or 12 }} {{ $field['cssclass'] or '' }}">
     <label>{{ $field['label'] }}</label>
     <input
         type="text"
@@ -16,6 +16,6 @@
         @endforeach
         >
     @if (isset($field['hint']))
-        <p class="help-block">{{ $field['hint'] }}</p>
+        <p class="help-block" style="font-size:.9em;">{{ $field['hint'] }}</p>
     @endif
   </div>

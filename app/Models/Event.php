@@ -20,17 +20,45 @@ class Event extends Model implements SluggableInterface
     |--------------------------------------------------------------------------
      */
     protected $table = 'events';
-    // protected $primaryKey = 'id';
     // protected $guarded = ['id'];
     // protected $hidden = ['id'];
-    protected $fillable    = ['published', 'title', 'slug', 'event_type', 'description', 'orig_title', 'year', 'country', 'carrier', 'language', 'subtitles', 'director', 'writtenby', 'operator', 'producer', 'link', 'chrono', 'age_restrictions', 'meta', 'actors', 'awards', 'videos', 'images', 'properties'];
-    protected $fakeColumns = ['meta', 'actors', 'awards', 'videos', 'images', 'properties'];
-    // protected $dates = [];
+    protected $fillable = [
+        'published',
+        'title',
+        'slug',
+        'event_type',
+        'description',
+        'orig_title',
+        'year',
+        'country',
+        'carrier',
+        'language',
+        'subtitles',
+        'director',
+        'writtenby',
+        'operator',
+        'producer',
+        'link',
+        'chrono',
+        'age_restrictions',
+        'meta',
+        'actors',
+        'awards',
+        'videos',
+        'images',
+        'properties',
+    ];
+    protected $fakeColumns = [
+        'meta',
+        'actors',
+        'awards',
+        'properties',
+    ];
     protected $sluggable = [
         'build_from' => 'slug_or_title',
-        'save_to'    => 'slug',
-        'on_update'  => true,
-        'unique'     => true,
+        'save_to' => 'slug',
+        'on_update' => true,
+        'unique' => true,
     ];
     protected $dates = ['deleted_at', 'created_at', 'edited_at'];
     public $timestamps = true;
@@ -41,19 +69,14 @@ class Event extends Model implements SluggableInterface
     |--------------------------------------------------------------------------
      */
 
-    // public function getFeaturedColumn() {
-    //     if ($this->featured)
-    //         return 'Featured';
-    //     else
-    //         return '-';
-    // }
-
     /*
     |--------------------------------------------------------------------------
     | RELATIONS
     |--------------------------------------------------------------------------
      */
-
+    /**
+     * Может иметь много сеансов.
+     */
     public function seances()
     {
         return $this->hasMany('App\Models\Seance');
@@ -80,14 +103,26 @@ class Event extends Model implements SluggableInterface
     | ACCESORS
     |--------------------------------------------------------------------------
      */
-
-    // The slug is created automatically from the "title" field if no slug exists.
+    /**
+     * Псевдоним создается автоматически.
+     *
+     * @TODO Транслитерация псевдонимов
+     */
     public function getSlugOrTitleAttribute()
     {
         if ('' != $this->slug) {
             return $this->slug;
         }
+
         return $this->title;
+    }
+
+    public function getImagesAttribute($value)
+    {
+        if (empty($value)) $value = json_encode([]);
+        $array = json_decode($value);
+
+        return implode(',', $array);
     }
 
     /*
@@ -99,20 +134,16 @@ class Event extends Model implements SluggableInterface
     /**
      * Featured attribute mutator.
      *
-     * When setting an Article as featured, remove the featured attribute from all other Articles.
+     * When setting an Article as featured,
+     * remove the featured attribute
+     * from all other Articles.
      *
      * @param [type] $value [description]
      */
-    // public function setFeaturedAttribute($value)
-    // {
-    //     $this->attributes['featured'] = $value;
+    public function setImageAttribute($value = '')
+    {
+        $value = explode(',', $value);
 
-    //     if ($value == 1) {
-    //         $all_other_articles = Article::where('id', '<>', $this->id)->get();
-    //         foreach ($all_other_articles as $key => $article) {
-    //             $article->featured=0;
-    //             $article->save();
-    //         }
-    //     }
-    // }
+        return json_encode($value);
+    }
 }

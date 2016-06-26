@@ -1,5 +1,5 @@
 <!-- select2 multiple -->
-  <div class="form-group">
+  <div class="form-group col-md-{{ $field['colspan'] or 12 }}">
     <label>{{ $field['label'] }}</label>
     <select
     	class="form-control select2"

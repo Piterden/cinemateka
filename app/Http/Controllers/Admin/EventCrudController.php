@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Admin;
 
 // VALIDATION: change the requests to match your own file names if you need form validation
@@ -8,7 +9,6 @@ use Backpack\CRUD\app\Http\Controllers\CrudController;
 
 class EventCrudController extends CrudController
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -28,18 +28,20 @@ class EventCrudController extends CrudController
         |--------------------------------------------------------------------------
          */
 
-        // ------ CRUD COLUMNS
+        /**
+         *  ------ CRUD COLUMNS
+         */
         $this->crud->addColumn([
-            'name'  => 'created_at',
+            'name' => 'created_at',
             'label' => 'Date',
-            'type'  => 'date',
+            'type' => 'date',
         ]);
         $this->crud->addColumn([
-            'name'  => 'published',
+            'name' => 'published',
             'label' => 'Status',
         ]);
         $this->crud->addColumn([
-            'name'  => 'title',
+            'name' => 'title',
             'label' => 'Title',
         ]);
         // $this->crud->addColumn([
@@ -61,137 +63,217 @@ class EventCrudController extends CrudController
         //                         'allows_null' => false
         //                     ]);
 
-        // ------ CRUD FIELDS
-        $this->crud->addField([ // TEXT
-            'name'        => 'title',
-            'label'       => 'Title',
-            'type'        => 'text',
-            'placeholder' => 'Your title here',
-        ]);
+        /**
+         *  ------ CRUD FIELDS
+         */
         $this->crud->addField([
-            'name'  => 'slug',
-            'label' => 'Slug (URL)',
-            'type'  => 'text',
-            'hint'  => 'Will be automatically generated from your title, if left empty.',
-            // 'disabled' => 'disabled'
+            'name' => '0',
+            'label' => 'Основная информация',
+            'type' => 'separator',
+            'colspan' => 10
+        ]);
+        $this->crud->addField([ // CHECKBOX
+            'name' => 'published',
+            'label' => 'Опубликованно',
+            'type' => 'checkbox',
+            'colspan' => 2
         ]);
         $this->crud->addField([ // TEXT
-            'name'  => 'orig_title',
-            'label' => 'Original Title',
-            'type'  => 'text',
+            'name' => 'title',
+            'label' => 'Заголовок',
+            'type' => 'text',
+            'placeholder' => 'Название события',
+            'cssclass' => '',
         ]);
-        $this->crud->addField([ // Select2Multiple = n-n relationship (with pivot table)
-            'label'     => 'Seances',
-            'type'      => 'select2_multiple',
-            'name'      => 'seances', // the method that defines the relationship in your Model
-            'entity'    => 'seances', // the method that defines the relationship in your Model
-            'attribute' => 'start_time', // foreign key attribute that is shown to user
-            'model'     => 'App\Models\Seance', // foreign key model
-            'pivot'     => true, // on create&update, do you need to add/delete pivot table entries?
-        ]);
-        $this->crud->addField([ // TEXT
-            'name'  => 'year',
-            'label' => 'Year',
-            'type'  => 'text',
-        ]);
+
         $this->crud->addField([ // select_from_array
-            'name'        => 'event_type',
-            'label'       => 'Event type',
-            'type'        => 'select_from_array',
-            'options'     => [
-                'movie'      => 'Фильм',
-                'lecture'    => 'Лекция',
+            'name' => 'event_type',
+            'label' => 'Тип события',
+            'type' => 'select_from_array',
+            'options' => [
+                'movie' => 'Фильм',
+                'lecture' => 'Лекция',
                 'exhibition' => 'Выставка',
                 'conference' => 'Конференция',
             ],
             'allows_null' => false,
+            'colspan' => 2
+        ]);
+        $this->crud->addField([ // Image
+            'name' => 'images',
+            'label' => 'Картинка',
+            'type' => 'text',
+            'colspan' => 5
+        ]);
+        $this->crud->addField([ // Image
+            'name' => 'videos',
+            'label' => 'Видео',
+            'type' => 'text',
+            'colspan' => 5
         ]);
         $this->crud->addField([ // WYSIWYG
-            'name'        => 'description',
-            'label'       => 'Description',
-            'type'        => 'ckeditor',
+            'name' => 'description',
+            'label' => 'Описание',
+            'type' => 'ckeditor',
             'placeholder' => 'Your textarea text here',
         ]);
-        $this->crud->addField([ // CHECKBOX
-            'name'  => 'published',
-            'label' => 'Published',
-            'type'  => 'checkbox',
+        $this->crud->addField([ // Select2Multiple = n-n relationship (with pivot table)
+            'label' => 'Сеансы',
+            'type' => 'select2_multiple',
+            'name' => 'seances', // the method that defines the relationship in your Model
+            'entity' => 'seances', // the method that defines the relationship in your Model
+            'attribute' => 'start_time', // foreign key attribute that is shown to user
+            'model' => 'App\Models\Seance', // foreign key model
+            'pivot' => true, // on create&update, do you need to add/delete pivot table entries?
+        ]);
+
+
+
+
+
+        $this->crud->addField([
+            'name' => '1',
+            'label' => 'Дополнительная информация',
+            'type' => 'separator',
         ]);
         $this->crud->addField([ // TEXT
-            'name'  => 'country',
-            'label' => 'Country',
-            'type'  => 'text',
+            'name' => 'orig_title',
+            'label' => 'Оригинальное название',
+            'type' => 'text',
+            'colspan' => 10
         ]);
         $this->crud->addField([ // TEXT
-            'name'  => 'carrier',
-            'label' => 'Carrier',
-            'type'  => 'text',
+            'name' => 'country',
+            'label' => 'Страна',
+            'type' => 'text',
+            'colspan' => 2
         ]);
         $this->crud->addField([ // TEXT
-            'name'  => 'language',
-            'label' => 'Language',
-            'type'  => 'text',
+            'name' => 'year',
+            'label' => 'Год',
+            'type' => 'number',
+            'colspan' => 2
         ]);
         $this->crud->addField([ // TEXT
-            'name'  => 'subtitles',
-            'label' => 'Subtitles',
-            'type'  => 'text',
+            'name' => 'language',
+            'label' => 'Язык',
+            'type' => 'text',
+            'colspan' => 2
         ]);
         $this->crud->addField([ // TEXT
-            'name'  => 'director',
-            'label' => 'Director',
-            'type'  => 'text',
+            'name' => 'chrono',
+            'label' => 'Хронометраж (мин)',
+            'type' => 'number',
+            'colspan' => 2
         ]);
         $this->crud->addField([ // TEXT
-            'name'  => 'writtenby',
-            'label' => 'Written by',
-            'type'  => 'text',
+            'name' => 'carrier',
+            'label' => 'Носитель',
+            'type' => 'select_from_array',
+            'options' => [
+                'dcp' => 'DCP',
+                '35mm' => '35 мм',
+                'blurey' => 'Blu-ray',
+            ],
+            'allows_null' => true,
+            'colspan' => 2
         ]);
         $this->crud->addField([ // TEXT
-            'name'  => 'operator',
-            'label' => 'Operator',
-            'type'  => 'text',
+            'name' => 'subtitles',
+            'label' => 'Субтитры',
+            'type' => 'select_from_array',
+            'options' => [
+                'yes' => 'Да',
+                'no' => 'Нет',
+            ],
+            'allows_null' => true,
+            'colspan' => 2
         ]);
         $this->crud->addField([ // TEXT
-            'name'  => 'producer',
-            'label' => 'Producer',
-            'type'  => 'text',
+            'name' => 'age_restrictions',
+            'label' => 'Возр. ограничения ',
+            'type' => 'number',
+            'colspan' => 2
         ]);
         $this->crud->addField([ // TEXT
-            'name'  => 'link',
-            'label' => 'Link',
-            'type'  => 'text',
+            'name' => 'director',
+            'label' => 'Режиссёр',
+            'type' => 'text',
+            'colspan' => 6
         ]);
         $this->crud->addField([ // TEXT
-            'name'  => 'chrono',
-            'label' => 'Chrono',
-            'type'  => 'number',
+            'name' => 'writtenby',
+            'label' => 'Сценарист',
+            'type' => 'text',
+            'colspan' => 6
         ]);
         $this->crud->addField([ // TEXT
-            'name'  => 'age_restrictions',
-            'label' => 'Age Restrictions',
-            'type'  => 'number',
+            'name' => 'operator',
+            'label' => 'Оператор',
+            'type' => 'text',
+            'colspan' => 6
         ]);
         $this->crud->addField([ // TEXT
-            'name'     => 'meta_title',
-            'label'    => 'Meta Title',
-            'fake'     => true,
+            'name' => 'producer',
+            'label' => 'Продюсер',
+            'type' => 'text',
+            'colspan' => 6
+        ]);
+        $this->crud->addField([ // TEXT
+            'name' => 'actors',
+            'label' => 'Актеры в главных ролях',
+            'type' => 'textarea',
+        ]);
+        $this->crud->addField([ // TEXT
+            'name' => 'awards',
+            'label' => 'Награды',
+            'type' => 'text',
+        ]);
+        $this->crud->addField([ // TEXT
+            'name' => 'link',
+            'label' => 'Ссылка',
+            'type' => 'text',
+        ]);
+
+
+
+
+
+
+        $this->crud->addField([
+            'name' => '2',
+            'label' => 'SEO данные',
+            'type' => 'separator',
+        ]);
+        $this->crud->addField([
+            'name' => 'slug',
+            'label' => 'ЧПУ (URL)',
+            'type' => 'text',
+            'hint' => 'Если не заполнять, создастся автоматически',
+            // 'disabled' => 'disabled'
+        ]);
+        $this->crud->addField([ // TEXT
+            'name' => 'meta_title',
+            'label' => 'Meta-Title',
+            'hint' => 'Если не заполнять, примет значение название события',
+            'fake' => true,
             'store_in' => 'meta',
         ]);
         $this->crud->addField([ // TEXT
-            'name'     => 'meta_description',
-            'label'    => 'Meta Description',
-            'fake'     => true,
+            'name' => 'meta_description',
+            'label' => 'Meta-Description',
+            'hint' => 'Если не заполнять, примет значение перых 30 слов из описания события',
+            'fake' => true,
             'store_in' => 'meta',
         ]);
         $this->crud->addField([ // TEXT
-            'name'     => 'meta_keywords',
-            'label'    => 'Meta Keywords',
-            'fake'     => true,
+            'name' => 'meta_keywords',
+            'label' => 'Meta-Keywords',
+            'fake' => true,
             'store_in' => 'meta',
         ]);
 
-// actors
+        // actors
         // awards
         // videos
         // images
@@ -209,11 +291,6 @@ class EventCrudController extends CrudController
         //     'type'  => 'date'
         // ], 'update');
 
-        // $this->crud->addField([ // Image
-        //     'name'  => 'image',
-        //     'label' => 'Image',
-        //     'type'  => 'browse'
-        // ]);
         // $this->crud->addField([ // SELECT
         //     'label'     => "Category",
         //     'type'      => 'select2',

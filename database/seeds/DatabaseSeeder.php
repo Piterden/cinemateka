@@ -1,4 +1,5 @@
 <?php
+namespace Database\Seeds;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
@@ -19,6 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PageTableSeeder::class);
         $this->call(SlideTableSeeder::class);
         $this->call(MenuItemTableSeeder::class);
+        $this->call(PlacesTableSeeder::class);
         $this->call(CatalogTablesSeeder::class);
 
         Model::reguard();

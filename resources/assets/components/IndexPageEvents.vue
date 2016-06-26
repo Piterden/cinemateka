@@ -1,75 +1,99 @@
-<style lang="sass" scoped>
-
-
-
+<style lang="css" scoped>
 </style>
 
 <template>
-
   <div class="events-block">
     <blocks-header :title="title">
       <ul class="mdl-tabs__tab-bar">
-        <li class="mdl-tabs__tab">
-          <a class="active" @click.prevent="changeSubView(1, $event)">Test 1</a>
-        </li>
-        <li class="mdl-tabs__tab">
-          <a @click.prevent="changeSubView(2, $event)">Test 2</a>
-        </li>
-        <li class="mdl-tabs__tab">
-          <a @click.prevent="changeSubView(3, $event)">Disabled Tab</a>
-        </li>
-        <li class="mdl-tabs__tab">
-          <a @click.prevent="changeSubView(4, $event)">Test 4</a>
+        <li v-for="(index, tab) in tabs"
+          class="mdl-tabs__tab">
+          <a class="{{ this.activeTab == index ? 'active' : '' }}"
+            @click.prevent="clickTab(tab.name)">
+            {{ tab.title }}
+          </a>
         </li>
       </ul>
     </blocks-header>
-
+    <list-box
+      :limit.sync="limit"
+      :filter-values.sync="filterValues"
+      :cols.once="cols"
+      :method.once="calcSizesMethod">
+    </list-box>
   </div>
-
 </template>
 
-<script type="text/ecmascript-6">
-
+<script>
 export default {
+
+  data() {
+    return {
+      events: this.$root.events || [],
+      programs: this.$root.programs || []
+    };
+  },
+
   props: {
-    events: {
+    title: String,
+    limit: Number,
+    cols: Number,
+    calcSizesMethod: String,
+    tabs: {
       type: Array,
       default() {
-        return this.$router.app.events || []
+        return [];
       }
     },
-    programs: {
-      type: Array,
-      default() {
-        return this.$router.app.programs || []
-      }
+    activeTab: {
+      type: Number,
+      twoWay: true
     },
-    title: {
-      type: String,
+    filterValues: {
+      type: Object,
+      twoWay: true,
       default() {
-        return 'События'
-      }
-    },
-    filters: {
-      type: Array,
-      default() {
-        return [
-          {'week1': {name: 'week1', title: 'На этой неделе'}},
-          {'week2': {name: 'week2', title: 'На следующей'}},
-          {'week3': {name: 'week3', title: 'date'}},
-          {'week4': {name: 'week4', title: 'date'}},
-        ]
+        return {};
       }
     }
   },
+
   methods: {
-    changeSubView(v, e) {
-      console.log(v,e);
+    
+    clickTab(name) {
+      this.$parent.clickWeekTab(name);
+    },
+
+    /**
+		 * Фильтрует события по заданным значениям
+		 * @param  {Array}        events    Все события
+		 * @param  {Object}       filters   Фильтры со значениями
+		 * @return {Array} of Event Objects
+		 */
+		filterMethod(events, filters) {
+
+		  return events;
+		}
+  },
+
+  watch: {
+    activeTab(v) {
+      let fv = this.$root.extend(
+        this.$get('filterValues'),
+        {date_interval: this.date_interval}
+      );
+      this.$set('filterValues', fv);
     }
   },
-  ready() {
-    // console.log(this);
+
+  computed: {
+    date_interval() {
+      return [
+        this.$root.getMonday(this.$parent.getTabDate(this.activeTab)),
+        this.$root.getSunday(this.$parent.getTabDate(this.activeTab))
+      ];
+    }
   }
-}
+
+};
 
 </script>

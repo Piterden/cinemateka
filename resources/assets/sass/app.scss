@@ -21,6 +21,7 @@ p {
   line-height: 24px;
 }
 h1 {
+  margin: 0;
   letter-spacing: .02em;
   font-weight: 800;
   font-size: 48px;
@@ -28,6 +29,7 @@ h1 {
   line-height: 56px;
 }
 h2 {
+  margin: 0;
   letter-spacing: .02em;
   font-weight: 800;
   font-size: 32px;
@@ -35,6 +37,7 @@ h2 {
   line-height: 42px;
 }
 h3 {
+  margin: 0;
   letter-spacing: .02em;
   font-weight: 600;
   font-size: 23px;
@@ -47,6 +50,9 @@ a {
   &:hover {
     color: #ff0025;
     text-decoration: none;
+  }
+  &:before {
+    transition: linear .3s width, linear .3s left, linear .3s opacity;
   }
 }
 a.on-bg {
@@ -90,17 +96,17 @@ nav {
         font-size: 13px;
         &:before {
           position: absolute;
-          opacity: 0;
           bottom: 34px;
           left: 50%;
           width: 0;
           height: 2px;
           background: #ff0025;
           content: '';
-          transition: linear .3s width, linear .3s left, linear .3s opacity;
+          opacity: 0;
         }
       }
-      &:hover a, a.active {
+      &:hover a,
+      a.active {
         color: #ff0025;
         &:before {
           left: 0;
@@ -141,6 +147,212 @@ nav {
   }
 }
 /**
+ * Header Component
+ */
+.blocks-header {
+  margin: -6px 0 0;
+  .block-title {
+    margin: 40px 0 0;
+    width: 50%;
+    border-bottom: 2px solid #000;
+    h2 {
+      margin: 9px 0 -1px;
+    }
+    ul {
+      padding-top: 19px;
+    }
+  }
+}
+/**
+ * MDL Tabs
+ */
+.mdl-tabs__tab-bar {
+  // UL
+  -ms-flex-pack: flex-end;
+  height: inherit;
+  border: none;
+
+  -webkit-justify-content: flex-end;
+  justify-content: flex-end;
+  .mdl-tabs__tab {
+    // LI
+    overflow: visible;
+    margin-left: 20px;
+    padding: 0;
+    height: inherit;
+    a {
+      padding: 0 0 9px;
+      border-bottom: 4px solid transparent;
+      letter-spacing: .1em;
+      font-weight: normal;
+      font-size: 13px;
+      cursor: pointer;
+      &:before {
+        position: absolute;
+        bottom: -7px;
+        left: 50%;
+        width: 0;
+        height: 4px;
+        background: #ff0025;
+        content: '';
+        opacity: 0;
+      }
+    }
+    a.active {
+      color: #ff0025;
+      &:before {
+        left: 0;
+        width: 100%;
+        opacity: 1;
+      }
+    }
+  }
+}
+/**
+ * List Box
+ */
+.mdl-grid.list-box {
+  padding: 6px 28px 17px;
+  color: #fff;
+  .mdl-cell--12-col {
+    width: calc(100% - 24px);
+  }
+  .mdl-cell--8-col {
+    width: calc(66.6666666667% - 24px);
+  }
+  .mdl-cell--4-col {
+    width: calc(33.3333333337% - 24px);
+  }
+  .mdl-cell--3-col {
+    width: calc(25% - 24px);
+  }
+  .mdl-cell {
+    margin: 12px;
+    background: #000;
+    .event-item-card {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      .category {
+        padding: 18px 25px;
+        text-transform: lowercase;
+        font-weight: bold;
+        font-size: 16px;
+      }
+      .bottom-block {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+      }
+      .dates {
+        padding: 0 25px;
+        font-weight: 200;
+        font-size: 23px;
+      }
+      .title {
+        padding: 0 25px;
+      }
+      .program {
+        padding: 18px 25px;
+      }
+    }
+  }
+  .show-more-block {
+    padding: 0;
+    background: transparent;
+    .show-more-btn {
+      display: block;
+      margin-top: 6px;
+      padding: 20px 0 12px;
+      width: calc(100% - 2px);
+      border: 2px solid;
+      background: #fff;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      font-weight: bold;
+      font-size: 15px;
+    }
+  }
+}
+.soon-block {
+  .mdl-grid.list-box .mdl-cell .event-item-card {
+    height: 60%;
+  }
+}
+.filters-line.mdl-grid {
+  padding: 47px 40px 20px;
+  .event-type-filter {
+    width: 33.3333333%;
+  }
+  .month-filter {
+    margin-left: 10px;
+    width: 20%;
+  }
+  .year-filter {
+    margin-left: -14px;
+    width: 17%;
+  }
+  .label {
+    display: inline-block;
+    font-weight: bold;
+    font-size: 16px;
+  }
+}
+// DROPDOWN
+.dropdown {
+  position: relative;
+  display: inline-block;
+  margin: 0 5px;
+  width: 72.5%;
+  border: 2px solid;
+  color: #000;
+  > input {
+    position: fixed;
+    z-index: -2;
+    display: none;
+  }
+  > label {
+    display: inline-block;
+    margin: 6px 0;
+    width: 100%;
+    text-transform: lowercase;
+    font-weight: 400;
+    font-size: 16px;
+  }
+  .drop-ttl {
+    padding: 5px 10px;
+    font-weight: 400;
+  }
+  ul {
+    position: absolute;
+    top: 100%;
+    left: -2px;
+    z-index: 10;
+    margin: 0;
+    width: 100%;
+    border: 2px solid;
+    background: #FFF;
+    > li {
+      padding: 10px;
+      cursor: pointer;
+      > a {
+        outline: 0;
+        color: inherit;
+        text-decoration: none;
+        cursor: pointer;
+      }
+      &:hover {
+        background: #DEDEDE;
+      }
+    }
+  }
+}
+input[type="checkbox"]:checked ~ label > ul {
+  display: none;
+}
+/**
  * Footer
  */
 footer {
@@ -155,7 +367,6 @@ footer {
     left: 25px;
     color: #fff;
     text-decoration: underline;
-    font-size: 15px;
     font-size: 15px;
     &:hover {
       color: rgb(254, 0, 29);

@@ -15,13 +15,14 @@
  *
  */
 
-Route::get('/', 'PageController@index');
-Route::get('about', 'PageController@index');
-Route::get('contacts', 'PageController@index');
-Route::get('schedule/{page?}', 'PageController@index');
-Route::get('archive/{page?}', 'PageController@index');
-Route::get('event/{slug}', 'PageController@index');
-Route::get('program/{slug}', 'PageController@index');
+Route::get('/', 'PageController@staticPage');
+Route::get('about', 'PageController@staticPage');
+Route::get('contacts', 'PageController@staticPage');
+Route::get('schedule/{page?}', 'PageController@listPage');
+Route::get('archive/{page?}', 'PageController@listPage');
+Route::get('event/{slug}', 'PageController@entityPage');
+Route::get('program/{slug}', 'PageController@entityPage');
+
 // Route::group([], function()
 // {
     // Route::get('about', 'PageController@about');

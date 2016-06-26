@@ -30,13 +30,49 @@ class ProgramCrudController extends CrudController
 
         // $this->crud->setFromDb();
 
+        $this->crud->addField([
+            'name' => '0',
+            'label' => 'Основная информация',
+            'type' => 'separator',
+            'colspan' => 10
+        ]);
+        $this->crud->addField([ // CHECKBOX
+            'name' => 'published',
+            'label' => 'Опубликованно',
+            'type' => 'checkbox',
+            'colspan' => 2
+        ]);
         $this->crud->addField([ // TEXT
-            'name'  => 'title',
-            'label' => 'Title',
-            'type'  => 'text',
+            'name' => 'title',
+            'label' => 'Заголовок',
+            'type' => 'text',
+            'placeholder' => 'Название программы',
+        ]);
+        $this->crud->addField([ // TEXT
+            'name' => 'slogan',
+            'label' => 'Слоган',
+            'type' => 'text',
+        ]);
+        $this->crud->addField([ // Image
+            'name' => 'images',
+            'label' => 'Картинка',
+            'type' => 'text',
+            'colspan' => 6
+        ]);
+        $this->crud->addField([ // Image
+            'name' => 'videos',
+            'label' => 'Видео',
+            'type' => 'text',
+            'colspan' => 6
+        ]);
+        $this->crud->addField([ // WYSIWYG
+            'name' => 'description',
+            'label' => 'Описание',
+            'type' => 'ckeditor',
+            'placeholder' => 'Your textarea text here',
         ]);
         $this->crud->addField([ // Select2Multiple = n-n relationship (with pivot table)
-            'label'     => 'Seances',
+            'label'     => 'События',
             'type'      => 'select2_multiple',
             'name'      => 'seances', // the method that defines the relationship in your Model
             'entity'    => 'seances', // the method that defines the relationship in your Model
@@ -45,6 +81,45 @@ class ProgramCrudController extends CrudController
             'pivot'     => true, // on create&update, do you need to add/delete pivot table entries?
         ]);
 
+
+
+
+
+
+
+
+        $this->crud->addField([
+            'name' => '2',
+            'label' => 'SEO данные',
+            'type' => 'separator',
+        ]);
+        $this->crud->addField([
+            'name' => 'slug',
+            'label' => 'ЧПУ (URL)',
+            'type' => 'text',
+            'hint' => 'Если не заполнять, создастся автоматически',
+            // 'disabled' => 'disabled'
+        ]);
+        $this->crud->addField([ // TEXT
+            'name' => 'meta_title',
+            'label' => 'Meta-Title',
+            'hint' => 'Если не заполнять, примет значение название события',
+            'fake' => true,
+            'store_in' => 'meta',
+        ]);
+        $this->crud->addField([ // TEXT
+            'name' => 'meta_description',
+            'label' => 'Meta-Description',
+            'hint' => 'Если не заполнять, примет значение перых 30 слов из описания события',
+            'fake' => true,
+            'store_in' => 'meta',
+        ]);
+        $this->crud->addField([ // TEXT
+            'name' => 'meta_keywords',
+            'label' => 'Meta-Keywords',
+            'fake' => true,
+            'store_in' => 'meta',
+        ]);
         // ------ CRUD FIELDS
         // $this->crud->addField($options, 'update/create/both');
         // $this->crud->addFields($array_of_arrays, 'update/create/both');

@@ -28,14 +28,12 @@
 
   @include('blocks.header')
 
-  <div id="page-content" class="page-content"  id="routed">
-    <router-view
-      transition="fade"
-      transition-mode="out-in"
-    >
+  <router-view
+    transition="fade"
+    transition-mode="out-in"
+    v-cloak>
       @yield('top-block')
-    </router-view>
-  </div>
+  </router-view>
 
   @include('blocks.footer')
 
