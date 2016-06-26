@@ -183,6 +183,11 @@ return [
         // PHP to JS Transformer
         'Laracasts\Utilities\JavaScript\JavaScriptServiceProvider',
 
+        /**
+         * Debug Bar
+         */
+        Barryvdh\Debugbar\ServiceProvider::class,
+
     ],
 
     /*

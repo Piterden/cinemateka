@@ -33,6 +33,8 @@ import ListGrid from '../components/ListGrid.vue';
 import ListGridItem from '../components/ListGridItem.vue';
 import FiltersLine from '../components/FiltersLine.vue';
 import DropdownList from '../components/DropdownList.vue';
+import Toggler from '../components/Toggler.vue';
+import DataPickers from '../components/DataPickers.vue';
 // import GridLoader from '../components/GridLoader.vue';
 
 /**
@@ -62,6 +64,22 @@ Array.prototype.getUnique = function () {
   return a;
 };
 
+Array.prototype.collapse = function () {
+  var a = [];
+  for (var i = 0, l = this.length; i < l; ++i) {
+    if (
+      this[i] !== undefined &&
+      this[i].hasOwnProperty('length') &&
+      this[i].length > 0
+    ) {
+      this[i].forEach(function(el) {
+        a.push(el);
+      });
+    }
+  }
+  return a;
+};
+
 /**
  * Компоненты (html-элементы)
  */
@@ -76,6 +94,8 @@ Vue.component('list-grid', ListGrid);
 Vue.component('list-grid-item', ListGridItem);
 Vue.component('filters-line', FiltersLine);
 Vue.component('dropdown-list', DropdownList);
+Vue.component('toggler', Toggler);
+Vue.component('data-pickers', DataPickers);
 // Vue.component('grid-loader', BlocksHeader);
 
 /**
@@ -104,25 +124,25 @@ var App = Vue.extend({
        */
       programs: programs,
       /**
-       * Все сеансы, выборка по событиям
+       * Все места
        * Принимаются из Laravel JS Fasade
        * @type {Array} of SeanceObjects
        */
-      seances: seances
+      places: places
     };
   },
 
-  // computed: {
-  //   /**
-  //    * Все сеансы событий
-  //    * @return {Array}    Seances
-  //    */
-  //   allSeances() {
-  //     return this.events.map((e) => {
-  //       return e.seances;
-  //     });
-  //   }
-  // },
+  computed: {
+    /**
+     * Все сеансы событий
+     * @return {Array}    Seances
+     */
+    seances() {
+      return this.events.map((e) => {
+        return e.seances;
+      }).collapse();
+    }
+  },
 
   /**
    * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

@@ -1,7 +1,7 @@
 <?php
 
 // namespace Backpack\Settings\database\seeds;
-namespace Database\Seeds;
+// namespace Database\Seeds;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;

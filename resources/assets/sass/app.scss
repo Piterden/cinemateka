@@ -308,6 +308,9 @@ nav {
   width: 72.5%;
   border: 2px solid;
   color: #000;
+  > input[type="checkbox"]:checked ~ label > ul {
+    display: none;
+  }
   > input {
     position: fixed;
     z-index: -2;
@@ -349,8 +352,24 @@ nav {
     }
   }
 }
-input[type="checkbox"]:checked ~ label > ul {
-  display: none;
+.toggler {
+  > input {
+    display: none;
+  }
+  li {
+    display: inline-block;
+    padding: 12px 15px 8px;
+    border: 2px solid #ff0025;
+    text-transform: uppercase;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all .3s ease-out;
+    &.active {
+      background: #ff0025;
+      color: #fff;
+      cursor: default;
+    }
+  }
 }
 /**
  * Footer

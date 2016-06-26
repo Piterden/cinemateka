@@ -117,13 +117,15 @@ class Event extends Model implements SluggableInterface
         return $this->title;
     }
 
-    public function getImagesAttribute($value)
-    {
-        if (empty($value)) $value = json_encode([]);
-        $array = json_decode($value);
-
-        return implode(',', $array);
-    }
+    // public function getImagesAttribute($value)
+    // {
+    //     if (empty($value)) {
+    //         $value = json_encode([]);
+    //     }
+    //     $array = json_decode($value);
+    //
+    //     return implode(',', $array);
+    // }
 
     /*
     |--------------------------------------------------------------------------
@@ -131,19 +133,15 @@ class Event extends Model implements SluggableInterface
     |--------------------------------------------------------------------------
      */
 
-    /**
-     * Featured attribute mutator.
-     *
-     * When setting an Article as featured,
-     * remove the featured attribute
-     * from all other Articles.
+    /*
+     * Image attribute mutator.
      *
      * @param [type] $value [description]
      */
-    public function setImageAttribute($value = '')
-    {
-        $value = explode(',', $value);
-
-        return json_encode($value);
-    }
+    // public function setImageAttribute($value)
+    // {
+    //     $value = explode(',', $value);
+    //
+    //     return json_encode($value);
+    // }
 }

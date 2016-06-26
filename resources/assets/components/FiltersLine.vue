@@ -6,13 +6,22 @@
   <ul class="filters-line mdl-grid">
     <li v-for="key in filterShow"
       class="filter {{ key.replace('_','-') }}-filter">
-      <!-- <div v-if="key == 'event_type'" class="label">Показать</div>
-      <div v-if="key == 'month'" class="label">за</div> -->
-      <dropdown-list
+      <toggler
+        v-if="isToggler(key)"
+        :value.sync="filterValues[key]"
+        :list.once="filterLists[key]"
+      ></toggler>
+      <data-pickers
+        v-if="isDatePicker(key)"
         :input-id="key.replace('_','-')"
         :value.sync="filterValues[key]"
-        :list.once="filterLists[key]">
-      </dropdown-list>
+      ></data-pickers>
+      <dropdown-list
+        v-if="!isToggler(key) && !isDatePicker(key)"
+        :input-id="key.replace('_','-')"
+        :value.sync="filterValues[key]"
+        :list.once="filterLists[key]"
+      ></dropdown-list>
     </li>
   </ul>
 </template>
@@ -44,6 +53,16 @@ export default {
         return {};
       }
     }
+  },
+
+  methods: {
+    isToggler(key) {
+      return key == 'now_soon';
+    },
+    isDatePicker(key) {
+      return key == 'date_interval';
+    },
   }
+
 };
 </script>

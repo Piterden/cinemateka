@@ -24,12 +24,9 @@ class Program extends Model implements SluggableInterface
     // protected $guarded = ['id'];
     // protected $hidden = [];
     protected $fillable = [
-        'published',
         'title',
         'slug',
         'description',
-        'start_date',
-        'end_date',
         'slogan',
         'meta',
         'videos',
@@ -48,7 +45,13 @@ class Program extends Model implements SluggableInterface
         'on_update' => true,
         'unique' => true,
     ];
-    protected $dates = ['start_date', 'end_date'];
+    protected $dates = [
+        'created_at',
+        'edited_at',
+        'deleted_at',
+        'start_date',
+        'end_date',
+    ];
     public $timestamps = true;
 
     /*
@@ -87,6 +90,16 @@ class Program extends Model implements SluggableInterface
 
         return $this->title;
     }
+
+    // public function getStartDateAttribute()
+    // {
+    //     return $this->seances()->min('start_time');
+    // }
+    //
+    // public function getEndDateAttribute()
+    // {
+    //     return $this->seances()->max('start_time');
+    // }
 
     /*
     |--------------------------------------------------------------------------

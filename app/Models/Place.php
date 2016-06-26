@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Backpack\CRUD\CrudTrait;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Place extends Model
 {
     use CrudTrait;
+    use SoftDeletes;
 
      /*
     |--------------------------------------------------------------------------
@@ -16,8 +18,8 @@ class Place extends Model
     */
 
     protected $table = 'places';
-    public $timestamps = true;
     // protected $guarded = ['id'];
+    // protected $hidden = [];
     protected $fillable = [
         'published',
         'title',
@@ -27,8 +29,8 @@ class Place extends Model
         'images',
         'properties'
     ];
-    // protected $hidden = [];
-    // protected $dates = [];
+    protected $dates = ['created_at', 'edited_at', 'deleted_at'];
+    public $timestamps = true;
 
     /*
     |--------------------------------------------------------------------------

@@ -16,7 +16,8 @@
         "backpack/langfilemanager": "^1.0",
         "doctrine/dbal": "^2.5",
         "backpack/permissionmanager": "^2.0",
-        "backpack/generators": "^1.1"
+        "backpack/generators": "^1.1",
+        "barryvdh/laravel-debugbar": "^2.2"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

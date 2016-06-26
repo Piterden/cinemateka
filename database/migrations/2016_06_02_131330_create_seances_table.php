@@ -22,7 +22,7 @@ class CreateSeancesTable extends Migration
             $table->integer('event_id')->unsigned()->comment('Событие');
             $table->integer('program_id')->unsigned()->comment('Программа');
 
-            $table->dateTime('start_time')->comment('Дата и время проведения');
+            $table->dateTimeTz('start_time')->comment('Дата и время проведения');
             $table->string('place', 100)->comment('Площадка (кинотеатр)');
             $table->integer('price')->unsigned()->nullable()->comment('Цена билета');
             $table->string('description')->comment('Описание');

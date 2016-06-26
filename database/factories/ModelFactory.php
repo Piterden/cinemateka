@@ -40,19 +40,22 @@ $factory->define(App\Models\Program::class, function (Faker\Generator $faker) {
         'title' => $faker->words(rand(1, 5), true),
         'slug' => $faker->slug,
         'description' => $faker->paragraph(25),
-        'start_date' => $faker->date(),
-        'end_date' => $faker->date(),
         'slogan' => $faker->sentence(4),
     ];
 });
 
 $factory->define(App\Models\Seance::class, function (Faker\Generator $faker) {
     return [
-        'start_time' => $faker->dateTimeInInterval('-10 days', '+350 days'),
+        'start_time' => $faker->dateTimeInInterval('-700 days', '+700 days'),
         'price' => $faker->randomElement(['300', '400', '500', '600', '700']),
         'description' => $faker->paragraph(25),
         'speaker_info' => $faker->paragraph(25),
-        'event_id' => $faker->randomElement(array_pluck(App\Models\Event::all(['id']), 'id')),
-        'program_id' => $faker->randomElement(array_pluck(App\Models\Program::all(['id']), 'id')),
+        // 'event_id' => function () {
+        //     return factory(App\Models\Event::class)->create()->id;
+        // },
+        'program_id' => function () {
+            $ids = array_pluck(App\Models\Program::all(['id']), 'id');
+            return $ids[rand(0, count($ids) - 1)];
+        },
     ];
 });

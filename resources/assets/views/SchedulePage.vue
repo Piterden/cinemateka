@@ -66,8 +66,12 @@ export default {
 					'now_soon': this.$root.getNowSoones(),
 					// 'date_interval': [this.activeStartDate, this.activeEndDate],
 					'event_type': this.$root.getEventAttributeTypes('event_type', 'Все события'),
-					'program_type': this.$root.programs.getUnique(),
-					'place_type': this.$root.getEventPlaces()
+					'program_type': this.$root.programs.map((pr) => {
+						return pr.title;
+					}).getUnique(),
+					'place_type': this.$root.places.map((pl) => {
+						return pl.title;
+					}).getUnique()
 				};
 			}
 		}

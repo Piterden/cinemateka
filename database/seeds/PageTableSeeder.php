@@ -1,7 +1,8 @@
 <?php
-namespace Database\Seeds;
+// namespace Database\Seeds;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class PageTableSeeder extends Seeder
 {
@@ -37,6 +38,6 @@ class PageTableSeeder extends Seeder
     //         'slug'     => 'contacts',
     //         'content'  => $faker->paragraph(25),
     //     ]);
-    
+
     }
 }

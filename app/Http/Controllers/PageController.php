@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests;
 use Laracasts\Utilities\JavaScript\JavaScriptFacade as JavaScript;
 
 class PageController extends Controller
@@ -12,30 +11,23 @@ class PageController extends Controller
 
     public function __construct(Request $request)
     {
-        $events = \App\Models\Event::all();
-        $events->load([
+        $events = \App\Models\Event::with([
             'seances' => function ($query) {
                 $query->orderBy('start_time');
             }
-        ]);
+        ])->get();
 
-        $programs = \App\Models\Program::all();
-        $programs->load([
+        $programs = \App\Models\Program::with([
             'seances' => function ($query) {
                 $query->orderBy('start_time');
             }
-        ]);
-
-        $seances = $events->map(function ($item) {
-            return $item->seances;
-        })->collapse();
+        ])->get();
 
         JavaScript::put([
             'events' => $events,
             'programs' => $programs,
-            'seances' => $seances,
+            'places' => \App\Models\Place::all(),
             'uri' => $request->path(),
-            // 'places' => \App\Models\Place::all(),
         ]);
     }
 
