@@ -37,5 +37,6 @@ class PageTableSeeder extends Seeder
     //         'slug'     => 'contacts',
     //         'content'  => $faker->paragraph(25),
     //     ]);
+    
     }
 }

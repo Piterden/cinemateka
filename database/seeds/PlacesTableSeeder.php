@@ -1,4 +1,5 @@
 <?php
+
 namespace Database\Seeds;
 
 use Illuminate\Database\Seeder;
@@ -7,46 +8,45 @@ class PlacesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
     public function run()
     {
+        $faker = Faker\Factory::create();
+
         DB::table('places')->insert([
-            'published' => 'Denis Efremov',
-            'title' => 'efremov.a.denis@gmail.com',
-            'slug' => bcrypt('Mic50keY'),
-            'address' => 'Denis Efremov',
-            'metro' => 'efremov.a.denis@gmail.com',
-            'description' => 'Denis Efremov',
+            'published' => 1,
+            'title' => 'Аврора',
+            'slug' => 'avrora',
+            'address' => 'Невский пр., 60, Санкт-Петербург',
+            'metro' => 'Гостинный двор',
+            'description' => $faker->paragraph(30),
         ]);
 
         DB::table('places')->insert([
-            'published' => 'Denis Efremov',
-            'title' => 'efremov.a.denis@gmail.com',
-            'slug' => bcrypt('Mic50keY'),
-            'address' => 'Denis Efremov',
-            'metro' => 'efremov.a.denis@gmail.com',
-            'description' => 'Denis Efremov',
+            'published' => 1,
+            'title' => 'Дом кино',
+            'slug' => 'dom-kino',
+            'address' => 'Караванная ул., 12, Санкт-Петербург',
+            'metro' => 'Гостинный двор',
+            'description' => $faker->paragraph(30),
         ]);
 
         DB::table('places')->insert([
-            'published' => 'Denis Efremov',
-            'title' => 'efremov.a.denis@gmail.com',
-            'slug' => bcrypt('Mic50keY'),
-            'address' => 'Denis Efremov',
-            'metro' => 'efremov.a.denis@gmail.com',
-            'description' => 'Denis Efremov',
+            'published' => 1,
+            'title' => 'Родина',
+            'slug' => 'rodina',
+            'address' => 'Караванная ул., 12, Санкт-Петербург',
+            'metro' => 'Гостинный двор',
+            'description' => $faker->paragraph(30),
         ]);
 
         DB::table('places')->insert([
-            'published' => 'Denis Efremov',
-            'title' => 'efremov.a.denis@gmail.com',
-            'slug' => bcrypt('Mic50keY'),
-            'address' => 'Denis Efremov',
-            'metro' => 'efremov.a.denis@gmail.com',
-            'description' => 'Denis Efremov',
+            'published' => 1,
+            'title' => 'Художественный',
+            'slug' => 'hudozhestvenniy',
+            'address' => 'Невский пр., 67, Санкт-Петербург',
+            'metro' => 'Маяковская',
+            'description' => $faker->paragraph(30),
         ]);
-
     }
 }
