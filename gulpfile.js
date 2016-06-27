@@ -16,22 +16,31 @@ elixir(function(mix) {
     // To:
     'public/css/common.css');
 
+  mix.sass([
+    'app.scss'
+  ]);
+
   mix.webpack('main', require('./webpack.config.js'), {
     $: 'jquery',
     jQuery: 'jquery',
     'window.jQuery': 'jquery'
   });
 
-  mix.sass([
-    'app.scss'
-  ]);
-
   mix.scripts(['./node_modules/material-design-lite/material.min.js']);
 
+  mix.babel(
+    [ // FROM:
+      './resources/assets/js/admin.js',
+      './resources/assets/js/upload.js'
+    ],
+    // TO:
+    'public/js/admin.js'
+  );
+
   mix.imagemin();
+  // mix.browserSync();
 
 });
-
 
 
 

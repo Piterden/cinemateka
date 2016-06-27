@@ -3,13 +3,11 @@
 
 <template>
 	<div class="wrap router-view schedule-page">
-
 		<filters-line
 			:filter-show.once="visibleFilters"
 			:filter-lists.once="filterLists"
 			:filter-values.sync="filterValues"
 		></filters-line>
-
 		<list-grid
 			:seances="$root.seances"
 			:limit.sync="limit"
@@ -17,9 +15,8 @@
 			:increment-limit.once="incrementLimit"
 			:cols.once="cols"
 			:method.once="method"
-			:filter-values.sync="filterValues">
+			:filter-values.sync="filterValues"
 		></list-grid>
-
 	</div>
 </template>
 
@@ -54,7 +51,7 @@ export default {
 					'date_interval': [d,e],
 					'event_type': 'Все события',
 					'program_type': 'Все программы',
-					'place_type': 'Все места'
+					'place_type': 'Все площадки'
 				};
 			},
 			twoWay: true
@@ -64,15 +61,14 @@ export default {
 			default() {
 				return {
 					'now_soon': this.$root.getNowSoones(),
-					// 'date_interval': [this.activeStartDate, this.activeEndDate],
 					'event_type': this.$root.getEventAttributeTypes('event_type', 'Все события'),
 					'program_type': this.$root.programs.map((pr) => {
-						return pr.title;
+						return pr.title
 					}).getUnique(),
 					'place_type': this.$root.places.map((pl) => {
-						return pl.title;
+						return pl.title
 					}).getUnique()
-				};
+				}
 			}
 		}
 	},
@@ -84,14 +80,35 @@ export default {
 		 * @param  {Object}       filters   Фильтры со значениями
 		 * @return {Array} of Event Objects
 		 */
-		filterMethod(events, filters) {
-		  return events;
+		filterMethod(seances = [], filters) {
+		  return seances.filter((s) => {
+				let show = false
+
+				for (let f in filters) {
+					if (filters.hasOwnProperty(f)) {
+						switch (f) {
+							case 'now_soon':
+
+								break;
+							case 'event_type':
+								if (filters[f] == 'Все события' || filters[f] == s.event.event_type) {
+									show = true
+								}
+								break;
+							case 'program_type':
+
+								break;
+							case 'place_type':
+
+								break;
+							case 'date_interval':
+
+								break;
+						}
+					}
+				}
+			})
 		}
 	}
-	// computed: {
-	// 	activeDateInterval() {
-	// 		return [this.activeStartDate, this.activeEndDate];
-	// 	}
-	// }
-};
+}
 </script>

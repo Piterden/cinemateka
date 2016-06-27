@@ -42,10 +42,15 @@ Route::group([
     'namespace'  => 'Admin',
 ], function () {
 
+    Route::post('upload', [
+        'as' => 'admin.upload',
+        'uses' => 'AdminController@upload'
+    ]);
+
     // Backpack\CinemaCRUD
     CRUD::resource('event', 'EventCrudController');
     CRUD::resource('program', 'ProgramCrudController');
-    CRUD::resource('seance', 'SeanceCrudController');
+    CRUD::resource('place', 'PlaceCrudController');
 
     CRUD::resource('slide', 'SlideCrudController');
 

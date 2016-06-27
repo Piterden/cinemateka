@@ -3,6 +3,14 @@
 
 <template lang="html">
   <div class="mdl-grid list-grid">
+    <div class="thead-block mdl-cell mdl-cell--12-col">
+      <div class="date">Дата</div>
+      <div class="event">Событие</div>
+      <div class="type">Тип события</div>
+      <div class="program">Программа</div>
+      <div class="place">Площадка</div>
+      <div class="price">Билет</div>
+    </div>
     <list-grid-item
       v-for="(index, item) in seances
       | filterMethod filterValues | limitBy limit"
@@ -43,10 +51,6 @@ export default {
     filterMethod(seances, method) {
       return this.$parent.filterMethod(seances, method);
     }
-  },
-  computed: {},
-  ready: function () {},
-  attached: function () {},
-  components: {}
+  }
 }
 </script>

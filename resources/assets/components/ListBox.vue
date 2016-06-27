@@ -71,9 +71,9 @@ export default {
      */
     events: {
       type: Array,
-      default() {
-        return this.$root.events || [];
-      }
+      // default() {
+      //   return this.$root.events || [];
+      // }
     },
 
     /**
@@ -81,9 +81,9 @@ export default {
      */
     programs: {
       type: Array,
-      default() {
-        return this.$root.programs || [];
-      }
+      // default() {
+      //   return this.$root.programs || [];
+      // }
     },
 
     /**

@@ -14,8 +14,7 @@ class CatalogTablesSeeder extends Seeder
         factory(App\Models\Program::class, 50)->create();
         echo "50 programs done\n\r";
 
-        factory(App\Models\Event::class, 500)
-            ->create()
+        factory(App\Models\Event::class, 200)->create()
             ->each(function ($e) {
                 for ($i=0; $i < rand(2,6); $i++) {
                     $e->seances()
@@ -23,9 +22,5 @@ class CatalogTablesSeeder extends Seeder
                 }
                 echo "event $e->id done\n\r";
             });
-        // factory(App\Models\Seance::class, 1000)
-        //     ->create()
-        //     ->each();
-        // echo "1000 seances done\n\r";
     }
 }

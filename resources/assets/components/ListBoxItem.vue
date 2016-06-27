@@ -62,7 +62,10 @@ export default {
         start = new Date(seances[0].start_time),
         end = new Date(seances[seances.length - 1].start_time)
 
-      return this.$root.formatDateDDdotMM(start) + '-' + this.$root.formatDateDDdotMM(end)
+      if ((end - start) / 1000 / 60 / 60 / 24 / 365 > 1) {
+        return this.$root.stringify(start, 'DD.MM.YY') + '-' + this.$root.stringify(end, 'DD.MM.YY')
+      }
+      return this.$root.stringify(start, 'DD.MM') + '-' + this.$root.stringify(end, 'DD.MM')
     },
     getCols(method) {
       return this[method]

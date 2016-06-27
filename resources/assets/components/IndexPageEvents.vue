@@ -15,6 +15,8 @@
       </ul>
     </blocks-header>
     <list-box
+      :events="$root.events"
+      :programs="$root.programs"
       :limit.sync="limit"
       :filter-values.sync="filterValues"
       :cols.once="cols"
@@ -26,13 +28,6 @@
 <script>
 export default {
 
-  data() {
-    return {
-      events: this.$root.events || [],
-      programs: this.$root.programs || []
-    };
-  },
-
   props: {
     title: String,
     limit: Number,
@@ -41,26 +36,21 @@ export default {
     tabs: {
       type: Array,
       default() {
-        return [];
+        return []
       }
     },
     activeTab: {
       type: Number,
-      twoWay: true
-    },
-    filterValues: {
-      type: Object,
-      twoWay: true,
       default() {
-        return {};
+        return 0
       }
     }
   },
 
   methods: {
-    
+
     clickTab(name) {
-      this.$parent.clickWeekTab(name);
+      this.$parent.clickWeekTab(name)
     },
 
     /**
@@ -70,30 +60,27 @@ export default {
 		 * @return {Array} of Event Objects
 		 */
 		filterMethod(events, filters) {
-
-		  return events;
+		  return events.filter((e) => {
+        let ss = e.seances.filter((s) => {
+          let d = new Date(s.start_time)
+          return d > filters.date_interval[0]
+            && d < filters.date_interval[1]
+        })
+        return ss.length
+      })
 		}
   },
 
-  watch: {
-    activeTab(v) {
-      let fv = this.$root.extend(
-        this.$get('filterValues'),
-        {date_interval: this.date_interval}
-      );
-      this.$set('filterValues', fv);
-    }
-  },
-
   computed: {
-    date_interval() {
-      return [
-        this.$root.getMonday(this.$parent.getTabDate(this.activeTab)),
-        this.$root.getSunday(this.$parent.getTabDate(this.activeTab))
-      ];
+    filterValues() {
+      return {
+        date_interval: [
+          this.$root.getMonday(this.$parent.getTabDate(this.activeTab)),
+          this.$root.getSunday(this.$parent.getTabDate(this.activeTab))
+        ]
+      }
     }
   }
-
-};
+}
 
 </script>

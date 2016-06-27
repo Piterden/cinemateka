@@ -148,6 +148,11 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
+        /**
+         * Admin SleepingOwl Service Provider
+         */
+        SleepingOwl\Admin\Providers\SleepingOwlServiceProvider::class,
+
         /*
          * Application Service Providers...
          */

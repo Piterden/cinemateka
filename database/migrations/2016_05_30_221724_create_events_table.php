@@ -22,7 +22,8 @@ class CreateEventsTable extends Migration
 
             $table->string('title', 255)->comment('Название события');
             $table->string('slug', 255)->comment('Псевдоним (необходим для формирования маршрута)');
-            $table->string('event_type', 100)->default('movie')->comment('Тип события (фильм, лекция, выставка, конференция)');
+            $table->integer('category_id')->unsigned()->default(0)->comment('ID типа события');
+
             $table->string('description')->comment('Описание');
 
             $table->string('orig_title', 255)->default('')->comment('Оригинальное название');
@@ -44,7 +45,7 @@ class CreateEventsTable extends Migration
             $table->mediumtext('actors')->comment('Актеры в главных ролях');
             $table->mediumtext('awards')->comment('Награды и фестивали');
             $table->mediumtext('videos')->comment('Видеоролик {video}');
-            $table->mediumtext('images')->comment('Изображение или набор изображений {$Images}');
+            $table->mediumtext('images')->comment('Изображение или набор изображений');
             $table->mediumtext('properties');
 
             $table->timestamps();
@@ -56,7 +57,7 @@ class CreateEventsTable extends Migration
             $table->index('published');
             $table->index('title');
             $table->index('slug');
-            $table->index('event_type');
+            $table->index('category_id');
             $table->index('orig_title');
             $table->index('year');
             $table->index('country');

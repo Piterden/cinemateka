@@ -1,42 +1,62 @@
-<?php namespace App\Http\Controllers\Admin;
+<?php
+
+namespace App\Http\Controllers\Admin;
 
 use Backpack\CRUD\app\Http\Controllers\CrudController;
-
 // VALIDATION: change the requests to match your own file names if you need form validation
 use App\Http\Requests\PlaceRequest as StoreRequest;
 use App\Http\Requests\PlaceRequest as UpdateRequest;
 
-class PlaceCrudController extends CrudController {
-
-	public function __construct() {
+class PlaceCrudController extends CrudController
+{
+    public function __construct()
+    {
         parent::__construct();
 
         /*
-		|--------------------------------------------------------------------------
-		| BASIC CRUD INFORMATION
-		|--------------------------------------------------------------------------
-		*/
+        |--------------------------------------------------------------------------
+        | BASIC CRUD INFORMATION
+        |--------------------------------------------------------------------------
+        */
         $this->crud->setModel("App\Models\Place");
-        $this->crud->setRoute("admin/place");
+        $this->crud->setRoute('admin/place');
         $this->crud->setEntityNameStrings('place', 'places');
 
         /*
-		|--------------------------------------------------------------------------
-		| BASIC CRUD INFORMATION
-		|--------------------------------------------------------------------------
-		*/
-
-		$this->crud->setFromDb();
-
-		// ------ CRUD FIELDS
-        // $this->crud->addField($options, 'update/create/both');
-        // $this->crud->addFields($array_of_arrays, 'update/create/both');
-        // $this->crud->removeField('name', 'update/create/both');
-        // $this->crud->removeFields($array_of_names, 'update/create/both');
+        |--------------------------------------------------------------------------
+        | BASIC CRUD INFORMATION
+        |--------------------------------------------------------------------------
+        */
+        // ------ CRUD FIELDS
+        $this->crud->addField([
+            'name' => 'title',
+            'type' => 'text',
+            'label' => 'Название',
+        ]);
+        $this->crud->addField([
+            'name' => 'address',
+            'type' => 'textarea',
+            'label' => 'Адрес',
+        ]);
+        $this->crud->addField([
+            'name' => 'metro',
+            'type' => 'text',
+            'label' => 'Метро',
+        ]);
+        $this->crud->addField([
+            'name' => 'description',
+            'type' => 'text',
+            'label' => 'Описание',
+        ]);
 
         // ------ CRUD COLUMNS
         // $this->crud->addColumn(); // add a single column, at the end of the stack
-        // $this->crud->addColumns(); // add multiple columns, at the end of the stack
+        $this->crud->addColumns([
+            ['name' => 'title', 'type' => 'text', 'label' => 'Название'],
+            ['name' => 'address', 'type' => 'textarea', 'label' => 'Адрес'],
+            ['name' => 'metro', 'type' => 'text', 'label' => 'Метро'],
+            ['name' => 'description', 'type' => 'text', 'label' => 'Описание'],
+        ]); // add multiple columns, at the end of the stack
         // $this->crud->removeColumn('column_name'); // remove a column from the stack
         // $this->crud->removeColumns(['column_name_1', 'column_name_2']); // remove an array of columns from the stack
         // $this->crud->setColumnDetails('column_name', ['attribute' => 'value']);
@@ -68,13 +88,13 @@ class PlaceCrudController extends CrudController {
         // $this->crud->limit();
     }
 
-	public function store(StoreRequest $request)
-	{
-		return parent::storeCrud();
-	}
+    public function store(StoreRequest $request)
+    {
+        return parent::storeCrud();
+    }
 
-	public function update(UpdateRequest $request)
-	{
-		return parent::updateCrud();
-	}
+    public function update(UpdateRequest $request)
+    {
+        return parent::updateCrud();
+    }
 }

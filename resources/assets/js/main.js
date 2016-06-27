@@ -1,3 +1,4 @@
+import _ from 'lodash';
 /**
  * Vendor modules
  */
@@ -34,7 +35,8 @@ import ListGridItem from '../components/ListGridItem.vue';
 import FiltersLine from '../components/FiltersLine.vue';
 import DropdownList from '../components/DropdownList.vue';
 import Toggler from '../components/Toggler.vue';
-import DataPickers from '../components/DataPickers.vue';
+import Datepicker from '../components/Datepicker.vue';
+import DatePickers from '../components/DatePickers.vue';
 // import GridLoader from '../components/GridLoader.vue';
 
 /**
@@ -95,7 +97,8 @@ Vue.component('list-grid-item', ListGridItem);
 Vue.component('filters-line', FiltersLine);
 Vue.component('dropdown-list', DropdownList);
 Vue.component('toggler', Toggler);
-Vue.component('data-pickers', DataPickers);
+Vue.component('datepicker', Datepicker);
+Vue.component('date-pickers', DatePickers);
 // Vue.component('grid-loader', BlocksHeader);
 
 /**
@@ -129,7 +132,7 @@ var App = Vue.extend({
        * @type {Array} of SeanceObjects
        */
       places: places
-    };
+    }
   },
 
   computed: {
@@ -139,15 +142,20 @@ var App = Vue.extend({
      */
     seances() {
       return this.events.map((e) => {
-        return e.seances;
-      }).collapse();
+        let ss = e.seances
+        delete e.seances
+        return ss.map((s) => {
+          s.event = e
+          return s
+        })
+      })
     }
   },
 
   /**
    * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
    * ==================================================================
-   * Методы
+   * Глобальные Методы
    * ==================================================================
    * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
    */
@@ -158,14 +166,12 @@ var App = Vue.extend({
      * @return {Array}
      */
     getExistedYears() {
-      var y = [];
-      this.$root.events.forEach((ev) => {
-        ev.seances.forEach((s) => {
-          let d = new Date(s.start_time);
-          y.push(String(d.getFullYear()));
-        });
-      });
-      return y.getUnique();
+      return this.events.map((ev) => {
+        return ev.seances.map((s) => {
+          let d = new Date(s.start_time)
+          return String(d.getFullYear())
+        }).getUnique()
+      }).collapse().getUnique()
     },
 
     /**
@@ -173,10 +179,17 @@ var App = Vue.extend({
      * @return {Array}
      */
     getMonthNames() {
-      return [
-        "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь",
-        "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"
-      ];
+      return ["Январь", "Февраль", "Март", "Апрель",
+        "Май", "Июнь", "Июль", "Август", "Сентябрь",
+        "Октябрь", "Ноябрь", "Декабрь"]
+    },
+
+    /**
+     * Хранит список дней недели
+     * @return {Array}
+     */
+    getWeekDaysNames() {
+      return ["Пн","Вт","Ср","Чт","Пт","Сб","Вс"]
     },
 
     /**
@@ -187,11 +200,11 @@ var App = Vue.extend({
      * @return {Array}        Массив без повторов
      */
     getEventAttributeTypes(attr, def) {
-      var t = typeof def == 'string' && [def] || [];
+      let t = typeof def == 'string' && [def] || []
       this.events.forEach((ev) => {
-        if (t.indexOf(ev[attr]) < 0) t.push(ev[attr]);
-      });
-      return t;
+        if (t.indexOf(ev[attr]) < 0) t.push(ev[attr])
+      })
+      return t
     },
 
     /**
@@ -200,7 +213,7 @@ var App = Vue.extend({
      * @return {Array}
      */
     getNowSoones() {
-      return ['сейчас', 'скоро'];
+      return ['сейчас', 'скоро']
     },
 
     /**
@@ -213,12 +226,12 @@ var App = Vue.extend({
       // Возвращаем измененный массив сеансов
       return e.seances.map((seance) => {
         // Ищем программу для каждого сеанса по ID
-        var progInArray = this.programs.filter((prog) => {
-          return prog.id == seance.program_id;
-        });
+        let progInArray = this.programs.filter((prog) => {
+          return prog.id == seance.program_id
+        })
         // Возвращаем ID программы вместо объекта сеанса
-        return progInArray[0].id;
-      }).getUnique(); // Исключаем повторения
+        return progInArray[0].id
+      }).getUnique() // Исключаем повторения
     },
 
     /**
@@ -229,17 +242,15 @@ var App = Vue.extend({
      */
     getEventPlaces(e) {
       if (e === undefined) {
-        let a = [];
-        this.events.forEach((ev) => {
-          ev.seances.forEach((s) => {
-            a.push(s.place);
-          });
-        });
-        return a.getUnique();
+        return this.events.map((ev) => {
+          ev.seances.map((s) => {
+            return s.place
+          }).getUnique()
+        }).collapse().getUnique()
       }
       return e.seances.map((s) => {
-        return s.place;
-      }).getUnique();
+        return s.place
+      }).getUnique()
     },
 
     /**
@@ -250,13 +261,11 @@ var App = Vue.extend({
      */
     getProgramPlaces(p) {
       if (p === undefined) {
-        let a = [];
-        this.programs.forEach((pr) => {
-          pr.seances.forEach((s) => {
-            a.push(s.place);
-          });
-        });
-        return a.getUnique();
+        return this.programs.map((pr) => {
+          return pr.seances.map((s) => {
+            return s.place
+          }).getUnique()
+        }).collapse().getUnique()
       }
       return p.seances.map((s) => {
         return s.place;
@@ -268,16 +277,17 @@ var App = Vue.extend({
      * текущего для компонента "Скоро" (Главная)
      */
     getMonthTabsList() {
-      var l = [];
-      for (var i = 0; i < 12; i++) {
-        var num = this.$children[0].getSoonTabMonth(i);
-        l.push({
+      let mn = this.getMonthNames(),
+        d = new Date(),
+        nn = mn.splice(d.getMonth()).concat(mn)
+      return nn.map((m,i) => {
+        let num = this.$children[0].getSoonTabMonth(i)
+        return {
           name: 'month' + i,
           year: this.$children[0].getSoonTabYear(i),
           title: this.getMonthNames()[num].slice(0, 3)
-        });
-      }
-      return l;
+        }
+      })
     },
 
     /**
@@ -300,10 +310,12 @@ var App = Vue.extend({
      * строке даты понедельника этой недели
      */
     getSunday(d) {
-      let s = new Date(d);
-      s.setUTCDate(s.getUTCDate() + 5);
-      s.setUTCHours(23, 59, 59, 999);
-      return s;
+      let s = new Date(d)
+
+      s.setDate(s.getDate() + 6)
+      s.setHours(23, 59, 59, 999)
+
+      return s
     },
 
     /**
@@ -311,34 +323,57 @@ var App = Vue.extend({
      * любой дате внутри этой недели
      */
     getMonday(d) {
-      let day = d.getUTCDay(),
-        diff = d.getUTCDate() - day + (day == 0 ? -6 : 1);
-      d.setUTCDate(diff);
-      d.setUTCHours(0, 0, 0, 0);
-      return d;
+      let day = d.getDay(),
+        diff = d.getDate() - day + (day == 0 ? -6 : 1)
+
+      d.setDate(diff)
+      d.setHours(0, 0, 0, 0)
+
+      return d
+    },
+
+    parse (str) {
+      let time = new Date(str)
+
+      return isNaN(time.getTime()) ? null : time
     },
 
     /**
-     * Форматирует дату в вид "02.05"
-     * @method formatDateDDdotMM
-     * @param  {Date} date Объект даты
-     * @return {String} "dd.MM"
+     * Форматирует дату в строку
+     * @param  {Date}   time    Объект даты
+     * @param  {Date}   format  Маска формата
+     * @return {String}
      */
-    formatDateDDdotMM(date) {
-      var dd = date.getDate(),
-        mm = date.getMonth() + 1;
-      dd = (dd >= 10) ? dd : '0' + dd;
-      mm = (mm >= 10) ? mm : '0' + mm;
-      return dd + '.' + mm;
+    stringify(time = new Date(), format = 'YYYY-MM-DD') {
+      let year = time.getFullYear(),
+        month = time.getMonth() + 1,
+        date = time.getDate(),
+        monthName = this.getMonthNames()[time.getMonth()],
+        map = {
+          YYYY: year,
+          YY: String(year).slice(2),
+          MMM: monthName,
+          MM: ('0' + month).slice(-2),
+          M: month,
+          DD: ('0' + date).slice(-2),
+          D: date
+        }
+
+      return format.replace(/Y+|M+|D+/g, (str) => {
+        return map[str]
+      })
     }
   },
 
   ready() {
     /**
-     * Удаляем публичные коллекции
+     * Удаляем глобальные коллекции
      */
-    delete window['events'];
-    delete window['programs'];
+    delete window['events']
+    delete window['programs']
+    delete window['places']
+
+
   },
 
 });

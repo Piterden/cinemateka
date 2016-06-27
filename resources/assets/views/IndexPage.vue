@@ -70,8 +70,8 @@ export default {
         if (tab.title === '') {
           let start = this.$root.getMonday(this.getTabDate(idx)),
             end = this.$root.getSunday(start);
-          tab.title = this.$root.formatDateDDdotMM(start) +
-            '-' + this.$root.formatDateDDdotMM(end);
+          tab.title = this.$root.stringify(start, 'DD.MM') +
+            '-' + this.$root.stringify(end, 'DD.MM');
         }
       });
     },
@@ -108,10 +108,9 @@ export default {
     /**
      * Возвращает месяц для вкладки №i
      */
-    getSoonTabMonth(i) {
-      // i = i || this.activeTab
+    getSoonTabMonth(i = 0) {
       let d = new Date()
-      d.setUTCMonth(d.getUTCMonth() + i)
+      d.setUTCMonth(d.getMonth() + i)
       return d.getUTCMonth()
     },
 

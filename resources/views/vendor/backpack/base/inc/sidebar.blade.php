@@ -27,7 +27,7 @@
 
           <li><a href="{{ url('admin/event') }}"><i class="fa fa-film"></i> <span>Events</span></a></li>
           <li><a href="{{ url('admin/program') }}"><i class="fa fa-calendar"></i> <span>Programs</span></a></li>
-          <li><a href="{{ url('admin/seance') }}"><i class="fa fa-clock-o"></i> <span>Seances</span></a></li>
+          <li><a href="{{ url('admin/place') }}"><i class="fa fa-clock-o"></i> <span>Places</span></a></li>
           <!-- File Manager -->
           <li>
             <a href="{{ url('admin/elfinder') }}"><i class="fa fa-files-o"></i> <span>File manager</span></a>

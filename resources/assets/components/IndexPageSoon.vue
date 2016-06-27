@@ -15,6 +15,8 @@
       </ul>
     </blocks-header>
 		<list-box
+			:events="$root.events"
+			:programs="$root.programs"
       :limit.once="limit"
 			:filter-values.sync="filterValues"
       :cols.once="cols"
@@ -27,13 +29,6 @@
 <script>
 export default {
 
-  data() {
-    return {
-      events: this.$root.events || [],
-      programs: this.$root.programs || []
-    };
-  },
-
   props: {
     title: String,
     limit: Number,
@@ -42,19 +37,12 @@ export default {
     tabs: {
       type: Array,
       default() {
-        return [];
+        return []
       }
     },
     activeTab: {
       type: Number,
       twoWay: true
-    },
-		filterValues: {
-      type: Object,
-      twoWay: true,
-      default() {
-        return {};
-      }
     }
   },
 
@@ -63,20 +51,12 @@ export default {
 	   * Даты активной вкладки сброшенные на начало и конец месяца.
 		 * @return {Array}
 		 */
-		date_interval() {
-			return [this.dateToMonthStart(), this.dateToMonthEnd()];
+		filterValues() {
+			return {
+				date_interval: [this.dateToMonthStart(), this.dateToMonthEnd()]
+			}
 		}
 	},
-
-	watch: {
-    activeTab(v) {
-      let fv = this.$root.extend(
-        this.$get('filterValues'),
-        {date_interval: this.date_interval}
-      );
-      this.$set('filterValues', fv);
-    }
-  },
 
 	methods: {
 		/**
@@ -84,12 +64,12 @@ export default {
 		 * @return {Date}
 		 */
 		dateToMonthStart() {
-			let d = new Date();
-			d.setUTCFullYear(this.$parent.getSoonTabYear(this.activeTab));
-			d.setUTCMonth(this.$parent.getSoonTabMonth(this.activeTab));
-			d.setUTCDate(1);
-			d.setUTCHours(0,0,0,0);
-			return d;
+			let d = new Date()
+			d.setFullYear(this.$parent.getSoonTabYear(this.activeTab))
+			d.setMonth(this.$parent.getSoonTabMonth(this.activeTab))
+			d.setDate(1)
+			d.setHours(0,0,0,0)
+			return d
 		},
 
 		/**
@@ -97,19 +77,19 @@ export default {
 		 * @return {Date}
 		 */
 		dateToMonthEnd() {
-			let d = new Date();
-			d.setUTCFullYear(this.$parent.getSoonTabYear(this.activeTab));
-			d.setUTCMonth(this.$parent.getSoonTabMonth(this.activeTab) + 1);
-			d.setUTCDate(0);
-			d.setUTCHours(23,59,59,999);
-			return d;
+			let d = new Date()
+			d.setFullYear(this.$parent.getSoonTabYear(this.activeTab))
+			d.setMonth(this.$parent.getSoonTabMonth(this.activeTab) + 1)
+			d.setDate(0)
+			d.setHours(23,59,59,999)
+			return d
 		},
 
 		/**
 		 * Клик по табу направляет родителю
 		 */
 		clickTab(name) {
-			this.$parent.clickSoonTab(name);
+			this.$parent.clickSoonTab(name)
 		},
 
 		/**
@@ -119,9 +99,16 @@ export default {
 		 * @return {Array} of Event Objects
 		 */
 		filterMethod(events, filters) {
-
-		  return events;
+			console.log(filters);
+		  return events.filter((e) => {
+        let ss = e.seances.filter((s) => {
+          let d = new Date(s.start_time)
+          return d > filters.date_interval[0]
+            && d < filters.date_interval[1]
+        })
+        return ss.length
+      })
 		}
 	}
-};
+}
 </script>

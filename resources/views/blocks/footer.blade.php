@@ -24,17 +24,17 @@
       </ul>
     </div>
     <div class="mdl-cell mdl-cell--3-col mdl-typography--text-right">
-      <div class="age-restr">
-        <img src="/images/icn-footer-sign-16plus.png">
-      </div>
       <div class="copyrights">
         <div class="seance">
           <i class="material-icons">copyright</i> 1990-2016 Мастерская <a href="http://seance.ru" target="_blank">"Сеанс"</a>
         </div>
         <div class="shishki">
-          Designed by <a href="http://www.shishki.pro/">SHISHKI</a>
+          Designed by <a href="http://www.shishki.pro/" target="_blank">SHISHKI</a>
         </div>
         <div class="yellowmarker"></div>
+      </div>
+      <div class="age-restr" style="display: none;">
+        <img src="/images/icn-footer-sign-16plus.png">
       </div>
     </div>
   </div>

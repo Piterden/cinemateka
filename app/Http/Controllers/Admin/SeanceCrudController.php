@@ -35,6 +35,25 @@ class SeanceCrudController extends CrudController {
         // $this->crud->removeField('name', 'update/create/both');
         // $this->crud->removeFields($array_of_names, 'update/create/both');
 
+        $this->crud->addField([
+            'name' => '0',
+            'label' => 'Основная информация',
+            'type' => 'separator',
+            'colspan' => 10
+        ]);
+        $this->crud->addField([ // CHECKBOX
+            'name' => 'published',
+            'label' => 'Опубликованно',
+            'type' => 'checkbox',
+            'colspan' => 2
+        ]);
+        $this->crud->addField([ // TEXT
+            'name' => 'start_time',
+            'label' => 'Начало',
+            'type' => 'text',
+            'cssclass' => '',
+        ]);
+
         // ------ CRUD COLUMNS
         // $this->crud->addColumn(); // add a single column, at the end of the stack
         // $this->crud->addColumns(); // add multiple columns, at the end of the stack

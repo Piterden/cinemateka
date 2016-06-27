@@ -5,13 +5,12 @@
   <div class="dropdown">
     <input id="{{ inputId }}" type="checkbox"
       :checked="checked" />
-    <label for="{{ inputId }}"
-      @click="handleSelectClick">
+    <label for="{{ inputId }}">
       <div v-if="isMonth" class="drop-ttl month">{{ textValue }}</div>
       <div v-else class="drop-ttl no-month">{{ value }}</div>
       <ul>
         <li v-for="item in list"
-          @click="handleOptionClick(item)">
+          @click.stop="handleOptionClick(item)">
           {{ item }}
         </li>
       </ul>
@@ -21,11 +20,6 @@
 
 <script>
 export default {
-  data() {
-    return {
-      // dataReady: false
-    };
-  },
   props: {
     inputId: {
       type: String,
@@ -54,25 +48,19 @@ export default {
 
   methods: {
     /**
-     * Клик по закрытому элементу
-     */
-    handleSelectClick() {
-      // console.log(this);
-    },
-
-    /**
      * Клик по элементу открытого списка
      * @param  {String} value Значение нажатого элемента
      */
     handleOptionClick(value) {
-      // console.log('fire');
       if (this.isMonth) {
         this.$set('textValue', value);
         this.$set('value', this.list.indexOf(value));
+        return;
       }
       this.$set('value', value);
     }
   },
+
   computed: {
     textValue: {
       get() {
@@ -86,16 +74,11 @@ export default {
       },
       set(v) {
         this.$set('value', this.list.indexOf(v));
-        // this.$log(this);
-        //  this.list.indexOf(v) || 0;
       }
     },
     isMonth() {
       return this.inputId === 'month';
     }
-  },
-  ready() {},
-  attached() {},
-  components: {}
+  }
 }
 </script>

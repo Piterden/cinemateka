@@ -11,11 +11,11 @@
         :value.sync="filterValues[key]"
         :list.once="filterLists[key]"
       ></toggler>
-      <data-pickers
+      <date-pickers
         v-if="isDatePicker(key)"
-        :input-id="key.replace('_','-')"
-        :value.sync="filterValues[key]"
-      ></data-pickers>
+        :start-date.sync="filterValues[key][0]"
+        :end-date.sync="filterValues[key][1]"
+      ></date-pickers>
       <dropdown-list
         v-if="!isToggler(key) && !isDatePicker(key)"
         :input-id="key.replace('_','-')"
@@ -33,7 +33,7 @@ export default {
     filterShow: {
       type: Array,
       default() {
-        return [];
+        return []
       }
     },
 
@@ -41,7 +41,7 @@ export default {
     filterValues: {
       type: Object,
       default() {
-        return {};
+        return {}
       },
       twoWay: true
     },
@@ -50,19 +50,18 @@ export default {
     filterLists: {
       type: Object,
       default() {
-        return {};
+        return {}
       }
     }
   },
 
   methods: {
     isToggler(key) {
-      return key == 'now_soon';
+      return key == 'now_soon'
     },
     isDatePicker(key) {
-      return key == 'date_interval';
-    },
+      return key == 'date_interval'
+    }
   }
-
-};
+}
 </script>

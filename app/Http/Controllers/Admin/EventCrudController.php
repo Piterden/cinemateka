@@ -28,28 +28,26 @@ class EventCrudController extends CrudController
         |--------------------------------------------------------------------------
          */
 
-        /**
+        /*
          *  ------ CRUD COLUMNS
          */
         $this->crud->addColumn([
-            'name' => 'created_at',
-            'label' => 'Date',
-            'type' => 'date',
+            'name' => 'title',
+            'label' => 'Название',
         ]);
         $this->crud->addColumn([
             'name' => 'published',
-            'label' => 'Status',
+            'label' => 'Статус',
         ]);
         $this->crud->addColumn([
-            'name' => 'title',
-            'label' => 'Title',
+            'name' => 'created_at',
+            'label' => 'Добавлено',
+            'type' => 'date',
         ]);
-        // $this->crud->addColumn([
-        //                         'name' => 'featured',
-        //                         'label' => "Featured",
-        //                         'type' => "model_function",
-        //                         'function_name' => 'getFeaturedColumn'
-        //                     ]);
+        $this->crud->addColumn([
+            'name' => 'event_type',
+            'label' => 'Тип события',
+        ]);
         // $this->crud->addColumn([
         //                         'name' => 'event_type',
         //                         'label' => "Event type",
@@ -63,20 +61,19 @@ class EventCrudController extends CrudController
         //                         'allows_null' => false
         //                     ]);
 
-        /**
+        /*
          *  ------ CRUD FIELDS
          */
         $this->crud->addField([
-            'name' => '0',
-            'label' => 'Основная информация',
-            'type' => 'separator',
-            'colspan' => 10
+            'name' => 'service_1',
+            'value' => '<div class="col-md-12"><h3>Дополнительная информация</h3></div>',
+            'type' => 'custom_html',
         ]);
         $this->crud->addField([ // CHECKBOX
             'name' => 'published',
             'label' => 'Опубликованно',
             'type' => 'checkbox',
-            'colspan' => 2
+            'colspan' => '2',
         ]);
         $this->crud->addField([ // TEXT
             'name' => 'title',
@@ -86,30 +83,21 @@ class EventCrudController extends CrudController
             'cssclass' => '',
         ]);
 
-        $this->crud->addField([ // select_from_array
-            'name' => 'event_type',
-            'label' => 'Тип события',
-            'type' => 'select_from_array',
-            'options' => [
-                'movie' => 'Фильм',
-                'lecture' => 'Лекция',
-                'exhibition' => 'Выставка',
-                'conference' => 'Конференция',
-            ],
-            'allows_null' => false,
-            'colspan' => 2
-        ]);
-        $this->crud->addField([ // Image
-            'name' => 'images',
-            'label' => 'Картинка',
-            'type' => 'text',
-            'colspan' => 5
-        ]);
+        // $this->crud->addField([ // select2
+        //     'name' => 'category_id',
+        //     'label' => 'Тип события',
+        //     'type' => 'select2',
+        //     'allows_null' => false,
+        //     'entity'    => 'category',
+        //     'colspan' => '2',
+        //     'attribute' => 'name',
+        //     'model'     => "App\Models\Category",
+        // ]);
         $this->crud->addField([ // Image
             'name' => 'videos',
             'label' => 'Видео',
             'type' => 'text',
-            'colspan' => 5
+            'colspan' => '5',
         ]);
         $this->crud->addField([ // WYSIWYG
             'name' => 'description',
@@ -127,44 +115,40 @@ class EventCrudController extends CrudController
             'pivot' => true, // on create&update, do you need to add/delete pivot table entries?
         ]);
 
-
-
-
-
         $this->crud->addField([
-            'name' => '1',
-            'label' => 'Дополнительная информация',
-            'type' => 'separator',
+            'name' => 'service_2',
+            'value' => '<div class="col-md-12"><h3>Дополнительная информация</h3></div>',
+            'type' => 'custom_html',
         ]);
         $this->crud->addField([ // TEXT
             'name' => 'orig_title',
             'label' => 'Оригинальное название',
             'type' => 'text',
-            'colspan' => 10
+            'colspan' => '10',
         ]);
         $this->crud->addField([ // TEXT
             'name' => 'country',
             'label' => 'Страна',
             'type' => 'text',
-            'colspan' => 2
+            'colspan' => '2',
         ]);
         $this->crud->addField([ // TEXT
             'name' => 'year',
             'label' => 'Год',
             'type' => 'number',
-            'colspan' => 2
+            'colspan' => '2',
         ]);
         $this->crud->addField([ // TEXT
             'name' => 'language',
             'label' => 'Язык',
             'type' => 'text',
-            'colspan' => 2
+            'colspan' => '2',
         ]);
         $this->crud->addField([ // TEXT
             'name' => 'chrono',
             'label' => 'Хронометраж (мин)',
             'type' => 'number',
-            'colspan' => 2
+            'colspan' => '2',
         ]);
         $this->crud->addField([ // TEXT
             'name' => 'carrier',
@@ -176,7 +160,7 @@ class EventCrudController extends CrudController
                 'blurey' => 'Blu-ray',
             ],
             'allows_null' => true,
-            'colspan' => 2
+            'colspan' => '2',
         ]);
         $this->crud->addField([ // TEXT
             'name' => 'subtitles',
@@ -186,38 +170,38 @@ class EventCrudController extends CrudController
                 'yes' => 'Да',
                 'no' => 'Нет',
             ],
-            'allows_null' => true,
-            'colspan' => 2
+            'allows_null' => false,
+            'colspan' => '2',
         ]);
         $this->crud->addField([ // TEXT
             'name' => 'age_restrictions',
             'label' => 'Возр. ограничения ',
             'type' => 'number',
-            'colspan' => 2
+            'colspan' => '2',
         ]);
         $this->crud->addField([ // TEXT
             'name' => 'director',
             'label' => 'Режиссёр',
             'type' => 'text',
-            'colspan' => 6
+            'colspan' => '6',
         ]);
         $this->crud->addField([ // TEXT
             'name' => 'writtenby',
             'label' => 'Сценарист',
             'type' => 'text',
-            'colspan' => 6
+            'colspan' => '6',
         ]);
         $this->crud->addField([ // TEXT
             'name' => 'operator',
             'label' => 'Оператор',
             'type' => 'text',
-            'colspan' => 6
+            'colspan' => '6',
         ]);
         $this->crud->addField([ // TEXT
             'name' => 'producer',
             'label' => 'Продюсер',
             'type' => 'text',
-            'colspan' => 6
+            'colspan' => '6',
         ]);
         $this->crud->addField([ // TEXT
             'name' => 'actors',
@@ -235,15 +219,10 @@ class EventCrudController extends CrudController
             'type' => 'text',
         ]);
 
-
-
-
-
-
         $this->crud->addField([
-            'name' => '2',
-            'label' => 'SEO данные',
-            'type' => 'separator',
+            'name' => 'service_3',
+            'value' => '<div class="col-md-12"><h3>Мета-инфо</h3></div>',
+            'type' => 'custom_html',
         ]);
         $this->crud->addField([
             'name' => 'slug',
@@ -318,6 +297,53 @@ class EventCrudController extends CrudController
         //     'label' => "Featured item",
         //     'type'  => 'checkbox'
         // ]);
+
+        $surpass = \Surpass::path('admin/uploads')
+            ->dir('images')
+            ->ids([
+                'input' => 'image_upload',
+                'preview' => 'preview_images',
+            ])
+            ->maxFiles(5)
+            ->alert('You can upload up to %d files.')
+            // ->formData([
+            //     'key_1' => 'value_1',
+            //     'key_2' => 'value_2',
+            //     'key_3' => 'value_3',
+            // ])
+            ->preview(['maxHeight' => 120])
+            ->css([
+                'div' => 'div_class',
+                'button' => 'button_class',
+                'preview' => 'preview_class',
+                'loading' => 'loading_class',
+            ])
+            ->progress('<img src="http://example.com/img/ajax-loader.gif"><br>Uploading..')
+            ->callback([
+                'upload' => 'alert("Uploading..");',
+                'done' => 'alert("Done.");',
+                'failed' => 'alert("Failed..");',
+                'remove' => 'alert("Removed");',
+                'load' => 'alert("Loading..");',
+                'timeout' => 'alert("Timeout..");',
+                'file_type_error' => 'alert("Only image files are allowed");',
+            ])
+            ->timeout(3000) // 3 seconds
+            ->overwrite(false)   // When using overwriting-mode
+            ->resize([
+                'maxWidth' => '100',
+                'maxHeight' => '50'
+            ], $force_crop = false)   // Client Resizing(See "About resizing")
+            ->dropZone('drop_zone_id')  // See "Drop Zone"
+            ->button('Remove');
+        // $surpass->load([1, 2, 3]);    // These are IDs of DB that you saved image(s) in the past.
+
+        $this->crud->addField([ // Image
+            'name' => 'images',
+            'label' => 'Картинка',
+            'type' => 'image_upload_multiple',
+            'surpass' => $surpass,
+        ]);
     }
 
     public function store(StoreRequest $request)

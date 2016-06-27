@@ -16,7 +16,7 @@ $factory->define(App\Models\Event::class, function (Faker\Generator $faker) {
         'published' => 1,
         'title' => $faker->words(rand(1, 5), true),
         'slug' => $faker->slug,
-        'event_type' => $faker->randomElement(array_pluck(App\Models\Category::all(['name']), 'name')),
+        'category_id' => $faker->randomElement(array_pluck(App\Models\Category::all(['id']), 'id')),
         'description' => $faker->paragraph(25),
         'orig_title' => $faker->words(rand(1, 5), true),
         'year' => $faker->year,
@@ -46,13 +46,10 @@ $factory->define(App\Models\Program::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Models\Seance::class, function (Faker\Generator $faker) {
     return [
-        'start_time' => $faker->dateTimeInInterval('-700 days', '+700 days'),
+        'start_time' => $faker->dateTimeInInterval('-700 days', '+1400 days'),
         'price' => $faker->randomElement(['300', '400', '500', '600', '700']),
         'description' => $faker->paragraph(25),
         'speaker_info' => $faker->paragraph(25),
-        // 'event_id' => function () {
-        //     return factory(App\Models\Event::class)->create()->id;
-        // },
         'program_id' => function () {
             $ids = array_pluck(App\Models\Program::all(['id']), 'id');
             return $ids[rand(0, count($ids) - 1)];

@@ -26,7 +26,7 @@ class Event extends Model implements SluggableInterface
         'published',
         'title',
         'slug',
-        'event_type',
+        'category_id',
         'description',
         'orig_title',
         'year',
@@ -82,10 +82,10 @@ class Event extends Model implements SluggableInterface
         return $this->hasMany('App\Models\Seance');
     }
 
-    // public function category()
-    // {
-    //     return $this->belongsTo('App\Models\Category', 'category_id');
-    // }
+    public function category()
+    {
+        return $this->belongsTo('App\Models\Category', 'category_id');
+    }
 
     // public function tags()
     // {
@@ -117,15 +117,17 @@ class Event extends Model implements SluggableInterface
         return $this->title;
     }
 
-    // public function getImagesAttribute($value)
-    // {
-    //     if (empty($value)) {
-    //         $value = json_encode([]);
-    //     }
-    //     $array = json_decode($value);
-    //
-    //     return implode(',', $array);
-    // }
+    public function getEventTypeAttribute()
+    {
+        $category = \App\Models\Category::find($this->category_id);
+
+        return $category->name;
+    }
+
+    public function getImageUploadAttribute()
+    {
+        return json_encode($this->images);
+    }
 
     /*
     |--------------------------------------------------------------------------
