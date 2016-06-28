@@ -50,7 +50,6 @@ class CreateSeancesTable extends Migration
              */
             $table->foreign('event_id')->references('id')->on('events');
             $table->foreign('program_id')->references('id')->on('programs');
-            $table->foreign('place_id')->references('id')->on('places');
         });
     }
 

@@ -1,31 +1,50 @@
+<style type="text/css">
+  .overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: none;
+  }
+</style>
 <div class="form-group col-md-{{ $field['colspan'] or 12 }} {{ $field['cssclass'] or '' }}">
-  <input
-    id="image_upload"
-    name="image_upload"
-    title="Select Image"
-    data-url="admin/upload"
-    data-remove-url="admin/remove"
-    accept="image/*"
-    type="file" multiple
-  >
+  <div class="overlay">
+    <i class="fa fa-refresh fa-spin"></i>
+  </div>
+  <input type="file" id="upload-image">
+  <div class="thumbs-wrap" id="multi-upload-thumbs">
+    <div class="thumb-item">
+      <img src="">
+    </div>
+  </div>
+  <script>
+    document.getElementById('upload-image')
+      .addEventListener('change', function(event) {
+    var _this = this,
+      files = this.files,
+      overlay = this.previousElementSibling,
+      form = new FormData(),
+      xhr = new XMLHttpRequest();
 
-  <input type="textarea" name="images" value="{{ $field['value'] }}">
+    overlay.style.display = 'block';
+    form.append('_token', '{{ csrf_token() }}');
+    form.append('image', this.files[0]);
 
+    xhr.onload = function() {
+      overlay.style.display = 'none';
+    };
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState == 4 && xhr.status == 200) {
+        var url = JSON.parse(xhr.responseText).url,
+          thumb = document.getElementById('multi-upload-thumbs').childNodes[1];
+        thumb.childNodes[1].src = url;
+        // _this.files = [];
+        form.reset();
+      }
+    }
+    xhr.open('post', '/admin/upload', true);
+    xhr.send(form);
+
+  }, false);
+  </script>
+  <input v-model="imagesJson" type="hidden" name="images" value="{{ $field['value'] }}">
 </div>
-
-@section('script')
-
-    <!-- Load required JS libraries. -->
-    <script src="bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="bower_components/blueimp-file-upload/js/vendor/jquery.ui.widget.js"></script>
-    <script src="bower_components/blueimp-load-image/js/load-image.all.min.js"></script>
-    <script src="bower_components/blueimp-canvas-to-blob/js/canvas-to-blob.js"></script>
-    <script src="bower_components/blueimp-file-upload/js/jquery.iframe-transport.js"></script>
-    <script src="bower_components/blueimp-file-upload/js/jquery.fileupload.js"></script>
-    <script src="bower_components/blueimp-file-upload/js/jquery.fileupload-process.js"></script>
-    <script src="bower_components/blueimp-file-upload/js/jquery.fileupload-image.js"></script>
-    <script src="bower_components/blueimp-tmpl/js/tmpl.min.js"></script>
-
-
-
-@stop

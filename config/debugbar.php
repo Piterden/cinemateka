@@ -94,11 +94,11 @@ return array(
         'route'           => true,  // Current route information
         'laravel'         => true,  // Laravel version and environment
         'events'          => true,  // All events fired
-        'default_request' => true, // Regular or special Symfony request logger
+        'default_request' => false, // Regular or special Symfony request logger
         'symfony_request' => true,  // Only one can be enabled..
         'mail'            => true,  // Catch mail messages
         'logs'            => false, // Add the latest log messages
-        'files'           => true, // Show the included files
+        'files'           => false, // Show the included files
         'config'          => true, // Display config settings
         'auth'            => true, // Display Laravel authentication status
         'gate'            => true, // Display Laravel Gate checks

@@ -12,22 +12,25 @@ class PageController extends Controller
     public function __construct(Request $request)
     {
         $events = \App\Models\Event::with([
-            'seances' => function ($query) {
+            'seances' => function ($query)
+            {
                 $query->orderBy('start_time');
-            }
+            },
         ])->get();
 
         $programs = \App\Models\Program::with([
-            'seances' => function ($query) {
+            'seances' => function ($query)
+            {
                 $query->orderBy('start_time');
-            }
+            },
         ])->get();
 
         JavaScript::put([
-            'events' => $events,
-            'programs' => $programs,
-            'places' => \App\Models\Place::all(),
-            'uri' => $request->path(),
+            'events'     => $events,
+            'programs'   => $programs,
+            'places'     => \App\Models\Place::all(),
+            'categories' => \App\Models\Category::all(),
+            'uri'        => $request->path(),
         ]);
     }
 
@@ -47,7 +50,8 @@ class PageController extends Controller
 
     public function entityPage($slug = false)
     {
-        if (!$slug) {
+        if (!$slug)
+        {
             return $this->missingMethod(['slug' => false]);
         }
 
@@ -58,10 +62,10 @@ class PageController extends Controller
         return view('index');
     }
 
-    public function missingMethod($parameters = array())
+    public function missingMethod($parameters = [])
     {
         JavaScript::put([
-            'missing' => true,
+            'missing'    => true,
             'parameters' => $parameters,
         ]);
 

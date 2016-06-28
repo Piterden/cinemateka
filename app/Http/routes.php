@@ -12,7 +12,7 @@
  */
 
 /**
- *
+ * Vue OPA
  */
 
 Route::get('/', 'PageController@staticPage');
@@ -23,29 +23,22 @@ Route::get('archive/{page?}', 'PageController@listPage');
 Route::get('event/{slug}', 'PageController@entityPage');
 Route::get('program/{slug}', 'PageController@entityPage');
 
-// Route::group([], function()
-// {
-    // Route::get('about', 'PageController@about');
-    // Route::get('contacts', 'PageController@contacts');
-    // Route::get('schedule/{page?}', 'PageController@schedule');
-    // Route::get('archive/{page?}', 'PageController@archive');
-    // Route::get('event/{slug}', 'PageController@event');
-    // Route::get('program/{slug}', 'PageController@program');
-// });
-
 /**
- * Admin intrface
+ * Admin interface
  */
+
 Route::group([
     'prefix'     => 'admin',
     'middleware' => ['web', 'auth'],
     'namespace'  => 'Admin',
-], function () {
+], function ()
+{
+    // Admin authentication routes
+    Route::auth();
 
-    Route::post('upload', [
-        'as' => 'admin.upload',
-        'uses' => 'AdminController@upload'
-    ]);
+    // Other Backpack\Base routes
+    Route::get('/', 'AdminController@redirectToDashboard');
+    Route::get('dashboard', 'AdminController@dashboard');
 
     // Backpack\CinemaCRUD
     CRUD::resource('event', 'EventCrudController');
@@ -58,7 +51,31 @@ Route::group([
     CRUD::resource('menu-item', 'MenuItemCrudController');
 
     // Backpack\NewsCRUD
-    CRUD::resource('article', 'ArticleCrudController');
+    // CRUD::resource('article', 'ArticleCrudController');
     CRUD::resource('category', 'CategoryCrudController');
-    CRUD::resource('tag', 'TagCrudController');
+    // CRUD::resource('tag', 'TagCrudController');
+
+    /**
+     * Загрузка картинок
+     */
+    Route::post('upload', function ()
+    {
+        $newName = 'uploads/images/full_'.str_slug(str_random(26)).'.jpg';
+        $file    = Input::file('image');
+        try {
+            $img = Image::make($file)->save($newName);
+        }
+        catch (Exception $e)
+        {
+            return response()->json(['error' => $e], 500);
+        }
+
+        return response()->json(['url' => asset($newName)], 200);
+    });
+
 });
+
+
+
+// Route::group(['middleware' => 'web', 'prefix' => 'admin'], function () {
+// });

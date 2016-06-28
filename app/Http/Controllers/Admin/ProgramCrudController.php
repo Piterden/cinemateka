@@ -137,7 +137,7 @@ class ProgramCrudController extends CrudController
         // $this->crud->denyAccess(['list', 'create', 'update', 'reorder', 'delete']);
 
         // ------ CRUD REORDER
-        $this->crud->enableReorder('label_name', MAX_TREE_LEVEL);
+        $this->crud->enableReorder('label_name', 3);
         $this->crud->allowAccess('reorder');
         // NOTE: you also need to do allow access to the right users:
 

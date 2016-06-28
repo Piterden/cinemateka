@@ -26,7 +26,7 @@ class Program extends Model implements SluggableInterface
     // protected $hidden = [];
     protected $fillable = [
         'title',
-        'translated_slug',
+        'slug',
         'description',
         'slogan',
         'meta',
@@ -54,6 +54,7 @@ class Program extends Model implements SluggableInterface
         'end_date',
     ];
     public $timestamps = true;
+    // protected $appends = ['translated_slug'];
 
     /*
     |--------------------------------------------------------------------------

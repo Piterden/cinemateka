@@ -26,7 +26,7 @@ class Event extends Model implements SluggableInterface
     protected $fillable = [
         'published',
         'title',
-        'translated_slug',
+        'slug',
         'category_id',
         'description',
         'orig_title',
@@ -51,7 +51,6 @@ class Event extends Model implements SluggableInterface
     ];
     protected $fakeColumns = [
         'meta',
-        'images',
         'videos',
         'actors',
         'awards',
@@ -87,7 +86,7 @@ class Event extends Model implements SluggableInterface
 
     public function category()
     {
-        return $this->belongsTo('App\Models\Category', 'category_id');
+        return $this->belongsTo('App\Models\Category');
     }
 
     // public function tags()
@@ -120,12 +119,10 @@ class Event extends Model implements SluggableInterface
         return str_slug($tr->translate($this->title));
     }
 
-    public function getEventTypeAttribute()
-    {
-        $category = \App\Models\Category::find($this->category_id);
-
-        return $category->name;
-    }
+    // public function getEventTypeAttribute()
+    // {
+    //     return $this->category()->name;
+    // }
 
     // public function getImageFields()
     // {

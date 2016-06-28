@@ -44,7 +44,7 @@ class CreateEventsTable extends Migration
             $table->mediumtext('meta')->comment('META Tags');
             $table->mediumtext('actors')->comment('Актеры в главных ролях');
             $table->mediumtext('awards')->comment('Награды и фестивали');
-            $table->mediumtext('videos')->comment('Видеоролик {video}');
+            $table->mediumtext('videos')->comment('Видеоролик');
             $table->mediumtext('images')->comment('Изображение или набор изображений');
             $table->mediumtext('properties');
 

@@ -54,8 +54,15 @@ class EventCrudController extends CrudController
          */
         $this->crud->addField([
             'name' => 'service_1',
-            'value' => '<div class="col-md-12"><h3>Дополнительная информация</h3></div>',
+            'value' => '<div class="col-md-6"><h3>Дополнительная информация</h3></div>',
             'type' => 'custom_html',
+        ]);
+        $this->crud->addField([ // Image
+            'name' => 'images',
+            'label' => 'Картинка',
+            'type' => 'image_upload_multiple',
+            'colspan' => '6',
+            'cssclass' => 'multi-upload'
         ]);
         $this->crud->addField([ // CHECKBOX
             'name' => 'published',
@@ -75,7 +82,7 @@ class EventCrudController extends CrudController
             'label' => 'ЧПУ (URL)',
             'type' => 'text',
             'hint' => 'Если не заполнять, создастся автоматически',
-            'v-model.once' => 'title'
+            'v-model' => 'slug'
         ]);
         $this->crud->addField([ // select
             'name' => 'category_id',
@@ -86,12 +93,6 @@ class EventCrudController extends CrudController
             'colspan' => '2',
             'attribute' => 'name',
             'model'     => "App\Models\Category",
-        ]);
-        $this->crud->addField([ // Image
-            'name' => 'images',
-            'label' => 'Картинка',
-            'type' => 'image_upload_multiple',
-            'colspan' => '5',
         ]);
         $this->crud->addField([ // Image
             'name' => 'videos',
@@ -112,7 +113,7 @@ class EventCrudController extends CrudController
             'entity' => 'seances', // the method that defines the relationship in your Model
             'attribute' => 'start_time', // foreign key attribute that is shown to user
             'model' => 'App\Models\Seance', // foreign key model
-            'pivot' => true, // on create&update, do you need to add/delete pivot table entries?
+            // 'pivot' => true, // on create&update, do you need to add/delete pivot table entries?
         ]);
 
         $this->crud->addField([

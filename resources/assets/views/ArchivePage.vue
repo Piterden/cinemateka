@@ -63,7 +63,7 @@ export default {
 			type: Object,
 			default() {
 				return {
-					'event_type': this.$root.getEventAttributeTypes('event_type', 'Все события'),
+					'event_type': this.$root.getEventTypes(),
 	        'month': this.$root.getMonthNames(),
 	        'year': this.$root.getExistedYears(),
 				};

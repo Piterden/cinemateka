@@ -18,7 +18,8 @@
         "backpack/permissionmanager": "^2.0",
         "backpack/generators": "^1.1",
         "barryvdh/laravel-debugbar": "^2.2",
-        "stichoza/google-translate-php": "^3.2"
+        "stichoza/google-translate-php": "^3.2",
+        "intervention/image": "^2.3"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

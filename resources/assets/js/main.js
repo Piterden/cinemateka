@@ -85,21 +85,21 @@ Array.prototype.collapse = function () {
 /**
  * Компоненты (html-элементы)
  */
-Vue.component('swipe', Swipe);
-Vue.component('swipe-item', SwipeItem);
-Vue.component('index-page-events', IndexPageEvents);
-Vue.component('index-page-soon', IndexPageSoon);
-Vue.component('blocks-header', BlocksHeader);
-Vue.component('list-box', ListBox);
-Vue.component('list-box-item', ListBoxItem);
-Vue.component('list-grid', ListGrid);
-Vue.component('list-grid-item', ListGridItem);
-Vue.component('filters-line', FiltersLine);
-Vue.component('dropdown-list', DropdownList);
-Vue.component('toggler', Toggler);
-Vue.component('datepicker', Datepicker);
-Vue.component('date-pickers', DatePickers);
-// Vue.component('grid-loader', BlocksHeader);
+Vue.component('swipe', Swipe)
+Vue.component('swipe-item', SwipeItem)
+Vue.component('index-page-events', IndexPageEvents)
+Vue.component('index-page-soon', IndexPageSoon)
+Vue.component('blocks-header', BlocksHeader)
+Vue.component('list-box', ListBox)
+Vue.component('list-box-item', ListBoxItem)
+Vue.component('list-grid', ListGrid)
+Vue.component('list-grid-item', ListGridItem)
+Vue.component('filters-line', FiltersLine)
+Vue.component('dropdown-list', DropdownList)
+Vue.component('toggler', Toggler)
+Vue.component('datepicker', Datepicker)
+Vue.component('date-pickers', DatePickers)
+// Vue.component('grid-loader', BlocksHeader)
 
 /**
  * Главный ($root) vue-компонент
@@ -109,8 +109,8 @@ Vue.component('date-pickers', DatePickers);
 var App = Vue.extend({
   /**
    * Здесь задаются данные, которые будут доступны
-   * во всем приложении через App($root) объект
-   * глобальные объекты удаляем по @ready.
+   * во всем приложении через App($root)-объект
+   * глобальные коллекции удаляем по @ready.
    */
   data() {
     return {
@@ -131,7 +131,8 @@ var App = Vue.extend({
        * Принимаются из Laravel JS Fasade
        * @type {Array} of SeanceObjects
        */
-      places: places
+      places: places,
+      categories: categories
     }
   },
 
@@ -155,7 +156,7 @@ var App = Vue.extend({
   /**
    * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
    * ==================================================================
-   * Глобальные Методы
+   *     Глобальные Методы
    * ==================================================================
    * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
    */
@@ -193,23 +194,31 @@ var App = Vue.extend({
     },
 
     /**
-     * Находит уникальные значения указанного свойства
-     * и заворачивает в массив, где def - первый элемент
-     * @param  {String} attr  Название свойства
-     * @param  {String} def   Значение по-умолчанию
-     * @return {Array}        Массив без повторов
+     * Названия типов событий
+     * @return {Array} Массив без повторов
      */
-    getEventAttributeTypes(attr, def) {
-      let t = typeof def == 'string' && [def] || []
-      this.events.forEach((ev) => {
-        if (t.indexOf(ev[attr]) < 0) t.push(ev[attr])
+    getEventTypes() {
+      let def = ['Все события'],
+        cc = this.categories.map((c) => {
+          return c.name
+        })
+      return def.concat(cc)
+    },
+
+    /**
+     * Объект названий типов событий
+     * @return {Object} {key: name}
+     */
+    getCatAssoc() {
+      let assoc = {}
+      this.categories.forEach((c) => {
+        assoc[c.id] = c.name
       })
-      return t
+      return assoc
     },
 
     /**
      * Значения переключателя "Сейчас/Скоро"
-     * @method getNowSoones
      * @return {Array}
      */
     getNowSoones() {
@@ -268,8 +277,8 @@ var App = Vue.extend({
         }).collapse().getUnique()
       }
       return p.seances.map((s) => {
-        return s.place;
-      }).getUnique();
+        return s.place
+      }).getUnique()
     },
 
     /**
@@ -297,7 +306,7 @@ var App = Vue.extend({
      * @return {ProgramObject}      Объект программы
      */
     getRecentProgram(e) {
-      return this.getPrograms(e)[0];
+      return this.getPrograms(e)[0]
     },
 
     /**
@@ -372,9 +381,8 @@ var App = Vue.extend({
     delete window['events']
     delete window['programs']
     delete window['places']
-
-
-  },
+    delete window['categories']
+  }
 
 });
 
@@ -409,20 +417,20 @@ App.prototype.extend = function (defaults, options) {
  * @param  {Boolean}  saveScrollPosition
  * @param  {Boolean}  transitionOnLoad
  */
-var router = new VueRouter({
+let router = new VueRouter({
   hashbang: false,
   history: true,
   linkActiveClass: 'active',
   mode: 'html5',
   saveScrollPosition: true,
   transitionOnLoad: true,
-});
+})
 
-Vue.config.debug = true;
+Vue.config.debug = true
 
 /**
  * ================================================================
- * Назначение маршрутов роутера
+ * Назначение маршрутов роутеру
  * ================================================================
  */
 router.map({
@@ -430,19 +438,19 @@ router.map({
   // Главная
   '/': {
     component(resolve) {
-      resolve(Vue.component('index-page', IndexPage));
+      resolve(Vue.component('index-page', IndexPage))
     }
   },
 
   // Расписание
   '/schedule': {
     component(resolve) {
-      resolve(Vue.component('schedule-page', SchedulePage));
+      resolve(Vue.component('schedule-page', SchedulePage))
     },
     subRoutes: {
       '/:page': {
         component(resolve) {
-          resolve(Vue.component('schedule-page', SchedulePage));
+          resolve(Vue.component('schedule-page', SchedulePage))
         }
       }
     }
@@ -451,12 +459,12 @@ router.map({
   // Архив
   '/archive': {
     component(resolve) {
-      resolve(Vue.component('archive-page', ArchivePage));
+      resolve(Vue.component('archive-page', ArchivePage))
     },
     subRoutes: {
       '/:page': {
         component(resolve) {
-          resolve(Vue.component('archive-page', ArchivePage));
+          resolve(Vue.component('archive-page', ArchivePage))
         }
       }
     }
@@ -465,34 +473,34 @@ router.map({
   // О проекте
   '/about': {
     component(resolve) {
-      resolve(Vue.component('about-page', AboutPage));
+      resolve(Vue.component('about-page', AboutPage))
     }
   },
 
   // Контакты
   '/contacts': {
     component(resolve) {
-      resolve(Vue.component('contacts-page', ContactsPage));
+      resolve(Vue.component('contacts-page', ContactsPage))
     }
   },
 
   // Событие
   '/event/:slug': {
     component(resolve) {
-      resolve(Vue.component('event-page', EventPage));
+      resolve(Vue.component('event-page', EventPage))
     }
   },
 
   // Программа
   '/program/:slug': {
     component(resolve) {
-      resolve(Vue.component('program-page', ProgramPage));
+      resolve(Vue.component('program-page', ProgramPage))
     }
   }
-});
+})
 
 /**
  * Init Vue Router instance
  * Запускаем роутер и приложение
  */
-router.start(App, 'body#App');
+router.start(App, 'body#App')
