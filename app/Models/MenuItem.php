@@ -10,7 +10,7 @@ class MenuItem extends Model
     use CrudTrait;
 
     protected $table    = 'menu_items';
-    protected $fillable = ['name', 'type', 'link', 'page_id', 'parent_id'];
+    protected $fillable = ['name', 'type', 'link', 'parent_id'];
 
     public function parent()
     {
@@ -22,10 +22,10 @@ class MenuItem extends Model
         return $this->hasMany('App\Models\MenuItem');
     }
 
-    public function page()
-    {
-        return $this->belongsTo('Backpack\PageManager\app\Models\Page', 'page_id');
-    }
+    // public function page()
+    // {
+    //     return $this->belongsTo('Backpack\PageManager\app\Models\Page', 'page_id');
+    // }
 
     /**
      * Get all menu items, in a hierarchical collection.

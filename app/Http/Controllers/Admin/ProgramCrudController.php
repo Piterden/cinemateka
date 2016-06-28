@@ -27,9 +27,6 @@ class ProgramCrudController extends CrudController
         | BASIC CRUD INFORMATION
         |--------------------------------------------------------------------------
          */
-
-        // $this->crud->setFromDb();
-
         $this->crud->addField([
             'name' => '0',
             'label' => 'Основная информация',
@@ -47,6 +44,13 @@ class ProgramCrudController extends CrudController
             'label' => 'Заголовок',
             'type' => 'text',
             'placeholder' => 'Название программы',
+        ]);
+        $this->crud->addField([
+            'name' => 'slug',
+            'label' => 'ЧПУ (URL)',
+            'type' => 'text',
+            'hint' => 'Если не заполнять, создастся автоматически',
+            // 'disabled' => 'disabled'
         ]);
         $this->crud->addField([ // TEXT
             'name' => 'slogan',
@@ -72,33 +76,18 @@ class ProgramCrudController extends CrudController
             'placeholder' => 'Your textarea text here',
         ]);
         $this->crud->addField([ // Select2Multiple = n-n relationship (with pivot table)
-            'label'     => 'События',
+            'label'     => 'Сеансы',
             'type'      => 'select2_multiple',
             'name'      => 'seances', // the method that defines the relationship in your Model
             'entity'    => 'seances', // the method that defines the relationship in your Model
             'attribute' => 'start_time', // foreign key attribute that is shown to user
             'model'     => 'App\Models\Seance', // foreign key model
-            'pivot'     => true, // on create&update, do you need to add/delete pivot table entries?
+            // 'pivot'     => true, // on create&update, do you need to add/delete pivot table entries?
         ]);
-
-
-
-
-
-
-
-
         $this->crud->addField([
             'name' => '2',
             'label' => 'SEO данные',
             'type' => 'separator',
-        ]);
-        $this->crud->addField([
-            'name' => 'slug',
-            'label' => 'ЧПУ (URL)',
-            'type' => 'text',
-            'hint' => 'Если не заполнять, создастся автоматически',
-            // 'disabled' => 'disabled'
         ]);
         $this->crud->addField([ // TEXT
             'name' => 'meta_title',
@@ -120,31 +109,42 @@ class ProgramCrudController extends CrudController
             'fake' => true,
             'store_in' => 'meta',
         ]);
-        // ------ CRUD FIELDS
-        // $this->crud->addField($options, 'update/create/both');
-        // $this->crud->addFields($array_of_arrays, 'update/create/both');
-        // $this->crud->removeField('name', 'update/create/both');
-        // $this->crud->removeFields($array_of_names, 'update/create/both');
 
-        // ------ CRUD COLUMNS
-        // $this->crud->addColumn(); // add a single column, at the end of the stack
-        // $this->crud->addColumns(); // add multiple columns, at the end of the stack
-        // $this->crud->removeColumn('column_name'); // remove a column from the stack
-        // $this->crud->removeColumns(['column_name_1', 'column_name_2']); // remove an array of columns from the stack
-        // $this->crud->setColumnDetails('column_name', ['attribute' => 'value']);
-        // $this->crud->setColumnsDetails(['column_1', 'column_2'], ['attribute' => 'value']);
+        /**
+         *  ------ CRUD COLUMNS
+         */
+        $this->crud->addColumn([
+            'name' => 'title',
+            'label' => 'Название',
+        ]);
+        $this->crud->addColumn([
+            'name' => 'published',
+            'label' => 'Опубликованно',
+        ]);
+        $this->crud->addColumn([
+            'name' => 'start_date',
+            'label' => 'Начало',
+            'type' => 'date',
+        ]);
+        $this->crud->addColumn([
+            'name' => 'end_date',
+            'label' => 'Конец',
+            'type' => 'date',
+        ]);
 
         // ------ CRUD ACCESS
         // $this->crud->allowAccess(['list', 'create', 'update', 'reorder', 'delete']);
         // $this->crud->denyAccess(['list', 'create', 'update', 'reorder', 'delete']);
 
         // ------ CRUD REORDER
-        // $this->crud->enableReorder('label_name', MAX_TREE_LEVEL);
-        // NOTE: you also need to do allow access to the right users: $this->crud->allowAccess('reorder');
+        $this->crud->enableReorder('label_name', MAX_TREE_LEVEL);
+        $this->crud->allowAccess('reorder');
+        // NOTE: you also need to do allow access to the right users:
 
         // ------ CRUD DETAILS ROW
-        // $this->crud->enableDetailsRow();
-        // NOTE: you also need to do allow access to the right users: $this->crud->allowAccess('details_row');
+        $this->crud->enableDetailsRow();
+        $this->crud->allowAccess('details_row');
+        // NOTE: you also need to do allow access to the right users:
         // NOTE: you also need to do overwrite the showDetailsRow($id) method in your EntityCrudController to show whatever you'd like in the details row OR overwrite the views/backpack/crud/details_row.blade.php
 
         // ------ ADVANCED QUERIES

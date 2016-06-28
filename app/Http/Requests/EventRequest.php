@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
 
-class EventRequest extends Request
+class EventRequest extends \Backpack\CRUD\app\Http\Requests\CrudRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,11 +26,14 @@ class EventRequest extends Request
     {
         return [
             'title'      => 'required|min:2|max:255',
-            'slug'       => 'unique:events,slug,'.\Request::get('id'),
-            // 'content' => 'required|min:2',
-            // 'date' => 'required|date',
-            'published'  => 'required',
-            'event_type' => 'required',
+            'slug'       => 'min:2|max:255',
+            'category_id' => 'required',
+            // 'meta'     => 'json',
+            // 'images'    => 'json',
+            // 'actors'    => 'json',
+            // 'awards'    => 'json',
+            // 'videos'    => 'json',
+            // 'properties'    => 'json',
         ];
     }
 

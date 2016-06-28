@@ -1,43 +1,43 @@
-import _ from 'lodash';
+import _ from 'lodash'
 /**
  * Vendor modules
  */
-import VueMdl from 'vue-mdl';
-import Vue from 'vue';
-import VueRouter from 'vue-router';
+import VueMdl from 'vue-mdl'
+import Vue from 'vue'
+import VueRouter from 'vue-router'
 
-Vue.use(VueRouter);
-Vue.use(VueMdl);
+Vue.use(VueRouter)
+Vue.use(VueMdl)
 
 /**
  * Views files
  */
-import IndexPage from '../views/IndexPage.vue';
-import SchedulePage from '../views/SchedulePage.vue';
-import ArchivePage from '../views/ArchivePage.vue';
-import AboutPage from '../views/AboutPage.vue';
-import ContactsPage from '../views/ContactsPage.vue';
-import EventPage from '../views/EventPage.vue';
-import ProgramPage from '../views/ProgramPage.vue';
+import IndexPage from '../views/IndexPage.vue'
+import SchedulePage from '../views/SchedulePage.vue'
+import ArchivePage from '../views/ArchivePage.vue'
+import AboutPage from '../views/AboutPage.vue'
+import ContactsPage from '../views/ContactsPage.vue'
+import EventPage from '../views/EventPage.vue'
+import ProgramPage from '../views/ProgramPage.vue'
 
 /**
  * Partials files
  */
-import Swipe from '../components/Swipe.vue';
-import SwipeItem from '../components/SwipeItem.vue';
-import IndexPageEvents from '../components/IndexPageEvents.vue';
-import IndexPageSoon from '../components/IndexPageSoon.vue';
-import BlocksHeader from '../components/BlocksHeader.vue';
-import ListBox from '../components/ListBox.vue';
-import ListBoxItem from '../components/ListBoxItem.vue';
-import ListGrid from '../components/ListGrid.vue';
-import ListGridItem from '../components/ListGridItem.vue';
-import FiltersLine from '../components/FiltersLine.vue';
-import DropdownList from '../components/DropdownList.vue';
-import Toggler from '../components/Toggler.vue';
-import Datepicker from '../components/Datepicker.vue';
-import DatePickers from '../components/DatePickers.vue';
-// import GridLoader from '../components/GridLoader.vue';
+import Swipe from '../components/Swipe.vue'
+import SwipeItem from '../components/SwipeItem.vue'
+import IndexPageEvents from '../components/IndexPageEvents.vue'
+import IndexPageSoon from '../components/IndexPageSoon.vue'
+import BlocksHeader from '../components/BlocksHeader.vue'
+import ListBox from '../components/ListBox.vue'
+import ListBoxItem from '../components/ListBoxItem.vue'
+import ListGrid from '../components/ListGrid.vue'
+import ListGridItem from '../components/ListGridItem.vue'
+import FiltersLine from '../components/FiltersLine.vue'
+import DropdownList from '../components/DropdownList.vue'
+import Toggler from '../components/Toggler.vue'
+import Datepicker from '../components/Datepicker.vue'
+import DatePickers from '../components/DatePickers.vue'
+// import GridLoader from '../components/GridLoader.vue'
 
 /**
  * Возвращает минимальное значение массива

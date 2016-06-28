@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 // VALIDATION: change the requests to match your own file names if you need form validation
-use App\Http\Requests\ArticleRequest as StoreRequest;
-use App\Http\Requests\ArticleRequest as UpdateRequest;
+use App\Http\Requests\EventRequest as StoreRequest;
+use App\Http\Requests\EventRequest as UpdateRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 
 class EventCrudController extends CrudController
@@ -48,18 +48,6 @@ class EventCrudController extends CrudController
             'name' => 'event_type',
             'label' => 'Тип события',
         ]);
-        // $this->crud->addColumn([
-        //                         'name' => 'event_type',
-        //                         'label' => "Event type",
-        //                         'type' => 'select_from_array',
-        //                         'options' => [
-        //                             'movie' => 'Фильм',
-        //                             'lecture' => 'Лекция',
-        //                             'exhibition' => 'Выставка',
-        //                             'conference' => 'Конференция'
-        //                         ],
-        //                         'allows_null' => false
-        //                     ]);
 
         /*
          *  ------ CRUD FIELDS
@@ -80,19 +68,31 @@ class EventCrudController extends CrudController
             'label' => 'Заголовок',
             'type' => 'text',
             'placeholder' => 'Название события',
-            'cssclass' => '',
+            'v-model' => 'title',
         ]);
-
-        // $this->crud->addField([ // select2
-        //     'name' => 'category_id',
-        //     'label' => 'Тип события',
-        //     'type' => 'select2',
-        //     'allows_null' => false,
-        //     'entity'    => 'category',
-        //     'colspan' => '2',
-        //     'attribute' => 'name',
-        //     'model'     => "App\Models\Category",
-        // ]);
+        $this->crud->addField([
+            'name' => 'slug',
+            'label' => 'ЧПУ (URL)',
+            'type' => 'text',
+            'hint' => 'Если не заполнять, создастся автоматически',
+            'v-model.once' => 'title'
+        ]);
+        $this->crud->addField([ // select
+            'name' => 'category_id',
+            'label' => 'Тип события',
+            'type' => 'select',
+            'allows_null' => false,
+            'entity'    => 'category',
+            'colspan' => '2',
+            'attribute' => 'name',
+            'model'     => "App\Models\Category",
+        ]);
+        $this->crud->addField([ // Image
+            'name' => 'images',
+            'label' => 'Картинка',
+            'type' => 'image_upload_multiple',
+            'colspan' => '5',
+        ]);
         $this->crud->addField([ // Image
             'name' => 'videos',
             'label' => 'Видео',
@@ -224,13 +224,7 @@ class EventCrudController extends CrudController
             'value' => '<div class="col-md-12"><h3>Мета-инфо</h3></div>',
             'type' => 'custom_html',
         ]);
-        $this->crud->addField([
-            'name' => 'slug',
-            'label' => 'ЧПУ (URL)',
-            'type' => 'text',
-            'hint' => 'Если не заполнять, создастся автоматически',
-            // 'disabled' => 'disabled'
-        ]);
+
         $this->crud->addField([ // TEXT
             'name' => 'meta_title',
             'label' => 'Meta-Title',
@@ -298,52 +292,7 @@ class EventCrudController extends CrudController
         //     'type'  => 'checkbox'
         // ]);
 
-        $surpass = \Surpass::path('admin/uploads')
-            ->dir('images')
-            ->ids([
-                'input' => 'image_upload',
-                'preview' => 'preview_images',
-            ])
-            ->maxFiles(5)
-            ->alert('You can upload up to %d files.')
-            // ->formData([
-            //     'key_1' => 'value_1',
-            //     'key_2' => 'value_2',
-            //     'key_3' => 'value_3',
-            // ])
-            ->preview(['maxHeight' => 120])
-            ->css([
-                'div' => 'div_class',
-                'button' => 'button_class',
-                'preview' => 'preview_class',
-                'loading' => 'loading_class',
-            ])
-            ->progress('<img src="http://example.com/img/ajax-loader.gif"><br>Uploading..')
-            ->callback([
-                'upload' => 'alert("Uploading..");',
-                'done' => 'alert("Done.");',
-                'failed' => 'alert("Failed..");',
-                'remove' => 'alert("Removed");',
-                'load' => 'alert("Loading..");',
-                'timeout' => 'alert("Timeout..");',
-                'file_type_error' => 'alert("Only image files are allowed");',
-            ])
-            ->timeout(3000) // 3 seconds
-            ->overwrite(false)   // When using overwriting-mode
-            ->resize([
-                'maxWidth' => '100',
-                'maxHeight' => '50'
-            ], $force_crop = false)   // Client Resizing(See "About resizing")
-            ->dropZone('drop_zone_id')  // See "Drop Zone"
-            ->button('Remove');
-        // $surpass->load([1, 2, 3]);    // These are IDs of DB that you saved image(s) in the past.
 
-        $this->crud->addField([ // Image
-            'name' => 'images',
-            'label' => 'Картинка',
-            'type' => 'image_upload_multiple',
-            'surpass' => $surpass,
-        ]);
     }
 
     public function store(StoreRequest $request)

@@ -18,7 +18,7 @@ return [
      * Defaults to null, which uses the toString() method on your model.
      */
 
-    'build_from' => null,
+    'build_from' => 'title',
 
     /**
      * What field to we store the slug in?  Defaults to "slug".
@@ -38,7 +38,7 @@ return [
      * want to make sure your slugs aren't too long.
      */
 
-    'max_length' => null,
+    'max_length' => 255,
 
     /**
      * If left to "null", then use the cocur/slugify package to generate the slug

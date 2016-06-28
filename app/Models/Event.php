@@ -3,10 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Backpack\CRUD\CrudTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Backpack\CRUD\CrudTrait;
 use Cviebrock\EloquentSluggable\SluggableTrait;
 use Cviebrock\EloquentSluggable\SluggableInterface;
+use Stichoza\GoogleTranslate\TranslateClient;
 
 class Event extends Model implements SluggableInterface
 {
@@ -25,7 +26,7 @@ class Event extends Model implements SluggableInterface
     protected $fillable = [
         'published',
         'title',
-        'slug',
+        'translated_slug',
         'category_id',
         'description',
         'orig_title',
@@ -50,12 +51,14 @@ class Event extends Model implements SluggableInterface
     ];
     protected $fakeColumns = [
         'meta',
+        'images',
+        'videos',
         'actors',
         'awards',
         'properties',
     ];
     protected $sluggable = [
-        'build_from' => 'slug_or_title',
+        'build_from' => 'translated_slug',
         'save_to' => 'slug',
         'on_update' => true,
         'unique' => true,
@@ -104,17 +107,17 @@ class Event extends Model implements SluggableInterface
     |--------------------------------------------------------------------------
      */
     /**
-     * Псевдоним создается автоматически.
-     *
-     * @TODO Транслитерация псевдонимов
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function getSlugOrTitleAttribute()
+    public function getTranslatedSlugAttribute()
     {
-        if ('' != $this->slug) {
-            return $this->slug;
+        if (!$this->title || trim($this->title) === "") {
+            return "";
         }
+        $tr = new TranslateClient(null, 'en');
 
-        return $this->title;
+        return str_slug($tr->translate($this->title));
     }
 
     public function getEventTypeAttribute()
@@ -124,10 +127,16 @@ class Event extends Model implements SluggableInterface
         return $category->name;
     }
 
-    public function getImageUploadAttribute()
-    {
-        return json_encode($this->images);
-    }
+    // public function getImageFields()
+    // {
+    //     return [
+    //         'image' => 'event_images/',
+    //         'photo' => 'event_photos/',
+    //         'other' => ['other_images/', function ($directory, $originalName, $extension) {
+    //             return $originalName;
+    //         }, ],
+    //     ];
+    // }
 
     /*
     |--------------------------------------------------------------------------

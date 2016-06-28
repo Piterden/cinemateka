@@ -1,4 +1,4 @@
-<div class="form-group col-md-12 text-center">
+<div class="form-group col-md-{{ $field['colspan'] or 12 }} {{ $field['cssclass'] or '' }}">
   <input
     id="image_upload"
     name="image_upload"
@@ -9,8 +9,7 @@
     type="file" multiple
   >
 
-  <!-- Preview(s) will be displayed here -->
-  {!! $field['surpass']->html('preview') !!}
+  <input type="textarea" name="images" value="{{ $field['value'] }}">
 
 </div>
 
@@ -27,6 +26,6 @@
     <script src="bower_components/blueimp-file-upload/js/jquery.fileupload-image.js"></script>
     <script src="bower_components/blueimp-tmpl/js/tmpl.min.js"></script>
 
-    <!-- JS code (including <script></script> tag) will be displayed here. -->
-    {!! $field['surpass']->html('js') !!}
+
+
 @stop

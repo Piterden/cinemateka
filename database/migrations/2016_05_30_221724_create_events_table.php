@@ -22,7 +22,7 @@ class CreateEventsTable extends Migration
 
             $table->string('title', 255)->comment('Название события');
             $table->string('slug', 255)->comment('Псевдоним (необходим для формирования маршрута)');
-            $table->integer('category_id')->unsigned()->default(0)->comment('ID типа события');
+            $table->integer('category_id')->unsigned()->comment('ID типа события');
 
             $table->string('description')->comment('Описание');
 

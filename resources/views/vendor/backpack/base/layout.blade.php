@@ -129,6 +129,7 @@
             });
     </script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.25/vue.js"></script>
     <script type="text/javascript" src="{{ asset('js/admin.js') }}"></script>
 
     @include('backpack::inc.alerts')

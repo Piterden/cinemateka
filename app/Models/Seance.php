@@ -19,7 +19,9 @@ class Seance extends Model
     public $timestamps = true;
     protected $fillable = [
         'start_time',
-        'place',
+        'place_id',
+        'event_id',
+        'program_id',
         'price',
         'description',
         'speaker_info',
@@ -56,6 +58,11 @@ class Seance extends Model
         return $this->belongsTo('App\Models\Program');
     }
 
+    public function place()
+    {
+        return $this->belongsTo('App\Models\Place');
+    }
+
     /*
     |--------------------------------------------------------------------------
     | SCOPES
@@ -67,6 +74,26 @@ class Seance extends Model
     | ACCESORS
     |--------------------------------------------------------------------------
     */
+    public function getEventNameAttribute()
+    {
+        return App\Models\Event::where([
+            'id' => $this->event_id
+        ])->first()->title;
+    }
+
+    public function getProgramNameAttribute()
+    {
+        return App\Models\Program::where([
+            'id' => $this->program_id
+        ])->first()->title;
+    }
+
+    public function getPlaceNameAttribute()
+    {
+        return App\Models\Place::where([
+            'id' => $this->place_id
+        ])->first()->title;
+    }
 
     /*
     |--------------------------------------------------------------------------

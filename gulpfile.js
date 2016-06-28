@@ -5,7 +5,7 @@ var elixir = require('laravel-elixir'),
 require('laravel-elixir-webpack-advanced');
 require('laravel-elixir-imagemin');
 
-elixir(function(mix) {
+elixir(function (mix) {
 
   mix.styles(
     // From:
@@ -20,29 +20,23 @@ elixir(function(mix) {
     'app.scss'
   ]);
 
+
+
   mix.webpack('main', require('./webpack.config.js'), {
     $: 'jquery',
     jQuery: 'jquery',
     'window.jQuery': 'jquery'
   });
 
-  mix.scripts(['./node_modules/material-design-lite/material.min.js']);
-
-  mix.babel(
-    [ // FROM:
-      './resources/assets/js/admin.js',
-      './resources/assets/js/upload.js'
-    ],
-    // TO:
-    'public/js/admin.js'
-  );
+  mix.scripts([
+    './node_modules/material-design-lite/material.min.js'
+  ]);
 
   mix.imagemin();
-  // mix.browserSync();
+
+  mix.babel('./resources/assets/js/admin.js');
 
 });
-
-
 
 // require('laravel-elixir-fonts');
 /**

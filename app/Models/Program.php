@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Backpack\CRUD\CrudTrait;
 use Cviebrock\EloquentSluggable\SluggableInterface;
 use Cviebrock\EloquentSluggable\SluggableTrait;
+use Stichoza\GoogleTranslate\TranslateClient;
 
 class Program extends Model implements SluggableInterface
 {
@@ -25,7 +26,7 @@ class Program extends Model implements SluggableInterface
     // protected $hidden = [];
     protected $fillable = [
         'title',
-        'slug',
+        'translated_slug',
         'description',
         'slogan',
         'meta',
@@ -40,7 +41,7 @@ class Program extends Model implements SluggableInterface
         'properties',
     ];
     protected $sluggable = [
-        'build_from' => 'slug_or_title',
+        'build_from' => 'translated_slug',
         'save_to' => 'slug',
         'on_update' => true,
         'unique' => true,
@@ -81,14 +82,14 @@ class Program extends Model implements SluggableInterface
     | ACCESORS
     |--------------------------------------------------------------------------
     */
-    // The slug is created automatically from the "title" field if no slug exists.
-    public function getSlugOrTitleAttribute()
+    public function getTranslatedSlugAttribute()
     {
-        if ($this->slug != '') {
-            return $this->slug;
+        if (!$this->title || trim($this->title) === "") {
+            return "";
         }
+        $tr = new TranslateClient(null, 'en');
 
-        return $this->title;
+        return str_slug($tr->translate($this->title));
     }
 
     // public function getStartDateAttribute()

@@ -19,3 +19,15 @@
         <p class="help-block" style="font-size:.9em;">{{ $field['hint'] }}</p>
     @endif
   </div>
+
+@if($field['name'] == 'title')
+  <script type="text/javascript">
+    Vue.extend({
+      data() {
+        return {
+          title: {{ $field['value'] }}
+        }
+      }
+    });
+  </script>
+@endif
