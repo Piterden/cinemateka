@@ -2,21 +2,21 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Backpack\CRUD\CrudTrait;
+use Illuminate\Database\Eloquent\Model;
 
 class Seance extends Model
 {
     use CrudTrait;
 
-     /*
+    /*
     |--------------------------------------------------------------------------
     | GLOBAL VARIABLES
     |--------------------------------------------------------------------------
-    */
+     */
 
-    protected $table = 'seances';
-    public $timestamps = true;
+    protected $table    = 'seances';
+    public $timestamps  = true;
     protected $fillable = [
         'start_time',
         'place_id',
@@ -32,22 +32,27 @@ class Seance extends Model
     protected $fakeColumns = [
         'images',
         'videos',
-        'properties'
+        'properties',
     ];
     protected $dates = ['start_time'];
     // protected $hidden = [];
+    // protected $appends = [
+    //     'event_name',
+    //     'program_name',
+    //     'place_name',
+    // ];
 
     /*
     |--------------------------------------------------------------------------
     | FUNCTIONS
     |--------------------------------------------------------------------------
-    */
+     */
 
     /*
     |--------------------------------------------------------------------------
     | RELATIONS
     |--------------------------------------------------------------------------
-    */
+     */
     public function event()
     {
         return $this->belongsTo('App\Models\Event');
@@ -67,37 +72,37 @@ class Seance extends Model
     |--------------------------------------------------------------------------
     | SCOPES
     |--------------------------------------------------------------------------
-    */
+     */
 
     /*
     |--------------------------------------------------------------------------
     | ACCESORS
     |--------------------------------------------------------------------------
-    */
+     */
     public function getEventNameAttribute()
     {
         return App\Models\Event::where([
-            'id' => $this->event_id
+            'id' => $this->event_id,
         ])->first()->title;
     }
 
     public function getProgramNameAttribute()
     {
         return App\Models\Program::where([
-            'id' => $this->program_id
+            'id' => $this->program_id,
         ])->first()->title;
     }
 
     public function getPlaceNameAttribute()
     {
         return App\Models\Place::where([
-            'id' => $this->place_id
+            'id' => $this->place_id,
         ])->first()->title;
     }
 
     /*
-    |--------------------------------------------------------------------------
-    | MUTATORS
-    |--------------------------------------------------------------------------
-    */
+|--------------------------------------------------------------------------
+| MUTATORS
+|--------------------------------------------------------------------------
+ */
 }

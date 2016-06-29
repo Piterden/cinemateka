@@ -18,20 +18,12 @@
         <div class="box-title"></div>
       </div>
       <div class="box-body">
-        <div id="fullCalendar"></div>
+        <full-calendar
+          :events="$root.seances"
+        ></full-calendar>
       </div>
     </div>
   </div>
 </div>
 @endsection
 
-@section('after_scripts')
-<script type="text/javascript" src="{{ asset('vendor/adminlte') }}/plugins/fullcalendar/fullcalendar.min.js"></script>
-<script type="text/javascript">
-  $(document).ready(function() {
-    $('#fullCalendar').fullCalendar({
-      weekends: false
-    });
-  });
-</script>
-@endsection

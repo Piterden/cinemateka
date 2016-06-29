@@ -26,56 +26,48 @@ Route::get('program/{slug}', 'PageController@entityPage');
 /**
  * Admin interface
  */
-
-Route::group([
-    'prefix'     => 'admin',
-    'middleware' => ['web', 'auth'],
-    'namespace'  => 'Admin',
-], function ()
+Route::group(['middleware' => 'web', 'prefix' => 'admin'], function ()
 {
     // Admin authentication routes
     Route::auth();
-
     // Other Backpack\Base routes
     Route::get('/', 'AdminController@redirectToDashboard');
     Route::get('dashboard', 'AdminController@dashboard');
 
-    // Backpack\CinemaCRUD
-    CRUD::resource('event', 'EventCrudController');
-    CRUD::resource('program', 'ProgramCrudController');
-    CRUD::resource('place', 'PlaceCrudController');
-
-    CRUD::resource('slide', 'SlideCrudController');
-
-    // Backpack\MenuCRUD
-    CRUD::resource('menu-item', 'MenuItemCrudController');
-
-    // Backpack\NewsCRUD
-    // CRUD::resource('article', 'ArticleCrudController');
-    CRUD::resource('category', 'CategoryCrudController');
-    // CRUD::resource('tag', 'TagCrudController');
-
-    /**
-     * Загрузка картинок
-     */
-    Route::post('upload', function ()
+    Route::group(['namespace' => 'Admin'], function ()
     {
-        $newName = 'uploads/images/full_'.str_slug(str_random(26)).'.jpg';
-        $file    = Input::file('image');
-        try {
-            $img = Image::make($file)->save($newName);
-        }
-        catch (Exception $e)
+        // Backpack\CinemaCRUD
+        CRUD::resource('event', 'EventCrudController');
+        CRUD::resource('program', 'ProgramCrudController');
+        CRUD::resource('place', 'PlaceCrudController');
+
+        CRUD::resource('slide', 'SlideCrudController');
+
+        // Backpack\MenuCRUD
+        CRUD::resource('menu-item', 'MenuItemCrudController');
+
+        // Backpack\NewsCRUD
+        // CRUD::resource('article', 'ArticleCrudController');
+        CRUD::resource('category', 'CategoryCrudController');
+        // CRUD::resource('tag', 'TagCrudController');
+
+        /**
+         * Загрузка картинок
+         */
+        Route::post('upload', function ()
         {
-            return response()->json(['error' => $e], 500);
-        }
+            $newName = 'uploads/images/full_'.str_slug(str_random(26)).'.jpg';
+            $file    = Input::file('image');
+            try {
+                $img = Image::make($file)->save($newName);
+            }
+            catch (Exception $e)
+            {
+                return response()->json(['error' => $e], 500);
+            }
 
-        return response()->json(['url' => asset($newName)], 200);
+            return response()->json(['url' => asset($newName)], 200);
+        });
+
     });
-
 });
-
-
-
-// Route::group(['middleware' => 'web', 'prefix' => 'admin'], function () {
-// });

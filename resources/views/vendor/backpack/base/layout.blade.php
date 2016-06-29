@@ -31,12 +31,19 @@
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/') }}/plugins/daterangepicker/daterangepicker-bs3.css">
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/') }}/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/') }}/plugins/pace/pace.min.css">
+    <link rel="stylesheet" href="{{ asset('vendor/adminlte/') }}/plugins/fullcalendar/fullcalendar.min.css">
     <link rel="stylesheet" href="{{ asset('vendor/backpack/pnotify/pnotify.custom.min.css') }}">
 
     <!-- BackPack Base CSS -->
     <link rel="stylesheet" href="{{ asset('vendor/backpack/backpack.base.css') }}">
 
     @yield('after_styles')
+
+    <script type="text/javascript">
+      seances = {!! $seances->toJson() !!};
+      programs = {!! $programs->toJson() !!};
+      events = {!! $events->toJson() !!};
+    </script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -94,9 +101,9 @@
 
       <footer class="main-footer">
         @if (config('backpack.base.show_powered_by'))
-            <div class="pull-right hidden-xs">
-              Powered by <a target="_blank" href="http://laravelbackpack.com">Laravel BackPack</a>
-            </div>
+          <div class="pull-right hidden-xs">
+            Powered by <a target="_blank" href="http://laravelbackpack.com">Laravel BackPack</a>
+          </div>
         @endif
         Handcrafted by <a target="_blank" href="{{ config('backpack.base.developer_link') }}">{{ config('backpack.base.developer_name') }}</a>.
       </footer>
@@ -129,14 +136,16 @@
             });
     </script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.25/vue.js"></script>
-    <script type="text/javascript" src="{{ asset('js/admin.js') }}"></script>
-
     @include('backpack::inc.alerts')
 
     @yield('after_scripts')
 
     <!-- JavaScripts -->
     {{-- <script src="{{ elixir('js/admin.js') }}"></script> --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/locale/ru.js"></script>
+    <script src="{{ asset('vendor/adminlte') }}/plugins/fullcalendar/fullcalendar.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.25/vue.js"></script>
+    <script type="text/ecmascript" src="{{ asset('js/admin.js') }}"></script>
 </body>
 </html>
