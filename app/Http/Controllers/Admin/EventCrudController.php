@@ -45,8 +45,14 @@ class EventCrudController extends CrudController
             'type' => 'date',
         ]);
         $this->crud->addColumn([
-            'name' => 'event_type',
+            'name' => 'category_id',
             'label' => 'Тип события',
+            'type' => 'select',
+            'allows_null' => false,
+            'entity'    => 'category',
+            'colspan' => '2',
+            'attribute' => 'name',
+            'model'     => "App\Models\Category",
         ]);
 
         /*

@@ -9,30 +9,30 @@ class PageController extends Controller
 {
     // public $pageSize = 20;
 
-    public function __construct(Request $request)
-    {
-        $events = \App\Models\Event::with([
-            'seances' => function ($query)
-            {
-                $query->orderBy('start_time');
-            },
-        ])->get();
+    // public function __construct(Request $request)
+    // {
+    //     $events = \App\Models\Event::with([
+    //         'seances' => function ($query)
+    //         {
+    //             $query->orderBy('start_time');
+    //         },
+    //     ])->get();
 
-        $programs = \App\Models\Program::with([
-            'seances' => function ($query)
-            {
-                $query->orderBy('start_time');
-            },
-        ])->get();
+    //     $programs = \App\Models\Program::with([
+    //         'seances' => function ($query)
+    //         {
+    //             $query->orderBy('start_time');
+    //         },
+    //     ])->get();
 
-        JavaScript::put([
-            'events'     => $events,
-            'programs'   => $programs,
-            'places'     => \App\Models\Place::all(),
-            'categories' => \App\Models\Category::all(),
-            'uri'        => $request->path(),
-        ]);
-    }
+    //     JavaScript::put([
+    //         'events'     => $events,
+    //         'programs'   => $programs,
+    //         'places'     => \App\Models\Place::all(),
+    //         'categories' => \App\Models\Category::all(),
+    //         'uri'        => $request->path(),
+    //     ]);
+    // }
 
     public function staticPage()
     {

@@ -19,13 +19,15 @@
 	@endif
 
 	<!-- Default box -->
-	  <div class="box">
-	    <div class="box-header with-border">
-	      <h3 class="box-title">{{ trans('backpack::crud.preview') }} <span class="text-lowercase">{{ $crud->entity_name }}</h3>
-	    </div>
-	    <div class="box-body">
-	      {{ dump($entry) }}
-	    </div><!-- /.box-body -->
-	  </div><!-- /.box -->
+  <div class="box">
+    <div class="box-header with-border">
+      <h3 class="box-title">{{ trans('backpack::crud.preview') }}
+        <span class="text-lowercase"> {{ $crud->entity_name }}
+      </h3>
+    </div>
+    <div class="box-body">
+      {{ dump($entry) }}
+    </div><!-- /.box-body -->
+  </div><!-- /.box -->
 
 @endsection

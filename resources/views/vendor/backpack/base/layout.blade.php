@@ -12,6 +12,13 @@
       {{ isset($title) ? $title.' :: '.config('backpack.base.project_name').' Admin' : config('backpack.base.project_name').' Admin' }}
     </title>
 
+    {{-- Data from Backend --}}
+    <script type="text/javascript">
+      window.seances = {!! $seances->toJson() !!};
+      window.programs = {!! $programs->toJson() !!};
+      window.events = {!! $events->toJson() !!};
+    </script>
+
     @yield('before_styles')
 
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -38,12 +45,6 @@
     <link rel="stylesheet" href="{{ asset('vendor/backpack/backpack.base.css') }}">
 
     @yield('after_styles')
-
-    <script type="text/javascript">
-      seances = {!! $seances->toJson() !!};
-      programs = {!! $programs->toJson() !!};
-      events = {!! $events->toJson() !!};
-    </script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

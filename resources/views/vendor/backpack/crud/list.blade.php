@@ -20,7 +20,7 @@
 @endsection
 
 @section('content')
-<!-- Default box -->
+  <!-- Default box -->
   <div class="box">
     <div class="box-header with-border">
       @if ($crud->hasAccess('create'))
@@ -32,105 +32,103 @@
           @endif
       @endif
     </div>
-    <div class="box-body">
+  <div class="box-body">
 
 		<table id="crudTable" class="table table-bordered table-striped display">
-                    <thead>
-                      <tr>
-                        @if ($crud->details_row)
-                          <th></th> <!-- expand/minimize button column -->
-                        @endif
+      <thead>
+        <tr>
+          @if ($crud->details_row)
+            <th></th> <!-- expand/minimize button column -->
+          @endif
 
-                        {{-- Table columns --}}
-                        @foreach ($crud->columns as $column)
-                          <th>{{ $column['label'] }}</th>
-                        @endforeach
+          {{-- Table columns --}}
+          @foreach ($crud->columns as $column)
+            <th>{{ $column['label'] }}</th>
+          @endforeach
 
-                        @if ( !( isset($crud->edit_permission) && $crud->edit_permission === false && isset($crud->delete_permission) && $crud->delete_permission === false ) )
-                          <th>{{ trans('backpack::crud.actions') }}</th>
-                        @endif
-                      </tr>
-                    </thead>
-                    <tbody>
+          @if ( !( isset($crud->edit_permission) && $crud->edit_permission === false && isset($crud->delete_permission) && $crud->delete_permission === false ) )
+            <th>{{ trans('backpack::crud.actions') }}</th>
+          @endif
+        </tr>
+      </thead>
+      <tbody>
 
-                      @foreach ($entries as $k => $entry)
-                      <tr data-entry-id="{{ $entry->id }}">
+        @foreach ($entries as $k => $entry)
+        <tr data-entry-id="{{ $entry->id }}">
 
-                        @if ($crud->details_row)
-                          <!-- expand/minimize button column -->
-                          <td class="details-control text-center cursor-pointer">
-                            <i class="fa fa-plus-square-o"></i>
-                          </td>
-                        @endif
+          @if ($crud->details_row)
+            <!-- expand/minimize button column -->
+            <td class="details-control text-center cursor-pointer">
+              <i class="fa fa-plus-square-o"></i>
+            </td>
+          @endif
 
-                        @foreach ($crud->columns as $column)
-                          @if (isset($column['type']) && $column['type']=='select_multiple')
-                            {{-- relationships with pivot table (n-n) --}}
-                            <td><?php
-                            $results = $entry->{$column['entity']}()->getResults();
-                            if ($results && $results->count()) {
-                                $results_array = $results->lists($column['attribute'], 'id');
-                                echo implode(', ', $results_array->toArray());
-                                }
-                                else
-                                {
-                                echo '-';
-                                }
-                                ?></td>
-                          @elseif (isset($column['type']) && $column['type']=='select')
-                            {{-- single relationships (1-1, 1-n) --}}
-                            <td><?php
-                            if ($entry->{$column['entity']}()->getResults()) {
-                                echo $entry->{$column['entity']}()->getResults()->{$column['attribute']};
-                                }
-                                ?></td>
-                          @elseif (isset($column['type']) && $column['type']=='model_function')
-                            {{-- custom return value --}}
-                            <td><?php
-                                echo $entry->{$column['function_name']}();
-                                ?></td>
-                          @else
-                            {{-- regular object attribute --}}
-                            <td>{{ str_limit(strip_tags($entry->{$column['name']}), 80, "[...]") }}</td>
-                          @endif
+          @foreach ($crud->columns as $column)
+            @if (isset($column['type']) && $column['type']=='select_multiple')
+              {{-- relationships with pivot table (n-n) --}}
+              <td><?php
+                $results = $entry->{$column['entity']}()->getResults();
+                if ($results && $results->count()) {
+                  $results_array = $results->lists($column['attribute'], 'id');
+                  echo implode(', ', $results_array->toArray());
+                } else {
+                  echo '-';
+                }
+              ?></td>
+            @elseif (isset($column['type']) && $column['type']=='select')
+              {{-- single relationships (1-1, 1-n) --}}
+              <td><?php
+                if ($entry->{$column['entity']}()->getResults()) {
+                  echo $entry->{$column['entity']}()->getResults()->{$column['attribute']};
+                }
+              ?></td>
+            @elseif (isset($column['type']) && $column['type']=='model_function')
+              {{-- custom return value --}}
+              <td><?php
+                echo $entry->{$column['function_name']}();
+              ?></td>
+            @else
+              {{-- regular object attribute --}}
+              <td>{{ str_limit(strip_tags($entry->{$column['name']}), 80, "[...]") }}</td>
+            @endif
 
-                        @endforeach
+          @endforeach
 
-                        @if ( !( isset($crud->edit_permission) && $crud->edit_permission === false && isset($crud->delete_permission) && $crud->delete_permission === false ) )
-                        <td>
-                          {{-- <a href="{{ Request::url().'/'.$entry->id }}" class="btn btn-xs btn-default"><i class="fa fa-eye"></i> {{ trans('backpack::crud.preview') }}</a> --}}
-                          @if ($crud->hasAccess('update'))
-                            <a href="{{ Request::url().'/'.$entry->id }}/edit" class="btn btn-xs btn-default"><i class="fa fa-edit"></i> {{ trans('backpack::crud.edit') }}</a>
-                          @endif
-                           @if ($crud->hasAccess('delete'))
-                          <a href="{{ Request::url().'/'.$entry->id }}" class="btn btn-xs btn-default" data-button-type="delete"><i class="fa fa-trash"></i> {{ trans('backpack::crud.delete') }}</a>
-                          @endif
-                        </td>
-                        @endif
-                      </tr>
-                      @endforeach
+          @if ( !( isset($crud->edit_permission) && $crud->edit_permission === false && isset($crud->delete_permission) && $crud->delete_permission === false ) )
+            <td>
+              <a href="{{ Request::segment(2).'/'.$entry->id }}" class="btn btn-xs btn-default"><i class="fa fa-eye" target="_blank"></i> {{ trans('backpack::crud.preview') }}</a>
+              @if ($crud->hasAccess('update'))
+                <a href="{{ Request::url().'/'.$entry->id }}/edit" class="btn btn-xs btn-default"><i class="fa fa-edit"></i> {{ trans('backpack::crud.edit') }}</a>
+              @endif
+              @if ($crud->hasAccess('delete'))
+                <a href="{{ Request::url().'/'.$entry->id }}" class="btn btn-xs btn-default" data-button-type="delete"><i class="fa fa-trash"></i> {{ trans('backpack::crud.delete') }}</a>
+              @endif
+            </td>
+          @endif
+        </tr>
+        @endforeach
 
-                    </tbody>
-                    <tfoot>
-                      <tr>
-                        @if ($crud->details_row)
-                          <th></th> <!-- expand/minimize button column -->
-                        @endif
+      </tbody>
+      <tfoot>
+        <tr>
+          @if ($crud->details_row)
+            <th></th> <!-- expand/minimize button column -->
+          @endif
 
-                        {{-- Table columns --}}
-                        @foreach ($crud->columns as $column)
-                          <th>{{ $column['label'] }}</th>
-                        @endforeach
+          {{-- Table columns --}}
+          @foreach ($crud->columns as $column)
+            <th>{{ $column['label'] }}</th>
+          @endforeach
 
-                        @if ( !( isset($crud->edit_permission) && $crud->edit_permission === false && isset($crud->delete_permission) && $crud->delete_permission === false ) )
-                          <th>{{ trans('backpack::crud.actions') }}</th>
-                        @endif
-                      </tr>
-                    </tfoot>
-                  </table>
+          @if ( !( isset($crud->edit_permission) && $crud->edit_permission === false && isset($crud->delete_permission) && $crud->delete_permission === false ) )
+            <th>{{ trans('backpack::crud.actions') }}</th>
+          @endif
+        </tr>
+      </tfoot>
+    </table>
 
-    </div><!-- /.box-body -->
-  </div><!-- /.box -->
+    </div>
+  </div>
 @endsection
 
 @section('after_scripts')

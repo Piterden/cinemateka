@@ -32,6 +32,10 @@ class AppServiceProvider extends ServiceProvider
                 $query->orderBy('start_time');
             },
         ])->get());
+
+        view()->share('places', \App\Models\Place::all());
+
+        view()->share('categories', \App\Models\Category::all());
     }
 
     /**
