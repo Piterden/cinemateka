@@ -36,29 +36,28 @@ var FullCalendar = Vue.extend({
   ready() {
     $('#fullCalendar').fullCalendar({
       eventSources: [{
-          events: this.seances,
-          color: 'green',
-          textColor: 'white',
-          editable: true,
-          startEditable: true
-        }, {
-          events: this.programs,
-          color: 'black',
-          textColor: 'yellow',
-          rendering: 'background',
-          editable: true,
-          startEditable: true,
-          durationEditable: true
-        }, {
-          events: this.events,
-          color: 'black',
-          textColor: 'yellow',
-          rendering: 'background',
-          editable: true,
-          startEditable: true,
-          durationEditable: true
-        }
-      ]
+        events: this.seances,
+        color: 'green',
+        textColor: 'white',
+        editable: true,
+        startEditable: true
+      }, {
+        events: this.programs,
+        color: 'black',
+        textColor: 'yellow',
+        rendering: 'background',
+        editable: true,
+        startEditable: true,
+        durationEditable: true
+      }, {
+        events: this.events,
+        color: 'black',
+        textColor: 'yellow',
+        rendering: 'background',
+        editable: true,
+        startEditable: true,
+        durationEditable: true
+      }]
     })
   }
 
@@ -87,6 +86,9 @@ var $vm = new Vue({
       return rus.toLowerCase().split('').map(function(lt) {
         return translit[lt] || lt
       }).join('')
+    },
+    doTranslitByLetters(val, event) {
+      console.log(val);
     }
   },
 

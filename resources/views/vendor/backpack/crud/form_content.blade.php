@@ -2,23 +2,23 @@
   {{-- Show the erros, if any --}}
   @if ($errors->any())
   	<div class="callout callout-danger">
-        <h4>{{ trans('validation.please_fix') }}</h4>
-        <ul>
-		@foreach($errors->all() as $error)
-			<li>{{ $error }}</li>
-		@endforeach
-		</ul>
-	</div>
+      <h4>{{ trans('validation.please_fix') }}</h4>
+      <ul>
+    		@foreach($errors->all() as $error)
+    			<li>{{ $error }}</li>
+    		@endforeach
+  		</ul>
+  	</div>
   @endif
 
   {{-- Show the inputs --}}
   @foreach ($fields as $field)
     <!-- load the view from the application if it exists, otherwise load the one in the package -->
-	@if(view()->exists('vendor.dick.crud.fields.'.$field['type']))
-		@include('vendor.dick.crud.fields.'.$field['type'], array('field' => $field))
-	@else
-		@include('crud::fields.'.$field['type'], array('field' => $field))
-	@endif
+  	@if(view()->exists('vendor.dick.crud.fields.'.$field['type']))
+  		@include('vendor.dick.crud.fields.'.$field['type'], array('field' => $field))
+  	@else
+  		@include('crud::fields.'.$field['type'], array('field' => $field))
+  	@endif
   @endforeach
 </form>
 

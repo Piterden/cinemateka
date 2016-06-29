@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
+use Backpack\CRUD\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Backpack\CRUD\CrudTrait;
+use Stichoza\GoogleTranslate\TranslateClient;
 use Cviebrock\EloquentSluggable\SluggableTrait;
 use Cviebrock\EloquentSluggable\SluggableInterface;
-use Stichoza\GoogleTranslate\TranslateClient;
 
 class Event extends Model implements SluggableInterface
 {
@@ -15,10 +15,10 @@ class Event extends Model implements SluggableInterface
     use SluggableTrait;
     use SoftDeletes;
 
-    /*
-    |--------------------------------------------------------------------------
-    | GLOBAL VARIABLES
-    |--------------------------------------------------------------------------
+    /**
+     * --------------------------------------------------------------------------
+     * GLOBAL VARIABLES
+     * --------------------------------------------------------------------------
      */
     protected $table = 'events';
     // protected $guarded = ['id'];
@@ -50,6 +50,7 @@ class Event extends Model implements SluggableInterface
         'properties',
     ];
     protected $fakeColumns = [
+        'images',
         'meta',
         'videos',
         'actors',
@@ -58,26 +59,23 @@ class Event extends Model implements SluggableInterface
     ];
     protected $sluggable = [
         'build_from' => 'translated_slug',
-        'save_to' => 'slug',
-        'on_update' => true,
-        'unique' => true,
+        'save_to'    => 'slug',
+        'on_update'  => true,
+        'unique'     => true,
     ];
-    protected $dates = ['deleted_at', 'created_at', 'edited_at'];
+    protected $dates   = ['deleted_at', 'created_at', 'edited_at'];
     public $timestamps = true;
 
-    /*
-    |--------------------------------------------------------------------------
-    | FUNCTIONS
-    |--------------------------------------------------------------------------
+    /**
+     * --------------------------------------------------------------------------
+     * FUNCTIONS
+     * --------------------------------------------------------------------------
      */
 
-    /*
-    |--------------------------------------------------------------------------
-    | RELATIONS
-    |--------------------------------------------------------------------------
-     */
     /**
-     * Может иметь много сеансов.
+     * --------------------------------------------------------------------------
+     * RELATIONS
+     * --------------------------------------------------------------------------
      */
     public function seances()
     {
@@ -94,25 +92,26 @@ class Event extends Model implements SluggableInterface
     //     return $this->belongsToMany('App\Models\Tag', 'article_tag');
     // }
 
-    /*
-    |--------------------------------------------------------------------------
-    | SCOPES
-    |--------------------------------------------------------------------------
+    /**
+     * --------------------------------------------------------------------------
+     * SCOPES
+     * |--------------------------------------------------------------------------
      */
 
-    /*
-    |--------------------------------------------------------------------------
-    | ACCESORS
-    |--------------------------------------------------------------------------
+    /**
+     * --------------------------------------------------------------------------
+     * ACCESORS
+     * --------------------------------------------------------------------------
      */
     /**
-     * @param Request $request
+     * @param  Request                         $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function getTranslatedSlugAttribute()
     {
-        if (!$this->title || trim($this->title) === "") {
-            return "";
+        if (!$this->title || trim($this->title) === '')
+        {
+            return '';
         }
         $tr = new TranslateClient(null, 'en');
 
@@ -135,13 +134,13 @@ class Event extends Model implements SluggableInterface
     //     ];
     // }
 
-    /*
-    |--------------------------------------------------------------------------
-    | MUTATORS
-    |--------------------------------------------------------------------------
+    /**
+     * --------------------------------------------------------------------------
+     *  MUTATORS
+     * --------------------------------------------------------------------------
      */
 
-    /*
+    /**
      * Image attribute mutator.
      *
      * @param [type] $value [description]

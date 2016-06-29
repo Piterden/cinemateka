@@ -12,12 +12,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        view()->share('seances', \App\Models\Seance::with([
-            'event' => function ($query)
-            {
-                $query->select('id', 'title');
-            },
-        ])->get());
+        /**
+         * Share collections to all views
+         */
+
+        // view()->share('seances', \App\Models\Seance::all());
 
         view()->share('programs', \App\Models\Program::with([
             'seances' => function ($query)

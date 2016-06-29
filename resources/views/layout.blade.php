@@ -10,8 +10,17 @@
   {{-- Encrypted CSRF token for Laravel, in order for Ajax requests to work --}}
   <!-- <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css" /> -->
   <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="css/common.css" rel="stylesheet" type="text/css" />
-  <link href="css/app.css" rel="stylesheet" type="text/css" />
+  <link href="/css/common.css" rel="stylesheet" type="text/css" />
+  <link href="/css/app.css" rel="stylesheet" type="text/css" />
+
+  {{-- Data from Backend --}}
+  <script type="text/javascript">
+    // window.seances = {!! $seances->toJson() !!};
+    window.programs = {!! $programs->toJson() !!};
+    window.events = {!! $events->toJson() !!};
+    window.places = {!! $places->toJson() !!};
+    window.categories = {!! $categories->toJson() !!};
+  </script>
 
   <!-- Builded begining script -->
   <script src="/js/vendor.js"></script>

@@ -128,6 +128,13 @@ nav {
 .index-page-swipe {
   height: 507px;
 }
+.swipe-items-wrap {
+  div {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+  } 
+}
 .swipe-indicators {
   bottom: 31px;
   .swipe-indicator {
@@ -430,7 +437,7 @@ footer {
   .partners-link {
     position: absolute;
     top: 15px;
-    left: 25px;
+    left: -8px;
     color: #fff;
     text-decoration: underline;
     font-size: 15px;
@@ -443,24 +450,51 @@ footer {
     li {
       display: inline-block;
       margin: 0 8px;
+      img:hover {
+        opacity: 0;
+        transition: opacity .3s linear;
+      }
+      &:nth-child(1) {
+        background: url(/images/icn-footer-social-facebook-hover.png) 0 0 no-repeat;
+      }
+      &:nth-child(2) {
+        background: url(/images/icn-footer-social-vkontakte-hover.png) 0 0 no-repeat;
+      }
+      &:nth-child(3) {
+        background: url(/images/icn-footer-social-instagram-hover.png) 0 0 no-repeat;
+      }
     }
   }
   .copyrights {
     float: right;
-    padding-right: 20px;
-    font-size: 12px;
+    padding-right: 54px;
+    padding-top: 6px;
+    font-size: 13px;
     line-height: 1.3;
+    color: #888;
     .seance i {
-      font-size: 12px;
+      font-size: 15px;
+      vertical-align: bottom;
+      padding-bottom: 1px;
     }
-    .shishki {}
+    .shishki {
+      a {
+        color: #888;
+        text-decoration: underline;
+        &:hover {
+          color: rgb(254, 0, 29);
+        }
+      }
+    }
     .yellowmarker {}
   }
   .age-restr {
     float: right;
     padding-right: 25px;
     img {
-      margin-top: 6px;
+      margin-top: 8px;
+      position: absolute;
+      right: -8px;
     }
   }
 }

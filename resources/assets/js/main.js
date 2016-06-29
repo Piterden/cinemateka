@@ -1,7 +1,7 @@
-import _ from 'lodash'
 /**
- * Vendor modules
+ * Подключаемые библиотеки
  */
+import _ from 'lodash'
 import VueMdl from 'vue-mdl'
 import Vue from 'vue'
 import VueRouter from 'vue-router'
@@ -10,7 +10,7 @@ Vue.use(VueRouter)
 Vue.use(VueMdl)
 
 /**
- * Views files
+ * Vue-компоненты страницы
  */
 import IndexPage from '../views/IndexPage.vue'
 import SchedulePage from '../views/SchedulePage.vue'
@@ -19,9 +19,10 @@ import AboutPage from '../views/AboutPage.vue'
 import ContactsPage from '../views/ContactsPage.vue'
 import EventPage from '../views/EventPage.vue'
 import ProgramPage from '../views/ProgramPage.vue'
+import Error404 from '../views/Error-404.vue'
 
 /**
- * Partials files
+ * Vue-компоненты блоки
  */
 import Swipe from '../components/Swipe.vue'
 import SwipeItem from '../components/SwipeItem.vue'
@@ -40,6 +41,7 @@ import DatePickers from '../components/DatePickers.vue'
 // import GridLoader from '../components/GridLoader.vue'
 
 /**
+ * !!!!!!!! Used EcmaScript5 inside !!!!!!!!!
  * Возвращает минимальное значение массива
  * @method min        Применяется к любому массиву JS
  * @return {Mixed}
@@ -49,6 +51,7 @@ Array.prototype.min = function () {
 };
 
 /**
+ * !!!!!!!! Used EcmaScript5 inside !!!!!!!!!
  * Удаляет повторения из массива
  * @method getUnique  Применяется к любому массиву JS
  * @return {Array}
@@ -66,6 +69,15 @@ Array.prototype.getUnique = function () {
   return a;
 };
 
+/**
+ * !!!!!!!! Used EcmaScript5 inside !!!!!!!!!
+ * Делает из массива вида:
+ * [ [a, b, c], [d, e, f], [g, h, j] ]
+ * Вот такой:
+ * [ a, b, c, d, e, f, g, h, j ]
+ * @method getUnique  Применяется к любому массиву JS
+ * @return {Array}
+ */
 Array.prototype.collapse = function () {
   var a = [];
   for (var i = 0, l = this.length; i < l; ++i) {
@@ -83,7 +95,7 @@ Array.prototype.collapse = function () {
 };
 
 /**
- * Компоненты (html-элементы)
+ * Регистрация компонентов - html-элементов
  */
 Vue.component('swipe', Swipe)
 Vue.component('swipe-item', SwipeItem)
@@ -102,38 +114,55 @@ Vue.component('date-pickers', DatePickers)
 // Vue.component('grid-loader', BlocksHeader)
 
 /**
- * Главный ($root) vue-компонент
- * this.$root || this.$router.app - доступ к
- * App instance из любого места в файлах-компонентах *.vue
+ * Главный ($root) vue-компонент.
+ * Доступ к App instance из любого места в файлах-компонентах *.vue
+ * осуществляется через объекты "this.$root" или "this.$router.app"
  */
-var App = Vue.extend({
+let App = Vue.extend({
   /**
-   * Здесь задаются данные, которые будут доступны
-   * во всем приложении через App($root)-объект
-   * глобальные коллекции удаляем по @ready.
+   * Здесь задаются данные, которые будут доступны, глобальные для всего
+   * приложения через root-объект. Сюда подгружаются данные из PHP.
    */
   data() {
     return {
       /**
        * Все события
-       * Принимаются из Laravel JS Fasade
        * @type {Array} of EventObjects
        */
       events: events,
       /**
        * Все программы
-       * Принимаются из Laravel JS Fasade
        * @type {Array} of ProgramObjects
        */
       programs: programs,
       /**
        * Все места
-       * Принимаются из Laravel JS Fasade
        * @type {Array} of SeanceObjects
        */
       places: places,
-      categories: categories
+      /**
+       * Все типы событий и категории
+       * @type {Array} of SeanceObjects
+       */
+      categories: categories,
+      /**
+       * Все сеансы
+       * @type {Array} of SeanceObjects
+       */
+      // seances: seances
     }
+  },
+
+  ready() {
+    /**
+     * По готовности удаляем коллекции данных из глобальной области видимости.
+     * Они закешированы в переменных компонента.
+     */
+    delete window['events']
+    // delete window['seances']
+    delete window['programs']
+    delete window['places']
+    delete window['categories']
   },
 
   computed: {
@@ -141,16 +170,16 @@ var App = Vue.extend({
      * Все сеансы событий
      * @return {Array}    Seances
      */
-    seances() {
-      return this.events.map((e) => {
-        let ss = e.seances
-        delete e.seances
-        return ss.map((s) => {
-          s.event = e
-          return s
-        })
-      })
-    }
+    // seances() {
+    //   return this.events.map((e) => {
+    //     let ss = e.seances
+    //     delete e.seances
+    //     return ss.map((s) => {
+    //       s.event = e
+    //       return s
+    //     })
+    //   })
+    // }
   },
 
   /**
@@ -246,18 +275,18 @@ var App = Vue.extend({
     /**
      * Получает список мест проведения для события
      * или для всех событий
-     * @param  {Object} e     EventObject
-     * @return {Array}        Places
+     * @param  {Object} eventObject   EventObject
+     * @return {Array}                Places
      */
-    getEventPlaces(e) {
-      if (e === undefined) {
+    getEventPlaces(eventObject) {
+      if (eventObject === undefined) {
         return this.events.map((ev) => {
           ev.seances.map((s) => {
             return s.place
           }).getUnique()
         }).collapse().getUnique()
       }
-      return e.seances.map((s) => {
+      return eventObject.seances.map((s) => {
         return s.place
       }).getUnique()
     },
@@ -306,6 +335,7 @@ var App = Vue.extend({
      * @return {ProgramObject}      Объект программы
      */
     getRecentProgram(e) {
+      // @TODO
       return this.getPrograms(e)[0]
     },
 
@@ -374,15 +404,6 @@ var App = Vue.extend({
     }
   },
 
-  ready() {
-    /**
-     * Удаляем глобальные коллекции
-     */
-    delete window['events']
-    delete window['programs']
-    delete window['places']
-    delete window['categories']
-  }
 
 });
 
@@ -434,6 +455,12 @@ Vue.config.debug = true
  * ================================================================
  */
 router.map({
+
+  '*': {
+    component(resolve) {
+      resolve(Vue.component('error-404', Error404))
+    }
+  },
 
   // Главная
   '/': {

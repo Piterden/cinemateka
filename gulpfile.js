@@ -1,9 +1,9 @@
 var elixir = require('laravel-elixir'),
   assetsPath = elixir.config.assetsPath,
-  publicPath = elixir.config.publicPath;
+  publicPath = elixir.config.publicPath
 
-require('laravel-elixir-webpack-advanced');
-require('laravel-elixir-imagemin');
+require('laravel-elixir-webpack-advanced')
+require('laravel-elixir-imagemin')
 
 elixir(function (mix) {
 
@@ -14,31 +14,29 @@ elixir(function (mix) {
       './node_modules/vue-swipe/dist/vue-swipe.css'
     ],
     // To:
-    'public/css/common.css');
+    'public/css/common.css')
 
   mix.sass([
     'app.scss'
-  ]);
-
-
+  ])
 
   mix.webpack('main', require('./webpack.config.js'), {
     $: 'jquery',
     jQuery: 'jquery',
     'window.jQuery': 'jquery'
-  });
+  })
 
   mix.scripts([
     './node_modules/material-design-lite/material.min.js'
-  ]);
+  ])
 
-  mix.imagemin();
+  mix.imagemin()
 
-  mix.babel('./resources/assets/js/admin.js');
+  mix.babel('./resources/assets/js/admin.js')
 
-});
+})
 
-// require('laravel-elixir-fonts');
+// require('laravel-elixir-fonts')
 /**
  * Icon font from SVG generator
  */
@@ -61,7 +59,7 @@ elixir(function (mix) {
 //         }
 
 //       }
-//     ); // End mix.fonts
+//     ) // End mix.fonts
 
 //   }
 // }

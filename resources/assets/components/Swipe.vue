@@ -93,7 +93,11 @@
       <slot></slot>
     </div>
     <div class="swipe-indicators" v-show="showIndicators">
-      <div class="swipe-indicator" v-for="page in pages" :class="{ active: $index === index }"></div>
+      <div
+        class="swipe-indicator"
+        v-for="page in pages"
+        :class="{ active: $index === index }"
+      ></div>
     </div>
     <div class="swipe-nav" v-show="showNav">
       <div class="swipe-prev" @click="prev()"></div>
@@ -348,7 +352,7 @@
         this.doAnimate('prev');
       },
 
-      doOnTouchStart: function(event) {
+      doOnTouchStart(event) {
         if (this.noDrag) return;
 
         var element = this.$el;
@@ -389,7 +393,7 @@
         }
       },
 
-      doOnTouchMove: function(event) {
+      doOnTouchMove(event) {
         if (this.noDrag) return;
 
         var dragState = this.dragState;
@@ -424,7 +428,7 @@
         }
       },
 
-      doOnTouchEnd: function() {
+      doOnTouchEnd() {
         if (this.noDrag) return;
 
         var dragState = this.dragState;

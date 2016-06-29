@@ -14,9 +14,11 @@
 
     {{-- Data from Backend --}}
     <script type="text/javascript">
-      window.seances = {!! $seances->toJson() !!};
+      // window.seances = {!! $seances->toJson() !!};
       window.programs = {!! $programs->toJson() !!};
       window.events = {!! $events->toJson() !!};
+      window.places = {!! $places->toJson() !!};
+      window.categories = {!! $categories->toJson() !!};
     </script>
 
     @yield('before_styles')
