@@ -5,9 +5,11 @@
 <template lang="html">
   <div class="mdl-cell mdl-cell--{{ getCols(method) }}-col"
     v-bind:style="styleObject"
-    @click.stop.prevent="$router.go( 'event/' + item.slug )">
-    <div class="event-item-card" style="background: url('');">
-      <div class="category" v-text="item.event_type"></div>
+    @click.stop.prevent="$router.go( 'event/' + item.slug )"
+  >
+    <div class="event-item-card"
+      :style="{'background-image': 'url(' + item.images.mainimage || '' + ')'}">
+      <div class="category">{{ item.event_type }}</div>
       <div class="bottom-block">
         <div class="dates" v-text="spendingRange()"></div>
         <h3 class="title" v-text="item.title"></h3>
@@ -36,6 +38,17 @@ export default {
   },
 
   computed: {
+    /**
+     * Изображения
+     */
+    itemImages() {
+      return JSON.parse(this.item.images)
+    },
+
+    mainimage() {
+      return this.itemImages.mainimage
+    },
+
     /**
      * Получает одинаковые по размерам элементы списка
      * @return {Number} Grid Width

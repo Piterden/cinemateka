@@ -14,6 +14,10 @@
 		readonly
 	>
 
+  @if (isset($field['value']))
+    <img src="/{{ $field['value'] }}" style="width:100%">
+  @endif
+
 	<div class="btn-group" role="group" aria-label="..." style="margin-top: 3px;">
 	  <button type="button" data-inputid="{{ $field['name'] }}-filemanager" class="btn btn-default popup_selector">
   		<i class="fa fa-cloud-upload"></i> Browse uploads

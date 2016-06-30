@@ -6,6 +6,7 @@ var path = require('path'),
 module.exports = {
   entry: {
     vendor: ['jquery'],
+    admin: ['./admin']
   },
 
   // Output controls the settings for file generation.
@@ -43,7 +44,7 @@ module.exports = {
       loader: 'vue' // loader to use for matched files
     }, {
       test: /\.js$/,
-      exclude: /node_modules/,
+      exclude: /node_modules|admin/,
       loader: 'babel'
     }]
   },

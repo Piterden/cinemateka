@@ -1,6 +1,6 @@
 var elixir = require('laravel-elixir'),
   assetsPath = elixir.config.assetsPath,
-  publicPath = elixir.config.publicPath
+  publicPath = elixir.config.publicPath;
 
 require('laravel-elixir-webpack-advanced')
 require('laravel-elixir-imagemin')
@@ -20,19 +20,27 @@ elixir(function (mix) {
     'app.scss'
   ])
 
+  mix.babel('./node_modules/material-design-lite/material.min.js')
+
   mix.webpack('main', require('./webpack.config.js'), {
     $: 'jquery',
     jQuery: 'jquery',
     'window.jQuery': 'jquery'
   })
 
-  mix.scripts([
-    './node_modules/material-design-lite/material.min.js'
-  ])
+  // mix.webpack('admin', require('./webpack.admin.js'), {
+  //   $: 'jquery',
+  //   jQuery: 'jquery',
+  //   'window.jQuery': 'jquery'
+  // })
 
   mix.imagemin()
 
-  mix.babel('./resources/assets/js/admin.js')
+  // mix.scripts([
+  //   './node_modules/material-design-lite/material.min.js'
+  // ])
+
+  // mix.babel('./resources/assets/js/admin.js')
 
 })
 

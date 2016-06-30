@@ -46,7 +46,7 @@ import DatePickers from '../components/DatePickers.vue'
  * @method min        Применяется к любому массиву JS
  * @return {Mixed}
  */
-Array.prototype.min = function () {
+Array.prototype.min = function() {
   return Math.min.apply(null, this);
 };
 
@@ -56,11 +56,11 @@ Array.prototype.min = function () {
  * @method getUnique  Применяется к любому массиву JS
  * @return {Array}
  */
-Array.prototype.getUnique = function () {
+Array.prototype.getUnique = function() {
   var u = {},
     a = [];
-  for (var i = 0, l = this.length; i < l; ++i) {
-    if (u.hasOwnProperty(this[i])) {
+  for(var i = 0, l = this.length; i < l; ++i) {
+    if(u.hasOwnProperty(this[i])) {
       continue;
     }
     a.push(this[i]);
@@ -78,10 +78,10 @@ Array.prototype.getUnique = function () {
  * @method getUnique  Применяется к любому массиву JS
  * @return {Array}
  */
-Array.prototype.collapse = function () {
+Array.prototype.collapse = function() {
   var a = [];
-  for (var i = 0, l = this.length; i < l; ++i) {
-    if (
+  for(var i = 0, l = this.length; i < l; ++i) {
+    if(
       this[i] !== undefined &&
       this[i].hasOwnProperty('length') &&
       this[i].length > 0
@@ -111,7 +111,7 @@ Vue.component('dropdown-list', DropdownList)
 Vue.component('toggler', Toggler)
 Vue.component('datepicker', Datepicker)
 Vue.component('date-pickers', DatePickers)
-// Vue.component('grid-loader', BlocksHeader)
+  // Vue.component('grid-loader', BlocksHeader)
 
 /**
  * Главный ($root) vue-компонент.
@@ -149,8 +149,20 @@ let App = Vue.extend({
        * Все сеансы
        * @type {Array} of SeanceObjects
        */
-      // seances: seances
+      seances: seances
     }
+  },
+
+  created() {
+    this.events.map((elem) => {
+      elem.seances = this.seances.reduce((prev, curr, idx, arr) => {
+        if(elem.id == curr.event_id) {
+          prev.push(curr)
+        }
+        return prev
+      }, [])
+      return elem
+    })
   },
 
   ready() {
@@ -159,7 +171,7 @@ let App = Vue.extend({
      * Они закешированы в переменных компонента.
      */
     delete window['events']
-    // delete window['seances']
+    delete window['seances']
     delete window['programs']
     delete window['places']
     delete window['categories']
@@ -167,19 +179,10 @@ let App = Vue.extend({
 
   computed: {
     /**
-     * Все сеансы событий
-     * @return {Array}    Seances
+     *
+     * @return {Array}
      */
-    // seances() {
-    //   return this.events.map((e) => {
-    //     let ss = e.seances
-    //     delete e.seances
-    //     return ss.map((s) => {
-    //       s.event = e
-    //       return s
-    //     })
-    //   })
-    // }
+
   },
 
   /**
@@ -190,6 +193,36 @@ let App = Vue.extend({
    * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
    */
   methods: {
+    /**
+     *
+     * @return {Array}
+     */
+    seancesByEventId(id) {
+      return this.seances.filter((s) => {
+        return s.event_id == id
+      })
+    },
+
+    /**
+     *
+     * @return {Array}
+     */
+    seancesByProgramId(id) {
+      return this.seances.filter((s) => {
+        return s.program_id == id
+      })
+    },
+
+    /**
+     *
+     * @return {Array}
+     */
+    categoryNameById(id) {
+      return this.categories.filter((c) => {
+        return c.id == id
+      }).name
+    },
+
     /**
      * Генерирует не повторяющийся список годов
      * соответствующих датам всех сеансов
@@ -211,7 +244,8 @@ let App = Vue.extend({
     getMonthNames() {
       return ["Январь", "Февраль", "Март", "Апрель",
         "Май", "Июнь", "Июль", "Август", "Сентябрь",
-        "Октябрь", "Ноябрь", "Декабрь"]
+        "Октябрь", "Ноябрь", "Декабрь"
+      ]
     },
 
     /**
@@ -219,7 +253,7 @@ let App = Vue.extend({
      * @return {Array}
      */
     getWeekDaysNames() {
-      return ["Пн","Вт","Ср","Чт","Пт","Сб","Вс"]
+      return ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"]
     },
 
     /**
@@ -263,13 +297,13 @@ let App = Vue.extend({
     getPrograms(e) {
       // Возвращаем измененный массив сеансов
       return e.seances.map((seance) => {
-        // Ищем программу для каждого сеанса по ID
-        let progInArray = this.programs.filter((prog) => {
-          return prog.id == seance.program_id
-        })
-        // Возвращаем ID программы вместо объекта сеанса
-        return progInArray[0].id
-      }).getUnique() // Исключаем повторения
+          // Ищем программу для каждого сеанса по ID
+          let progInArray = this.programs.filter((prog) => {
+              return prog.id == seance.program_id
+            })
+            // Возвращаем ID программы вместо объекта сеанса
+          return progInArray[0].id
+        }).getUnique() // Исключаем повторения
     },
 
     /**
@@ -279,7 +313,7 @@ let App = Vue.extend({
      * @return {Array}                Places
      */
     getEventPlaces(eventObject) {
-      if (eventObject === undefined) {
+      if(eventObject === undefined) {
         return this.events.map((ev) => {
           ev.seances.map((s) => {
             return s.place
@@ -297,18 +331,18 @@ let App = Vue.extend({
      * @param  {Object} e     EventObject
      * @return {Array}        Places
      */
-    getProgramPlaces(p) {
-      if (p === undefined) {
-        return this.programs.map((pr) => {
-          return pr.seances.map((s) => {
-            return s.place
-          }).getUnique()
-        }).collapse().getUnique()
-      }
-      return p.seances.map((s) => {
-        return s.place
-      }).getUnique()
-    },
+    // getProgramPlaces(p) {
+    //   if (p === undefined) {
+    //     return this.programs.map((pr) => {
+    //       return pr.seances.map((s) => {
+    //         return s.place
+    //       }).getUnique()
+    //     }).collapse().getUnique()
+    //   }
+    //   return p.seances.map((s) => {
+    //     return s.place
+    //   }).getUnique()
+    // },
 
     /**
      * Список из 12 месяцев начиная с
@@ -318,7 +352,7 @@ let App = Vue.extend({
       let mn = this.getMonthNames(),
         d = new Date(),
         nn = mn.splice(d.getMonth()).concat(mn)
-      return nn.map((m,i) => {
+      return nn.map((m, i) => {
         let num = this.$children[0].getSoonTabMonth(i)
         return {
           name: 'month' + i,
@@ -371,7 +405,7 @@ let App = Vue.extend({
       return d
     },
 
-    parse (str) {
+    parse(str) {
       let time = new Date(str)
 
       return isNaN(time.getTime()) ? null : time
@@ -414,15 +448,16 @@ let App = Vue.extend({
  * @param {Object}    Новые свойства (чем заполнять)
  * @returns {Object}  Результат
  */
-App.prototype.extend = function (defaults, options) {
-  var extended = {}, prop;
-  for (prop in defaults) {
-    if (Object.prototype.hasOwnProperty.call(defaults, prop)) {
+App.prototype.extend = function(defaults, options) {
+  var extended = {},
+    prop;
+  for(prop in defaults) {
+    if(Object.prototype.hasOwnProperty.call(defaults, prop)) {
       extended[prop] = defaults[prop];
     }
   }
-  for (prop in options) {
-    if (Object.prototype.hasOwnProperty.call(options, prop)) {
+  for(prop in options) {
+    if(Object.prototype.hasOwnProperty.call(options, prop)) {
       extended[prop] = options[prop];
     }
   }
@@ -531,3 +566,4 @@ router.map({
  * Запускаем роутер и приложение
  */
 router.start(App, 'body#App')
+

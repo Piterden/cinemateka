@@ -14,11 +14,12 @@
 
     {{-- Data from Backend --}}
     <script type="text/javascript">
-      // window.seances = {!! $seances->toJson() !!};
-      window.programs = {!! $programs->toJson() !!};
-      window.events = {!! $events->toJson() !!};
-      window.places = {!! $places->toJson() !!};
-      window.categories = {!! $categories->toJson() !!};
+      {{-- Коллекции --}}
+      window['seances'] = {!! $seances !!};
+      window['programs'] = {!! $programs !!};
+      window['events'] = {!! $events !!};
+      window['places'] = {!! $places !!};
+      window['categories'] = {!! $categories !!};
     </script>
 
     @yield('before_styles')
@@ -55,13 +56,15 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<body class="hold-transition {{ config('backpack.base.skin') }} sidebar-mini">
+<body class="hold-transition {{ config('backpack.base.skin') }} sidebar-mini"
+  @keydown.prevent.s="doSaveEntry($event)"
+>
     <!-- Site wrapper -->
     <div class="wrapper">
 
       <header class="main-header">
         <!-- Logo -->
-        <a href="{{ url('') }}" class="logo">
+        <a href="{{ url('') }}" class="logo" target="_blank">
           <!-- mini logo for sidebar mini 50x50 pixels -->
           <span class="logo-mini">{!! config('backpack.base.logo_mini') !!}</span>
           <!-- logo for regular state and mobile devices -->
@@ -133,10 +136,10 @@
 
         // Ajax calls should always have the CSRF token attached to them, otherwise they won't work
         $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+        });
     </script>
 
     @include('backpack::inc.alerts')
@@ -145,10 +148,12 @@
 
     <!-- JavaScripts -->
     {{-- <script src="{{ elixir('js/admin.js') }}"></script> --}}
+    <script src="/js/vendor.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/locale/ru.js"></script>
     <script src="{{ asset('vendor/adminlte') }}/plugins/fullcalendar/fullcalendar.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.25/vue.js"></script>
-    <script type="text/ecmascript" src="{{ asset('js/admin.js') }}"></script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/0.9.1/vue-resource.js"></script> --}}
+    <script src="{{ asset('js/admin.js') }}"></script>
 </body>
 </html>

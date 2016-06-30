@@ -18,9 +18,7 @@
         <div class="box-title"></div>
       </div>
       <div class="box-body">
-        <full-calendar
-          :events="$root.seances"
-        ></full-calendar>
+        <full-calendar></full-calendar>
       </div>
     </div>
   </div>

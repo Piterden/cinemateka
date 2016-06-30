@@ -63,12 +63,6 @@ class EventCrudController extends CrudController
         //     'value' => '<div class="col-md-12"><h3>Дополнительная информация</h3></div>',
         //     'type'  => 'custom_html',
         // ]);
-        $this->crud->addField([ // CHECKBOX
-            'name'    => 'published',
-            'label'   => 'Опубликованно',
-            'type'    => 'checkbox',
-            'colspan' => '2',
-        ]);
         $this->crud->addField([ // TEXT
             'name'        => 'title',
             'label'       => 'Заголовок',
@@ -85,7 +79,28 @@ class EventCrudController extends CrudController
             'colspan'  => '5',
             'cssclass' => 'input-slug',
             'v-model'  => 'slug',
-            '@keyup'   => '$root.doTranslitByLetters(this.$el, $event)',
+            '@keyup'   => '$root.doTranslit($event)',
+        ]);
+        $this->crud->addField([ // CHECKBOX
+            'name'    => 'published',
+            'label'   => 'Опубликованно',
+            'type'    => 'checkbox',
+            'colspan' => '2',
+        ]);
+        $this->crud->addField([ // Image
+            'name'     => 'mainimage',
+            'label'    => 'Главная картинка',
+            'type'     => 'browse',
+            'colspan'  => '5',
+            'fake'     => true,
+            'store_in' => 'images',
+            'cssclass' => 'main-image'
+        ]);
+        $this->crud->addField([ // Image
+            'name'    => 'videos',
+            'label'   => 'Главное видео',
+            'type'    => 'text',
+            'colspan' => '5',
         ]);
         $this->crud->addField([ // select
             'name'        => 'category_id',
@@ -97,26 +112,12 @@ class EventCrudController extends CrudController
             'attribute'   => 'name',
             'model'       => "App\Models\Category",
         ]);
-        $this->crud->addField([ // Image
-            'name'    => 'videos',
-            'label'   => 'Главное видео',
-            'type'    => 'text',
-            'colspan' => '5',
-        ]);
-        $this->crud->addField([ // Image
-            'name'     => 'mainimage',
-            'label'    => 'Гланая картинка',
-            'type'     => 'browse',
-            'colspan'  => '5',
-            'fake'     => true,
-            'store_in' => 'images',
-            // 'cssclass' => 'multi-upload'
-        ]);
         $this->crud->addField([ // WYSIWYG
             'name'        => 'description',
             'label'       => 'Описание',
             'type'        => 'summernote',
             'placeholder' => 'Введите описание события',
+            'colspan'     => '9',
         ]);
         $this->crud->addField([ // Select2Multiple = n-n relationship (with pivot table)
             'label'        => 'Сеансы',
@@ -127,6 +128,7 @@ class EventCrudController extends CrudController
             'model'        => 'App\Models\Seance', // foreign key model
             'allows_null'  => true,
             'query_method' => 'all',
+            'colspan'      => '3',
             // 'pivot' => true, // on create&update, do you need to add/delete pivot table entries?
         ]);
         $this->crud->addField([

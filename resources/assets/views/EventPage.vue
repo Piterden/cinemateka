@@ -139,7 +139,7 @@
                   <div class="actors-title">
                     <strong>В главных ролях:</strong>
                   </div>
-                  <ul class="actors-list">
+                  <ul class="actors-list list-group">
                     <li v-for="actor in item.actors">
                       {{ actor }}
                     </li>

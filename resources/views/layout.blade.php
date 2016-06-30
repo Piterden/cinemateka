@@ -15,11 +15,11 @@
 
   {{-- Data from Backend --}}
   <script type="text/javascript">
-    // window.seances = {!! $seances->toJson() !!};
-    window.programs = {!! $programs->toJson() !!};
-    window.events = {!! $events->toJson() !!};
-    window.places = {!! $places->toJson() !!};
-    window.categories = {!! $categories->toJson() !!};
+    window['seances'] = {!! $seances !!};
+    window['programs'] = {!! $programs !!};
+    window['events'] = {!! $events !!};
+    window['places'] = {!! $places !!};
+    window['categories'] = {!! $categories !!};
   </script>
 
   <!-- Builded begining script -->

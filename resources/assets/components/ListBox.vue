@@ -26,16 +26,14 @@
 <script>
 export default {
   props: {
-    /**
-    * Объект стилей для квадратов
-    */
+    // События
+    events: Array,
+    // Программы
+    programs: Array,
+    // Объект стилей для квадратов
     styleObject: Object,
-
-    /**
-     * Принудительная ширина элемента списка
-     */
+    // Принудительная ширина элемента списка
     itemWidth: Number,
-
     /**
     * Значения фильтров
     */
@@ -45,7 +43,6 @@ export default {
         return {};
       }
     },
-
     /**
      * Количество отображаемых событий
      */
@@ -55,7 +52,6 @@ export default {
         return 9;
       }
     },
-
     /**
      * Количество добавляемых событий
      */
@@ -65,27 +61,6 @@ export default {
         return 9;
       }
     },
-
-    /**
-     * Все события
-     */
-    events: {
-      type: Array,
-      // default() {
-      //   return this.$root.events || [];
-      // }
-    },
-
-    /**
-     * Все программы
-     */
-    programs: {
-      type: Array,
-      // default() {
-      //   return this.$root.programs || [];
-      // }
-    },
-
     /**
      * Флаг видимости кнопки "Показать еще".
      */
@@ -95,7 +70,6 @@ export default {
         return false;
       }
     },
-
     /**
      * Название метода для вычисления ширины
      */
@@ -105,7 +79,6 @@ export default {
         return 'same';
       }
     },
-
     /**
      * Ширина квадрата в колонках сетки
      */
