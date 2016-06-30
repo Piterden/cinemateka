@@ -8,7 +8,7 @@
     @click.stop.prevent="$router.go( 'event/' + item.slug )"
   >
     <div class="event-item-card"
-      :style="{'background-image': 'url(' + item.images.mainimage || '' + ')'}">
+      :style="">
       <div class="category">{{ item.event_type }}</div>
       <div class="bottom-block">
         <div class="dates" v-text="spendingRange()"></div>
@@ -34,6 +34,12 @@ export default {
       default() {
         return { height: 'inherit' }
       }
+    },
+    itemBgStyle: {
+      type: Object,
+      default() {
+        backgroundImage: 'url('+this.mainimage+')'
+      }
     }
   },
 
@@ -46,7 +52,7 @@ export default {
     },
 
     mainimage() {
-      return this.itemImages.mainimage
+      return this.itemImages.mainimage || false
     },
 
     /**

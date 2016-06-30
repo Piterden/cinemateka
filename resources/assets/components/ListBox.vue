@@ -4,9 +4,9 @@
 <template lang="html">
   <div class="mdl-grid list-box">
     <list-box-item
-      v-for="(index, item) in events
+      v-for="item in events
       | filterMethod filterValues | limitBy limit"
-      :index.once="index"
+      :index.once="$index"
       :item.once="item"
       :limit.sync="limit"
       :cols.once="cols"
@@ -40,7 +40,7 @@ export default {
     filterValues: {
       type: Object,
       default() {
-        return {};
+        return {}
       }
     },
     /**
@@ -49,7 +49,7 @@ export default {
     limit: {
       type: Number,
       default() {
-        return 9;
+        return 9
       }
     },
     /**
@@ -58,7 +58,7 @@ export default {
     incrementLimit: {
       type: Number,
       default() {
-        return 9;
+        return 9
       }
     },
     /**
@@ -67,7 +67,7 @@ export default {
     moreVisible: {
       type: Boolean,
       default() {
-        return false;
+        return false
       }
     },
     /**
@@ -76,7 +76,7 @@ export default {
     method: {
       type: String,
       default() {
-        return 'same';
+        return 'same'
       }
     },
     /**
@@ -85,7 +85,7 @@ export default {
     cols: {
       type: Number,
       default() {
-        return 4;
+        return 4
       }
     }
   },
@@ -100,9 +100,9 @@ export default {
     getMinWidth() {
       let ww = []
       this.$children.forEach((el, i) => {
-        ww.push(el.$el.offsetWidth);
-      });
-      return ww.min();
+        ww.push(el.$el.offsetWidth)
+      })
+      return ww.min()
     },
 
     /**
@@ -111,10 +111,8 @@ export default {
      * @method handleResize
      */
     handleResize() {
-      let h = this.itemHeight || this.getMinWidth();
-      this.styleObject = {
-        height: h + 'px'
-      };
+      let h = this.itemHeight || this.getMinWidth()
+      this.styleObject = {height: h + 'px'}
     },
 
     /**
@@ -122,7 +120,7 @@ export default {
      * @method showMore
      */
     showMore() {
-      this.limit = this.incrementLimit + this.limit;
+      this.limit = this.incrementLimit + this.limit
     }
   },
 
@@ -132,9 +130,9 @@ export default {
    * @method ready
    */
   ready() {
-    this.handleResize();
-    window.removeEventListener('resize', this.handleResize);
-    window.addEventListener('resize', this.handleResize);
+    this.handleResize()
+    window.removeEventListener('resize', this.handleResize)
+    window.addEventListener('resize', this.handleResize)
   },
 
   filters: {
@@ -145,7 +143,7 @@ export default {
      * @return {Array}      Фильтрованный массив объектов событий
      */
     filterMethod(events, filters) {
-      return this.$parent.filterMethod(events, filters);
+      return this.$parent.filterMethod(events, filters)
     }
   }
 }
