@@ -36,11 +36,6 @@ class Seance extends Model
     ];
     protected $dates = ['start_time'];
     // protected $hidden = [];
-    // protected $appends = [
-    //     'event_name',
-    //     'program_name',
-    //     'place_name',
-    // ];
 
     /*
     |--------------------------------------------------------------------------

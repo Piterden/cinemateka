@@ -93,11 +93,9 @@
   font-weight: bold;
 }
 </style>
-
 <template>
   <div class="wrap router-view event-page">
-    <div class="event-image"
-      :style="{'background-image': 'url('+item.images.mainimage+')'}">
+    <div class="event-image" :style="{'background-image': 'url('+item.images.mainimage+')'}">
       <div class="event-date">31.10</div>
       <div class="event-title">{{ item.title }}</div>
       <div class="event-programm">
@@ -112,12 +110,10 @@
         <div class="event-desc">
           <div class="event-param">
             <div class="event-time">
-              <i class="material-icons">query_builder</i>
-              {{ closestSeance.start_time }}
+              <i class="material-icons">query_builder</i> {{ $root.timeStrFromDateObj(new Date(closestSeance.start_time)) }}
             </div>
             <div class="event-place" v-if="closestPlace">
-              <i class="material-icons">place</i>
-              {{ closestPlace.name }}
+              <i class="material-icons">place</i> {{ closestPlace.title }}
             </div>
             <div class="event-price">
               <i class="material-icons">account_balance_wallet</i>
@@ -216,30 +212,40 @@
 <script>
 export default {
 
-  data() {
-    return {
-      item: this.$root.events.filter((e) => {
-        return e.slug == this.$route.params.slug
-      })[0]
+  props: {
+    item: {
+      type: Object,
+      default () {
+        return this.$root.events.filter((e) => {
+          return e.slug == this.$route.params.slug
+        })[0]
+      }
+    },
+    closestSeance: {
+      type: Object,
+      default () {
+        return this.$root.getClosestSeance(this.item)
+      }
+    },
+    closestProgram: {
+      type: Object,
+      default () {
+        return this.$root.getClosestSeanceProgram(this.item)
+      }
+    },
+    closestPlace: {
+      type: Object,
+      default() {
+        return this.$root.getClosestSeancePlace(this.item)
+        //return this.$root.places.filter((p) => {
+        //  return p.id == this.closestSeance.place_id
+        //})[0]
+      }
     }
   },
 
   computed: {
-    closestSeance() {
-      return this.item.seances.filter((s) => {
-        return new Date(s.start_time) > new Date()
-      })[0]
-    },
-    closestPlace() {
-      return this.$root.places.filter((p) => {
-        return p.id == this.closestSeance.place_id
-      })[0]
-    },
-    closestProgram() {
-      return this.$root.programs.filter((p) => {
-        return p.id == this.closestSeance.program_id
-      })[0]
-    }
+
   }
 
 }

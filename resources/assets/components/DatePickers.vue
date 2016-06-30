@@ -35,10 +35,10 @@ export default {
   },
   computed: {
     start() {
-      return this.$root.stringify(this.startDate, 'DD.MM')
+      return this.$root.dateStrFromDateObj(this.startDate, 'DD.MM')
     },
     end() {
-      return this.$root.stringify(this.endDate, 'DD.MM')
+      return this.$root.dateStrFromDateObj(this.endDate, 'DD.MM')
     },
     interval() {
       return this.start + ' - ' + this.end

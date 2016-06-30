@@ -40,7 +40,8 @@
   <router-view
     transition="fade"
     transition-mode="out-in"
-    v-cloak>
+    v-cloak
+  >
       @yield('top-block')
   </router-view>
 

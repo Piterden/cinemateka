@@ -51,7 +51,7 @@ export default {
   computed: {
     dateStart() {
       let d = new Date(this.item.start_time)
-      return this.$root.stringify(d, 'DD.MM')
+      return this.$root.dateStrFromDateObj(d, 'DD.MM')
     },
     timeStart() {
       let d = new Date(this.item.start_time)

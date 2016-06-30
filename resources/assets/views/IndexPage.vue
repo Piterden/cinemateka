@@ -70,8 +70,8 @@ export default {
         if (tab.title === '') {
           let start = this.$root.getMonday(this.getTabDate(idx)),
             end = this.$root.getSunday(start);
-          tab.title = this.$root.stringify(start, 'DD.MM') +
-            '-' + this.$root.stringify(end, 'DD.MM');
+          tab.title = this.$root.dateStrFromDateObj(start, 'DD.MM') +
+            '-' + this.$root.dateStrFromDateObj(end, 'DD.MM');
         }
       });
     },

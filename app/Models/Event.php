@@ -5,14 +5,14 @@ namespace App\Models;
 use Backpack\CRUD\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Stichoza\GoogleTranslate\TranslateClient;
-use Cviebrock\EloquentSluggable\SluggableTrait;
-use Cviebrock\EloquentSluggable\SluggableInterface;
+// use Stichoza\GoogleTranslate\TranslateClient;
+// use Cviebrock\EloquentSluggable\SluggableTrait;
+// use Cviebrock\EloquentSluggable\SluggableInterface;
 
-class Event extends Model implements SluggableInterface
+class Event extends Model /*implements SluggableInterface*/
 {
     use CrudTrait;
-    use SluggableTrait;
+    // use SluggableTrait;
     use SoftDeletes;
 
     /**
@@ -57,12 +57,12 @@ class Event extends Model implements SluggableInterface
         'awards',
         'properties',
     ];
-    protected $sluggable = [
-        'build_from' => 'translated_slug',
-        'save_to'    => 'slug',
-        'on_update'  => true,
-        'unique'     => true,
-    ];
+    // protected $sluggable = [
+    //     'build_from' => 'translated_slug',
+    //     'save_to'    => 'slug',
+    //     'on_update'  => true,
+    //     'unique'     => true,
+    // ];
     protected $dates   = ['deleted_at', 'created_at', 'edited_at'];
     public $timestamps = true;
 
@@ -103,21 +103,6 @@ class Event extends Model implements SluggableInterface
      * ACCESORS
      * --------------------------------------------------------------------------
      */
-    /**
-     * @param  Request                         $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function getTranslatedSlugAttribute()
-    {
-        if (!$this->title || trim($this->title) === '')
-        {
-            return '';
-        }
-        $tr = new TranslateClient(null, 'en');
-
-        return str_slug($tr->translate($this->title));
-    }
-
     // public function getEventTypeAttribute()
     // {
     //     return $this->category()->name;

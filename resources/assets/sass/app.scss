@@ -133,7 +133,7 @@ nav {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: 50% 50%;
-  } 
+  }
 }
 .swipe-indicators {
   bottom: 31px;
@@ -259,9 +259,13 @@ nav {
       }
       .title {
         padding: 0 25px;
+        color: #FFF;
       }
       .program {
         padding: 18px 25px;
+        a {
+          color: #FFF;
+        }
       }
     }
   }

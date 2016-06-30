@@ -2,7 +2,6 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use Backpack\CRUD\CrudTrait;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -44,6 +43,6 @@ class User extends Authenticatable
         );
 
         return 'https://www.gravatar.com/avatar/'
-            . $gravemail . "?s=128&d=mm";
+            .$gravemail.'?s=128&d=mm';
     }
 }

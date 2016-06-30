@@ -14,30 +14,30 @@ class MenuItemTableSeeder extends Seeder
     public function run()
     {
         DB::table('menu_items')->insert([
-            'name'       => 'Расписание',
-            'type'         => 'internal_page',
-            'link'     => 'schedule',
+            'name'      => 'Расписание',
+            'type'      => 'internal_page',
+            'link'      => 'schedule',
             'parent_id' => 0,
         ]);
 
         DB::table('menu_items')->insert([
-            'name'       => 'Архив',
-            'type'         => 'internal_page',
-            'link'     => 'archive',
+            'name'      => 'Архив',
+            'type'      => 'internal_page',
+            'link'      => 'archive',
             'parent_id' => 0,
         ]);
 
         DB::table('menu_items')->insert([
-            'name'       => 'О проекте',
-            'type'         => 'internal_page',
-            'link'     => 'about',
+            'name'      => 'О проекте',
+            'type'      => 'internal_page',
+            'link'      => 'about',
             'parent_id' => 0,
         ]);
 
         DB::table('menu_items')->insert([
-            'name'       => 'Адреса и телефоны',
-            'type'         => 'internal_page',
-            'link'     => 'contacts',
+            'name'      => 'Адреса и телефоны',
+            'type'      => 'internal_page',
+            'link'      => 'contacts',
             'parent_id' => 0,
         ]);
     }

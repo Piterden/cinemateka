@@ -95,7 +95,7 @@ Array.prototype.collapse = function() {
 };
 
 /**
- * Регистрация компонентов - html-элементов
+ * Регистрация vue-компонентов === html-элементов
  */
 Vue.component('swipe', Swipe)
 Vue.component('swipe-item', SwipeItem)
@@ -154,14 +154,15 @@ let App = Vue.extend({
   },
 
   created() {
-    this.events.map((elem) => {
-      elem.seances = this.seances.reduce((prev, curr, idx, arr) => {
-        if(elem.id == curr.event_id) {
-          prev.push(curr)
-        }
-        return prev
-      }, [])
-      return elem
+    /**
+     * Записываем связанные объекты
+     */
+    this.events.forEach((e, i) => {
+      this.events[i].seances = this.getSeancesByEventId(e.id)
+      this.events[i].event_type = this.getCategoryNameById(e.category_id)
+    })
+    this.programs.forEach((p, i) => {
+      this.programs[i].seances = this.getSeancesByProgramId(p.id)
     })
   },
 
@@ -177,52 +178,154 @@ let App = Vue.extend({
     delete window['categories']
   },
 
-  computed: {
-    /**
-     *
-     * @return {Array}
-     */
-
-  },
-
   /**
    * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
    * ==================================================================
-   *     Глобальные Методы
+   *  ГЛОБАЛЬНЫЕ МЕТОДЫ
    * ==================================================================
    * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
    */
   methods: {
+    /**!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     * ================================================================
+     *  МЕТОДЫ СВЯЗАННЫХ ОБЪЕКТОВ
+     * ================================================================
+     *!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
     /**
-     *
+     * Возвращает ближайший сеанс
+     * @param  {EventObject}   e    Объект события
+     * @return {ProgramObject}      Объект программы
+     */
+    getClosestSeance(e) {
+      return e.seances.filter((s) => {
+        return new Date(s.start_time) > new Date()
+      })[0]
+    },
+
+    /**
+     * Возвращает программу ближайшего сеанса
+     * @param  {EventObject}   e    Объект события
+     * @return {ProgramObject}      Объект программы
+     */
+    getClosestSeanceProgram(e) {
+      return this.programs.filter((p) => {
+        return p.id == this.getClosestSeance(e).program_id
+      })[0]
+    },
+
+    getClosestSeancePlace() {
+      return this.places.filter((p) => {
+        return p.id == this.getClosestSeance(e).place_id
+      })
+    },
+
+    // let ppIds = this.getProgramsIds(e),
+    //   ss = this.seances.filter((s) => {
+    //     return ppIds.indexOf(Number(s.program_id)) >= 0 && new Date(s.start_time) > new Date()
+    //   }),
+    //   pId = ss.sort((a, b) => {
+    //     return a.start_time > b.start_time
+    //   })[0].program_id
+    // return this.getProgramById(pId)
+    /**
+     * Объект программы по id
+     * @param  {Mixed} id
+     * @return {Object} Программа
+     */
+    getProgramById(id) {
+      return this.programs.filter((p) => {
+        return p.id == id
+      })[0]
+    },
+
+    /**
+     * Объект события по id
+     * @param  {Mixed} id
+     * @return {Object} Событие
+     */
+    getEventById(id) {
+      return this.events.filter((e) => {
+        return e.id == id
+      })[0]
+    },
+
+    /**
+     * Сеансы для события в хронологическом порядке
+     * @param  {Mixed} id
      * @return {Array}
      */
-    seancesByEventId(id) {
+    getSeancesByEventId(id) {
       return this.seances.filter((s) => {
         return s.event_id == id
+      }).sort((a, b) => {
+        return a.start_time > b.start_time
       })
     },
 
     /**
-     *
+     * Сеансы для программы в хронологическом порядке
+     * @param  {Mixed} id
      * @return {Array}
      */
-    seancesByProgramId(id) {
+    getSeancesByProgramId(id) {
       return this.seances.filter((s) => {
         return s.program_id == id
+      }).sort((a, b) => {
+        return a.start_time > b.start_time
       })
     },
 
     /**
-     *
-     * @return {Array}
+     * Имя типа (категории) события
+     * @param  {Mixed} id
+     * @return {String}
      */
-    categoryNameById(id) {
+    getCategoryNameById(id) {
       return this.categories.filter((c) => {
         return c.id == id
       }).name
     },
 
+    /**
+     * Получает массив ID программ для конкретного
+     * события через связь Событие-Сеансы-Программа
+     * @param   {Object}  e   Объект события
+     * @return  {Array}       Массив ID программ
+     */
+    getProgramsIds(e) {
+      let a = []
+      e.seances.forEach((s) => {
+        return a.push(Number(s.program_id))
+      })
+      return a
+    },
+
+    /**
+     * Получает список id мест проведения для события или программы,
+     * а если не указан объект, то для всех событий и программ.
+     * @param  {Object} eventObj|programObj
+     * @return {Array}
+     */
+    getEventPlacesId(o) {
+      if(o === undefined) {
+        return this.seances.map((s) => {
+          return s.place_id
+        }).getUnique()
+      }
+      if(!o.seances ||
+        o.seances.length === undefined ||
+        o.seances.length < 1
+      ) return []
+      return o.seances.map((s) => {
+        return s.place_id
+      }).getUnique()
+    },
+
+    /**!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     * ==================================================================
+     *  ГЕНЕРАЦИЯ СПИСКОВ ДЛЯ ФИЛЬТРОВ
+     * ==================================================================
+     *!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
     /**
      * Генерирует не повторяющийся список годов
      * соответствующих датам всех сеансов
@@ -257,7 +360,7 @@ let App = Vue.extend({
     },
 
     /**
-     * Названия типов событий
+     * Названия типов событий для фильтра
      * @return {Array} Массив без повторов
      */
     getEventTypes() {
@@ -269,80 +372,12 @@ let App = Vue.extend({
     },
 
     /**
-     * Объект названий типов событий
-     * @return {Object} {key: name}
-     */
-    getCatAssoc() {
-      let assoc = {}
-      this.categories.forEach((c) => {
-        assoc[c.id] = c.name
-      })
-      return assoc
-    },
-
-    /**
      * Значения переключателя "Сейчас/Скоро"
      * @return {Array}
      */
     getNowSoones() {
       return ['сейчас', 'скоро']
     },
-
-    /**
-     * Получает массив ID программ для конкретного
-     * события через связь Событие-Сеансы-Программа
-     * @param   {Object}  e   Объект события
-     * @return  {Array}       Массив ID программ
-     */
-    getPrograms(e) {
-      // Возвращаем измененный массив сеансов
-      return e.seances.map((seance) => {
-          // Ищем программу для каждого сеанса по ID
-          let progInArray = this.programs.filter((prog) => {
-              return prog.id == seance.program_id
-            })
-            // Возвращаем ID программы вместо объекта сеанса
-          return progInArray[0].id
-        }).getUnique() // Исключаем повторения
-    },
-
-    /**
-     * Получает список мест проведения для события
-     * или для всех событий
-     * @param  {Object} eventObject   EventObject
-     * @return {Array}                Places
-     */
-    getEventPlaces(eventObject) {
-      if(eventObject === undefined) {
-        return this.events.map((ev) => {
-          ev.seances.map((s) => {
-            return s.place
-          }).getUnique()
-        }).collapse().getUnique()
-      }
-      return eventObject.seances.map((s) => {
-        return s.place
-      }).getUnique()
-    },
-
-    /**
-     * Получает список мест проведения для программы
-     * или для всех программ
-     * @param  {Object} e     EventObject
-     * @return {Array}        Places
-     */
-    // getProgramPlaces(p) {
-    //   if (p === undefined) {
-    //     return this.programs.map((pr) => {
-    //       return pr.seances.map((s) => {
-    //         return s.place
-    //       }).getUnique()
-    //     }).collapse().getUnique()
-    //   }
-    //   return p.seances.map((s) => {
-    //     return s.place
-    //   }).getUnique()
-    // },
 
     /**
      * Список из 12 месяцев начиная с
@@ -362,32 +397,19 @@ let App = Vue.extend({
       })
     },
 
-    /**
-     * Возвращает наиболее подходящую программу
-     * если их несколько у события
-     * @param  {EventObject}   e    Объект события
-     * @return {ProgramObject}      Объект программы
-     */
-    getRecentProgram(e) {
-      // @TODO
-      return this.getPrograms(e)[0]
-    },
-
-    /**
+    /**!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
      * ================================================================
-     * Форматирование данных
+     *  ФОРМАТИРОВАНИЕ И ПРЕОБРАЗОВАНИЕ ДАТ
      * ================================================================
-     */
+     *!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
     /**
      * Возвращает объект даты конца недели по
      * строке даты понедельника этой недели
      */
     getSunday(d) {
       let s = new Date(d)
-
       s.setDate(s.getDate() + 6)
       s.setHours(23, 59, 59, 999)
-
       return s
     },
 
@@ -398,26 +420,28 @@ let App = Vue.extend({
     getMonday(d) {
       let day = d.getDay(),
         diff = d.getDate() - day + (day == 0 ? -6 : 1)
-
       d.setDate(diff)
       d.setHours(0, 0, 0, 0)
-
       return d
     },
 
+    /**
+     * Парсит строку с датой, возвращает объект даты
+     * @param  {String} str
+     * @return {Date}
+     */
     parse(str) {
       let time = new Date(str)
-
       return isNaN(time.getTime()) ? null : time
     },
 
     /**
-     * Форматирует дату в строку
+     * Форматирует дату в строку даты
      * @param  {Date}   time    Объект даты
-     * @param  {Date}   format  Маска формата
+     * @param  {String}   format  Маска формата
      * @return {String}
      */
-    stringify(time = new Date(), format = 'YYYY-MM-DD') {
+    dateStrFromDateObj(time = new Date(), format = 'YYYY-MM-DD') {
       let year = time.getFullYear(),
         month = time.getMonth() + 1,
         date = time.getDate(),
@@ -431,15 +455,35 @@ let App = Vue.extend({
           DD: ('0' + date).slice(-2),
           D: date
         }
-
       return format.replace(/Y+|M+|D+/g, (str) => {
         return map[str]
       })
+    },
+
+    /**
+     * Форматирует дату в строку времени
+     * @param  {Date}   time    Объект даты
+     * @param  {String}   format  Маска формата
+     * @return {String}
+     */
+    timeStrFromDateObj(time = new Date(), format = 'hh:mm') {
+      let hour = time.getHours(),
+        minute = time.getMinutes(),
+        second = time.getSeconds(),
+        map = {
+          hh: ('0' + hour).slice(-2),
+          h: hour,
+          mm: ('0' + minute).slice(-2),
+          m: minute,
+          ss: ('0' + second).slice(-2),
+          s: second
+        }
+      return format.replace(/h+|m+|s+/g, (str) => {
+        return map[str]
+      })
     }
-  },
-
-
-});
+  }
+})
 
 /**
  * Совмещает 2 объекта в один, перезаписывая вторым первый
@@ -478,19 +522,20 @@ let router = new VueRouter({
   history: true,
   linkActiveClass: 'active',
   mode: 'html5',
-  saveScrollPosition: true,
+  saveScrollPosition: false,
   transitionOnLoad: true,
 })
 
 Vue.config.debug = true
 
-/**
+/**!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
  * ================================================================
  * Назначение маршрутов роутеру
  * ================================================================
- */
+ *!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 router.map({
 
+  // Ошибка 404
   '*': {
     component(resolve) {
       resolve(Vue.component('error-404', Error404))

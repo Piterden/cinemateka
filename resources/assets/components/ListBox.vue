@@ -98,11 +98,9 @@ export default {
      * @return {Number}
      */
     getMinWidth() {
-      let ww = []
-      this.$children.forEach((el, i) => {
-        ww.push(el.$el.offsetWidth)
-      })
-      return ww.min()
+      return this.$children.map((el) => {
+        return el.$el.offsetWidth
+      }).min()
     },
 
     /**
