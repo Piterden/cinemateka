@@ -2,8 +2,10 @@
 </style>
 <template lang="html">
   <div class="mdl-cell mdl-cell--{{ getCols(method) }}-col" v-bind:style="styleObject">
-    <div class="event-item-card" :style="itemBgStyle">
-      <div class="category">{{ item.event_type }}</div>
+    <div class="event-item-card"
+      :style="{backgroundImage: 'url(/' + this.images.mainimage + ')'}"
+    >
+      <div class="category">{{ eventTypeName }}</div>
       <div class="bottom-block">
         <div class="dates">
           {{ spendingRange() }}
@@ -26,90 +28,71 @@ export default {
 
   data() {
     return {
-      closestProgram() {
-        return this.$root.getClosestSeanceProgram(this.item)
-      },
-
-      eventTypeName() {
-        return this.$root.getCategoryNameById(this.item.category_id)
-      }
+      closestProgram: this.$root.getClosestSeanceProgram(this.item),
+      eventTypeName: this.$root.getCategoryById(this.item.category_id).name
     }
   },
 
   props: {
-      item: Object,
-      index: Number,
-      cols: Number,
-      method: String,
-      limit: Number,
-      height: Number,
-      styleObject: {
-        type: Object,
-        default () {
-          return {
-            height: 'inherit'
-          }
+    item: Object,
+    index: Number,
+    cols: Number,
+    method: String,
+    limit: Number,
+    height: Number,
+    styleObject: {
+      type: Object,
+      default () {
+        return {
+          height: 'inherit'
         }
-      },
-      itemBgStyle: {
-        type: Object,
-        default () {
-          return {
-            backgroundImage: 'url(' + this.mainimage + ')'
-          }
-        }
-      }
-    },
-
-    computed: {
-      /**
-       * Изображения
-       */
-      itemImages() {
-        return JSON.parse(this.item.images)
-      },
-
-      mainimage() {
-        return this.itemImages.mainimage || false
-      },
-
-
-
-      /**
-       * Получает одинаковые по размерам элементы списка
-       * @return {Number} Grid Width
-       */
-      same() {
-        return this.cols
-      },
-
-      /**
-       * Получает первый и последний элемент в 2 раза шире
-       * @return {Number} Grid Width
-       */
-      firstLastDoubleWidth() {
-        return !this.index || this.index == this.limit - 1 ? this.cols * 2 : this.cols
-      }
-    },
-
-    methods: {
-      /**
-       * Получает строку из 2 дат - первого и последнего сеанса события, через '-'
-       */
-      spendingRange() {
-        let seances = this.item.seances || [],
-          start = new Date(seances[0].start_time),
-          end = new Date(seances[seances.length - 1].start_time)
-
-        if ((end - start) / 1000 / 60 / 60 / 24 / 365 > 1) {
-          return this.$root.dateStrFromDateObj(start, 'DD.MM.YY') + '-' + this.$root.dateStrFromDateObj(end, 'DD.MM.YY')
-        }
-        return this.$root.dateStrFromDateObj(start, 'DD.MM') + '-' + this.$root.dateStrFromDateObj(end, 'DD.MM')
-      },
-
-      getCols(method) {
-        return this[method]
       }
     }
+  },
+
+  computed: {
+    /**
+     * Изображения
+     */
+    images() {
+      return JSON.parse(this.item.images)
+    },
+
+    /**
+     * Получает одинаковые по размерам элементы списка
+     * @return {Number} Grid Width
+     */
+    same() {
+      return this.cols
+    },
+
+    /**
+     * Получает первый и последний элемент в 2 раза шире
+     * @return {Number} Grid Width
+     */
+    firstLastDoubleWidth() {
+      return !this.index || this.index == this.limit - 1 ? this.cols * 2 : this.cols
+    }
+  },
+
+  methods: {
+    /**
+     * Получает строку из 2 дат - первого и последнего сеанса события, через '-'
+     */
+    spendingRange() {
+      let seances = this.item.seances || [],
+        start = new Date(seances[0].start_time),
+        end = new Date(seances[seances.length - 1].start_time)
+
+      if ((end - start) / 1000 / 60 / 60 / 24 / 365 > 1) {
+        return this.$root.dateStrFromDateObj(start, 'DD.MM.YY') + '-' + this.$root.dateStrFromDateObj(end, 'DD.MM.YY')
+      }
+      return this.$root.dateStrFromDateObj(start, 'DD.MM') + '-' + this.$root.dateStrFromDateObj(end, 'DD.MM')
+    },
+
+    getCols(method) {
+      return this[method]
+    }
+  }
 }
 </script>

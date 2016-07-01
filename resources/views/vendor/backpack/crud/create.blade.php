@@ -15,7 +15,7 @@
 
 @section('content')
 <div class="row">
-	<div class="col-md-8 col-md-offset-2">
+  <div class="col-md-12">
 		<!-- Default box -->
 		@if ($crud->hasAccess('list'))
 			<a href="{{ url($crud->route) }}"><i class="fa fa-angle-double-left"></i> {{ trans('backpack::crud.back_to_all') }} <span class="text-lowercase">{{ $crud->entity_name_plural }}</span></a><br><br>
@@ -69,14 +69,3 @@
 </div>
 
 @endsection
-
-@push('scripts')
-  <script type="text/javascript">
-    document.addEventListener("keydown", function(e) {
-      if (e.keyCode == 83 && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
-        e.preventDefault();
-        alert('captured');
-      }
-    }, false);
-  </script>
-@endpush

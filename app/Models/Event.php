@@ -53,7 +53,7 @@ class Event extends Model /*implements SluggableInterface*/
         'images',
         'meta',
         'videos',
-        'actors',
+        // 'actors',
         'awards',
         'properties',
     ];
@@ -63,8 +63,11 @@ class Event extends Model /*implements SluggableInterface*/
     //     'on_update'  => true,
     //     'unique'     => true,
     // ];
-    protected $dates   = ['deleted_at', 'created_at', 'edited_at'];
+    // protected $dates   = ['deleted_at', 'created_at', 'edited_at'];
     public $timestamps = true;
+    protected $casts = [
+        'year' => 'integer',
+    ];
 
     /**
      * --------------------------------------------------------------------------

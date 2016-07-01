@@ -20,7 +20,7 @@ $factory->define(App\Models\Event::class, function (Faker\Generator $faker)
         'category_id'      => $faker->randomElement(array_pluck(App\Models\Category::all(['id']), 'id')),
         'description'      => $faker->paragraph(25),
         'orig_title'       => $faker->words(rand(1, 5), true),
-        'year'             => $faker->year,
+        'year'             => $faker->numberBetween(1965, 2016),
         'country'          => $faker->country,
         'carrier'          => $faker->randomElement(['DCP', '35 mm', 'Blu-ray']),
         'language'         => $faker->randomElement(['Русский', 'Английский', 'Французский', 'Немецкий']),
@@ -40,10 +40,10 @@ $factory->define(App\Models\Event::class, function (Faker\Generator $faker)
             'image_4'   => 'uploads/img/events/img-events-narrow-rezh_v_avtorsk.jpg',
             'image_5'   => 'uploads/img/events/img-events-narrow-rezh_v_avtorsk.jpg',
         ])->toJson(),
-        'videos' => collect([
+        'videos'           => collect([
             'mainvideo' => 'https://www.youtube.com/watch?v=7wePRv1VLMo',
         ])->toJson(),
-        'actors'           => collect(randomElements([
+        'actors'           => collect($faker->randomElements([
             $faker->firstName.' '.$faker->lastName,
             $faker->firstName.' '.$faker->lastName,
             $faker->firstName.' '.$faker->lastName,
@@ -74,7 +74,7 @@ $factory->define(App\Models\Program::class, function (Faker\Generator $faker)
 $factory->define(App\Models\Seance::class, function (Faker\Generator $faker)
 {
     return [
-        'start_time'   => $faker->dateTimeInInterval('-700 days', '+1400 days'),
+        'start_time'   => $faker->dateTimeInInterval('-200 days', '+400 days'),
         'price'        => $faker->randomElement(['300', '400', '500', '600', '700']),
         'description'  => $faker->paragraph(25),
         'speaker_info' => $faker->paragraph(25),

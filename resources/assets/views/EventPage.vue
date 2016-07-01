@@ -1,6 +1,7 @@
-<style lang="css" scoped>
+<style lang="css">
 .event-image {
   /* background-position: left bottom; /* Положение фона */
+  background-position: 50% 50%;
   background-repeat: no-repeat;
   /* Повторяем фон по горизонтали */
   background-size: cover;
@@ -85,17 +86,29 @@
   margin-top: 45px;
 }
 
-.more-info-table td {
-  margin-right: 18px;
+.more-info-table {
+  margin-top: 24px;
+  margin-bottom: 40px;
 }
 
 .more-info-table tr td:first-child {
   font-weight: bold;
+  width: 170px;
+}
+.more-info-table tr td:nth-child(2) {
+  /* max-width: 340px; */
+}
+.more-info-table tr td:nth-child(3) {
+  vertical-align: top;
+}
+.actors-list li {
+  font-size: 16px;
+  margin-bottom: 3px;
 }
 </style>
 <template>
   <div class="wrap router-view event-page">
-    <div class="event-image" :style="{'background-image': 'url('+item.images.mainimage+')'}">
+    <div class="event-image" :style="{'background-image': 'url(/'+images.mainimage+')'}">
       <div class="event-date">31.10</div>
       <div class="event-title">{{ item.title }}</div>
       <div class="event-programm">
@@ -103,14 +116,16 @@
           {{ closestProgram.title }}
         </a>
       </div>
-      <div class="event-video"></div>
+      <div v-if="item.videos" class="event-video">
+        <iframe width="535" height="307" frameborder="0" :src="videos.mainvideo.replace('watch?v=','embed/')"></iframe>
+      </div>
     </div>
     <div class="mdl-grid">
       <div class="mdl-cell mdl-cell--7-col">
         <div class="event-desc">
           <div class="event-param">
             <div class="event-time">
-              <i class="material-icons">query_builder</i> {{ $root.timeStrFromDateObj(new Date(closestSeance.start_time)) }}
+              <i class="fa fa-clock-o" aria-hidden="true"></i> {{ $root.timeStrFromDateObj(new Date(closestSeance.start_time)) }}
             </div>
             <div class="event-place" v-if="closestPlace">
               <i class="material-icons">place</i> {{ closestPlace.title }}
@@ -129,57 +144,57 @@
           <table class="more-info-table">
             <tbody>
               <tr>
-                <td>Оригинальное название:</td>
+                <td>Оригин. название</td>
                 <td>{{ item.orig_title || item.title }}</td>
                 <td rowspan="15" v-if="item.actors">
                   <div class="actors-title">
-                    <strong>В главных ролях:</strong>
+                    <strong>В главных ролях</strong>
                   </div>
                   <ul class="actors-list list-group">
-                    <li v-for="actor in item.actors">
+                    <li v-for="actor in actors">
                       {{ actor }}
                     </li>
                   </ul>
                 </td>
               </tr>
               <tr v-if="item.slogan">
-                <td>Cлоган:</td>
+                <td>Cлоган</td>
                 <td>«{{ item.slogan }}»</td>
               </tr>
               <tr v-if="item.year">
-                <td>Год:</td>
+                <td>Год</td>
                 <td>{{ item.year }}</td>
               </tr>
               <tr v-if="item.country">
-                <td>Страна:</td>
+                <td>Страна</td>
                 <td>{{ item.country }}</td>
               </tr>
               <tr v-if="item.chrono">
-                <td>Хронометраж:</td>
+                <td>Хронометраж</td>
                 <td>{{ item.chrono }} мин.</td>
               </tr>
               <tr v-if="item.carrier">
-                <td>Носитель:</td>
+                <td>Носитель</td>
                 <td>{{ item.carrier }}</td>
               </tr>
               <tr v-if="item.language">
-                <td>Язык:</td>
+                <td>Язык</td>
                 <td>{{ item.language }}</td>
               </tr>
               <tr v-if="item.subtitles">
-                <td>Субтитры:</td>
+                <td>Субтитры</td>
                 <td>{{ item.subtitles }}</td>
               </tr>
               <tr v-if="item.director">
-                <td>Режиссер:</td>
+                <td>Режиссер</td>
                 <td>{{ item.director }}</td>
               </tr>
               <tr v-if="item.writtenby">
-                <td>Сценарий:</td>
+                <td>Сценарий</td>
                 <td>{{ item.writtenby }}</td>
               </tr>
               <tr v-if="item.operator">
-                <td>Оператор:</td>
+                <td>Оператор</td>
                 <td>{{ item.operator }}</td>
               </tr>
               <tr v-if="item.producer">
@@ -187,18 +202,18 @@
                 <td>{{ item.producer }}</td>
               </tr>
               <tr>
-                <td>Ограничения:</td>
+                <td>Ограничения</td>
                 <td>{{ item.age_restrictions || 0 }}+</td>
               </tr>
               <tr v-if="item.avards">
-                <td>Награды / фестивали:</td>
+                <td>Награды/фестивали</td>
                 <td>{{ item.avards }}</td>
               </tr>
               <tr v-if="item.link">
-                <td>Cайт:</td>
+                <td>Cайт</td>
                 <td>
                   <a href="{{ item.link }}" target="_blank">
-                    Веб-сайт
+                    {{ item.link }}
                   </a>
                 </td>
               </tr>
@@ -245,7 +260,15 @@ export default {
   },
 
   computed: {
-
+    images() {
+      return JSON.parse(this.item.images)
+    },
+    actors() {
+      return JSON.parse(this.item.actors)
+    },
+    videos() {
+      return JSON.parse(this.item.videos)
+    }
   }
 
 }

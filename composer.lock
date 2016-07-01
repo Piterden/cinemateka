@@ -416,16 +416,16 @@
         },
         {
             "name": "backpack/permissionmanager",
-            "version": "2.1.2",
+            "version": "2.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Laravel-Backpack/permissionmanager.git",
-                "reference": "3736afbff4d9f6bc20fd63c853e08529517dfc1c"
+                "reference": "175f714d717533aca2f692de778e96ebfe524c5d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Laravel-Backpack/permissionmanager/zipball/3736afbff4d9f6bc20fd63c853e08529517dfc1c",
-                "reference": "3736afbff4d9f6bc20fd63c853e08529517dfc1c",
+                "url": "https://api.github.com/repos/Laravel-Backpack/permissionmanager/zipball/175f714d717533aca2f692de778e96ebfe524c5d",
+                "reference": "175f714d717533aca2f692de778e96ebfe524c5d",
                 "shasum": ""
             },
             "require": {
@@ -484,7 +484,7 @@
                 "updivision",
                 "users roles admin"
             ],
-            "time": "2016-06-23 14:53:44"
+            "time": "2016-06-30 08:41:13"
         },
         {
             "name": "backpack/settings",

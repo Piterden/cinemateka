@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Backpack\CRUD\app\Http\Controllers\CrudController;
-// VALIDATION: change the requests to match your own file names if you need form validation
 use App\Http\Requests\PlaceRequest as StoreRequest;
+// VALIDATION: change the requests to match your own file names if you need form validation
 use App\Http\Requests\PlaceRequest as UpdateRequest;
+use Backpack\CRUD\app\Http\Controllers\CrudController;
 
 class PlaceCrudController extends CrudController
 {
@@ -17,7 +17,7 @@ class PlaceCrudController extends CrudController
         |--------------------------------------------------------------------------
         | BASIC CRUD INFORMATION
         |--------------------------------------------------------------------------
-        */
+         */
         $this->crud->setModel("App\Models\Place");
         $this->crud->setRoute('admin/place');
         $this->crud->setEntityNameStrings('place', 'places');
@@ -26,37 +26,74 @@ class PlaceCrudController extends CrudController
         |--------------------------------------------------------------------------
         | BASIC CRUD INFORMATION
         |--------------------------------------------------------------------------
-        */
-        // ------ CRUD FIELDS
-        $this->crud->addField([
-            'name' => 'title',
-            'type' => 'text',
-            'label' => 'Название',
-        ]);
-        $this->crud->addField([
-            'name' => 'address',
-            'type' => 'textarea',
-            'label' => 'Адрес',
-        ]);
-        $this->crud->addField([
-            'name' => 'metro',
-            'type' => 'text',
-            'label' => 'Метро',
-        ]);
-        $this->crud->addField([
-            'name' => 'description',
-            'type' => 'text',
-            'label' => 'Описание',
-        ]);
+         */
 
         // ------ CRUD COLUMNS
-        // $this->crud->addColumn(); // add a single column, at the end of the stack
         $this->crud->addColumns([
             ['name' => 'title', 'type' => 'text', 'label' => 'Название'],
             ['name' => 'address', 'type' => 'textarea', 'label' => 'Адрес'],
             ['name' => 'metro', 'type' => 'text', 'label' => 'Метро'],
             ['name' => 'description', 'type' => 'text', 'label' => 'Описание'],
-        ]); // add multiple columns, at the end of the stack
+        ]);
+
+        // ------ CRUD FIELDS
+        $this->crud->addField([
+            'name'    => 'title',
+            'type'    => 'text',
+            'label'   => 'Название',
+            'colspan' => 4,
+        ]);
+        $this->crud->addField([
+            'name'    => 'metro',
+            'type'    => 'text',
+            'label'   => 'Метро',
+            'colspan' => 4,
+        ]);
+        $this->crud->addField([
+            'name'     => 'place_type',
+            'type'     => 'text',
+            'label'    => 'Тип места',
+            'fake'     => true,
+            'store_in' => 'properties',
+            'colspan'  => 4,
+        ]);
+        $this->crud->addField([
+            'name'    => 'description',
+            'type'    => 'summernote',
+            'label'   => 'Описание',
+            'colspan' => 6,
+        ]);
+        $this->crud->addField([
+            'name'    => 'address',
+            'type'    => 'textarea',
+            'label'   => 'Адрес',
+            'colspan' => 6,
+        ]);
+        $this->crud->addField([
+            'name'     => 'site',
+            'type'     => 'url',
+            'label'    => 'Сайт',
+            'fake'     => true,
+            'store_in' => 'properties',
+            'colspan'  => 4,
+        ]);
+        $this->crud->addField([
+            'name'     => 'email',
+            'type'     => 'email',
+            'label'    => 'E-mail',
+            'fake'     => true,
+            'store_in' => 'properties',
+            'colspan'  => 4,
+        ]);
+        $this->crud->addField([
+            'name'     => 'phone',
+            'type'     => 'text',
+            'label'    => 'Телефон',
+            'fake'     => true,
+            'store_in' => 'properties',
+            'colspan'  => 4,
+        ]);
+
         // $this->crud->removeColumn('column_name'); // remove a column from the stack
         // $this->crud->removeColumns(['column_name_1', 'column_name_2']); // remove an array of columns from the stack
         // $this->crud->setColumnDetails('column_name', ['attribute' => 'value']);

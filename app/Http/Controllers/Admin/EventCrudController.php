@@ -94,13 +94,15 @@ class EventCrudController extends CrudController
             'colspan'  => '5',
             'fake'     => true,
             'store_in' => 'images',
-            'cssclass' => 'main-image'
+            'cssclass' => 'main-image',
         ]);
         $this->crud->addField([ // Image
-            'name'    => 'videos',
-            'label'   => 'Главное видео',
-            'type'    => 'text',
-            'colspan' => '5',
+            'name'     => 'mainvideo',
+            'label'    => 'Главное видео',
+            'type'     => 'video',
+            'fake'     => true,
+            'store_in' => 'videos',
+            'colspan'  => '5',
         ]);
         $this->crud->addField([ // select
             'name'        => 'category_id',
@@ -121,13 +123,13 @@ class EventCrudController extends CrudController
         ]);
         $this->crud->addField([ // Select2Multiple = n-n relationship (with pivot table)
             'label'        => 'Сеансы',
-            'type'         => 'select_seance_multiple',
+            'type'         => 'select2_multiple',
             'name'         => 'seances', // the method that defines the relationship in your Model
             'entity'       => 'seances', // the method that defines the relationship in your Model
             'attribute'    => 'start_time', // foreign key attribute that is shown to user
             'model'        => 'App\Models\Seance', // foreign key model
             'allows_null'  => true,
-            'query_method' => 'all',
+            // 'query_method' => 'all',
             'colspan'      => '3',
             // 'pivot' => true, // on create&update, do you need to add/delete pivot table entries?
         ]);
@@ -220,9 +222,13 @@ class EventCrudController extends CrudController
             'colspan' => '6',
         ]);
         $this->crud->addField([ // TEXT
-            'name'  => 'actors',
-            'label' => 'Актеры в главных ролях',
-            'type'  => 'textarea',
+            'name'      => 'actors',
+            'label'     => 'Актеры в главных ролях',
+            'type'      => 'text',
+            // 'entity'    => 'tags', // the method that defines the relationship in your Model
+            // 'attribute' => 'name', // foreign key attribute that is shown to user
+            // 'model'     => "App\Models\Tag", // foreign key model
+            // 'pivot'     => true, // on create&update, do you need to add/delete pivot table entries?
         ]);
         $this->crud->addField([ // TEXT
             'name'  => 'awards',
@@ -261,6 +267,35 @@ class EventCrudController extends CrudController
             'fake'     => true,
             'store_in' => 'meta',
         ]);
+        // $this->crud->addField([
+        //     // two interconnected entities
+        //     'label'             => 'Сеансы и программы',
+        //     'field_unique_name' => 'event_seances_programs',
+        //     'type'              => 'checklist_dependency',
+        //     'name'              => 'seances_programs', // the methods that defines the relationship in your Model
+        //     'subfields'         => [
+        //         'primary'   => [
+        //             'label'            => 'Сеансы',
+        //             'name'             => 'seances', // the method that defines the relationship in your Model
+        //             'entity'           => 'seances', // the method that defines the relationship in your Model
+        //             'entity_secondary' => 'programs', // the method that defines the relationship in your Model
+        //             'attribute'        => 'start_time', // foreign key attribute that is shown to user
+        //             'model'            => "App\Models\Seance", // foreign key model
+        //             'pivot'            => true, // on create&update, do you need to add/delete pivot table entries?]
+        //             'number_columns'   => 3, //can be 1,2,3,4,6
+        //         ],
+        //         'secondary' => [
+        //             'label'          => 'Программы',
+        //             'name'           => 'programs', // the method that defines the relationship in your Model
+        //             'entity'         => 'programs', // the method that defines the relationship in your Model
+        //             'entity_primary' => 'seances', // the method that defines the relationship in your Model
+        //             'attribute'      => 'title', // foreign key attribute that is shown to user
+        //             'model'          => "App\Models\Program", // foreign key model
+        //             'pivot'          => true, // on create&update, do you need to add/delete pivot table entries?]
+        //             'number_columns' => 3, //can be 1,2,3,4,6
+        //         ],
+        //     ],
+        // ]);
 
         // actors
         // awards

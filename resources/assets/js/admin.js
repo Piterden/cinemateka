@@ -62,18 +62,18 @@ let $vm = new Vue({
      * Ctrl+S сохранение
      * @param  {Object} e DOM Event Obj
      */
-    doSaveEntry(e) {
-      if (!e.metaKey && !e.ctrlKey) return
-      this.save(document.getElementById('entry-form'))
-    },
+    // doSaveEntry(e) {
+    //   if (!e.metaKey && !e.ctrlKey) return
+    //   this.save(document.getElementById('entry-form'))
+    // },
 
-    submitEditForm(e) {
-      this.save(e.target)
-    },
+    // submitEditForm(e) {
+    //   this.save(e.target)
+    // },
 
-    save(form) {
-      this.$http.put(form.action, form.serialize())
-    }
+    // save(form) {
+    //   this.$http.put(form.action, form.serialize())
+    // }
   }
 
 })

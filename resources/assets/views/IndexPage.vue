@@ -56,7 +56,7 @@ export default {
         calcSizesMethod: 'same',
         activeTab: 0,
       }
-    };
+    }
   },
 
   methods: {
@@ -69,11 +69,11 @@ export default {
       this.week.tabs.forEach((tab, idx) => {
         if (tab.title === '') {
           let start = this.$root.getMonday(this.getTabDate(idx)),
-            end = this.$root.getSunday(start);
+            end = this.$root.getSunday(start)
           tab.title = this.$root.dateStrFromDateObj(start, 'DD.MM') +
-            '-' + this.$root.dateStrFromDateObj(end, 'DD.MM');
+            '-' + this.$root.dateStrFromDateObj(end, 'DD.MM')
         }
-      });
+      })
     },
 
     /**
@@ -82,9 +82,9 @@ export default {
      */
     getTabDate(i) {
       let d = new Date(),
-        t = 60 * 60 * 24 * 7 * 1000 * i + d.getTime();
-      d.setTime(t);
-      return d;
+        t = 60 * 60 * 24 * 7 * 1000 * i + d.getTime()
+      d.setTime(t)
+      return d
     },
 
     /**
@@ -93,16 +93,16 @@ export default {
     clickWeekTab(name) { // 'week$'
       let i = name.slice(4),
         d = this.getTabDate(i),
-        mon = this.$root.getMonday(d);
-      this.$set('week.activeTab', Number(i));
+        mon = this.$root.getMonday(d)
+      this.$set('week.activeTab', Number(i))
     },
 
     /**
      * Срабатывает при нажатии на таб месяца
      */
     clickSoonTab(name) { // 'month$'
-      let i = name.slice(5);
-      this.$set('month.activeTab', Number(i));
+      let i = name.slice(5)
+      this.$set('month.activeTab', Number(i))
     },
 
     /**
@@ -126,22 +126,8 @@ export default {
   },
 
   ready() {
-    this.initTabs();
+    this.initTabs()
   },
 
-  watch: {
-    // activeStartDate(val, oldVal) {
-    //   this.$children.forEach((comp) => {
-    //     comp.startDate = val;
-    //   });
-    // },
-    // activeEndDate(val, oldVal) {
-    //   this.$children.forEach((comp) => {
-    //     comp.endDate = val;
-    //   });
-    // }
-  }
-};
-
-
+}
 </script>

@@ -11,10 +11,13 @@
       :limit.sync="limit"
       :cols.once="cols"
       :method="method"
-      :style-object="styleObject">
-    </list-box-item>
-    <div class="show-more-block mdl-cell mdl-cell--12-col"
-      v-show="moreVisible">
+      :style-object="styleObject"
+      transition="stagger"
+      stagger="100"
+    ></list-box-item>
+    <div v-if="moreVisible"
+      class="show-more-block mdl-cell mdl-cell--12-col"
+    >
       <a class="show-more-btn"
         @click="showMore">
         Показать еще
@@ -64,12 +67,12 @@ export default {
     /**
      * Флаг видимости кнопки "Показать еще".
      */
-    moreVisible: {
-      type: Boolean,
-      default() {
-        return false
-      }
-    },
+    // moreVisible: {
+    //   type: Boolean,
+    //   default() {
+    //     return false
+    //   }
+    // },
     /**
      * Название метода для вычисления ширины
      */
@@ -87,6 +90,12 @@ export default {
       default() {
         return 4
       }
+    }
+  },
+
+  computed: {
+    moreVisible() {
+      return this.$children.length >= this.limit
     }
   },
 
@@ -131,6 +140,10 @@ export default {
     this.handleResize()
     window.removeEventListener('resize', this.handleResize)
     window.addEventListener('resize', this.handleResize)
+  },
+
+  beforeDestroy() {
+    window.removeEventListener('resize', this.handleResize)
   },
 
   filters: {

@@ -12,36 +12,40 @@ class CreatePlacesTable extends Migration
      */
     public function up()
     {
-        Schema::create('places', function (Blueprint $table) {
+        if (!Schema::hasTable('places'))
+        {
+            Schema::create('places', function (Blueprint $table)
+            {
+                /**
+                 * Columns
+                 */
+                $table->increments('id');
+                $table->boolean('published')->default(1)->comment('Опубликовано');
 
-            /**
-             * Columns
-             */
-            $table->increments('id');
-            $table->boolean('published')->default(1)->comment('Опубликовано');
+                $table->string('title', 255)->comment('Название кинотеатра');
+                // $table->string('slug', 255)->comment('Псевдоним (необходим для формирования маршрута)');
+                $table->string('address', 255)->comment('Адрес');
+                $table->string('metro', 255)->comment('Ближайшая станция метро');
 
-            $table->string('title', 255)->comment('Название кинотеатра');
-            $table->string('slug', 255)->comment('Псевдоним (необходим для формирования маршрута)');
-            $table->string('address', 255)->comment('Адрес');
-            $table->string('metro', 255)->comment('Ближайшая станция метро');
+                $table->mediumtext('description')->comment('Описание');
+                $table->mediumtext('images')->comment('Изображение или набор изображений');
+                $table->mediumtext('properties');
 
-            $table->mediumtext('description')->comment('Описание');
-            $table->mediumtext('images')->comment('Изображение или набор изображений');
-            $table->mediumtext('properties');
+                $table->timestamps();
+                $table->softDeletes();
 
-            $table->timestamps();
-            $table->softDeletes();
+                /**
+                 * Indexes
+                 */
+                $table->index('title');
+                // $table->index('slug');
+                $table->index('published');
+                $table->index('address');
+                $table->index('metro');
 
-            /**
-             * Indexes
-             */
-            $table->index('title');
-            $table->index('slug');
-            $table->index('published');
-            $table->index('address');
-            $table->index('metro');
+            });
+        }
 
-        });
     }
 
     /**

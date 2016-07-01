@@ -32,7 +32,9 @@ import BlocksHeader from '../components/BlocksHeader.vue'
 import ListBox from '../components/ListBox.vue'
 import ListBoxItem from '../components/ListBoxItem.vue'
 import ListGrid from '../components/ListGrid.vue'
-import ListGridItem from '../components/ListGridItem.vue'
+// import ListGridItem from '../components/ListGridItem.vue'
+import ListPlaces from '../components/ListPlaces.vue'
+import ListPlacesItem from '../components/ListPlacesItem.vue'
 import FiltersLine from '../components/FiltersLine.vue'
 import DropdownList from '../components/DropdownList.vue'
 import Toggler from '../components/Toggler.vue'
@@ -105,13 +107,23 @@ Vue.component('blocks-header', BlocksHeader)
 Vue.component('list-box', ListBox)
 Vue.component('list-box-item', ListBoxItem)
 Vue.component('list-grid', ListGrid)
-Vue.component('list-grid-item', ListGridItem)
+// Vue.component('list-grid-item', ListGridItem)
+Vue.component('list-places', ListPlaces)
+Vue.component('list-places-item', ListPlacesItem)
 Vue.component('filters-line', FiltersLine)
 Vue.component('dropdown-list', DropdownList)
 Vue.component('toggler', Toggler)
 Vue.component('datepicker', Datepicker)
 Vue.component('date-pickers', DatePickers)
   // Vue.component('grid-loader', BlocksHeader)
+
+Vue.transition('stagger', {
+  stagger: function (index) {
+    // increase delay by 50ms for each transitioned item,
+    // but limit max delay to 300ms
+    return Math.min(300, index * 50)
+  }
+})
 
 /**
  * Главный ($root) vue-компонент.
@@ -123,46 +135,71 @@ let App = Vue.extend({
    * Здесь задаются данные, которые будут доступны, глобальные для всего
    * приложения через root-объект. Сюда подгружаются данные из PHP.
    */
-  data() {
-    return {
-      /**
-       * Все события
-       * @type {Array} of EventObjects
-       */
-      events: events,
-      /**
-       * Все программы
-       * @type {Array} of ProgramObjects
-       */
-      programs: programs,
-      /**
-       * Все места
-       * @type {Array} of SeanceObjects
-       */
-      places: places,
-      /**
-       * Все типы событий и категории
-       * @type {Array} of SeanceObjects
-       */
-      categories: categories,
-      /**
-       * Все сеансы
-       * @type {Array} of SeanceObjects
-       */
-      seances: seances
+  props: {
+    /**
+     * Все события
+     * @type {Array} of EventObjects
+     */
+    events: {
+      type: Array,
+      default() {
+        return events
+      }
+    },
+    /**
+     * Все программы
+     * @type {Array} of ProgramObjects
+     */
+    programs: {
+      type: Array,
+      default() {
+        return programs
+      }
+    },
+    /**
+     * Все места
+     * @type {Array} of SeanceObjects
+     */
+    places: {
+      type: Array,
+      default() {
+        return places
+      }
+    },
+    /**
+     * Все типы событий и категории
+     * @type {Array} of SeanceObjects
+     */
+    categories: {
+      type: Array,
+      default() {
+        return categories
+      }
+    },
+    /**
+     * Все сеансы
+     * @type {Array} of SeanceObjects
+     */
+    seances: {
+      type: Array,
+      default() {
+        return seances
+      }
     }
   },
 
   created() {
     /**
-     * Записываем связанные объекты
+     * Записываем связанные объекты в события и в программы
      */
-    this.events.forEach((e, i) => {
-      this.events[i].seances = this.getSeancesByEventId(e.id)
-      this.events[i].event_type = this.getCategoryNameById(e.category_id)
+    this.events = events.map((e) => {
+      e.seances = this.getSeancesByEventId(e.id)
+      e.event_type = this.getCategoryById(e.category_id).name
+      return e
     })
-    this.programs.forEach((p, i) => {
-      this.programs[i].seances = this.getSeancesByProgramId(p.id)
+    this.programs = programs.map((p) => {
+      p.seances = this.getSeancesByProgramId(p.id)
+      return p
     })
   },
 
@@ -197,9 +234,9 @@ let App = Vue.extend({
      * @return {ProgramObject}      Объект программы
      */
     getClosestSeance(e) {
-      return e.seances.filter((s) => {
+      return e.seances.find((s) => {
         return new Date(s.start_time) > new Date()
-      })[0]
+      })
     },
 
     /**
@@ -208,34 +245,26 @@ let App = Vue.extend({
      * @return {ProgramObject}      Объект программы
      */
     getClosestSeanceProgram(e) {
-      return this.programs.filter((p) => {
-        return p.id == this.getClosestSeance(e).program_id
-      })[0]
-    },
-
-    getClosestSeancePlace() {
-      return this.places.filter((p) => {
-        return p.id == this.getClosestSeance(e).place_id
+      return this.programs.find((p) => {
+        return Number(p.id) == Number(this.getClosestSeance(e).program_id)
       })
     },
 
-    // let ppIds = this.getProgramsIds(e),
-    //   ss = this.seances.filter((s) => {
-    //     return ppIds.indexOf(Number(s.program_id)) >= 0 && new Date(s.start_time) > new Date()
-    //   }),
-    //   pId = ss.sort((a, b) => {
-    //     return a.start_time > b.start_time
-    //   })[0].program_id
-    // return this.getProgramById(pId)
+    getClosestSeancePlace(e) {
+      return this.places.find((p) => {
+        return Number(p.id) == Number(this.getClosestSeance(e).place_id)
+      })
+    },
+
     /**
      * Объект программы по id
      * @param  {Mixed} id
      * @return {Object} Программа
      */
     getProgramById(id) {
-      return this.programs.filter((p) => {
-        return p.id == id
-      })[0]
+      return this.programs.find((p) => {
+        return Number(p.id) == Number(id)
+      })
     },
 
     /**
@@ -244,9 +273,20 @@ let App = Vue.extend({
      * @return {Object} Событие
      */
     getEventById(id) {
-      return this.events.filter((e) => {
-        return e.id == id
-      })[0]
+      return this.events.find((e) => {
+        return Number(e.id) == Number(id)
+      })
+    },
+
+    /**
+     * Объект события по id
+     * @param  {Mixed} id
+     * @return {Object} Событие
+     */
+    getPlaceById(id) {
+      return this.places.find((e) => {
+        return Number(e.id) == Number(id)
+      })
     },
 
     /**
@@ -255,11 +295,16 @@ let App = Vue.extend({
      * @return {Array}
      */
     getSeancesByEventId(id) {
-      return this.seances.filter((s) => {
-        return s.event_id == id
-      }).sort((a, b) => {
-        return a.start_time > b.start_time
+      let a = this.seances.filter((s) => {
+        return Number(s.event_id) == Number(id)
       })
+      if (a.length > 0) {
+        a.sort((a, b) => {
+          return a.start_time > b.start_time
+        })
+        return a
+      }
+      return false
     },
 
     /**
@@ -280,10 +325,10 @@ let App = Vue.extend({
      * @param  {Mixed} id
      * @return {String}
      */
-    getCategoryNameById(id) {
-      return this.categories.filter((c) => {
-        return c.id == id
-      }).name
+    getCategoryById(id) {
+      return this.categories.find((c) => {
+        return Number(c.id) === Number(id)
+      })
     },
 
     /**

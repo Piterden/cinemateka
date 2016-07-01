@@ -6,6 +6,9 @@ body,
 html {
   overflow-x: hidden;
 }
+body {
+  overflow-y: hidden;
+}
 a,
 blockquote,
 body,
@@ -196,7 +199,7 @@ nav {
       cursor: pointer;
       &:before {
         position: absolute;
-        bottom: -7px;
+        bottom: 0;
         left: 50%;
         width: 0;
         height: 4px;
@@ -259,32 +262,29 @@ nav {
       }
       .title {
         padding: 0 25px;
-        color: #FFF;
       }
       .program {
         padding: 18px 25px;
-        a {
-          color: #FFF;
-        }
       }
     }
   }
-  .show-more-block {
-    padding: 0;
-    background: transparent;
-    .show-more-btn {
-      display: block;
-      margin-top: 6px;
-      padding: 20px 0 12px;
-      width: calc(100% - 2px);
-      border: 2px solid;
-      background: #fff;
-      text-align: center;
-      text-transform: uppercase;
-      letter-spacing: .16em;
-      font-weight: bold;
-      font-size: 15px;
-    }
+}
+.show-more-block {
+  padding: 0;
+  background: transparent;
+  .show-more-btn {
+    display: block;
+    margin-top: 6px;
+    padding: 20px 0 12px;
+    width: calc(100% - 2px);
+    border: 2px solid;
+    background: #fff;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: .16em;
+    font-weight: bold;
+    font-size: 15px;
+    cursor: pointer;
   }
 }
 .soon-block {
@@ -428,6 +428,76 @@ nav {
       cursor: default;
     }
   }
+}
+
+.schedule-page {
+  .filters-line {
+    .event-type-filter, .place-type-filter {
+      width: 170px;
+      margin-left: 27px;
+    }
+    li {
+      display: inline-block;
+    }
+    .program-type-filter {
+      width: 300px;
+    }
+    .filter {
+      
+    }
+  }
+  .dropdown {
+    width: 100%;
+    label {
+      padding: 5px 0;
+    }
+  }
+}
+
+
+.date-pickers {
+  height: 48px;
+  width: 160px;
+  position: relative;
+  input {
+    top: 0px;
+    left: 48px;
+    position: absolute;
+    width: 107px;
+    height: 42px;
+    border: 2px solid black;
+    font-weight: 400;
+    font-size: 16px;
+    font-family: 'VremenaGrotesk';
+    padding-left: 11px;
+  }
+}
+.date-interval-filter {
+  margin-left: 27px;
+  width: 165px;
+}
+.date-pickers-calendar {
+  position: absolute;
+  left: 0;
+  width: 48px;
+  height: 48px;
+  background-color: black;
+  display: inline-block;
+  color: white;
+  font-size: 25px;
+  line-height: 48px;
+  text-align: center;
+}
+.date-popup {
+  width: 480px;
+  padding-top: 53px;
+  position: absolute;
+  top: 0;
+  left: -135px;
+}
+.datetime-picker {
+  display: inline-block;
+  height: 278px;
 }
 /**
  * Footer

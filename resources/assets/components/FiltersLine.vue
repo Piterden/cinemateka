@@ -4,6 +4,7 @@
 
 <template lang="html">
   <ul class="filters-line mdl-grid">
+    <slot name="beforeAll"></slot>
     <li v-for="key in filterShow"
       class="filter {{ key.replace('_','-') }}-filter">
       <toggler
@@ -17,12 +18,13 @@
         :end-date.sync="filterValues[key][1]"
       ></date-pickers>
       <dropdown-list
-        v-if="!isToggler(key) && !isDatePicker(key)"
+        v-if="!(isToggler(key) || isDatePicker(key))"
         :input-id="key.replace('_','-')"
         :value.sync="filterValues[key]"
         :list.once="filterLists[key]"
       ></dropdown-list>
     </li>
+    <slot name="afterAll"></slot>
   </ul>
 </template>
 

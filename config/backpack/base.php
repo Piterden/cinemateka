@@ -22,7 +22,7 @@ return [
     'developer_name' => 'Denis Efremov',
 
     // Developer website. Link in footer.
-    'developer_link' => 'http://dev.yellowmarker.ru',
+    'developer_link' => 'http://cinema.yellowmarker.ru',
 
     // Show powered by Laravel Backpack in the footer?
     'show_powered_by' => true,

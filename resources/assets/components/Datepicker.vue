@@ -27,7 +27,7 @@
   height: 280px;
   margin-top: 2px;
   background-color: #fff;
-  box-shadow: 0 0 6px #ccc;
+  box-shadow: 1px 1px 6px #ccc;
 }
 
 .datetime-picker table {
@@ -64,6 +64,9 @@
 .datetime-picker td.date-pass, .datetime-picker td.date-future {
   color: #aaa;
 }
+.datetime-picker input {
+  display: none;
+}
 
 .datetime-picker td.date-active {
   background-color: #ececec;
@@ -71,7 +74,7 @@
 }
 
 .datetime-picker .date-head {
-  background-color: #3bb4f2;
+  background-color: black;
   text-align: center;
   color: #fff;
   font-size: 14px;
@@ -84,7 +87,7 @@
 
 .datetime-picker .show-year {
   display: inline-block;
-  min-width: 62px;
+  min-width: 25px;
   vertical-align: middle;
 }
 
@@ -114,20 +117,31 @@
       type="text"
       :style="styleObj"
       :readonly="readonly"
-      :value.sync="value" />
+      :value.sync="value"
+    >
     <div class="picker-wrap" v-show="show">
       <table class="date-picker">
         <thead>
           <tr class="date-head">
-            <th colspan="4">
-              <span class="btn-prev" @click="yearClick(-1)">&lt;</span>
-              <span class="show-year">{{now.getFullYear()}}</span>
-              <span class="btn-next" @click="yearClick(1)">&gt;</span>
-            </th>
             <th colspan="3">
-              <span class="btn-prev" @click="monthClick(-1)">&lt;</span>
-              <span class="show-month">{{months[now.getMonth()]}}</span>
-              <span class="btn-next" @click="monthClick(1)">&gt;</span>
+              <span class="btn-prev" @click="yearClick(-1)">
+                <i class="fa fa-angle-left" aria-hidden="true"></i>
+              </span>
+              <span class="show-year">{{ now.getFullYear() }}</span>
+              <span class="btn-next" @click="yearClick(1)">
+                <i class="fa fa-angle-right" aria-hidden="true"></i>
+              </span>
+            </th>
+            <th colspan="4">
+              <span class="btn-prev" @click="monthClick(-1)">
+                <i class="fa fa-angle-left" aria-hidden="true"></i>
+              </span>
+              <span class="show-month">
+                {{ months[now.getMonth()] }}
+              </span>
+              <span class="btn-next" @click="monthClick(1)">
+                <i class="fa fa-angle-right" aria-hidden="true"></i>
+              </span>
             </th>
           </tr>
           <tr class="date-days">
@@ -151,7 +165,7 @@
 <script>
 export default {
   props: {
-    width: { type: String, default: '238px' },
+    width: { type: String, default: '236px' },
     readonly: { type: Boolean, default: false },
     value: { type: String, default: '' },
     format: { type: String, default: 'YYYY-MM-DD' },

@@ -23,7 +23,7 @@
         'url' => $crud->route.'/'.$entry->id,
         'method' => 'put',
         'class' => $crud->entity_name.'-edit-form',
-        '@submit.prevent' => '$root.submitEditForm($event)'
+        //'@submit' => '$root.submitEditForm($event)'
       ]) !!}
       <div class="box">
         <div class="box-header with-border">

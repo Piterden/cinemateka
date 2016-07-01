@@ -18,6 +18,7 @@ class SlideTableSeeder extends Seeder
             'caption'   => '{\"caption_title\":\"Slide 1\",\"caption_content\":\"Slide 1Slide 1Slide 1Slide 1\"}',
             'slider'    => 'На главной',
             'published' => 1,
+            'category_id' => 0,
         ]);
 
         DB::table('slides')->insert([
@@ -26,6 +27,7 @@ class SlideTableSeeder extends Seeder
             'caption'   => '{\"caption_title\":\"Slide 2\",\"caption_content\":\"Slide 2Slide 2Slide 2Slide 2\"}',
             'slider'    => 'На главной',
             'published' => 1,
+            'category_id' => 0,
         ]);
 
         DB::table('slides')->insert([
@@ -34,6 +36,7 @@ class SlideTableSeeder extends Seeder
             'caption'   => '{\"caption_title\":\"Slide 3\",\"caption_content\":\"Slide 3Slide 3Slide 3Slide 3\"}',
             'slider'    => 'На главной',
             'published' => 1,
+            'category_id' => 0,
         ]);
 
         DB::table('slides')->insert([
@@ -42,6 +45,7 @@ class SlideTableSeeder extends Seeder
             'caption'   => '{\"caption_title\":\"Slide 4\",\"caption_content\":\"Slide 4Slide 4Slide 4Slide 4\"}',
             'slider'    => 'На главной',
             'published' => 1,
+            'category_id' => 0,
         ]);
     }
 }

@@ -28,7 +28,12 @@ class Place extends Model
         'metro',
         'images',
         'properties',
+        'site',
+        'email',
+        'phone',
+        'place_type',
     ];
+    protected $fakeColumns = ['properties'];
     protected $dates   = ['created_at', 'edited_at', 'deleted_at'];
     public $timestamps = true;
 

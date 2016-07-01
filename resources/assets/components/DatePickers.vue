@@ -2,9 +2,10 @@
 
 <template lang="html">
   <div class="date-pickers">
+    <div class="date-pickers-calendar"><i class="fa fa-calendar" aria-hidden="true"></i></div>
     <input type="text"
       v-model="interval"
-      @click.stop="focusInput"
+      @click.stop="open"
     />
     <div class="date-popup" v-show="show">
       <datepicker
@@ -45,8 +46,8 @@ export default {
     }
   },
   methods: {
-    focusInput() {
-      this.$set('show', true)
+    open() {
+      this.show = true
     },
     leave(e) {
       if (!this.$el.contains(e.target)) {
@@ -54,14 +55,14 @@ export default {
       }
     },
     close() {
-      this.show = false;
+      this.show = false
     }
   },
   ready () {
-    document.addEventListener('click', this.leave, false);
+    document.addEventListener('click', this.leave, false)
   },
   beforeDestroy () {
-    document.removeEventListener('click', this.leave, false);
+    document.removeEventListener('click', this.leave, false)
   }
 }
 

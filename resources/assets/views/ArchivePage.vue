@@ -6,8 +6,10 @@
 		<filters-line
 			:filter-show.once="visibleFilters"
 			:filter-lists.once="filterLists"
-			:filter-values.sync="filterValues">
-		</filters-line>
+			:filter-values.sync="filterValues"
+    >
+      <li slot="beforeAll">Показать</li>
+    </filters-line>
 		<list-box
 			:events.once="$root.events"
 			:programs.once="$root.programs"
@@ -16,8 +18,8 @@
 			:increment-limit.once="incrementLimit"
 			:cols.once="cols"
 			:method.once="method"
-			:filter-values.sync="filterValues">
-		</list-box>
+			:filter-values.sync="filterValues"
+    ></list-box>
 	</div>
 </template>
 
@@ -83,13 +85,13 @@ export default {
 
 				if (eventItem.seances === undefined || !eventItem.seances.length)
 				{ // Если не назначено сеансов - скрываем событие
-		      return false;
+		      return false
 		    }
 
 				if (filters.event_type != 'Все события' &&
 					filters.event_type != eventItem.event_type)
 				{ // Если не совпадает категория - скрываем
-					return false;
+					return false
 				}
 
 				let show = false;
@@ -98,7 +100,7 @@ export default {
 					if (sd.getUTCMonth() == filters.month &&
 						sd.getFullYear() == filters.year)
 					{
-						show = true;
+						show = true
 					}
 				});
 
