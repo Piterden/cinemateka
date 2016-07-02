@@ -1,7 +1,17 @@
 <style lang="css">
+.fade-transition {
+  transition: opacity .3s ease;
+}
+.fade-enter, .fade-leave {
+  opacity: 0;
+}
 </style>
 <template lang="html">
-  <div class="mdl-cell mdl-cell--{{ getCols(method) }}-col" v-bind:style="styleObject">
+  <div class="mdl-cell mdl-cell--{{ getCols(method) }}-col"
+    :style="styleObject"
+    transition="fade"
+    transition-mode="out-in"
+  >
     <div class="event-item-card"
       :style="{backgroundImage: 'url(/' + this.images.mainimage + ')'}"
     >
@@ -59,19 +69,26 @@ export default {
     },
 
     /**
-     * Получает одинаковые по размерам элементы списка
-     * @return {Number} Grid Width
+     * Вычисляет ширину элемента списка в кол-ве колонок
+     * @return {Number} Одинаковая ширина для всех элементов
      */
     same() {
       return this.cols
     },
 
     /**
-     * Получает первый и последний элемент в 2 раза шире
+     * Получает первый и, если нужно, последний элемент в 2 раза шире
      * @return {Number} Grid Width
      */
     firstLastDoubleWidth() {
-      return !this.index || this.index == this.limit - 1 ? this.cols * 2 : this.cols
+      let showed = this.$parent.$children.length
+      return !this.index
+        || (
+          this.$parent.$children.length == this.limit
+          && this.index == this.limit - 1
+        )
+        ? this.cols * 2
+        : this.cols
     }
   },
 

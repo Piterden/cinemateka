@@ -46,7 +46,6 @@ tbody .place > div {
 tbody .price > div {
 
 }
-
 </style>
 
 <template lang="html">
@@ -77,9 +76,9 @@ tbody .price > div {
       <tbody>
         <tr
           v-for="seance in seances
-            | filterMethod filterValues
-            | limitBy limit
-            | orderBy 'start_time'"
+              | filterMethod filterValues
+              | limitBy limit
+              | orderBy 'start_time'"
         >
           <td class="date">
             <div class="seance-date">
@@ -91,22 +90,29 @@ tbody .price > div {
           </td>
           <td class="event">
             <div>
-              {{ seance.event.title }}
+              <a href="#" v-link="{ path: '/event/' + seance.event.slug }">
+                {{ seance.event.title }}
+              </a>
             </div>
           </td>
           <td class="type">
             <div>
-              {{ seance.eventTypeName }}
+                {{ seance.eventTypeName }}
+
             </div>
           </td>
           <td class="program">
             <div>
-              {{ seance.program.title }}
+              <a href="#" v-link="{ path: '/program/' + seance.program.slug }">
+                {{ seance.program.title }}
+              </a>
             </div>
           </td>
           <td class="place">
             <div>
-              {{ seance.place.title }}
+              <a href="#" v-link="{ path: '/contacts' + seance.place_id }">
+                {{ seance.place.title }}
+              </a>
             </div>
           </td>
           <td class="price">
@@ -142,6 +148,7 @@ export default {
     cols: Number,
     method: String,
     filterValues: Object,
+    filteredCount: Number,
     incrementLimit: {
       type: Number,
       default() {
@@ -152,7 +159,7 @@ export default {
 
   computed: {
     moreVisible() {
-      return true
+      return this.filteredCount > this.limit
     }
   },
 

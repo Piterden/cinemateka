@@ -97,6 +97,17 @@ Array.prototype.collapse = function() {
 };
 
 /**
+ * Добавляет элемент в начало массива, сдвигая все индексы.
+ * Возвращает сам массив, а не новую длинну, как в unshift()
+ * @param {Mixed}   val       Значение нового элемента
+ * @return {Array}
+ */
+Array.prototype.addBefore = function(val) {
+  this.unshift(val);
+  return this;
+};
+
+/**
  * Регистрация vue-компонентов === html-элементов
  */
 Vue.component('swipe', Swipe)
@@ -117,13 +128,13 @@ Vue.component('datepicker', Datepicker)
 Vue.component('date-pickers', DatePickers)
   // Vue.component('grid-loader', BlocksHeader)
 
-Vue.transition('stagger', {
-  stagger: function (index) {
-    // increase delay by 50ms for each transitioned item,
-    // but limit max delay to 300ms
-    return Math.min(300, index * 50)
-  }
-})
+// Vue.transition('stagger', {
+//   stagger: function (index) {
+//     // increase delay by 50ms for each transitioned item,
+//     // but limit max delay to 300ms
+//     return Math.min(300, index * 50)
+//   }
+// })
 
 /**
  * Главный ($root) vue-компонент.
@@ -193,8 +204,9 @@ let App = Vue.extend({
      * Записываем связанные объекты в события и в программы
      */
     this.events = events.map((e) => {
+      let cat = this.getCategoryById(e.category_id)
       e.seances = this.getSeancesByEventId(e.id)
-      e.event_type = this.getCategoryById(e.category_id).name
+      e.event_type = cat && cat.name
       return e
     })
     this.programs = programs.map((p) => {
@@ -300,7 +312,7 @@ let App = Vue.extend({
       })
       if (a.length > 0) {
         a.sort((a, b) => {
-          return a.start_time > b.start_time
+          return new Date(a.start_time) > new Date(b.start_time)
         })
         return a
       }
@@ -314,9 +326,9 @@ let App = Vue.extend({
      */
     getSeancesByProgramId(id) {
       return this.seances.filter((s) => {
-        return s.program_id == id
+        return Number(s.program_id) === Number(id)
       }).sort((a, b) => {
-        return a.start_time > b.start_time
+        return new Date(a.start_time) > new Date(b.start_time)
       })
     },
 
@@ -337,12 +349,10 @@ let App = Vue.extend({
      * @param   {Object}  e   Объект события
      * @return  {Array}       Массив ID программ
      */
-    getProgramsIds(e) {
-      let a = []
-      e.seances.forEach((s) => {
-        return a.push(Number(s.program_id))
-      })
-      return a
+    getEventProgramsIds(e) {
+      return e.seances.map((s) => {
+        return Number(s.program_id)
+      }).getUnique()
     },
 
     /**
@@ -351,10 +361,10 @@ let App = Vue.extend({
      * @param  {Object} eventObj|programObj
      * @return {Array}
      */
-    getEventPlacesId(o) {
-      if(o === undefined) {
+    getEventPlacesIds(o = false) {
+      if(!o) {
         return this.seances.map((s) => {
-          return s.place_id
+          return Number(s.place_id)
         }).getUnique()
       }
       if(!o.seances ||
@@ -362,7 +372,7 @@ let App = Vue.extend({
         o.seances.length < 1
       ) return []
       return o.seances.map((s) => {
-        return s.place_id
+        return Number(s.place_id)
       }).getUnique()
     },
 
@@ -382,7 +392,9 @@ let App = Vue.extend({
           let d = new Date(s.start_time)
           return String(d.getFullYear())
         }).getUnique()
-      }).collapse().getUnique()
+      }).collapse().getUnique().sort((a,b) => {
+        return a > b
+      })
     },
 
     /**
@@ -390,10 +402,8 @@ let App = Vue.extend({
      * @return {Array}
      */
     getMonthNames() {
-      return ["Январь", "Февраль", "Март", "Апрель",
-        "Май", "Июнь", "Июль", "Август", "Сентябрь",
-        "Октябрь", "Ноябрь", "Декабрь"
-      ]
+      return ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль',
+        'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь']
     },
 
     /**
@@ -401,7 +411,7 @@ let App = Vue.extend({
      * @return {Array}
      */
     getWeekDaysNames() {
-      return ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"]
+      return ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс']
     },
 
     /**
@@ -409,11 +419,9 @@ let App = Vue.extend({
      * @return {Array} Массив без повторов
      */
     getEventTypes() {
-      let def = ['Все события'],
-        cc = this.categories.map((c) => {
-          return c.name
-        })
-      return def.concat(cc)
+      return this.categories.map((c) => {
+        return c.name
+      }).addBefore('Все события')
     },
 
     /**
@@ -452,7 +460,8 @@ let App = Vue.extend({
      * строке даты понедельника этой недели
      */
     getSunday(d) {
-      let s = new Date(d)
+      console.log(typeof d);
+      let s = typeof d != 'date' && new Date(d)
       s.setDate(s.getDate() + 6)
       s.setHours(23, 59, 59, 999)
       return s
@@ -633,6 +642,13 @@ router.map({
   '/contacts': {
     component(resolve) {
       resolve(Vue.component('contacts-page', ContactsPage))
+    },
+    subRoutes: {
+      '/:placeId': {
+        component(resolve) {
+          resolve(Vue.component('contacts-page', ContactsPage))
+        }
+      }
     }
   },
 

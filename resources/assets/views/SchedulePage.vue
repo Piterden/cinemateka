@@ -17,6 +17,7 @@
       :cols.once="cols"
       :method.once="method"
       :filter-values.sync="filterValues"
+      :filtered-count.sync="filteredCount"
     ></list-grid>
   </div>
 </template>
@@ -34,13 +35,13 @@ export default {
       ],
       limit: 5,
       incrementLimit: 5,
-      filteredCount: 5,
       cols: 12,
       method: 'same'
     }
   },
 
   props: {
+    filteredCount: Number,
     seances: {
       type: Array,
       default() {
@@ -70,10 +71,10 @@ export default {
           event_type: this.$root.getEventTypes(),
           program_type: this.$root.programs.map((pr) => {
             return pr.title
-          }).getUnique(),
+          }).getUnique().addBefore('Все программы'),
           place_type: this.$root.places.map((pl) => {
             return pl.title
-          }).getUnique()
+          }).getUnique().addBefore('Все площадки')
         }
       }
     }
@@ -97,6 +98,7 @@ export default {
      * @param  {Array}        events    Все события
      * @param  {Object}       filters   Фильтры со значениями
      * @return {Array} of Event Objects
+     * @TODO dates frop pickers
      */
     filterMethod(seances = [], filters) {
       let fromTime = new Date(),
@@ -105,18 +107,25 @@ export default {
         d = fromTime.getDate(),
         endTime = new Date(y, m, d + 1, 23, 59, 59),
         filteredArray = seances.filter((seance) => {
-          let seanceTime = new Date(seance.start_time)
-          if (filters.event_type.toLowerCase() != 'все события' && filters.event_type.toLowerCase() != seance.eventTypeName.toLowerCase()) {
+          let seanceTime = new Date(seance.start_time),
+            s_evt = seance.eventTypeName.toLowerCase(),
+            s_prt = seance.program.title.toLowerCase(),
+            s_plt = seance.place.title.toLowerCase(),
+            f_et = filters.event_type.toLowerCase(),
+            f_prt = filters.program_type.toLowerCase(),
+            f_plt = filters.place_type.toLowerCase(),
+            f_ns = filters.now_soon.toLowerCase()
+          if (f_et != 'все события' && f_et != s_evt) {
               return false
           }
-          if (filters.program_type.toLowerCase() != 'все программы' && filters.program_type.toLowerCase() != seance.eventTypeName.toLowerCase()) {
+          if (f_prt != 'все программы' && f_prt != s_prt) {
               return false
           }
-          if (filters.place_type.toLowerCase() != 'все площадки' && filters.place_type.toLowerCase() != seance.eventTypeName.toLowerCase()) {
+          if (f_plt != 'все площадки' && f_plt != s_plt) {
               return false
           }
-          if (filters.now_soon.toLowerCase() == 'скоро') {
-            endTime = new Date(y, m, d + 7, 23, 59, 59)
+          if (f_ns == 'скоро') {
+            endTime = new Date(y, m, d + 300, 23, 59, 59)
           }
           if (seanceTime < fromTime || seanceTime > endTime) {
             return false

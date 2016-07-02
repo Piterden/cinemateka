@@ -43,6 +43,7 @@
     transition="fade"
     transition-mode="out-in"
     v-cloak
+    keep-alive
   >
       @yield('top-block')
   </router-view>

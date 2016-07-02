@@ -47,30 +47,6 @@ export default {
     }
   },
 
-  methods: {
-
-    clickTab(name) {
-      this.$parent.clickWeekTab(name)
-    },
-
-    /**
-		 * Фильтрует события по заданным значениям
-		 * @param  {Array}        events    Все события
-		 * @param  {Object}       filters   Фильтры со значениями
-		 * @return {Array} of Event Objects
-		 */
-		filterMethod(events, filters) {
-		  return events.filter((e) => {
-        let ss = e.seances.filter((s) => {
-          let d = new Date(s.start_time)
-          return d > filters.date_interval[0]
-            && d < filters.date_interval[1]
-        })
-        return ss.length
-      })
-		}
-  },
-
   computed: {
     filterValues() {
       return {
@@ -80,7 +56,34 @@ export default {
         ]
       }
     }
+  },
+
+  methods: {
+    /**
+     * Клик по вкладке недели
+     * @param  {String} name Псевдоним вкладки
+     */
+    clickTab(name) {
+      this.$parent.clickWeekTab(name)
+    },
+
+    /**
+     * Фильтрует события по заданным значениям
+     * @param  {Array}        events    Все события
+     * @param  {Object}       filters   Фильтры со значениями
+     * @return {Array} of Event Objects
+     */
+    filterMethod(events, filters) {
+      return events.filter((e) => {
+        return e.seances.find((s) => {
+          let d = new Date(s.start_time)
+          return d > filters.date_interval[0]
+            && d < filters.date_interval[1]
+        })
+      })
+    }
   }
+
 }
 
 </script>

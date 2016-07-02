@@ -1,6 +1,8 @@
-<style></style>
+<style lang="css">
 
-<template>
+</style>
+
+<template lang="html">
   <div class="wrap router-view {{ $options.name }}">
     <slot></slot>
     <index-page-events
@@ -41,7 +43,7 @@ export default {
         ],
         limit: 7,
         cols: 4,
-        calcSizesMethod: 'firstLastDoubleWidth',
+        // calcSizesMethod: 'firstLastDoubleWidth',
         activeTab: 0,
       },
 
@@ -127,7 +129,7 @@ export default {
 
   ready() {
     this.initTabs()
-  },
+  }
 
 }
 </script>

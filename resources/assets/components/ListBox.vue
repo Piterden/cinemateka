@@ -5,15 +5,14 @@
   <div class="mdl-grid list-box">
     <list-box-item
       v-for="item in events
-      | filterMethod filterValues | limitBy limit"
+        | filterMethod filterValues
+        | limitBy limit"
       :index.once="$index"
       :item.once="item"
       :limit.sync="limit"
       :cols.once="cols"
       :method="method"
       :style-object="styleObject"
-      transition="stagger"
-      stagger="100"
     ></list-box-item>
     <div v-if="moreVisible"
       class="show-more-block mdl-cell mdl-cell--12-col"
@@ -28,6 +27,7 @@
 
 <script>
 export default {
+
   props: {
     // События
     events: Array,
@@ -37,63 +37,23 @@ export default {
     styleObject: Object,
     // Принудительная ширина элемента списка
     itemWidth: Number,
-    /**
-    * Значения фильтров
-    */
-    filterValues: {
-      type: Object,
-      default() {
-        return {}
-      }
-    },
-    /**
-     * Количество отображаемых событий
-     */
-    limit: {
-      type: Number,
-      default() {
-        return 9
-      }
-    },
-    /**
-     * Количество добавляемых событий
-     */
-    incrementLimit: {
-      type: Number,
-      default() {
-        return 9
-      }
-    },
-    /**
-     * Флаг видимости кнопки "Показать еще".
-     */
-    // moreVisible: {
-    //   type: Boolean,
-    //   default() {
-    //     return false
-    //   }
-    // },
-    /**
-     * Название метода для вычисления ширины
-     */
-    method: {
-      type: String,
-      default() {
-        return 'same'
-      }
-    },
-    /**
-     * Ширина квадрата в колонках сетки
-     */
-    cols: {
-      type: Number,
-      default() {
-        return 4
-      }
-    }
+    // Значения фильтров
+    filterValues: { type: Object, default() { return {} } },
+    // Количество отображаемых событий
+    limit: { type: Number, default() { return 9 } },
+    // Количество добавляемых событий
+    incrementLimit: { type: Number, default() { return 9 } },
+    // Название метода для вычисления ширины
+    method: { type: String, default() { return 'same' } },
+    // Ширина квадрата в колонках сетки
+    cols: { type: Number, default() { return 4 } }
   },
 
   computed: {
+    /**
+     * Видимость кнопки "Показать еще"
+     * @return {Boolean}
+     */
     moreVisible() {
       return this.$children.length >= this.limit
     }
@@ -127,7 +87,7 @@ export default {
      * @method showMore
      */
     showMore() {
-      this.limit = this.incrementLimit + this.limit
+      this.limit += this.incrementLimit
     }
   },
 

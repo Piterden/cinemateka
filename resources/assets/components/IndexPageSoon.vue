@@ -1,7 +1,7 @@
 <style lang="css" scoped>
 </style>
 
-<template>
+<template lang="html">
 	<div class="soon-block">
 		<blocks-header :title="title">
       <ul class="mdl-tabs__tab-bar">
@@ -22,7 +22,6 @@
       :cols.once="cols"
       :method.once="calcSizesMethod"
 		></list-box>
-
 	</div>
 </template>
 
@@ -64,12 +63,10 @@ export default {
 		 * @return {Date}
 		 */
 		dateToMonthStart() {
-			let d = new Date()
-			d.setFullYear(this.$parent.getSoonTabYear(this.activeTab))
-			d.setMonth(this.$parent.getSoonTabMonth(this.activeTab))
-			d.setDate(1)
-			d.setHours(0,0,0,0)
-			return d
+      let y = this.$parent.getSoonTabYear(this.activeTab),
+        m = this.$parent.getSoonTabMonth(this.activeTab),
+        d = 1
+      return new Date(y, m, d)
 		},
 
 		/**
@@ -77,16 +74,13 @@ export default {
 		 * @return {Date}
 		 */
 		dateToMonthEnd() {
-			let d = new Date()
-			d.setFullYear(this.$parent.getSoonTabYear(this.activeTab))
-			d.setMonth(this.$parent.getSoonTabMonth(this.activeTab) + 1)
-			d.setDate(0)
-			d.setHours(23,59,59,999)
-			return d
+      let y = this.$parent.getSoonTabYear(this.activeTab),
+        m = this.$parent.getSoonTabMonth(this.activeTab) + 1
+      return new Date(y, m, 0, 23, 59, 59)
 		},
 
 		/**
-		 * Клик по табу направляет родителю
+		 * Клик по табу направляет псевдоним родителю
 		 */
 		clickTab(name) {
 			this.$parent.clickSoonTab(name)
@@ -99,14 +93,12 @@ export default {
 		 * @return {Array} of Event Objects
 		 */
 		filterMethod(events, filters) {
-			console.log(filters);
 		  return events.filter((e) => {
-        let ss = e.seances.filter((s) => {
+        return e.seances.find((s) => {
           let d = new Date(s.start_time)
           return d > filters.date_interval[0]
             && d < filters.date_interval[1]
         })
-        return ss.length
       })
 		}
 	}

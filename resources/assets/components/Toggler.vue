@@ -4,7 +4,7 @@
   <div class="toggler">
     <ul>
       <li v-for="item in list"
-        :class="active(item)"
+        :class.sync="active(item)"
         @click="handleClick(item)"
       >{{ item }}</li>
     </ul>
