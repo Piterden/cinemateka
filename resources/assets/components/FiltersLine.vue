@@ -4,7 +4,6 @@
 
 <template lang="html">
   <ul class="filters-line mdl-grid">
-    <slot name="beforeAll"></slot>
     <li v-for="key in filterShow"
       class="filter {{ key.replace('_','-') }}-filter">
       <toggler
@@ -24,7 +23,6 @@
         :list.once="filterLists[key]"
       ></dropdown-list>
     </li>
-    <slot name="afterAll"></slot>
   </ul>
 </template>
 

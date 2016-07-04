@@ -1,4 +1,4 @@
-<style lang="css" scoped>
+<style lang="sass" scoped>
 .schedule-page .filters-line.mdl-grid {
   padding-bottom: 13px;
 }
@@ -49,13 +49,13 @@ export default {
       }
     },
     filterValues: {
-      type: Object,
       default () {
         let d = new Date(),
-          e = new Date(d.getFullYear(), d.getUTCMonth() + 1, d.getUTCDate())
+          e = new Date(d.getFullYear(), d.getMonth() + 1, d.getDate()),
+          interval = [this.$root.parse(d), this.$root.parse(e)]
         return {
           'now_soon': this.$root.getNowSoones()[0],
-          'date_interval': [d, e],
+          'date_interval': interval,
           'event_type': 'Все события',
           'program_type': 'Все программы',
           'place_type': 'Все площадки'
@@ -70,16 +70,19 @@ export default {
           now_soon: this.$root.getNowSoones(),
           event_type: this.$root.getEventTypes(),
           program_type: this.$root.programs.map((pr) => {
-            return pr.title
-          }).getUnique().addBefore('Все программы'),
+              return pr.title
+            }).getUnique().addBefore('Все программы'),
           place_type: this.$root.places.map((pl) => {
-            return pl.title
-          }).getUnique().addBefore('Все площадки')
+              return pl.title
+            }).getUnique().addBefore('Все площадки')
         }
       }
     }
   },
 
+  /**
+   * Инициализация компонента. Добавляем значения к каждому сеансу.
+   */
   created() {
     this.seances = this.seances.map((s) => {
       s.startDate = this.getStartDate(s)
@@ -115,6 +118,7 @@ export default {
             f_prt = filters.program_type.toLowerCase(),
             f_plt = filters.place_type.toLowerCase(),
             f_ns = filters.now_soon.toLowerCase()
+
           if (f_et != 'все события' && f_et != s_evt) {
               return false
           }
@@ -149,7 +153,7 @@ export default {
      */
     getStartDate(seance) {
       let d = new Date(seance.start_time)
-      return this.$root.dateStrFromDateObj(d, 'DD.MM')
+      return this.$root.formatDateToStr(d, 'DD.MM')
     },
     /**
      * Время проведения сеанса

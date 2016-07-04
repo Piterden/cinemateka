@@ -16,7 +16,6 @@
     </blocks-header>
 		<list-box
 			:events="$root.events"
-			:programs="$root.programs"
       :limit.once="limit"
 			:filter-values.sync="filterValues"
       :cols.once="cols"
@@ -63,8 +62,8 @@ export default {
 		 * @return {Date}
 		 */
 		dateToMonthStart() {
-      let y = this.$parent.getSoonTabYear(this.activeTab),
-        m = this.$parent.getSoonTabMonth(this.activeTab),
+      let y = this.$root.getSoonTabYear(this.activeTab),
+        m = this.$root.getSoonTabMonth(this.activeTab),
         d = 1
       return new Date(y, m, d)
 		},
@@ -74,8 +73,8 @@ export default {
 		 * @return {Date}
 		 */
 		dateToMonthEnd() {
-      let y = this.$parent.getSoonTabYear(this.activeTab),
-        m = this.$parent.getSoonTabMonth(this.activeTab) + 1
+      let y = this.$root.getSoonTabYear(this.activeTab),
+        m = this.$root.getSoonTabMonth(this.activeTab) + 1
       return new Date(y, m, 0, 23, 59, 59)
 		},
 

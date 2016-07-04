@@ -211,11 +211,11 @@ export default {
       time.setMonth(time.getMonth() + 2, 0);       // the last day of this month
       var curDayCount = time.getDate();
       time.setDate(1);                             // fix bug when month change
-      var value = this.value || this.$root.dateStrFromDateObj(new Date());
+      var value = this.value || this.$root.formatDateToStr(new Date());
       for (let i = 0; i < curDayCount; i++) {
         let tmpTime = new Date(time.getFullYear(), time.getMonth(), i + 1);
         let status = '';
-        this.$root.dateStrFromDateObj(tmpTime) === value && (status = 'date-active');
+        this.$root.formatDateToStr(tmpTime) === value && (status = 'date-active');
         arr.push({
           text: i + 1,
           time: tmpTime,
@@ -245,7 +245,7 @@ export default {
     pickDate(index) {
       this.show = false
       this.now = new Date(this.date[index].time)
-      this.value = this.$root.dateStrFromDateObj(this.now, 'YYYY-MM-DD')
+      this.value = this.$root.formatDateToStr(this.now, 'YYYY-MM-DD')
       this.$parent.startDate = !this.idx ? this.now : this.$parent.startDate
       this.$parent.endDate = !this.idx ? this.$parent.endDate : this.now
     }

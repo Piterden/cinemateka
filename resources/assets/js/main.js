@@ -6,6 +6,15 @@ import VueMdl from 'vue-mdl'
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
+/**
+ * Google Maps Components
+ */
+import {load, loaded, Map, Marker} from 'vue-google-maps'
+load('AIzaSyCrukK_xKPenGQkn9okGUjoBfECOeiOvSc', '3.25.7')
+
+/**
+ * Плагины Vue
+ */
 Vue.use(VueRouter)
 Vue.use(VueMdl)
 
@@ -22,7 +31,7 @@ import ProgramPage from '../views/ProgramPage.vue'
 import Error404 from '../views/Error-404.vue'
 
 /**
- * Vue-компоненты блоки
+ * Vue-компоненты элементы
  */
 import Swipe from '../components/Swipe.vue'
 import SwipeItem from '../components/SwipeItem.vue'
@@ -32,7 +41,7 @@ import BlocksHeader from '../components/BlocksHeader.vue'
 import ListBox from '../components/ListBox.vue'
 import ListBoxItem from '../components/ListBoxItem.vue'
 import ListGrid from '../components/ListGrid.vue'
-// import ListGridItem from '../components/ListGridItem.vue'
+import GridLoader from '../components/GridLoader.vue'
 import ListPlaces from '../components/ListPlaces.vue'
 import ListPlacesItem from '../components/ListPlacesItem.vue'
 import FiltersLine from '../components/FiltersLine.vue'
@@ -40,72 +49,13 @@ import DropdownList from '../components/DropdownList.vue'
 import Toggler from '../components/Toggler.vue'
 import Datepicker from '../components/Datepicker.vue'
 import DatePickers from '../components/DatePickers.vue'
-// import GridLoader from '../components/GridLoader.vue'
 
-/**
- * !!!!!!!! Used EcmaScript5 inside !!!!!!!!!
- * Возвращает минимальное значение массива
- * @method min        Применяется к любому массиву JS
- * @return {Mixed}
- */
-Array.prototype.min = function() {
-  return Math.min.apply(null, this);
-};
+// Dev ops.
+Vue.config.debug = true
+// console.log(Vue.config);
 
-/**
- * !!!!!!!! Used EcmaScript5 inside !!!!!!!!!
- * Удаляет повторения из массива
- * @method getUnique  Применяется к любому массиву JS
- * @return {Array}
- */
-Array.prototype.getUnique = function() {
-  var u = {},
-    a = [];
-  for(var i = 0, l = this.length; i < l; ++i) {
-    if(u.hasOwnProperty(this[i])) {
-      continue;
-    }
-    a.push(this[i]);
-    u[this[i]] = 1;
-  }
-  return a;
-};
-
-/**
- * !!!!!!!! Used EcmaScript5 inside !!!!!!!!!
- * Делает из массива вида:
- * [ [a, b, c], [d, e, f], [g, h, j] ]
- * Вот такой:
- * [ a, b, c, d, e, f, g, h, j ]
- * @method getUnique  Применяется к любому массиву JS
- * @return {Array}
- */
-Array.prototype.collapse = function() {
-  var a = [];
-  for(var i = 0, l = this.length; i < l; ++i) {
-    if(
-      this[i] !== undefined &&
-      this[i].hasOwnProperty('length') &&
-      this[i].length > 0
-    ) {
-      this[i].forEach(function(el) {
-        a.push(el);
-      });
-    }
-  }
-  return a;
-};
-
-/**
- * Добавляет элемент в начало массива, сдвигая все индексы.
- * Возвращает сам массив, а не новую длинну, как в unshift()
- * @param {Mixed}   val       Значение нового элемента
- * @return {Array}
- */
-Array.prototype.addBefore = function(val) {
-  this.unshift(val);
-  return this;
-};
+// Расширение объекта Array
+import Array from './inc.js'
 
 /**
  * Регистрация vue-компонентов === html-элементов
@@ -118,7 +68,7 @@ Vue.component('blocks-header', BlocksHeader)
 Vue.component('list-box', ListBox)
 Vue.component('list-box-item', ListBoxItem)
 Vue.component('list-grid', ListGrid)
-// Vue.component('list-grid-item', ListGridItem)
+Vue.component('grid-loader', GridLoader)
 Vue.component('list-places', ListPlaces)
 Vue.component('list-places-item', ListPlacesItem)
 Vue.component('filters-line', FiltersLine)
@@ -126,15 +76,11 @@ Vue.component('dropdown-list', DropdownList)
 Vue.component('toggler', Toggler)
 Vue.component('datepicker', Datepicker)
 Vue.component('date-pickers', DatePickers)
-  // Vue.component('grid-loader', BlocksHeader)
 
-// Vue.transition('stagger', {
-//   stagger: function (index) {
-//     // increase delay by 50ms for each transitioned item,
-//     // but limit max delay to 300ms
-//     return Math.min(300, index * 50)
-//   }
-// })
+// Google Maps Components Registration
+Vue.component('map', Map)
+Vue.component('marker', Marker)
+// Vue.component('place-input', PlaceInput)
 
 /**
  * Главный ($root) vue-компонент.
@@ -143,65 +89,29 @@ Vue.component('date-pickers', DatePickers)
  */
 let App = Vue.extend({
   /**
-   * Здесь задаются данные, которые будут доступны, глобальные для всего
+   * Здесь задаются коллекции, которые будут доступны, глобальные для всего
    * приложения через root-объект. Сюда подгружаются данные из PHP.
    */
   props: {
-    /**
-     * Все события
-     * @type {Array} of EventObjects
-     */
-    events: {
-      type: Array,
-      default() {
-        return events
-      }
-    },
-    /**
-     * Все программы
-     * @type {Array} of ProgramObjects
-     */
-    programs: {
-      type: Array,
-      default() {
-        return programs
-      }
-    },
-    /**
-     * Все места
-     * @type {Array} of SeanceObjects
-     */
-    places: {
-      type: Array,
-      default() {
-        return places
-      }
-    },
-    /**
-     * Все типы событий и категории
-     * @type {Array} of SeanceObjects
-     */
-    categories: {
-      type: Array,
-      default() {
-        return categories
-      }
-    },
-    /**
-     * Все сеансы
-     * @type {Array} of SeanceObjects
-     */
-    seances: {
-      type: Array,
-      default() {
-        return seances
-      }
-    }
+     // Все события         // @type {Array} of EventObjects
+    events: { type: Array, default() { return events } },
+
+     // Все программы       // @type {Array} of ProgramObjects
+    programs: { type: Array, default() { return programs } },
+
+     // Все места           // @type {Array} of SeanceObjects
+    places: { type: Array, default() { return places } },
+
+     // Все типы событий    // @type {Array} of SeanceObjects
+    categories: { type: Array, default() { return categories } },
+
+     // Все сеансы          // @type {Array} of SeanceObjects
+    seances: { type: Array, default() { return seances } },
   },
 
   created() {
     /**
-     * Записываем связанные объекты в события и в программы
+     * Записываем связи в объекты событий и программ
      */
     this.events = events.map((e) => {
       let cat = this.getCategoryById(e.category_id)
@@ -246,7 +156,7 @@ let App = Vue.extend({
      * @return {ProgramObject}      Объект программы
      */
     getClosestSeance(e) {
-      return e.seances.find((s) => {
+      return e && e.seances.find((s) => {
         return new Date(s.start_time) > new Date()
       })
     },
@@ -257,24 +167,42 @@ let App = Vue.extend({
      * @return {ProgramObject}      Объект программы
      */
     getClosestSeanceProgram(e) {
-      return this.programs.find((p) => {
-        return Number(p.id) == Number(this.getClosestSeance(e).program_id)
+      let cs = this.getClosestSeance(e)
+      return cs && cs !== -1 && this.programs.find((p) => {
+        return Number(p.id) == Number(cs.program_id)
       })
     },
 
+    /**
+     * Возвращает площадку ближайшего сеанса
+     * @param  {EventObject}   e    Объект события
+     * @return {ProgramObject}      Объект программы
+     */
     getClosestSeancePlace(e) {
-      return this.places.find((p) => {
-        return Number(p.id) == Number(this.getClosestSeance(e).place_id)
+      let cs = this.getClosestSeance(e)
+      return cs && this.places.find((p) => {
+        return Number(p.id) == Number(cs.place_id)
+      })
+    },
+
+    /**
+     * Возвращает индекс элемента в коллекции по
+     * @param  {EventObject}   e    Объект события
+     * @return {ProgramObject}      Объект программы
+     */
+    getIndexById(arr = [], id = 0) {
+      return arr.findIndex((el) => {
+        return Number(el.id) == Number(id)
       })
     },
 
     /**
      * Объект программы по id
-     * @param  {Mixed} id
+     * @param  {Number} id
      * @return {Object} Программа
      */
-    getProgramById(id) {
-      return this.programs.find((p) => {
+    getProgramById(id = 0) {
+      return id && this.programs.find((p) => {
         return Number(p.id) == Number(id)
       })
     },
@@ -310,7 +238,7 @@ let App = Vue.extend({
       let a = this.seances.filter((s) => {
         return Number(s.event_id) == Number(id)
       })
-      if (a.length > 0) {
+      if(a.length > 0) {
         a.sort((a, b) => {
           return new Date(a.start_time) > new Date(b.start_time)
         })
@@ -325,11 +253,16 @@ let App = Vue.extend({
      * @return {Array}
      */
     getSeancesByProgramId(id) {
-      return this.seances.filter((s) => {
+      let a = this.seances.filter((s) => {
         return Number(s.program_id) === Number(id)
-      }).sort((a, b) => {
-        return new Date(a.start_time) > new Date(b.start_time)
       })
+      if (a.length > 0) {
+        a.sort((a, b) => {
+          return new Date(a.start_time) > new Date(b.start_time)
+        })
+        return a
+      }
+      return false
     },
 
     /**
@@ -361,8 +294,8 @@ let App = Vue.extend({
      * @param  {Object} eventObj|programObj
      * @return {Array}
      */
-    getEventPlacesIds(o = false) {
-      if(!o) {
+    getEventPlacesIds(o) {
+      if(o === undefined) {
         return this.seances.map((s) => {
           return Number(s.place_id)
         }).getUnique()
@@ -374,6 +307,37 @@ let App = Vue.extend({
       return o.seances.map((s) => {
         return Number(s.place_id)
       }).getUnique()
+    },
+
+    getProgramEvents(p) {
+      let eIds = p.seances.map((s) => {
+        return s.event_id
+      }).getUnique()
+      return eIds.map((id) => {
+        return this.getEventById(id)
+      })
+    },
+
+    /**
+     * Получает событие по псевдониму
+     * @param  {String} slug          Псевдоним события из url
+     * @return {Boolean}
+     */
+    getEventBySlug(slug) {
+      return this.events.find((e) => {
+        return e.slug == slug
+      })
+    },
+
+    /**
+     * Получает программу по псевдониму
+     * @param  {String} slug          Псевдоним программы из url
+     * @return {Boolean}
+     */
+    getProgramBySlug(slug) {
+      return this.programs.find((p) => {
+        return p.slug == slug
+      })
     },
 
     /**!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -390,9 +354,9 @@ let App = Vue.extend({
       return this.events.map((ev) => {
         return ev.seances.map((s) => {
           let d = new Date(s.start_time)
-          return String(d.getFullYear())
+          return Number(d.getFullYear())
         }).getUnique()
-      }).collapse().getUnique().sort((a,b) => {
+      }).collapse().getUnique().sort((a, b) => {
         return a > b
       })
     },
@@ -402,8 +366,10 @@ let App = Vue.extend({
      * @return {Array}
      */
     getMonthNames() {
-      return ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль',
-        'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь']
+      return [
+        'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль',
+        'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'
+      ]
     },
 
     /**
@@ -441,13 +407,31 @@ let App = Vue.extend({
         d = new Date(),
         nn = mn.splice(d.getMonth()).concat(mn)
       return nn.map((m, i) => {
-        let num = this.$children[0].getSoonTabMonth(i)
+        let num = this.getSoonTabMonth(i)
         return {
           name: 'month' + i,
-          year: this.$children[0].getSoonTabYear(i),
+          year: this.getSoonTabYear(i),
           title: this.getMonthNames()[num].slice(0, 3)
         }
       })
+    },
+
+    /**
+     * Возвращает месяц для вкладки №i
+     */
+    getSoonTabMonth(i = 0) {
+      let d = new Date()
+      d.setUTCMonth(d.getMonth() + i)
+      return d.getUTCMonth()
+    },
+
+    /**
+     * Возвращает год для вкладки №i
+     */
+    getSoonTabYear(i) {
+      let d = new Date()
+      d.setUTCMonth(d.getMonth() + i)
+      return d.getUTCFullYear()
     },
 
     /**!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -460,11 +444,10 @@ let App = Vue.extend({
      * строке даты понедельника этой недели
      */
     getSunday(d) {
-      console.log(typeof d);
-      let s = typeof d != 'date' && new Date(d)
-      s.setDate(s.getDate() + 6)
-      s.setHours(23, 59, 59, 999)
-      return s
+      let y = d.getFullYear(),
+        m = d.getMonth(),
+        day = d.getDate()
+      return new Date(y, m, day + 6, 23, 59, 59)
     },
 
     /**
@@ -495,7 +478,7 @@ let App = Vue.extend({
      * @param  {String}   format  Маска формата
      * @return {String}
      */
-    dateStrFromDateObj(time = new Date(), format = 'YYYY-MM-DD') {
+    formatDateToStr(time = new Date(), format = 'YYYY-MM-DD') {
       let year = time.getFullYear(),
         month = time.getMonth() + 1,
         date = time.getDate(),
@@ -580,7 +563,7 @@ let router = new VueRouter({
   transitionOnLoad: true,
 })
 
-Vue.config.debug = true
+
 
 /**!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
  * ================================================================
@@ -608,13 +591,13 @@ router.map({
     component(resolve) {
       resolve(Vue.component('schedule-page', SchedulePage))
     },
-    subRoutes: {
-      '/:page': {
-        component(resolve) {
-          resolve(Vue.component('schedule-page', SchedulePage))
-        }
-      }
-    }
+    // subRoutes: {
+    //   '/:page': {
+    //     component(resolve) {
+    //       resolve(Vue.component('schedule-page', SchedulePage))
+    //     }
+    //   }
+    // }
   },
 
   // Архив
@@ -622,13 +605,13 @@ router.map({
     component(resolve) {
       resolve(Vue.component('archive-page', ArchivePage))
     },
-    subRoutes: {
-      '/:page': {
-        component(resolve) {
-          resolve(Vue.component('archive-page', ArchivePage))
-        }
-      }
-    }
+    // subRoutes: {
+    //   '/:page': {
+    //     component(resolve) {
+    //       resolve(Vue.component('archive-page', ArchivePage))
+    //     }
+    //   }
+    // }
   },
 
   // О проекте
@@ -647,6 +630,11 @@ router.map({
       '/:placeId': {
         component(resolve) {
           resolve(Vue.component('contacts-page', ContactsPage))
+          // console.log(router.app.getPlaceById(router.app.$route.params.placeId));
+          // if (router.app.getPlaceById(router.app.$route.params.placeId)) {
+          // } else {
+          //   resolve(Vue.component('error-404', Error404))
+          // }
         }
       }
     }
@@ -656,6 +644,11 @@ router.map({
   '/event/:slug': {
     component(resolve) {
       resolve(Vue.component('event-page', EventPage))
+      // console.log(router.app.getEventBySlug(router.app.$route.params.slug));
+      // if (router.app.getEventBySlug(router.app.$route.params.slug)) {
+      // } else {
+      //   resolve(Vue.component('error-404', Error404))
+      // }
     }
   },
 
@@ -663,8 +656,39 @@ router.map({
   '/program/:slug': {
     component(resolve) {
       resolve(Vue.component('program-page', ProgramPage))
+      // console.log(router.app.getProgramBySlug(router.app.$route.params.slug));
+      // if (router.app.getProgramBySlug(router.app.$route.params.slug)) {
+      // } else {
+      //   resolve(Vue.component('error-404', Error404))
+      // }
+
     }
   }
+})
+
+router.beforeEach((trans) => {
+  // console.log()
+  // trans.abort()
+  let fPath = trans.from && trans.from.path,
+    tPath = trans.to && trans.to.path,
+    fSlug = trans.from && trans.from.params && trans.from.params.slug,
+    tSlug = trans.to && trans.to.params && trans.to.params.slug,
+    tId = trans.to && trans.to.params && trans.to.params.placeId,
+    app = router.app
+
+  if (tPath.startsWith('/event/') && !app.getEventBySlug(tSlug)) {
+    trans.redirect('/404')
+  }
+  if (tPath.startsWith('/program/') && !app.getProgramBySlug(tSlug)) {
+    trans.redirect('/404')
+  }
+  if (tPath.startsWith('/contacts/') && !app.getPlaceById(tId)) {
+    trans.redirect('/404')
+  }
+  // if (fPath && (fPath.startsWith('/event/') || fPath.startsWith('/program/') ||
+  //   fPath.startsWith('/contacts/'))) {
+  // }
+  trans.next()
 })
 
 /**

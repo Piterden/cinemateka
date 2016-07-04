@@ -20,7 +20,7 @@ elixir(function (mix) {
     'app.scss'
   ])
 
-  mix.babel('./node_modules/material-design-lite/material.min.js')
+  mix.scripts('./node_modules/material-design-lite/material.min.js')
 
   mix.webpack('main', require('./webpack.config.js'), {
     $: 'jquery',

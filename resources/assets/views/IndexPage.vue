@@ -72,8 +72,8 @@ export default {
         if (tab.title === '') {
           let start = this.$root.getMonday(this.getTabDate(idx)),
             end = this.$root.getSunday(start)
-          tab.title = this.$root.dateStrFromDateObj(start, 'DD.MM') +
-            '-' + this.$root.dateStrFromDateObj(end, 'DD.MM')
+          tab.title = this.$root.formatDateToStr(start, 'DD.MM') +
+            '-' + this.$root.formatDateToStr(end, 'DD.MM')
         }
       })
     },
@@ -105,26 +105,7 @@ export default {
     clickSoonTab(name) { // 'month$'
       let i = name.slice(5)
       this.$set('month.activeTab', Number(i))
-    },
-
-    /**
-     * Возвращает месяц для вкладки №i
-     */
-    getSoonTabMonth(i = 0) {
-      let d = new Date()
-      d.setUTCMonth(d.getMonth() + i)
-      return d.getUTCMonth()
-    },
-
-    /**
-     * Возвращает год для вкладки №i
-     */
-    getSoonTabYear(i) {
-      let d = new Date()
-      d.setUTCMonth(d.getMonth() + i)
-      return d.getUTCFullYear()
     }
-
   },
 
   ready() {

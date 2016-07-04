@@ -16,7 +16,6 @@
     </blocks-header>
     <list-box
       :events="$root.events"
-      :programs="$root.programs"
       :limit.sync="limit"
       :filter-values.sync="filterValues"
       :cols.once="cols"

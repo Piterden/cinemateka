@@ -3,14 +3,12 @@
 
 <template lang="html">
   <div class="dropdown">
-    <input id="{{ inputId }}" type="checkbox"
-      :checked="checked" />
+    <input id="{{ inputId }}" type="checkbox" :checked="checked" />
     <label for="{{ inputId }}">
       <div v-if="isMonth" class="drop-ttl month">{{ textValue }}</div>
       <div v-else class="drop-ttl no-month">{{ value }}</div>
       <ul>
-        <li v-for="item in list"
-          @click.stop="handleOptionClick(item)">
+        <li v-for="item in list" @click.stop="handleOptionClick(item)">
           {{ item }}
         </li>
       </ul>
@@ -20,29 +18,37 @@
 
 <script>
 export default {
+
   props: {
-    inputId: {
-      type: String,
-      default() {
-        return '';
+    // ID фильтра
+    inputId: { type: String, default () { return '' } },
+    // Рабочее значение
+    value: { default () { return 'Выбрать' } },
+    // Список возможных значений
+    list: { type: Array, default () { return [] } },
+    // Флаг "список открыт"
+    checked: { type: String, default () { return 'disabled' } }
+  },
+
+  computed: {
+    // Значение для подмены номера месяца на слово
+    textValue: {
+      get() {
+        if (!this.isMonth) {
+          return this.value;
+        }
+        if (typeof this.value === 'string') {
+          this.$set('value', this.list.indexOf(this.value));
+        }
+        return this.list[this.value];
+      },
+      set(v) {
+        this.$set('value', this.list.indexOf(v));
       }
     },
-    value: {
-      default() {
-        return 'Выбрать';
-      }
-    },
-    list: {
-      type: Array,
-      default() {
-        return [];
-      }
-    },
-    checked: {
-      type: String,
-      default() {
-        return 'disabled';
-      }
+    // Проверка на фильтр месяцев
+    isMonth() {
+      return this.inputId === 'month';
     }
   },
 
@@ -59,26 +65,7 @@ export default {
       }
       this.$set('value', value);
     }
-  },
-
-  computed: {
-    textValue: {
-      get() {
-        if (!this.isMonth) {
-          return this.value;
-        }
-        if (typeof this.value === 'string') {
-          this.$set('value', this.list.indexOf(this.value));
-        }
-        return this.list[this.value];
-      },
-      set(v) {
-        this.$set('value', this.list.indexOf(v));
-      }
-    },
-    isMonth() {
-      return this.inputId === 'month';
-    }
   }
+
 }
 </script>

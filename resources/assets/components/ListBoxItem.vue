@@ -13,18 +13,20 @@
     transition-mode="out-in"
   >
     <div class="event-item-card"
-      :style="{backgroundImage: 'url(/' + this.images.mainimage + ')'}"
+      :style="{backgroundImage: 'url(/' + thumb + ')'}"
     >
       <div class="category">{{ eventTypeName }}</div>
       <div class="bottom-block">
         <div class="dates">
-          {{ spendingRange() }}
+          {{ getSpendingRange() }}
         </div>
-        <a v-link="{ path: 'event/' + item.slug }">
-          <h3 class="title">{{ item.title }}</h3>
-        </a>
-        <div class="program">
-          <a href="#" v-link="{path:'/program/'+closestProgram.slug}">
+        <div class="title">
+          <a href="#" v-link="{ path: '/event/' + item.slug }">
+            <h3>{{ item.title }}</h3>
+          </a>
+        </div>
+        <div class="program" v-if="closestProgram">
+          <a href="#" v-link="{ path:'/program/' + closestProgram.slug }">
             {{ closestProgram.title }}
           </a>
         </div>
@@ -37,9 +39,10 @@
 export default {
 
   data() {
+    let catId = this.item ? this.item.category_id : 0,
+      cat = this.$root.getCategoryById(catId)
     return {
-      closestProgram: this.$root.getClosestSeanceProgram(this.item),
-      eventTypeName: this.$root.getCategoryById(this.item.category_id).name
+      eventTypeName: cat && cat.name
     }
   },
 
@@ -50,22 +53,22 @@ export default {
     method: String,
     limit: Number,
     height: Number,
-    styleObject: {
-      type: Object,
-      default () {
-        return {
-          height: 'inherit'
-        }
-      }
-    }
+    separator: { type: String, default :'–' },
+    styleObject: { type: Object, default :'inherit' }
   },
 
   computed: {
+    closestProgram() {
+      return this.$root.getClosestSeanceProgram(this.item)
+    },
+
     /**
-     * Изображения
+     * Изображение плитки
      */
-    images() {
-      return JSON.parse(this.item.images)
+    thumb() {
+      return this.item
+        && this.item.images
+        && JSON.parse(this.item.images).mainimage
     },
 
     /**
@@ -96,20 +99,31 @@ export default {
     /**
      * Получает строку из 2 дат - первого и последнего сеанса события, через '-'
      */
-    spendingRange() {
-      let seances = this.item.seances || [],
-        start = new Date(seances[0].start_time),
-        end = new Date(seances[seances.length - 1].start_time)
-
-      if ((end - start) / 1000 / 60 / 60 / 24 / 365 > 1) {
-        return this.$root.dateStrFromDateObj(start, 'DD.MM.YY') + '-' + this.$root.dateStrFromDateObj(end, 'DD.MM.YY')
+    getSpendingRange() {
+      if (this.item === undefined) return ''
+      let seances = this.item.seances || [], start, end
+      if (!seances.length) {
+        return ''
       }
-      return this.$root.dateStrFromDateObj(start, 'DD.MM') + '-' + this.$root.dateStrFromDateObj(end, 'DD.MM')
+      start = new Date(seances[0].start_time)
+      if (seances.length == 1) {
+
+      }
+      end = new Date(seances[seances.length - 1].start_time)
+      if ((end - start) / 1000 / 60 / 60 / 24 / 365 > 1) {
+        return this.$root.formatDateToStr(start, 'DD.MM.YY')
+          + this.separator
+          + this.$root.formatDateToStr(end, 'DD.MM.YY')
+      }
+      return this.$root.formatDateToStr(start, 'DD.MM')
+        + this.separator
+        + this.$root.formatDateToStr(end, 'DD.MM')
     },
 
     getCols(method) {
       return this[method]
     }
   }
+
 }
 </script>

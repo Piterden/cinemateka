@@ -2,18 +2,22 @@
 </style>
 
 <template lang="html">
-  <div class="mdl-grid list-box">
+  <div class="mdl-grid list-box {{ wrapClass }}" v-cloak>
+    <slot name="top"></slot>
     <list-box-item
+      v-if="events"
       v-for="item in events
         | filterMethod filterValues
         | limitBy limit"
+      :class="itemClass"
       :index.once="$index"
-      :item.once="item"
+      :item.sync="item"
       :limit.sync="limit"
       :cols.once="cols"
       :method="method"
       :style-object="styleObject"
     ></list-box-item>
+    <slot name="bottom"></slot>
     <div v-if="moreVisible"
       class="show-more-block mdl-cell mdl-cell--12-col"
     >
@@ -29,14 +33,20 @@
 export default {
 
   props: {
-    // События
-    events: Array,
+    filteredCount: Number,
     // Программы
-    programs: Array,
-    // Объект стилей для квадратов
-    styleObject: Object,
+    // programs: Array,
     // Принудительная ширина элемента списка
     itemWidth: Number,
+    // Объект стилей для квадратов
+    styleObject: {
+      type: Object,
+      default() {
+        return {}
+      }
+    },
+    // События
+    events: { type: Array, required: true },
     // Значения фильтров
     filterValues: { type: Object, default() { return {} } },
     // Количество отображаемых событий
@@ -46,7 +56,9 @@ export default {
     // Название метода для вычисления ширины
     method: { type: String, default() { return 'same' } },
     // Ширина квадрата в колонках сетки
-    cols: { type: Number, default() { return 4 } }
+    cols: { type: Number, default() { return 4 } },
+    itemClass: { type: String, default: '' },
+    wrapClass: { type: String, default: '' }
   },
 
   computed: {
@@ -55,7 +67,7 @@ export default {
      * @return {Boolean}
      */
     moreVisible() {
-      return this.$children.length >= this.limit
+      return this.filteredCount && this.filteredCount >= this.limit
     }
   },
 
@@ -71,7 +83,6 @@ export default {
         return el.$el.offsetWidth
       }).min()
     },
-
     /**
      * Срабатывает при изменении размера окна.
      * Корректирует высоту пропорций квадратов.
@@ -81,7 +92,6 @@ export default {
       let h = this.itemHeight || this.getMinWidth()
       this.styleObject = {height: h + 'px'}
     },
-
     /**
      * Срабатывает при нажатии "Показать еще".
      * @method showMore

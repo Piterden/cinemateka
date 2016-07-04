@@ -2,12 +2,15 @@
 .mdl-data-table {
   width: 100%;
   border: none;
+  font-size: 16px;
 }
 .mdl-data-table th {
   letter-spacing: .02em;
-  font-size: 14px;
+  font-size: 16px;
   padding: 0 0 10px 5px;
   text-align: left;
+  font-weight: bold;
+  color: black;
 }
 .mdl-data-table tbody tr {
   height: 100px;
@@ -26,25 +29,35 @@
   border-top-width: 3px;
 }
 .seance-date {
-
+  font-size: 23px;
 }
 .seance-time {
-
+  font-size: 16px;
+  text-align: right;
 }
 tbody .event > div {
-
+  margin-left: 20px;
+  padding-right: 30px;
+}
+tbody .event > div a {
+  font-size: 23px;
+  font-weight: bold;
 }
 tbody .type > div {
-
+  padding-left: 5px;
+  min-width: 150px;
 }
 tbody .program > div {
-
+  padding-left: 5px;
+  min-width: 180px;
 }
 tbody .place > div {
-
+  padding-left: 5px;
+  min-width: 130px;
 }
 tbody .price > div {
-
+  padding-left: 5px;
+  min-width: 80px;
 }
 </style>
 
@@ -53,40 +66,29 @@ tbody .price > div {
     <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable">
       <thead>
         <tr>
-          <th class="date">
-            Дата
-          </th>
-          <th class="event">
-            Событие
-          </th>
-          <th class="type">
-            Тип события
-          </th>
-          <th class="program">
-            Программа
-          </th>
-          <th class="place">
-            Площадка
-          </th>
-          <th class="price">
-            Билет
-          </th>
+          <th class="id hidden">ID</th>
+          <th class="date">Дата</th>
+          <th class="event">Событие</th>
+          <th class="type">Тип события</th>
+          <th class="program">Программа</th>
+          <th class="place">Площадка</th>
+          <th class="price">Билет</th>
         </tr>
       </thead>
       <tbody>
         <tr
           v-for="seance in seances
-              | filterMethod filterValues
-              | limitBy limit
-              | orderBy 'start_time'"
+            | filterMethod filterValues
+            | limitBy limit
+            | orderBy 'start_time'"
+          track-by="id"
         >
+          <td class="id hidden">
+            <div class="seance-id">{{ seance.id }}</div>
+          </td>
           <td class="date">
-            <div class="seance-date">
-              {{ seance.startDate }}
-            </div>
-            <div class="seance-time">
-              {{ seance.startTime }}
-            </div>
+            <div class="seance-date">{{ seance.startDate }}</div>
+            <div class="seance-time">{{ seance.startTime }}</div>
           </td>
           <td class="event">
             <div>
@@ -96,10 +98,7 @@ tbody .price > div {
             </div>
           </td>
           <td class="type">
-            <div>
-                {{ seance.eventTypeName }}
-
-            </div>
+            <div>{{ seance.eventTypeName }}</div>
           </td>
           <td class="program">
             <div>
@@ -110,15 +109,13 @@ tbody .price > div {
           </td>
           <td class="place">
             <div>
-              <a href="#" v-link="{ path: '/contacts' + seance.place_id }">
+              <a href="#" v-link="{ path: '/contacts/' + seance.place_id }">
                 {{ seance.place.title }}
               </a>
             </div>
           </td>
           <td class="price">
-            <div>
-              {{ seance.price }} {{{ roubleIcon }}}
-            </div>
+            <div>{{ seance.price }} {{{ roubleIcon }}}</div>
           </td>
         </tr>
       </tbody>

@@ -224,6 +224,9 @@ nav {
 .mdl-grid.list-box {
   padding: 6px 28px 17px;
   color: #fff;
+  a {
+    color: #fff;
+  }
   .mdl-cell--12-col {
     width: calc(100% - 24px);
   }
@@ -243,6 +246,8 @@ nav {
       position: relative;
       width: 100%;
       height: 100%;
+      background-position: 50% 50%;
+      background-size: cover;
       .category {
         padding: 18px 25px;
         text-transform: lowercase;
@@ -288,8 +293,40 @@ nav {
   }
 }
 .soon-block {
-  .mdl-grid.list-box .mdl-cell .event-item-card {
-    height: 60%;
+  margin-bottom: 55px;
+  .mdl-grid.list-box .mdl-cell {
+    background-color: white;
+    .event-item-card {
+      height: 60%;
+      background-position: 50% 50%;
+      background-size: cover;
+      .bottom-block {
+        top: 100%;
+        .dates {
+          color: black;
+          padding: 0;
+          font-size: 16px;
+          margin: 12px 0 4px 0;
+        }
+        .title {
+          padding: 0;
+          font-size: 16px;
+          h3 {
+            color: black;
+            font-size: 16px;
+            line-height: 1.4em;
+            font-weight: bold;
+            &:hover {
+             text-decoration: underline;
+             color: red;
+            }
+          }
+        }
+        .program {
+          display: none;
+        }
+      }
+    }
   }
 }
 .filters-line.mdl-grid {
@@ -349,6 +386,7 @@ nav {
     width: 6.5%;
   }
 }
+ 
 // DROPDOWN
 .dropdown {
   position: relative;
@@ -432,12 +470,18 @@ nav {
 
 .schedule-page {
   .filters-line {
+    .program-type-filter {
+      margin-left: 27px;
+    }
     .event-type-filter, .place-type-filter {
       width: 170px;
       margin-left: 27px;
     }
+    .now-soon-filter li {
+      display: inline-block; 
+    }
     li {
-      display: inline-block;
+      display: block;
     }
     .program-type-filter {
       width: 300px;
@@ -452,6 +496,7 @@ nav {
       padding: 5px 0;
     }
   }
+
 }
 
 
