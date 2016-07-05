@@ -27,13 +27,13 @@ class CreateEventsTable extends Migration
                 $table->string('slug', 255)->comment('Псевдоним (необходим для формирования маршрута)');
                 $table->integer('category_id')->unsigned()->comment('ID типа события');
 
-                $table->string('description')->comment('Описание');
+                $table->mediumtext('description')->comment('Описание');
 
                 $table->string('orig_title', 255)->default('')->comment('Оригинальное название');
                 $table->string('year', 50)->default('')->comment('Год');
                 $table->string('country', 100)->default('')->comment('Страна');
                 $table->string('carrier', 50)->default('')->comment('Носитель (DCP, 35 mm, Blu-ray)');
-                $table->string('language', 2)->default('')->comment('Язык');
+                $table->string('language', 50)->default('')->comment('Язык');
                 $table->string('subtitles', 100)->default('')->comment('Субтитры или дубляж');
                 $table->string('director', 255)->default('')->comment('Режиссер');
                 $table->string('writtenby', 255)->default('')->comment('Сценарист');

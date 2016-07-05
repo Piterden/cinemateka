@@ -38,7 +38,7 @@ class Slide extends Model
      */
     public function category()
     {
-        return $this->belongsTo('App\Model\Category');
+        return $this->belongsTo('App\Models\Category');
     }
 
     /**

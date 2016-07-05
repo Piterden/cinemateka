@@ -14,8 +14,8 @@
 
 .places-wrapper {
   position: absolute;
-  top: 191px;
-  left: 41px;
+  top: 10%;
+  left: 5%;
   width: 385px;
   background-color: white;
   z-index: 5555;

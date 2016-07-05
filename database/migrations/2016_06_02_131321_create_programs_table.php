@@ -25,7 +25,7 @@ class CreateProgramsTable extends Migration
 
                 $table->string('title', 255)->comment('Название события');
                 $table->string('slug', 255)->comment('Псевдоним (необходим для формирования маршрута)');
-                $table->string('description')->comment('Описание');
+                $table->mediumtext('description')->comment('Описание');
 
                 $table->dateTimeTz('start_date')->comment('Дата начала');
                 $table->dateTimeTz('end_date')->comment('Дата конца');

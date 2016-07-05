@@ -1,12 +1,160 @@
 <style lang="css" scoped>
+.program-image {
+  /* background-position: left bottom; /* Положение фона */
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  /* Повторяем фон по горизонтали */
+  background-size: cover;
+  height: 411px;
+  width: 100%;
+  position: relative;
+  color: white;
+}
 
+.program-date {
+  font-size: 48px;
+  position: absolute;
+  top: 50px;
+  left: 40px;
+}
+
+.program-title {
+  font-size: 48px;
+  position: absolute;
+  top: 111px;
+  left: 40px;
+  max-width: 500px;
+  font-weight: bold;
+  line-height: 50px;
+}
+
+.program-programm {
+  position: absolute;
+  top: 336px;
+  left: 40px;
+}
+
+.program-programm a {
+  color: white;
+  text-decoration: underline;
+}
+
+.program-video {
+  width: 535px;
+  height: 307px;
+  position: absolute;
+  right: 40px;
+  bottom: 50px;
+  background-color: grey;
+}
+
+.program-param {
+  display: inline-block;
+  border-bottom: 2px solid black;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  width: 100%;
+  padding-bottom: 40px;
+  text-align: right;
+  position: relative;
+}
+
+.program-time {
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  font-size: 32px;
+}
+
+.program-place {
+  display: inline-block;
+  margin-right: 100px;
+}
+
+.program-place i,
+.program-price i {
+  vertical-align: bottom;
+}
+
+.program-price {
+  display: inline-block;
+  position: absolute;
+  right: 0;
+}
+
+.program-more-info {
+  margin-top: 45px;
+}
+
+.more-info-table {
+  margin-top: 24px;
+  margin-bottom: 40px;
+}
+
+.more-info-table tr td:first-child {
+  font-weight: bold;
+  width: 170px;
+}
+.more-info-table tr td:nth-child(2) {
+  /* max-width: 340px; */
+}
+.more-info-table tr td:nth-child(3) {
+  vertical-align: top;
+}
+.actors-list li {
+  font-size: 16px;
+  margin-bottom: 3px;
+}
+/* same programm block */
+.mdl-grid.list-box.same-programm-block {
+  background-color: black;
+  padding-top: 121px;
+  position: relative;
+}
+.same-programm-block > h3 {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  font-size: 32px;
+}
+.same-programm-block h3 a {
+ font-size: 32px;
+ color: white;
+ text-decoration: underline;
+}
+.same-programm-block h3 a:hover {
+  color: red;
+}
+.more-events-in-shadue {
+  height: 72px;
+  border: 2px solid white;
+  width: 100%;
+  margin: 45px 12px;
+  text-align: center;
+  line-height: 72px;
+}
+.more-events-in-shadue a {
+  text-transform: uppercase;
+  letter-spacing: .2em;
+  color: white;
+}
+.more-events-in-shadue svg {
+  width: 70px;
+}
+.st0 {
+  width: 70px;
+  fill: none;
+  stroke: white;
+  stroke-width: 2;
+  stroke-miterlimit: 10;
+}
 </style>
 
 <template>
   <div class="wrap router-view program-page">
     <div class="program-image"
       :style="{'background-image': 'url(/'+images.mainimage+')'}">
-      <div class="program-date">31.10</div>
+      <div class="program-date"></div>
       <div class="program-title">{{ programItem.title }}</div>
       <div class="program-programm">
         <a v-link="'/program/'+closestProgram.slug">
@@ -23,19 +171,19 @@
       <div class="mdl-cell mdl-cell--7-col">
         <div class="program-desc">
           <div class="program-param">
-            <div class="program-time">
+            <div class="program-time" v-if="closestSeance">
               <i class="fa fa-clock-o" aria-hidden="true"></i>
               {{ closestSeanceTime }}
             </div>
             <div class="program-place" v-if="closestPlace">
               <i class="material-icons">place</i> {{ closestPlace.title }}
             </div>
-            <div class="program-price">
+            <div class="program-price" v-if="closestSeance">
               <i class="material-icons">account_balance_wallet</i>
               <strong>{{ closestSeance.price }}</strong> р.
             </div>
           </div>
-          <div class="program-desc-text">
+          <div class="program-desc-text" v-if="programItem.description">
             {{ programItem.description }}
           </div>
         </div>
@@ -43,7 +191,7 @@
           <h3>Подробнее о фильме</h3>
           <table class="more-info-table">
             <tbody>
-              <tr>
+              <tr v-if="programItem.orig_title">
                 <td>Оригин. название</td>
                 <td>{{ programItem.orig_title || programItem.title }}</td>
                 <td rowspan="15" v-if="programItem.actors">
@@ -135,7 +283,7 @@
           той же программы
         </a>
       </h3>
-      <div slot="bottom" class="more-programs-in-shadue">
+      <div slot="bottom" class="more-events-in-shadue">
         <a href="#">Больше событий в расписании
           <!-- ?xml version="1.0" encoding="utf-8"? -->
           <svg version="1.1"
@@ -147,9 +295,7 @@
             viewBox="0 0 72 20"
             style="enable-background:new 0 0 72 20;"
             xml:space="preserve"
-          >
-            <g>
-              <g>
+          ><g><g>
                 <line class="st0"
                   x1="0"
                   y1="9.4"
@@ -157,8 +303,7 @@
                   y2="9.4"></line>
                 <polyline class="st0"
                   points="57.8,1 70,9.4 58.2,19"></polyline>
-              </g>
-            </g>
+            </g></g>
           </svg>
         </a>
       </div>
@@ -169,12 +314,25 @@
 <script>
 export default {
 
-  name: 'program-page',
-
-  data () {
-    return {
-
-    };
+  computed: {
+    programItem() {
+      return this.$root.programs.find((p) => {
+        return p.slug == this.$route.params.slug
+      })
+    },
+    images() {
+      return this.programItem.images
+        && JSON.parse(this.programItem.images)
+    },
+    actors() {
+      return this.programItem.actors
+        && JSON.parse(this.programItem.actors)
+    },
+    videos() {
+      return this.programItem.videos
+        && JSON.parse(this.programItem.videos)
+    }
   }
+
 };
 </script>

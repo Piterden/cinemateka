@@ -15,26 +15,28 @@
     </div>
     <!-- sidebar menu: : style can be found in sidebar.less -->
     <ul class="sidebar-menu">
-      <li class="header">ADMINISTRATION</li>
       <!-- ================================================ -->
       <!-- ==== Recommended place for admin menu items ==== -->
       <!-- ================================================ -->
-      <li><a href="{{ url('admin') }}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+      <li><a href="{{ url('admin') }}"><i class="fa fa-calendar"></i> <span>Календарь</span></a></li>
+      <li class="header">КАТАЛОГ</li>
+      <li><a href="{{ url('admin/event') }}"><i class="fa fa-film"></i> <span>События</span></a></li>
+      <li><a href="{{ url('admin/program') }}"><i class="fa fa-list-ul"></i> <span>Программы</span></a></li>
+      <li><a href="{{ url('admin/place') }}"><i class="fa fa-map-marker"></i> <span>Площадки</span></a></li>
+      <li class="header">САЙТ</li>
       <!-- Menu -->
-      <li><a href="{{ url('admin/menu-item') }}"><i class="fa fa-list"></i> <span>Menu</span></a></li>
-      <li><a href="{{ url('admin/event') }}"><i class="fa fa-film"></i> <span>Events</span></a></li>
-      <li><a href="{{ url('admin/program') }}"><i class="fa fa-calendar"></i> <span>Programs</span></a></li>
-      <li><a href="{{ url('admin/place') }}"><i class="fa fa-clock-o"></i> <span>Places</span></a></li>
+      <li><a href="{{ url('admin/slide') }}"><i class="fa fa-sliders"></i> <span>Слайдеры</span></a></li>
+      <li><a href="{{ url('admin/menu-item') }}"><i class="fa fa-list"></i> <span>Меню</span></a></li>
       <!-- File Manager -->
       <li>
-        <a href="{{ url('admin/elfinder') }}"><i class="fa fa-files-o"></i> <span>File manager</span></a>
+        <a href="{{ url('admin/elfinder') }}"><i class="fa fa-files-o"></i> <span>Файлы</span></a>
       </li>
       <!-- Backup -->
       <li>
-        <a href="{{ url('admin/backup') }}"><i class="fa fa-hdd-o"></i> <span>Backups</span></a>
+        <a href="{{ url('admin/backup') }}"><i class="fa fa-hdd-o"></i> <span>Резервные копии</span></a>
       </li>
       <!-- ======================================= -->
-      <li class="header">USER</li>
+      {{-- <li class="header"></li>
       <!-- Users, Roles Permissions -->
       <li class="treeview">
         <a href="#"><i class="fa fa-group"></i> <span>Users, Roles, Permissions</span> <i class="fa fa-angle-left pull-right"></i></a>
@@ -44,7 +46,7 @@
           <li><a href="{{ url('admin/permission') }}"><i class="fa fa-key"></i> <span>Permissions</span></a></li>
         </ul>
       </li>
-      <li><a href="{{ url('admin/logout') }}"><i class="fa fa-sign-out"></i> <span>Logout</span></a></li>
+      <li><a href="{{ url('admin/logout') }}"><i class="fa fa-sign-out"></i> <span>Logout</span></a></li> --}}
     </ul>
   </section>
   <!-- /.sidebar -->

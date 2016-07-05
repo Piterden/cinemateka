@@ -90,7 +90,7 @@ export default {
      */
     handleResize() {
       let h = this.itemHeight || this.getMinWidth()
-      this.styleObject = {height: h + 'px'}
+      this.styleObject = { height: h + 'px' }
     },
     /**
      * Срабатывает при нажатии "Показать еще".
@@ -114,6 +114,15 @@ export default {
 
   beforeDestroy() {
     window.removeEventListener('resize', this.handleResize)
+  },
+
+  watch: {
+    filterValues: {
+      deep: true,
+      handler(n,o) {
+        this.handleResize()
+      }
+    }
   },
 
   filters: {

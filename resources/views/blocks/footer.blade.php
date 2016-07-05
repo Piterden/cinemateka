@@ -7,20 +7,20 @@
     <div class="mdl-cell mdl-cell--4-col">
       <ul class="social-links mdl-typography--text-center">
         <li>
-          <a href="https://www.facebook.com/seance.ru" target="_blank">
+          <a href="https://www.facebook.com/seancecinema" target="_blank">
             <img src="/images/icn-footer-social-facebook.png">
           </a>
         </li>
         <li>
-          <a href="http://vk.com/seance_magazine" target="_blank">
+          <a href="https://vk.com/kvg_seance" target="_blank">
             <img src="/images/icn-footer-social-vkontakte.png">
           </a>
         </li>
-        <li>
+        <!-- <li>
           <a href="https://www.instagram.com/seance_magazine/" target="_blank">
             <img src="/images/icn-footer-social-instagram.png">
           </a>
-        </li>
+        </li> -->
       </ul>
     </div>
     <div class="mdl-cell mdl-cell--4-col mdl-typography--text-right">

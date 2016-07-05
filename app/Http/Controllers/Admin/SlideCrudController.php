@@ -27,7 +27,7 @@ class SlideCrudController extends CrudController
         $cols = [[
             'name'  => 'title',
             'label' => 'Название',
-            'type' => 'text'
+            'type'  => 'text',
         ], [
             'label'     => 'Категория',
             'type'      => 'select',
@@ -36,21 +36,17 @@ class SlideCrudController extends CrudController
             'attribute' => 'name',
             'model'     => "App\Models\Category",
         ], [
-            'name' => 'src',
+            'name'  => 'src',
             'label' => 'Изображение',
-            'type' => 'text'
+            'type'  => 'text',
         ]];
         $this->crud->addColumns($cols); // add multiple columns, at the end of the stack
 
         // ------ CRUD FIELDS
         $fields = [[
-            'name'  => 'category_id',
-            'label' => 'Категория',
-            'type'  => 'text',
-        ], [
             'name'  => 'published',
             'label' => 'Показывать',
-            'type'  => 'text',
+            'type'  => 'checkbox',
         ], [
             'name'  => 'title',
             'label' => 'Название',
@@ -58,21 +54,29 @@ class SlideCrudController extends CrudController
         ], [
             'name'  => 'src',
             'label' => 'Изображение',
-            'type'  => 'text',
+            'type'  => 'browse',
         ], [
-            'name'  => 'caption_title',
-            'label' => 'Заголовок',
-            'fake'  => true,
+            'name'     => 'caption_title',
+            'label'    => 'Заголовок',
+            'fake'     => true,
             'store_in' => 'caption',
         ], [
-            'name'  => 'caption_content',
-            'label' => 'Содержимое',
-            'fake'  => true,
+            'name'     => 'caption_content',
+            'label'    => 'Содержимое',
+            'fake'     => true,
             'store_in' => 'caption',
+        ], [ // select
+            'name'        => 'category_id',
+            'label'       => 'Категория',
+            'type'        => 'select',
+            'allows_null' => false,
+            'entity'      => 'category',
+            'colspan'     => '2',
+            'attribute'   => 'name',
+            'model'       => "App\Models\Category",
         ]];
+
         $this->crud->addFields($fields);
-
-
 
         // ------ CRUD FIELDS
         // $this->crud->addField($options, 'update/create/both');

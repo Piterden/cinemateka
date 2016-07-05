@@ -17,26 +17,21 @@ class AppServiceProvider extends ServiceProvider
          */
 
         view()->share('seances', \App\Models\Seance::all()->toJson());
-        view()->share('events', \App\Models\Event::all()->toJson());
-        view()->share('programs', \App\Models\Program::all()->toJson());
-        view()->share('places', \App\Models\Place::all()->toJson());
+
         view()->share('categories', \App\Models\Category::all()->toJson());
 
-        // view()->share('seances', \App\Models\Seance::all());
+        view()->share('events', \App\Models\Event::where([
+            'published' => 1
+        ])->get()->toJson());
 
-        // view()->share('programs', \App\Models\Program::with([
-        //     'seances' => function ($query)
-        //     {
-        //         $query->orderBy('start_time');
-        //     },
-        // ])->get()->toJson());
+        view()->share('programs', \App\Models\Program::where([
+            'published' => 1
+        ])->get()->toJson());
 
-        // view()->share('events', \App\Models\Event::with([
-        //     'seances' => function ($query)
-        //     {
-        //         $query->orderBy('start_time');
-        //     },
-        // ])->get()->toJson());
+        view()->share('places', \App\Models\Place::where([
+            'published' => 1
+        ])->get()->toJson());
+
     }
 
     /**

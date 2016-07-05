@@ -28,15 +28,24 @@
 .mdl-data-table tbody tr:first-child td {
   border-top-width: 3px;
 }
-.seance-date {
-  font-size: 23px;
+tbody .date > div {
+  width: 70px;
+  margin-right: 15px;
 }
-.seance-time {
+tbody .date .seance-date {
+  font-size: 23px;
+  text-align: right;
+}
+tbody .date .seance-time {
+  width: 68px;
   font-size: 16px;
   text-align: right;
 }
+tbody .event {
+  width: 100%;
+}
 tbody .event > div {
-  margin-left: 20px;
+  margin-left: 5px;
   padding-right: 30px;
 }
 tbody .event > div a {
@@ -47,17 +56,26 @@ tbody .type > div {
   padding-left: 5px;
   min-width: 150px;
 }
+tbody .type:after {
+  position: absolute;
+  right: 0;
+  left: 0;
+}
+
 tbody .program > div {
   padding-left: 5px;
-  min-width: 180px;
+  min-width: 200px;
+}
+tbody .program > div a {
+  text-decoration: underline;
 }
 tbody .place > div {
   padding-left: 5px;
-  min-width: 130px;
+  min-width: 160px;
 }
 tbody .price > div {
   padding-left: 5px;
-  min-width: 80px;
+  min-width: 47px;
 }
 </style>
 

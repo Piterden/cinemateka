@@ -52,7 +52,7 @@ export default {
        */
       month: {
         title: 'Скоро',
-        tabs: this.$root.getMonthTabsList(),
+        tabs: this.getMonthTabsList(),
         limit: 4,
         cols: 3,
         calcSizesMethod: 'same',
@@ -105,7 +105,25 @@ export default {
     clickSoonTab(name) { // 'month$'
       let i = name.slice(5)
       this.$set('month.activeTab', Number(i))
-    }
+    },
+
+    /**
+     * Список из 12 месяцев начиная с
+     * текущего для компонента "Скоро"
+     */
+    getMonthTabsList() {
+      let mn = this.$root.getMonthNames(),
+        d = new Date(),
+        nn = mn.splice(d.getMonth()).concat(mn)
+      return nn.map((m, i) => {
+        let num = this.$root.getSoonTabMonth(i)
+        return {
+          name: 'month' + i,
+          year: this.$root.getSoonTabYear(i),
+          title: this.$root.getMonthNames()[num].slice(0, 3)
+        }
+      })
+    },
   },
 
   ready() {

@@ -13,7 +13,7 @@
     transition-mode="out-in"
   >
     <div class="event-item-card"
-      :style="{backgroundImage: 'url(/' + thumb + ')'}"
+      :style="bgStyleObject"
     >
       <div class="category">{{ eventTypeName }}</div>
       <div class="bottom-block">
@@ -53,13 +53,19 @@ export default {
     method: String,
     limit: Number,
     height: Number,
-    separator: { type: String, default :'–' },
+    separator: { type: String, default :' – ' },
     styleObject: { type: Object, default :'inherit' }
   },
 
   computed: {
     closestProgram() {
       return this.$root.getClosestSeanceProgram(this.item)
+    },
+
+    bgStyleObject() {
+      return {
+        backgroundImage: 'url("/' + this.thumb + '")'
+      }
     },
 
     /**
