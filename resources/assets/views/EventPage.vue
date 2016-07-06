@@ -29,7 +29,7 @@
               {{ closestSeanceTime }}
             </div>
             <div class="event-place" v-if="closestPlace">
-              <i class="material-icons">place</i> «{{ closestPlace.title }}»
+              <i class="fa fa-map-marker" aria-hidden="true"></i> «{{ closestPlace.title }}»
             </div>
             <div class="event-price">
               <i class="material-icons">account_balance_wallet</i>
@@ -37,7 +37,7 @@
             </div>
           </div>
           <div class="event-desc-text">
-            {{ eventItem.description }}
+            {{{ eventItem.description }}}
           </div>
         </div>
         <div class="event-more-info">
@@ -217,7 +217,7 @@ export default {
     closestSeanceDate() {
       let d = this.closestSeance
         && new Date(this.closestSeance.start_time)
-      return d && this.$root.formatDateToStr(d, 'DD-MM')
+      return d && this.$root.formatDateToStr(d, 'DD.MM')
     },
     hasChrono() {
       return this.eventItem.chrono > 0 ? this.eventItem.chrono : ''

@@ -30,6 +30,7 @@ class CreatePlacesTable extends Migration
                 $table->mediumtext('description')->comment('Описание');
                 $table->mediumtext('images')->comment('Изображение или набор изображений');
                 $table->mediumtext('properties');
+                $table->string('position');
 
                 $table->timestamps();
                 $table->softDeletes();

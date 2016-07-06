@@ -228,6 +228,9 @@ nav {
   color: #fff;
   a {
     color: #fff;
+    &:hover {
+      color: red;
+    }
   }
   .mdl-cell--12-col {
     width: calc(100% - 24px);
@@ -244,6 +247,7 @@ nav {
   .mdl-cell {
     margin: 12px;
     background: #000;
+    text-shadow: 0 0 2px #000;
     .event-item-card {
       position: relative;
       width: 100%;
@@ -305,6 +309,7 @@ nav {
       background-size: cover;
       .bottom-block {
         top: 100%;
+        text-shadow: none;
         .dates {
           color: black;
           padding: 0;
@@ -398,6 +403,28 @@ nav {
   width: 72.5%;
   border: 2px solid;
   color: #000;
+  &:hover {
+    &:after {
+      border-color: red;
+    }
+  }
+  &:focus {
+    &:after {
+      transform: rotate(-45deg);
+    }
+  }
+  &:after {
+    content: '';
+    z-index: -1;
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    top: 11px;
+    right: 16px;;
+    border-bottom: 2px solid black;
+    border-right: 2px solid black;
+    transform: rotate(45deg);
+  }
   > input[type="checkbox"]:checked ~ label > ul {
     display: none;
   }
@@ -639,8 +666,8 @@ footer {
 }
 
 /**
- * Event page 
- */ 
+ * Event page
+ */
 
 .event-image {
   /* background-position: left bottom; /* Положение фона */
@@ -666,7 +693,7 @@ footer {
   position: absolute;
   top: 111px;
   left: 40px;
-  max-width: 500px;
+  max-width: 620px;
   font-weight: bold;
   line-height: 50px;
   margin: 0;
@@ -718,6 +745,7 @@ footer {
 .event-place i,
 .event-price i {
   vertical-align: bottom;
+  font-size: 24px;
 }
 
 .event-price {
@@ -740,7 +768,8 @@ footer {
   width: 170px;
 }
 .more-info-table tr td:nth-child(2) {
-  /* max-width: 340px; */
+  max-width: 340px;
+  border-right: 25px solid white;
 }
 .more-info-table tr td:nth-child(3) {
   vertical-align: top;

@@ -56,12 +56,6 @@ tbody .type > div {
   padding-left: 5px;
   min-width: 150px;
 }
-tbody .type:after {
-  position: absolute;
-  right: 0;
-  left: 0;
-}
-
 tbody .program > div {
   padding-left: 5px;
   min-width: 200px;

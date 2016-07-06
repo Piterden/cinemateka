@@ -78,12 +78,14 @@
 
 .place-email i {
   font-size: 16px;
-  margin-right: 5px;
+  margin-right: 6px;
+  margin-left: -1px;
 }
 
 .place-tel i {
   vertical-align: bottom;
-  margin-right: 10px;
+  margin-right: 8px;
+  margin-left: 2px;
   font-size: 25px;
 }
 
@@ -113,25 +115,25 @@
   <div class="wrap router-view contacts-page map-wrapper"
     :style="{ width: mapWidth + 'px', height: mapHeight + 'px' }"
   >
+    <list-places
+      :places="places"
+      :cursor-index="activeIndex || 0"
+    ></list-places>
     <map id="map"
       :center.sync="center"
-      :zoom.sync="12"
+      :zoom.sync="15"
       :options="options"
     >
-      <list-places
-        :places="places"
-        :cursor-index="activeIndex || 0"
-      ></list-places>
       <marker
         v-for="place in places"
+        v-if="place.published != 0"
         :clickable.sync="true"
         :title.sync="place.title"
         :cursor.sync="'pointer'"
         :draggable.sync="false"
         :label.sync="place.place_type"
-        :position.sync="center"
+        :position.sync="place.position"
         :place.sync="markerPlace"
-        @g-click="center=place.position"
       ></marker>
     </map>
   </div>
@@ -165,13 +167,11 @@ export default {
 
   computed: {
     center() {
-      return {
-        lat: 59.94501723763008,
-        lng: 390.3447668507324
-      }
+      let p = this.getActivePlace()
+      return p && p != -1 && p.position && p.position || {}
     },
     activeIndex() {
-      return this.$root.getIndexById(this.places, this.activeMarker)
+      return this.$root.getIndexById(this.$root.places, this.activeMarker)
     }
   },
 
@@ -208,35 +208,36 @@ export default {
       let index = this.$root.getIndexById(this.places, id) || 0
       this.clickPlaceItem(Number(index))
       return true
+    },
+
+    getActivePlace() {
+      return this.places[this.activeIndex]
     }
+
+  },
+
+  watch: {
+    // places: {
+    //   deep: true,
+    //   handler(n,o) {
+    //     this.$children[0].$children.forEach((m,i) => {
+    //       m.position.lat = Number(n[i].position.lat)
+    //       m.position.lng = Number(n[i].position.lng)
+    //     })
+    //   }
+    // }
+  },
+
+  created() {
+    this.places = this.places.map((p) => {
+      p.position = p.position || {}
+      p.position.lat = p.position.lat || 0
+      p.position.lat = p.position.lng || 0
+      return p
+    })
   },
 
   ready() {
-    // this.initMap()
-    this.places = this.places.map((pl) => {
-      pl.propsObj = pl.properties && JSON.parse(pl.properties)
-      pl.propsObj = pl.propsObj || {}
-      pl.propsObj.place_type = pl.propsObj.place_type || ''
-
-      let url = 'https://maps.googleapis.com/maps/api/geocode/json?address=',
-        addr = pl.propsObj.place_type + ' ' + pl.title + ' ' + pl.address
-      url += addr.replace(' ', '+')
-
-
-
-      $.ajax({ url: url, data: {}, method: 'POST',
-        success(res) {
-          pl.geo = res.results[0]
-          // console.log(pl);
-        },
-        error(res) {
-          // console.log('error', res)
-        }
-      })
-      // loaded.then(() => {
-      // })
-      return pl
-    })
     this.setCursor(this.$route.params.placeId)
     this.handleResize()
     window.removeEventListener('resize', this.handleResize)

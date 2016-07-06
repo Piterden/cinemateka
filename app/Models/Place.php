@@ -32,10 +32,11 @@ class Place extends Model
         'email',
         'phone',
         'place_type',
+        'position',
     ];
-    protected $fakeColumns = ['properties'];
-    protected $dates   = ['created_at', 'edited_at', 'deleted_at'];
-    public $timestamps = true;
+    protected $fakeColumns = ['properties', 'position'];
+    protected $dates       = ['created_at', 'edited_at', 'deleted_at'];
+    public $timestamps     = true;
 
     /**
      * |--------------------------------------------------------------------------

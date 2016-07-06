@@ -28,51 +28,57 @@ class ProgramCrudController extends CrudController
         |--------------------------------------------------------------------------
          */
         $this->crud->addField([
-            'name' => '0',
-            'label' => 'Основная информация',
-            'type' => 'separator',
-            'colspan' => 10
+            'name'    => '0',
+            'label'   => 'Основная информация',
+            'type'    => 'separator',
+            'colspan' => 10,
         ]);
         $this->crud->addField([ // CHECKBOX
-            'name' => 'published',
-            'label' => 'Опубликованно',
-            'type' => 'checkbox',
-            'colspan' => 2
+            'name'    => 'published',
+            'label'   => 'Опубликованно',
+            'type'    => 'checkbox',
+            'colspan' => 2,
         ]);
         $this->crud->addField([ // TEXT
-            'name' => 'title',
-            'label' => 'Заголовок',
-            'type' => 'text',
+            'name'        => 'title',
+            'label'       => 'Заголовок',
+            'type'        => 'text',
             'placeholder' => 'Название программы',
         ]);
         $this->crud->addField([
-            'name' => 'slug',
+            'name'  => 'slug',
             'label' => 'ЧПУ (URL)',
-            'type' => 'text',
-            'hint' => 'Если не заполнять, создастся автоматически',
+            'type'  => 'text',
+            'hint'  => 'Если не заполнять, создастся автоматически',
             // 'disabled' => 'disabled'
         ]);
         $this->crud->addField([ // TEXT
-            'name' => 'slogan',
+            'name'  => 'slogan',
             'label' => 'Слоган',
-            'type' => 'text',
+            'type'  => 'text',
         ]);
         $this->crud->addField([ // Image
-            'name' => 'images',
-            'label' => 'Картинка',
-            'type' => 'text',
-            'colspan' => 6
+            'name'     => 'mainimage',
+            'label'    => 'Главная картинка',
+            'type'     => 'browse',
+            'colspan'  => '5',
+            'fake'     => true,
+            'store_in' => 'images',
+            'cssclass' => 'main-image',
         ]);
         $this->crud->addField([ // Image
-            'name' => 'videos',
-            'label' => 'Видео',
-            'type' => 'text',
-            'colspan' => 6
+            'name'     => 'mainvideo',
+            'label'    => 'Главное видео',
+            'type'     => 'video',
+            'fake'     => true,
+            'store_in' => 'videos',
+            'colspan'  => '5',
         ]);
         $this->crud->addField([ // WYSIWYG
-            'name' => 'description',
-            'label' => 'Описание',
-            'type' => 'ckeditor',
+            'name'        => 'description',
+            'label'       => 'Описание',
+            // 'type'        => 'ckeditor',
+            'type'        => 'summernote',
             'placeholder' => 'Your textarea text here',
         ]);
         $this->crud->addField([ // Select2Multiple = n-n relationship (with pivot table)
@@ -85,28 +91,28 @@ class ProgramCrudController extends CrudController
             // 'pivot'     => true, // on create&update, do you need to add/delete pivot table entries?
         ]);
         $this->crud->addField([
-            'name' => '2',
+            'name'  => '2',
             'label' => 'SEO данные',
-            'type' => 'separator',
+            'type'  => 'separator',
         ]);
         $this->crud->addField([ // TEXT
-            'name' => 'meta_title',
-            'label' => 'Meta-Title',
-            'hint' => 'Если не заполнять, примет значение название события',
-            'fake' => true,
+            'name'     => 'meta_title',
+            'label'    => 'Meta-Title',
+            'hint'     => 'Если не заполнять, примет значение название события',
+            'fake'     => true,
             'store_in' => 'meta',
         ]);
         $this->crud->addField([ // TEXT
-            'name' => 'meta_description',
-            'label' => 'Meta-Description',
-            'hint' => 'Если не заполнять, примет значение перых 30 слов из описания события',
-            'fake' => true,
+            'name'     => 'meta_description',
+            'label'    => 'Meta-Description',
+            'hint'     => 'Если не заполнять, примет значение перых 30 слов из описания события',
+            'fake'     => true,
             'store_in' => 'meta',
         ]);
         $this->crud->addField([ // TEXT
-            'name' => 'meta_keywords',
-            'label' => 'Meta-Keywords',
-            'fake' => true,
+            'name'     => 'meta_keywords',
+            'label'    => 'Meta-Keywords',
+            'fake'     => true,
             'store_in' => 'meta',
         ]);
 
@@ -114,22 +120,22 @@ class ProgramCrudController extends CrudController
          *  ------ CRUD COLUMNS
          */
         $this->crud->addColumn([
-            'name' => 'title',
+            'name'  => 'title',
             'label' => 'Название',
         ]);
         $this->crud->addColumn([
-            'name' => 'published',
+            'name'  => 'published',
             'label' => 'Опубликованно',
         ]);
         $this->crud->addColumn([
-            'name' => 'start_date',
+            'name'  => 'start_date',
             'label' => 'Начало',
-            'type' => 'date',
+            'type'  => 'date',
         ]);
         $this->crud->addColumn([
-            'name' => 'end_date',
+            'name'  => 'end_date',
             'label' => 'Конец',
-            'type' => 'date',
+            'type'  => 'date',
         ]);
 
         // ------ CRUD ACCESS

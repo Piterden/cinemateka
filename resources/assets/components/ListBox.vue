@@ -7,8 +7,7 @@
     <list-box-item
       v-if="events"
       v-for="item in events
-        | filterMethod filterValues
-        | limitBy limit"
+        | filterMethod filterValues | limitBy limit"
       :class="itemClass"
       :index.once="$index"
       :item.sync="item"

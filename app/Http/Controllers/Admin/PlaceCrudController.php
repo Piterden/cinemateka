@@ -38,6 +38,12 @@ class PlaceCrudController extends CrudController
 
         // ------ CRUD FIELDS
         $this->crud->addField([
+            'name'    => 'published',
+            'type'    => 'checkbox',
+            'label'   => 'Опубликовано',
+            'colspan' => 4,
+        ]);
+        $this->crud->addField([
             'name'    => 'title',
             'type'    => 'text',
             'label'   => 'Название',
@@ -91,6 +97,22 @@ class PlaceCrudController extends CrudController
             'label'    => 'Телефон',
             'fake'     => true,
             'store_in' => 'properties',
+            'colspan'  => 4,
+        ]);
+        $this->crud->addField([
+            'name'     => 'lat',
+            'type'     => 'text',
+            'label'    => 'Широта',
+            'fake'     => true,
+            'store_in' => 'position',
+            'colspan'  => 4,
+        ]);
+        $this->crud->addField([
+            'name'     => 'lng',
+            'type'     => 'text',
+            'label'    => 'Долгота',
+            'fake'     => true,
+            'store_in' => 'position',
             'colspan'  => 4,
         ]);
 

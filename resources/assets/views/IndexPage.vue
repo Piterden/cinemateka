@@ -43,7 +43,6 @@ export default {
         ],
         limit: 7,
         cols: 4,
-        // calcSizesMethod: 'firstLastDoubleWidth',
         activeTab: 0,
       },
 
@@ -53,7 +52,7 @@ export default {
       month: {
         title: 'Скоро',
         tabs: this.getMonthTabsList(),
-        limit: 4,
+        limit: 12,
         cols: 3,
         calcSizesMethod: 'same',
         activeTab: 0,
