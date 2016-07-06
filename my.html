@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="js/my.js"></script>
+    <script src="http://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+    <style>
+        html, body, #map {
+            width: 100%; height: 100%; padding: 0; margin: 0;
+        }
+        #map canvas {
+		    filter: grayscale(100%);
+		    filter: gray;
+		    -webkit-filter: grayscale(100%) contrast(100%);
+		    filter: progid:DXImageTransform.Microsoft.BasicImage(grayScale=1);
+		}
+		.places-wrapper {
+			position: absolute;
+			top: 95px;
+			left: 41px;
+			width: 385px;
+			background-color: white;
+			z-index: 5555;
+			padding: 24px;
+		}
+		.place-number {
+			background-color: black;
+			width: 18px;
+			height: 18px;
+			color: white;
+			display: inline-block;
+			border-radius: 9px;
+			text-align: center;
+			vertical-align: middle;
+		}
+		.place-name {
+			display: inline-block;
+		}
+		.place-name:before {
+			content: '«';
+		}
+		.place-name:after {
+			content: '»';
+		}
+		.place-type {
+			display: inline-block;
+		}
+
+
+
+
+
+    </style>
+</head>
+<body>
+	<div id="map">
+		<div class="places-wrapper">
+			<div class="place">
+				<div class="place-number">1</div>
+				<div class="place-name">Художественный</div>
+				<div class="place-type">кинотеатр</div>
+				<div class="place-address">Невский проспект, 6</div>
+				<div class="place-metro">Маяковская</div>
+				<div class="place-site">poravkino.ru</div>
+				<div class="place-email">poravkinomart@mail.ru</div>
+				<div class="place-tel">8 (812) 314-00-45</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+	ymaps.ready(function() {
+    var myMap = new ymaps.Map('map', {
+            center: [55.7671, 37.5937],
+            zoom: 15,
+            // controls: ['zoomControl'] //'searchControl', 'typeSelector',  'fullscreenControl'
+            // controls: ['smallMapDefaultSet']
+            controls: []
+        }, {
+            searchControlProvider: 'yandex#search'
+        }),
+        myPlacemark = new ymaps.Placemark(myMap.getCenter(), {
+            hintContent: '<strong><span style="color: #ff371b;">Bulgakov Space</span></strong><br>Большая Садовая улица, 10',
+            balloonContent: '<strong><span style="color: #ff371b;">Bulgakov Space</span></strong><br>Большая Садовая улица, 10'
+        }, {
+            // Опции.
+            // Необходимо указать данный тип макета.
+            iconLayout: 'default#image',
+            // Своё изображение иконки метки.
+            iconImageHref: 'assets/img/img-home-pin.png',
+            // Размеры метки.
+            iconImageSize: [44, 44],
+            // Смещение левого верхнего угла иконки относительно
+            // её "ножки" (точки привязки).
+            iconImageOffset: [-22, -44]
+        });
+
+    myMap.geoObjects.add(myPlacemark);
+
+    var zoomControl = new ymaps.control.ZoomControl({
+        options: {
+            size: "small"
+        }
+    });
+
+    myMap.controls.add(zoomControl);
+
+});
+</script>
+</body>
+</html>
