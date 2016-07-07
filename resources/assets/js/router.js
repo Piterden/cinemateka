@@ -127,9 +127,7 @@ router.beforeEach((trans) => {
     tId = trans.to && trans.to.params && trans.to.params.placeId,
     app = router.app
 
-  if (fPath
-    && (fPath.startsWith('/event/') || fPath.startsWith('/program/'))
-    && fPath == tPath) {
+  if (fPath && fPath == tPath) {
     trans.abort()
   }
 
