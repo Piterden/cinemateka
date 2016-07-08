@@ -41,7 +41,7 @@ export default {
      */
     filterValues: {
       type: Object,
-      default() {
+      default () {
         let d = new Date()
         return {
           event_type: 'Все события',
@@ -57,7 +57,7 @@ export default {
      */
     filterLists: {
       type: Object,
-      default() {
+      default () {
         return {
           event_type: this.$root.getEventTypes(),
           month: this.$root.getMonthNames().addBefore('Все месяца'),

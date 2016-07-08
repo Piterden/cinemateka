@@ -2,7 +2,7 @@
 .datetime-picker {
   position: relative;
   display: inline-block;
-  font-family: "Segoe UI","Lucida Grande",Helvetica,Arial,"Microsoft YaHei";
+  font-family: "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei";
   -webkit-font-smoothing: antialiased;
   color: #333;
 }
@@ -43,7 +43,8 @@
   border: 0 none;
 }
 
-.datetime-picker th, .datetime-picker td {
+.datetime-picker th,
+.datetime-picker td {
   user-select: none;
   width: 34px;
   height: 34px;
@@ -61,9 +62,11 @@
   background-color: #f0f0f0;
 }
 
-.datetime-picker td.date-pass, .datetime-picker td.date-future {
+.datetime-picker td.date-pass,
+.datetime-picker td.date-future {
   color: #aaa;
 }
+
 .datetime-picker input {
   display: none;
 }
@@ -110,15 +113,9 @@
   background: rgba(16, 160, 234, 0.5);
 }
 </style>
-
 <template>
   <div class="datetime-picker" :style="{ width: width }">
-    <input
-      type="text"
-      :style="styleObj"
-      :readonly="readonly"
-      :value.sync="value"
-    >
+    <input type="text" :style="styleObj" :readonly="readonly" :value.sync="value">
     <div class="picker-wrap" v-show="show">
       <table class="date-picker">
         <thead>
@@ -150,87 +147,100 @@
         </thead>
         <tbody>
           <tr v-for="i in 6">
-            <td v-for="j in 7"
-              :class="date[i * 7 + j] && date[i * 7 + j].status"
-              :date="date[i * 7 + j] && date[i * 7 + j].date"
-              @click="pickDate(i * 7 + j)"
-            >{{ date[i * 7 + j] && date[i * 7 + j].text }}</td>
+            <td v-for="j in 7" :class="date[i * 7 + j] && date[i * 7 + j].status" :date="date[i * 7 + j] && date[i * 7 + j].date" @click="pickDate(i * 7 + j)">{{ date[i * 7 + j] && date[i * 7 + j].text }}</td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
 </template>
-
 <script>
 export default {
   props: {
-    width: { type: String, default: '236px' },
-    readonly: { type: Boolean, default: false },
-    value: { type: String, default: '' },
-    format: { type: String, default: 'YYYY-MM-DD' },
-    show: { type: Boolean, default: false },
-    idx: { type: Number, default: 0 }
+    width: {
+      type: String,
+      default: '236px'
+    },
+    readonly: {
+      type: Boolean,
+      default: false
+    },
+    value: {
+      type: String,
+      default: ''
+    },
+    format: {
+      type: String,
+      default: 'YYYY-MM-DD'
+    },
+    show: {
+      type: Boolean,
+      default: false
+    },
+    idx: {
+      type: Number,
+      default: 0
+    }
   },
-  data () {
+  data() {
     return {
       days: this.$root.getWeekDaysNames(),
       months: this.$root.getMonthNames(),
       date: [],
       now: new Date()
-    };
+    }
   },
   watch: {
-    now () {
+    now() {
       this.update()
     },
-    show () {
+    show() {
       this.update()
     }
   },
   methods: {
-    close () {
-      this.show = false;
+    close() {
+      this.show = false
     },
-    update () {
-      var arr = [];
-      var time = new Date(this.now);
-      time.setMonth(time.getMonth(), 1);           // the first day
-      var curFirstDay = time.getDay();
-      curFirstDay === 0 && (curFirstDay = 7);
-      time.setDate(0);                             // the last day
-      var lastDayCount = time.getDate();
+    update() {
+      let arr = []
+      let time = new Date(this.now)
+      time.setMonth(time.getMonth(), 1) // the first day
+      let curFirstDay = time.getDay()
+      curFirstDay === 0 && (curFirstDay = 7)
+      time.setDate(0) // the last day
+      let lastDayCount = time.getDate()
       for (let i = curFirstDay; i > 0; i--) {
         arr.push({
           text: lastDayCount - i + 1,
           time: new Date(time.getFullYear(), time.getMonth(), lastDayCount - i + 1),
           status: 'date-pass'
-        });
+        })
       }
 
-      time.setMonth(time.getMonth() + 2, 0);       // the last day of this month
-      var curDayCount = time.getDate();
-      time.setDate(1);                             // fix bug when month change
-      var value = this.value || this.$root.formatDateToStr(new Date());
+      time.setMonth(time.getMonth() + 2, 0) // the last day of this month
+      let curDayCount = time.getDate()
+      time.setDate(1) // fix bug when month change
+      let value = this.value || this.$root.formatDateToStr(new Date())
       for (let i = 0; i < curDayCount; i++) {
-        let tmpTime = new Date(time.getFullYear(), time.getMonth(), i + 1);
-        let status = '';
-        this.$root.formatDateToStr(tmpTime) === value && (status = 'date-active');
+        let tmpTime = new Date(time.getFullYear(), time.getMonth(), i + 1)
+        let status = ''
+        this.$root.formatDateToStr(tmpTime) === value && (status = 'date-active')
         arr.push({
           text: i + 1,
           time: tmpTime,
           status: status
-        });
+        })
       }
 
-      var j = 1;
+      let j = 1
       while (arr.length < 42) {
         arr.push({
           text: j,
           time: new Date(time.getFullYear(), time.getMonth() + 1, j),
           status: 'date-future'
-        });
-        j++;
+        })
+        j++
       }
       this.date = arr
     },
@@ -250,7 +260,7 @@ export default {
       this.$parent.endDate = !this.idx ? this.$parent.endDate : this.now
     }
   },
-  ready () {
+  ready() {
     this.now = this.$root.parse(this.value) || new Date()
   }
 }

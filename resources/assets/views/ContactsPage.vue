@@ -42,19 +42,15 @@
   background-color: black;
   color: white;
   text-align: center;
-  /* vertical-align: bottom; */
   margin-right: 8px;
-  /* padding: 5px 2px 1px 7px; */
   display: inline-block;
   font-size: 13px;
   line-height: 20px;
-  /* margin-right: 3px; */
 }
 
 .place-name {
   display: inline-block;
   font-weight: bold;
-  /* line-height: 20px; */
 }
 
 .place-type {
@@ -140,7 +136,6 @@
 </template>
 
 <script type="text/javascript">
-
 export default {
 
   data() {
@@ -160,15 +155,25 @@ export default {
   },
 
   props: {
-    mapWidth: { type: Number, default: window.innerWidth },
-    mapHeight: { type: Number, default: window.innerHeight },
-    activeMarker: { type: Number, default: 0 }
+    mapWidth: {
+      type: Number,
+      default: window.innerWidth
+    },
+    mapHeight: {
+      type: Number,
+      default: window.innerHeight
+    },
+    activeMarker: {
+      type: Number,
+      default: 0
+    }
   },
 
   computed: {
     center() {
+      console.log(this);
       let p = this.getActivePlace()
-      return p && p != -1 && p.position && p.position || {}
+      return p && p != -1 && p.position || {}
     },
     activeIndex() {
       return this.$root.getIndexById(this.$root.places, this.activeMarker)
@@ -213,28 +218,6 @@ export default {
     getActivePlace() {
       return this.places[this.activeIndex]
     }
-
-  },
-
-  watch: {
-    // places: {
-    //   deep: true,
-    //   handler(n,o) {
-    //     this.$children[0].$children.forEach((m,i) => {
-    //       m.position.lat = Number(n[i].position.lat)
-    //       m.position.lng = Number(n[i].position.lng)
-    //     })
-    //   }
-    // }
-  },
-
-  created() {
-    this.places = this.places.map((p) => {
-      p.position = p.position || {}
-      p.position.lat = p.position.lat || 0
-      p.position.lat = p.position.lng || 0
-      return p
-    })
   },
 
   ready() {
@@ -250,3 +233,4 @@ export default {
 
 }
 </script>
+

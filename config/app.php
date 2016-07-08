@@ -181,14 +181,16 @@ return [
         Backpack\Generators\GeneratorsServiceProvider::class,
 
         // PHP to JS Transformer
-        'Laracasts\Utilities\JavaScript\JavaScriptServiceProvider',
+        // 'Laracasts\Utilities\JavaScript\JavaScriptServiceProvider',
 
         /**
          * Debug Bar
          */
         Barryvdh\Debugbar\ServiceProvider::class,
 
-        Intervention\Image\ImageServiceProvider::class,
+        // Intervention\Image\ImageServiceProvider::class,
+
+        'Alexpechkarev\GoogleGeocoder\GoogleGeocoderServiceProvider',
 
     ],
 
@@ -244,7 +246,7 @@ return [
         'CRUD'      => 'Backpack\CRUD\CrudServiceProvider',
         'Form'      => 'Collective\Html\FormFacade',
         'Html'      => 'Collective\Html\HtmlFacade',
-        'Image'     => Intervention\Image\Facades\Image::class,
+        // 'Image'     => Intervention\Image\Facades\Image::class,
 
     ],
 

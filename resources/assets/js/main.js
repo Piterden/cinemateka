@@ -16,7 +16,7 @@ Vue.use(VueMdl)
 /**
  * Google Maps Components
  */
-import {load, loaded, Map, Marker} from 'vue-google-maps'
+import { load, loaded, Map, Marker } from 'vue-google-maps'
 load('AIzaSyCrukK_xKPenGQkn9okGUjoBfECOeiOvSc', '3.25.7')
 
 /**
@@ -41,7 +41,7 @@ import DatePickers from '../components/DatePickers.vue'
 
 // Dev ops.
 Vue.config.debug = true
-// console.log(Vue.config);
+  // console.log(Vue.config);
 
 
 /**
@@ -67,7 +67,6 @@ Vue.component('date-pickers', DatePickers)
 // Google Maps Components Registration
 Vue.component('map', Map)
 Vue.component('marker', Marker)
-// Vue.component('place-input', PlaceInput)
 
 import App from './app.js'
 import router from './router.js'

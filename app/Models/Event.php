@@ -5,14 +5,10 @@ namespace App\Models;
 use Backpack\CRUD\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-// use Stichoza\GoogleTranslate\TranslateClient;
-// use Cviebrock\EloquentSluggable\SluggableTrait;
-// use Cviebrock\EloquentSluggable\SluggableInterface;
 
-class Event extends Model /*implements SluggableInterface*/
+class Event extends Model
 {
     use CrudTrait;
-    // use SluggableTrait;
     use SoftDeletes;
 
     /**
@@ -53,21 +49,12 @@ class Event extends Model /*implements SluggableInterface*/
         'images',
         'meta',
         'videos',
-        // 'actors',
         'awards',
         'properties',
     ];
-    // protected $sluggable = [
-    //     'build_from' => 'translated_slug',
-    //     'save_to'    => 'slug',
-    //     'on_update'  => true,
-    //     'unique'     => true,
-    // ];
-    // protected $dates   = ['deleted_at', 'created_at', 'edited_at'];
+    protected $dates   = ['deleted_at', 'created_at', 'edited_at'];
     public $timestamps = true;
-    protected $casts = [
-        'year' => 'integer',
-    ];
+    protected $casts   = ['year' => 'integer'];
 
     /**
      * --------------------------------------------------------------------------

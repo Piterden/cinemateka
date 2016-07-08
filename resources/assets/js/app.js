@@ -11,20 +11,45 @@ let App = Vue.extend({
    * приложения через root-объект. Сюда подгружаются данные из PHP.
    */
   props: {
-     // Все события         // @type {Array} of EventObjects
-    events: { type: Array, default() { return events } },
+    // Все события         // @type {Array} of EventObjects
+    events: {
+      type: Array,
+      default() {
+        return events
+      }
+    },
 
-     // Все программы       // @type {Array} of ProgramObjects
-    programs: { type: Array, default() { return programs } },
+    // Все программы       // @type {Array} of ProgramObjects
+    programs: {
+      type: Array,
+      default() {
+        return programs
+      }
+    },
 
-     // Все места           // @type {Array} of SeanceObjects
-    places: { type: Array, default() { return places } },
+    // Все места           // @type {Array} of SeanceObjects
+    places: {
+      type: Array,
+      default() {
+        return places
+      }
+    },
 
-     // Все типы событий    // @type {Array} of SeanceObjects
-    categories: { type: Array, default() { return categories } },
+    // Все типы событий    // @type {Array} of SeanceObjects
+    categories: {
+      type: Array,
+      default() {
+        return categories
+      }
+    },
 
-     // Все сеансы          // @type {Array} of SeanceObjects
-    seances: { type: Array, default() { return seances } },
+    // Все сеансы          // @type {Array} of SeanceObjects
+    seances: {
+      type: Array,
+      default() {
+        return seances
+      }
+    },
   },
 
   created() {
@@ -42,8 +67,19 @@ let App = Vue.extend({
       return p
     })
     this.places = places.map((p) => {
-      p.position = JSON.parse(p.position)
+      if(typeof p.position == 'string') {
+        p.position = JSON.parse(p.position)
+      }
+      if(typeof p.position == 'string') {
+        p.position = JSON.parse(p.position)
+      }
+      for(var k in p.position) {
+        if(p.position.hasOwnProperty(k)) {
+          p.position[k] = Number(p.position[k])
+        }
+      }
       p.properties = JSON.parse(p.properties)
+      console.log(p)
       return p
     })
   },
@@ -179,7 +215,7 @@ let App = Vue.extend({
       let a = this.seances.filter((s) => {
         return Number(s.program_id) === Number(id)
       })
-      if (a.length > 0) {
+      if(a.length > 0) {
         a.sort((a, b) => {
           return new Date(a.start_time) > new Date(b.start_time)
         })
@@ -238,7 +274,7 @@ let App = Vue.extend({
      * @return {Array}    массив событий
      */
     getProgramEvents(p) {
-      if (p.seances === undefined) return []
+      if(p.seances === undefined) return []
       let eIds = p.seances.map((s) => {
         return s.event_id
       }).getUnique()
@@ -458,3 +494,4 @@ App.prototype.extend = function(defaults, options) {
 }
 
 export default App
+

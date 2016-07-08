@@ -25,7 +25,6 @@
 </template>
 
 <script>
-
 export default {
 
   data() {
@@ -35,12 +34,19 @@ export default {
        */
       week: {
         title: 'События',
-        tabs: [
-          { name: 'week0', title: 'На этой неделе' },
-          { name: 'week1', title: 'На следующей' },
-          { name: 'week2', title: '' },
-          { name: 'week3', title: '' },
-        ],
+        tabs: [{
+          name: 'week0',
+          title: 'На этой неделе'
+        }, {
+          name: 'week1',
+          title: 'На следующей'
+        }, {
+          name: 'week2',
+          title: ''
+        }, {
+          name: 'week3',
+          title: ''
+        }, ],
         limit: 7,
         cols: 4,
         activeTab: 0,
@@ -131,3 +137,4 @@ export default {
 
 }
 </script>
+

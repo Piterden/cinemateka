@@ -74,3 +74,4 @@ Array.prototype.addBefore = function(val) {
 export default {
   Array
 }
+

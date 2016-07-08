@@ -28,8 +28,9 @@ class AppServiceProvider extends ServiceProvider
             'published' => 1
         ])->get()->toJson());
 
-        view()->share('places', \App\Models\Place::all());
-
+        view()->share('places', \App\Models\Place::where([
+            'published' => 1
+        ])->get()->toJson());
     }
 
     /**

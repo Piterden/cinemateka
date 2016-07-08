@@ -33,7 +33,8 @@ class PlaceCrudController extends CrudController
             ['name' => 'title', 'type' => 'text', 'label' => 'Название'],
             ['name' => 'address', 'type' => 'textarea', 'label' => 'Адрес'],
             ['name' => 'metro', 'type' => 'text', 'label' => 'Метро'],
-            ['name' => 'description', 'type' => 'text', 'label' => 'Описание'],
+            // ['name' => 'lat', 'type' => 'number', 'label' => 'Широта'],
+            // ['name' => 'lng', 'type' => 'number', 'label' => 'Долгота'],
         ]);
 
         // ------ CRUD FIELDS
@@ -77,7 +78,7 @@ class PlaceCrudController extends CrudController
         ]);
         $this->crud->addField([
             'name'     => 'site',
-            'type'     => 'url',
+            'type'     => 'text',
             'label'    => 'Сайт',
             'fake'     => true,
             'store_in' => 'properties',
@@ -99,22 +100,24 @@ class PlaceCrudController extends CrudController
             'store_in' => 'properties',
             'colspan'  => 4,
         ]);
-        $this->crud->addField([
-            'name'     => 'lat',
-            'type'     => 'text',
-            'label'    => 'Широта',
-            'fake'     => true,
-            'store_in' => 'position',
-            'colspan'  => 4,
-        ]);
-        $this->crud->addField([
-            'name'     => 'lng',
-            'type'     => 'text',
-            'label'    => 'Долгота',
-            'fake'     => true,
-            'store_in' => 'position',
-            'colspan'  => 4,
-        ]);
+        // $this->crud->addField([
+        //     'name'     => 'lat',
+        //     'type'     => 'text',
+        //     'step'     => 0.00000001,
+        //     'label'    => 'Широта',
+        //     'fake'     => true,
+        //     'store_in' => 'position',
+        //     'colspan'  => 4,
+        // ]);
+        // $this->crud->addField([
+        //     'name'     => 'lng',
+        //     'type'     => 'text',
+        //     'step'     => 0.00000001,
+        //     'label'    => 'Долгота',
+        //     'fake'     => true,
+        //     'store_in' => 'position',
+        //     'colspan'  => 4,
+        // ]);
 
         // $this->crud->removeColumn('column_name'); // remove a column from the stack
         // $this->crud->removeColumns(['column_name_1', 'column_name_2']); // remove an array of columns from the stack
@@ -131,6 +134,7 @@ class PlaceCrudController extends CrudController
 
         // ------ CRUD DETAILS ROW
         // $this->crud->enableDetailsRow();
+        // $this->crud->allowAccess('details_row');
         // NOTE: you also need to do allow access to the right users: $this->crud->allowAccess('details_row');
         // NOTE: you also need to do overwrite the showDetailsRow($id) method in your EntityCrudController to show whatever you'd like in the details row OR overwrite the views/backpack/crud/details_row.blade.php
 
@@ -154,6 +158,7 @@ class PlaceCrudController extends CrudController
 
     public function update(UpdateRequest $request)
     {
+        // dd($request);
         return parent::updateCrud();
     }
 }

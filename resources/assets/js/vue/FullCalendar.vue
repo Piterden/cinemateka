@@ -1,12 +1,9 @@
 <style lang="css" scoped>
 </style>
-
 <template>
   <div id="fullCalendar">
-
   </div>
 </template>
-
 <script>
 export default {
 

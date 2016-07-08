@@ -53,8 +53,14 @@ export default {
     method: String,
     limit: Number,
     height: Number,
-    separator: { type: String, default :' – ' },
-    styleObject: { type: Object, default :'inherit' }
+    separator: {
+      type: String,
+      default: ' – '
+    },
+    styleObject: {
+      type: Object,
+      default: 'inherit'
+    }
   },
 
   computed: {
@@ -72,9 +78,7 @@ export default {
      * Изображение плитки
      */
     thumb() {
-      return this.item
-        && this.item.images
-        && JSON.parse(this.item.images).mainimage
+      return this.item && this.item.images && JSON.parse(this.item.images).mainimage
     },
 
     /**
@@ -91,13 +95,9 @@ export default {
      */
     firstLastDoubleWidth() {
       let showed = this.$parent.$children.length
-      return !this.index
-        || (
-          this.$parent.$children.length == this.limit
-          && this.index == this.limit - 1
-        )
-        ? this.cols * 2
-        : this.cols
+      return !this.index || (
+        this.$parent.$children.length == this.limit && this.index == this.limit - 1
+      ) ? this.cols * 2 : this.cols
     }
   },
 
@@ -107,7 +107,8 @@ export default {
      */
     getSpendingRange() {
       if (this.item === undefined) return ''
-      let seances = this.item.seances || [], start, end
+      let seances = this.item.seances || [],
+        start, end
       if (!seances.length) {
         return ''
       }
@@ -117,13 +118,9 @@ export default {
       }
       end = new Date(seances[seances.length - 1].start_time)
       if ((end - start) / 1000 / 60 / 60 / 24 / 365 > 1) {
-        return this.$root.formatDateToStr(start, 'DD.MM.YY')
-          + this.separator
-          + this.$root.formatDateToStr(end, 'DD.MM.YY')
+        return this.$root.formatDateToStr(start, 'DD.MM.YY') + this.separator + this.$root.formatDateToStr(end, 'DD.MM.YY')
       }
-      return this.$root.formatDateToStr(start, 'DD.MM')
-        + this.separator
-        + this.$root.formatDateToStr(end, 'DD.MM')
+      return this.$root.formatDateToStr(start, 'DD.MM') + this.separator + this.$root.formatDateToStr(end, 'DD.MM')
     },
 
     getCols(method) {
@@ -133,3 +130,4 @@ export default {
 
 }
 </script>
+

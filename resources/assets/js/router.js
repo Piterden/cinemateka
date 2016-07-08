@@ -30,7 +30,7 @@ let router = new VueRouter({
   linkActiveClass: 'active',
   mode: 'html5',
   saveScrollPosition: false,
-  transitionOnLoad: true,
+  transitionOnLoad: true
 })
 
 /**!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -127,17 +127,17 @@ router.beforeEach((trans) => {
     tId = trans.to && trans.to.params && trans.to.params.placeId,
     app = router.app
 
-  if (fPath && fPath == tPath) {
+  if(fPath && fPath == tPath) {
     trans.abort()
   }
 
-  if (tPath.startsWith('/event/') && !app.getEventBySlug(tSlug)) {
+  if(tPath.startsWith('/event/') && !app.getEventBySlug(tSlug)) {
     trans.redirect('/404')
   }
-  if (tPath.startsWith('/program/') && !app.getProgramBySlug(tSlug)) {
+  if(tPath.startsWith('/program/') && !app.getProgramBySlug(tSlug)) {
     trans.redirect('/404')
   }
-  if (tPath.startsWith('/contacts/') && !app.getPlaceById(tId)) {
+  if(tPath.startsWith('/contacts/') && !app.getPlaceById(tId)) {
     trans.redirect('/404')
   }
 
@@ -147,12 +147,12 @@ router.beforeEach((trans) => {
 let scrollToTop = (scrollDuration) => {
   let scrollStep = -window.scrollY / (scrollDuration / 15),
     scrollInterval = setInterval(() => {
-      if ( window.scrollY != 0 ) {
-        window.scrollBy( 0, scrollStep )
+      if(window.scrollY != 0) {
+        window.scrollBy(0, scrollStep)
       } else {
         clearInterval(scrollInterval)
       }
-  }, 15)
+    }, 15)
 }
 
 router.afterEach((trans) => {
@@ -160,3 +160,4 @@ router.afterEach((trans) => {
 })
 
 export default router
+

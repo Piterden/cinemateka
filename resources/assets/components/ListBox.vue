@@ -40,24 +40,58 @@ export default {
     // Объект стилей для квадратов
     styleObject: {
       type: Object,
-      default() {
+      default () {
         return {}
       }
     },
     // События
-    events: { type: Array, required: true },
+    events: {
+      type: Array,
+      required: true
+    },
     // Значения фильтров
-    filterValues: { type: Object, default() { return {} } },
+    filterValues: {
+      type: Object,
+      default () {
+        return {}
+      }
+    },
     // Количество отображаемых событий
-    limit: { type: Number, default() { return 9 } },
+    limit: {
+      type: Number,
+      default () {
+        return 9
+      }
+    },
     // Количество добавляемых событий
-    incrementLimit: { type: Number, default() { return 9 } },
+    incrementLimit: {
+      type: Number,
+      default () {
+        return 9
+      }
+    },
     // Название метода для вычисления ширины
-    method: { type: String, default() { return 'same' } },
+    method: {
+      type: String,
+      default () {
+        return 'same'
+      }
+    },
     // Ширина квадрата в колонках сетки
-    cols: { type: Number, default() { return 4 } },
-    itemClass: { type: String, default: '' },
-    wrapClass: { type: String, default: '' }
+    cols: {
+      type: Number,
+      default () {
+        return 4
+      }
+    },
+    itemClass: {
+      type: String,
+      default: ''
+    },
+    wrapClass: {
+      type: String,
+      default: ''
+    }
   },
 
   computed: {
@@ -89,7 +123,9 @@ export default {
      */
     handleResize() {
       let h = this.itemHeight || this.getMinWidth()
-      this.styleObject = { height: h + 'px' }
+      this.styleObject = {
+        height: h + 'px'
+      }
     },
     /**
      * Срабатывает при нажатии "Показать еще".
@@ -118,7 +154,7 @@ export default {
   watch: {
     filterValues: {
       deep: true,
-      handler(n,o) {
+      handler(n, o) {
         this.handleResize()
       }
     }
@@ -137,3 +173,4 @@ export default {
   }
 }
 </script>
+

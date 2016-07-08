@@ -95,36 +95,46 @@
   font-weight: bold;
   width: 170px;
 }
+
 .more-info-table tr td:nth-child(2) {
   /* max-width: 340px; */
 }
+
 .more-info-table tr td:nth-child(3) {
   vertical-align: top;
 }
+
 .actors-list li {
   font-size: 16px;
   margin-bottom: 3px;
 }
+
+
 /* same programm block */
+
 .mdl-grid.list-box.same-programm-block {
   background-color: black;
   padding-top: 121px;
   position: relative;
 }
+
 .same-programm-block > h3 {
   position: absolute;
   top: 40px;
   left: 40px;
   font-size: 32px;
 }
+
 .same-programm-block h3 a {
- font-size: 32px;
- color: white;
- text-decoration: underline;
+  font-size: 32px;
+  color: white;
+  text-decoration: underline;
 }
+
 .same-programm-block h3 a:hover {
   color: red;
 }
+
 .more-events-in-shadue {
   height: 72px;
   border: 2px solid white;
@@ -133,14 +143,17 @@
   text-align: center;
   line-height: 72px;
 }
+
 .more-events-in-shadue a {
   text-transform: uppercase;
   letter-spacing: .2em;
   color: white;
 }
+
 .more-events-in-shadue svg {
   width: 70px;
 }
+
 .st0 {
   width: 70px;
   fill: none;
@@ -149,11 +162,9 @@
   stroke-miterlimit: 10;
 }
 </style>
-
 <template>
   <div class="wrap router-view program-page">
-    <div class="program-image"
-      :style="{'background-image': 'url(/'+images.mainimage+')'}">
+    <div class="program-image" :style="{'background-image': 'url(/'+images.mainimage+')'}">
       <div class="program-date"></div>
       <div class="program-title">{{ programItem.title }}</div>
       <div class="program-programm">
@@ -162,9 +173,7 @@
         </a>
       </div>
       <div v-if="programItem.videos" class="program-video">
-        <iframe width="535" height="307" frameborder="0"
-          :src="videos.mainvideo.replace('watch?v=','embed/')"
-        ></iframe>
+        <iframe width="535" height="307" frameborder="0" :src="videos.mainvideo.replace('watch?v=','embed/')"></iframe>
       </div>
     </div>
     <div class="mdl-grid">
@@ -172,8 +181,7 @@
         <div class="program-desc">
           <div class="program-param">
             <div class="program-time" v-if="closestSeance">
-              <i class="fa fa-clock-o" aria-hidden="true"></i>
-              {{ closestSeanceTime }}
+              <i class="fa fa-clock-o" aria-hidden="true"></i> {{ closestSeanceTime }}
             </div>
             <div class="program-place" v-if="closestPlace">
               <i class="material-icons">place</i> {{ closestPlace.title }}
@@ -270,14 +278,7 @@
         </div>
       </div>
     </div>
-    <list-box
-      v-if="closestProgram"
-      :programs="closestProgramEvents"
-      :limit.once="3"
-      :filtered-count="2"
-      :cols.once="4"
-      :wrap-class="'same-programm-block'"
-    >
+    <list-box v-if="closestProgram" :programs="closestProgramEvents" :limit.once="3" :filtered-count="2" :cols.once="4" :wrap-class="'same-programm-block'">
       <h3 slot="top">События
         <a href="#" v-link="{ path: '/program/' + closestProgram.slug }">
           той же программы
@@ -310,7 +311,6 @@
     </list-box>
   </div>
 </template>
-
 <script>
 export default {
 
@@ -321,18 +321,15 @@ export default {
       })
     },
     images() {
-      return this.programItem.images
-        && JSON.parse(this.programItem.images)
+      return this.programItem.images && JSON.parse(this.programItem.images)
     },
     actors() {
-      return this.programItem.actors
-        && JSON.parse(this.programItem.actors)
+      return this.programItem.actors && JSON.parse(this.programItem.actors)
     },
     videos() {
-      return this.programItem.videos
-        && JSON.parse(this.programItem.videos)
+      return this.programItem.videos && JSON.parse(this.programItem.videos)
     }
   }
 
-};
+}
 </script>

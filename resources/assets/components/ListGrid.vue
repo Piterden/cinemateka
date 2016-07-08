@@ -160,7 +160,7 @@ export default {
     filteredCount: Number,
     incrementLimit: {
       type: Number,
-      default() {
+      default () {
         return this.limit
       }
     }

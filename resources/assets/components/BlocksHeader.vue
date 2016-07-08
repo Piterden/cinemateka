@@ -1,6 +1,5 @@
 <style lang="css" scoped>
 </style>
-
 <template>
   <div class="mdl-grid blocks-header">
     <div class="mdl-cell mdl-cell--6-col block-title">
@@ -11,7 +10,6 @@
     </div>
   </div>
 </template>
-
 <script>
 /**
  * VueJS Component

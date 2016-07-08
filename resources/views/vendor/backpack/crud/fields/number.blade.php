@@ -4,6 +4,7 @@
     <input
     	type="number"
     	class="form-control"
+        step="{{ $field['step'] or 1 }}"
 
     	@foreach ($field as $attribute => $value)
             @if (is_string($attribute))

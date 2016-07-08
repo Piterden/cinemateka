@@ -19,7 +19,6 @@
         "backpack/generators": "^1.1",
         "barryvdh/laravel-debugbar": "^2.2",
         "alexpechkarev/google-geocoder": "dev-master",
-        "stichoza/google-translate-php": "^3.2",
         "intervention/image": "^2.3"
     },
     "require-dev": {

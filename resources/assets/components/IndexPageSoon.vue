@@ -34,7 +34,7 @@ export default {
     calcSizesMethod: String,
     tabs: {
       type: Array,
-      default() {
+      default () {
         return []
       }
     },
@@ -44,62 +44,61 @@ export default {
     }
   },
 
-	computed: {
-		/**
-	   * Даты активной вкладки сброшенные на начало и конец месяца.
-		 * @return {Array}
-		 */
-		filterValues() {
-			return {
-				date_interval: [this.dateToMonthStart(), this.dateToMonthEnd()]
-			}
-		}
-	},
+  computed: {
+    /**
+     * Даты активной вкладки сброшенные на начало и конец месяца.
+     * @return {Array}
+     */
+    filterValues() {
+      return {
+        date_interval: [this.dateToMonthStart(), this.dateToMonthEnd()]
+      }
+    }
+  },
 
-	methods: {
-		/**
-		 * Устанавливает дату на 00:00 1 числа месяца
-		 * @return {Date}
-		 */
-		dateToMonthStart() {
+  methods: {
+    /**
+     * Устанавливает дату на 00:00 1 числа месяца
+     * @return {Date}
+     */
+    dateToMonthStart() {
       let y = this.$root.getSoonTabYear(this.activeTab),
         m = this.$root.getSoonTabMonth(this.activeTab),
         d = 1
       return new Date(y, m, d)
-		},
+    },
 
-		/**
-		 * Устанавливает дату на 23:59 последнего числа месяца
-		 * @return {Date}
-		 */
-		dateToMonthEnd() {
+    /**
+     * Устанавливает дату на 23:59 последнего числа месяца
+     * @return {Date}
+     */
+    dateToMonthEnd() {
       let y = this.$root.getSoonTabYear(this.activeTab),
         m = this.$root.getSoonTabMonth(this.activeTab) + 1
       return new Date(y, m, 0, 23, 59, 59)
-		},
+    },
 
-		/**
-		 * Клик по табу направляет псевдоним родителю
-		 */
-		clickTab(name) {
-			this.$parent.clickSoonTab(name)
-		},
+    /**
+     * Клик по табу направляет псевдоним родителю
+     */
+    clickTab(name) {
+      this.$parent.clickSoonTab(name)
+    },
 
-		/**
-		 * Фильтрует события по заданным значениям
-		 * @param  {Array}        events    Все события
-		 * @param  {Object}       filters   Фильтры со значениями
-		 * @return {Array} of Event Objects
-		 */
-		filterMethod(events, filters) {
-		  return events.filter((e) => {
+    /**
+     * Фильтрует события по заданным значениям
+     * @param  {Array}        events    Все события
+     * @param  {Object}       filters   Фильтры со значениями
+     * @return {Array} of Event Objects
+     */
+    filterMethod(events, filters) {
+      return events.filter((e) => {
         return e.seances.find((s) => {
           let d = new Date(s.start_time)
-          return d > filters.date_interval[0]
-            && d < filters.date_interval[1]
+          return d > filters.date_interval[0] && d < filters.date_interval[1]
         })
       })
-		}
-	}
+    }
+  }
 }
 </script>

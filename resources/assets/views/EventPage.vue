@@ -1,12 +1,8 @@
 <style lang="css">
-
 </style>
-
 <template>
   <div class="wrap router-view event-page">
-    <div v-if="eventItem"
-      class="event-image"
-      :style="bgStyleObject">
+    <div v-if="eventItem" class="event-image" :style="bgStyleObject">
       <div class="event-date">{{ closestSeanceDate }}</div>
       <h1 class="event-title">{{ eventItem.title }}</h1>
       <div class="event-programm">
@@ -15,9 +11,7 @@
         </a>
       </div>
       <div v-if="videos.mainvideo" class="event-video">
-        <iframe width="535" height="307" frameborder="0"
-          :src="videos.mainvideo.replace('watch?v=','embed/')"
-        ></iframe>
+        <iframe width="535" height="307" frameborder="0" :src="videos.mainvideo.replace('watch?v=','embed/')"></iframe>
       </div>
     </div>
     <div class="mdl-grid" v-if="eventItem">
@@ -25,8 +19,7 @@
         <div class="event-desc">
           <div class="event-param">
             <div class="event-time">
-              <i class="fa fa-clock-o" aria-hidden="true"></i>
-              {{ closestSeanceTime }}
+              <i class="fa fa-clock-o" aria-hidden="true"></i> {{ closestSeanceTime }}
             </div>
             <div class="event-place" v-if="closestPlace">
               <i class="fa fa-map-marker" aria-hidden="true"></i> «{{ closestPlace.title }}»
@@ -123,14 +116,7 @@
         </div>
       </div>
     </div>
-    <list-box
-      v-if="closestProgram"
-      :events="closestProgramEvents"
-      :limit.once="3"
-      :filtered-count="2"
-      :cols.once="4"
-      :wrap-class="'same-programm-block'"
-    >
+    <list-box v-if="closestProgram" :events="closestProgramEvents" :limit.once="3" :filtered-count="2" :cols.once="4" :wrap-class="'same-programm-block'">
       <h3 slot="top">События
         <a href="#" v-link="{ path: '/program/' + closestProgram.slug }">
           той же программы
@@ -166,7 +152,6 @@
     </list-box>
   </div>
 </template>
-
 <script>
 export default {
 
@@ -176,21 +161,17 @@ export default {
         backgroundImage: 'url("/' + this.images.mainimage + '")'
       }
     },
-    closestSeance () {
-      return this.eventItem
-        && this.$root.getClosestSeance(this.eventItem)
+    closestSeance() {
+      return this.eventItem && this.$root.getClosestSeance(this.eventItem)
     },
-    closestProgram () {
-      return this.eventItem
-        && this.$root.getClosestSeanceProgram(this.eventItem)
+    closestProgram() {
+      return this.eventItem && this.$root.getClosestSeanceProgram(this.eventItem)
     },
     closestProgramEvents() {
-      return this.closestProgram
-        && this.$root.getProgramEvents(this.closestProgram)
+      return this.closestProgram && this.$root.getProgramEvents(this.closestProgram)
     },
     closestPlace() {
-      return this.eventItem
-        && this.$root.getClosestSeancePlace(this.eventItem)
+      return this.eventItem && this.$root.getClosestSeancePlace(this.eventItem)
     },
     eventItem() {
       return this.$root.events.find((e) => {
@@ -198,25 +179,20 @@ export default {
       })
     },
     images() {
-      return this.eventItem.images
-        && JSON.parse(this.eventItem.images)
+      return this.eventItem.images && JSON.parse(this.eventItem.images)
     },
     actors() {
-      return this.eventItem.actors
-        && JSON.parse(this.eventItem.actors)
+      return this.eventItem.actors && JSON.parse(this.eventItem.actors)
     },
     videos() {
-      return this.eventItem.videos
-        && JSON.parse(this.eventItem.videos)
+      return this.eventItem.videos && JSON.parse(this.eventItem.videos)
     },
     closestSeanceTime() {
-      let d = this.closestSeance
-        && new Date(this.closestSeance.start_time)
+      let d = this.closestSeance && new Date(this.closestSeance.start_time)
       return d && this.$root.timeStrFromDateObj(d)
     },
     closestSeanceDate() {
-      let d = this.closestSeance
-        && new Date(this.closestSeance.start_time)
+      let d = this.closestSeance && new Date(this.closestSeance.start_time)
       return d && this.$root.formatDateToStr(d, 'DD.MM')
     },
     hasChrono() {

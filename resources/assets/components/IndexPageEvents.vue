@@ -34,13 +34,13 @@ export default {
     calcSizesMethod: String,
     tabs: {
       type: Array,
-      default() {
+      default () {
         return []
       }
     },
     activeTab: {
       type: Number,
-      default() {
+      default () {
         return 0
       }
     }
@@ -76,13 +76,11 @@ export default {
       return events.filter((e) => {
         return e.seances.find((s) => {
           let d = new Date(s.start_time)
-          return d > filters.date_interval[0]
-            && d < filters.date_interval[1]
+          return d > filters.date_interval[0] && d < filters.date_interval[1]
         })
       })
     }
   }
 
 }
-
 </script>

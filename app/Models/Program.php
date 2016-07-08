@@ -48,7 +48,6 @@ class Program extends Model /*implements SluggableInterface*/
         'end_date',
     ];
     public $timestamps = true;
-    // protected $appends = ['translated_slug'];
 
     /**
      * |--------------------------------------------------------------------------
@@ -77,12 +76,12 @@ class Program extends Model /*implements SluggableInterface*/
      * | ACCESORS
      * |--------------------------------------------------------------------------
      */
-    public function getStartDateAttribute()
+    public function getStartDateAttribute($value)
     {
         return $this->seances()->min('start_time');
     }
 
-    public function getEndDateAttribute()
+    public function getEndDateAttribute($value)
     {
         return $this->seances()->max('start_time');
     }

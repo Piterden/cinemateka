@@ -44,7 +44,7 @@ export default {
     filteredCount: Number,
     seances: {
       type: Array,
-      default() {
+      default () {
         return this.$root.seances
       }
     },
@@ -70,11 +70,11 @@ export default {
           now_soon: this.$root.getNowSoones(),
           event_type: this.$root.getEventTypes(),
           program_type: this.$root.programs.map((pr) => {
-              return pr.title
-            }).getUnique().addBefore('Все программы'),
+            return pr.title
+          }).getUnique().addBefore('Все программы'),
           place_type: this.$root.places.map((pl) => {
-              return pl.title
-            }).getUnique().addBefore('Все площадки')
+            return pl.title
+          }).getUnique().addBefore('Все площадки')
         }
       }
     }
@@ -120,13 +120,13 @@ export default {
             f_ns = filters.now_soon.toLowerCase()
 
           if (f_et != 'все события' && f_et != s_evt) {
-              return false
+            return false
           }
           if (f_prt != 'все программы' && f_prt != s_prt) {
-              return false
+            return false
           }
           if (f_plt != 'все площадки' && f_plt != s_plt) {
-              return false
+            return false
           }
           if (f_ns == 'скоро') {
             endTime = new Date(y, m, d + 300, 23, 59, 59)
@@ -200,3 +200,4 @@ export default {
   }
 }
 </script>
+

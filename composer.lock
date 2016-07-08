@@ -4,21 +4,66 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2da4521f827a91b3f206a73b50079294",
-    "content-hash": "eea4224aea9307d040da58c70432c39f",
+    "hash": "a0e666bdc0f634bce8aa8b911d11d546",
+    "content-hash": "935f6dc3b9362d461443a64e97e0ffa4",
     "packages": [
         {
-            "name": "almasaeed2010/adminlte",
-            "version": "v2.3.4",
+            "name": "alexpechkarev/google-geocoder",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/almasaeed2010/AdminLTE.git",
-                "reference": "64a91f7b569cc87de1be5553402576c969a03876"
+                "url": "https://github.com/alexpechkarev/google-geocoder.git",
+                "reference": "3503c310ab5b51895013440042a8e7c52dc752d3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/almasaeed2010/AdminLTE/zipball/64a91f7b569cc87de1be5553402576c969a03876",
-                "reference": "64a91f7b569cc87de1be5553402576c969a03876",
+                "url": "https://api.github.com/repos/alexpechkarev/google-geocoder/zipball/3503c310ab5b51895013440042a8e7c52dc752d3",
+                "reference": "3503c310ab5b51895013440042a8e7c52dc752d3",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpspec/phpspec": "~2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Alexpechkarev\\GoogleGeocoder": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alexander Pechkarev",
+                    "email": "alexpechkarev@gmail.com"
+                }
+            ],
+            "description": "Simple Google Geocoding API v3 wrapper for Laravel 4",
+            "homepage": "https://github.com/alexpechkarev/google-geocoder",
+            "keywords": [
+                "geocoding",
+                "google geocoding api",
+                "laravel"
+            ],
+            "time": "2015-09-14 18:42:18"
+        },
+        {
+            "name": "almasaeed2010/adminlte",
+            "version": "v2.3.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/almasaeed2010/AdminLTE.git",
+                "reference": "0ab2eb7f382e79810ebf3032ce766a02af2b0f3b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/almasaeed2010/AdminLTE/zipball/0ab2eb7f382e79810ebf3032ce766a02af2b0f3b",
+                "reference": "0ab2eb7f382e79810ebf3032ce766a02af2b0f3b",
                 "shasum": ""
             },
             "type": "library",
@@ -45,7 +90,7 @@
                 "theme",
                 "web"
             ],
-            "time": "2016-07-01 20:36:20"
+            "time": "2016-07-03 15:21:22"
         },
         {
             "name": "backpack/backupmanager",
@@ -280,16 +325,16 @@
         },
         {
             "name": "backpack/langfilemanager",
-            "version": "1.0.11",
+            "version": "1.0.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Laravel-Backpack/langfilemanager.git",
-                "reference": "cea8aeb88f665d1127acfb748a8ee655e3b05a3f"
+                "reference": "867f65d4a94994505c0042473f91917ae9e8da55"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Laravel-Backpack/langfilemanager/zipball/cea8aeb88f665d1127acfb748a8ee655e3b05a3f",
-                "reference": "cea8aeb88f665d1127acfb748a8ee655e3b05a3f",
+                "url": "https://api.github.com/repos/Laravel-Backpack/langfilemanager/zipball/867f65d4a94994505c0042473f91917ae9e8da55",
+                "reference": "867f65d4a94994505c0042473f91917ae9e8da55",
                 "shasum": ""
             },
             "require": {
@@ -347,7 +392,7 @@
                 "translationmanager",
                 "updivision"
             ],
-            "time": "2016-06-13 13:39:10"
+            "time": "2016-07-03 14:02:46"
         },
         {
             "name": "backpack/pagemanager",
@@ -1376,119 +1421,6 @@
                 "parser"
             ],
             "time": "2014-09-09 13:34:57"
-        },
-        {
-            "name": "guzzlehttp/guzzle",
-            "version": "6.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "d094e337976dff9d8e2424e8485872194e768662"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/d094e337976dff9d8e2424e8485872194e768662",
-                "reference": "d094e337976dff9d8e2424e8485872194e768662",
-                "shasum": ""
-            },
-            "require": {
-                "guzzlehttp/promises": "~1.0",
-                "guzzlehttp/psr7": "~1.1",
-                "php": ">=5.5.0"
-            },
-            "require-dev": {
-                "ext-curl": "*",
-                "phpunit/phpunit": "~4.0",
-                "psr/log": "~1.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "6.2-dev"
-                }
-            },
-            "autoload": {
-                "files": [
-                    "src/functions_include.php"
-                ],
-                "psr-4": {
-                    "GuzzleHttp\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Michael Dowling",
-                    "email": "mtdowling@gmail.com",
-                    "homepage": "https://github.com/mtdowling"
-                }
-            ],
-            "description": "Guzzle is a PHP HTTP client library",
-            "homepage": "http://guzzlephp.org/",
-            "keywords": [
-                "client",
-                "curl",
-                "framework",
-                "http",
-                "http client",
-                "rest",
-                "web service"
-            ],
-            "time": "2016-03-21 20:02:09"
-        },
-        {
-            "name": "guzzlehttp/promises",
-            "version": "1.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/guzzle/promises.git",
-                "reference": "c10d860e2a9595f8883527fa0021c7da9e65f579"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/promises/zipball/c10d860e2a9595f8883527fa0021c7da9e65f579",
-                "reference": "c10d860e2a9595f8883527fa0021c7da9e65f579",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.5.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~4.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "GuzzleHttp\\Promise\\": "src/"
-                },
-                "files": [
-                    "src/functions_include.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Michael Dowling",
-                    "email": "mtdowling@gmail.com",
-                    "homepage": "https://github.com/mtdowling"
-                }
-            ],
-            "description": "Guzzle promises library",
-            "keywords": [
-                "promise"
-            ],
-            "time": "2016-05-18 16:56:05"
         },
         {
             "name": "guzzlehttp/psr7",
@@ -2750,16 +2682,16 @@
         },
         {
             "name": "spatie/laravel-backup",
-            "version": "3.8.0",
+            "version": "3.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-backup.git",
-                "reference": "ff922a830d3dc73c353d93cb735db62d1239b7e6"
+                "reference": "08b7b8c778d5aeb0179cc49da4f64415bab9f81f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-backup/zipball/ff922a830d3dc73c353d93cb735db62d1239b7e6",
-                "reference": "ff922a830d3dc73c353d93cb735db62d1239b7e6",
+                "url": "https://api.github.com/repos/spatie/laravel-backup/zipball/08b7b8c778d5aeb0179cc49da4f64415bab9f81f",
+                "reference": "08b7b8c778d5aeb0179cc49da4f64415bab9f81f",
                 "shasum": ""
             },
             "require": {
@@ -2808,7 +2740,7 @@
                 "laravel-backup",
                 "spatie"
             ],
-            "time": "2016-06-15 23:42:49"
+            "time": "2016-07-06 15:30:58"
         },
         {
             "name": "spatie/laravel-permission",
@@ -2862,55 +2794,6 @@
                 "spatie"
             ],
             "time": "2016-05-08 17:18:03"
-        },
-        {
-            "name": "stichoza/google-translate-php",
-            "version": "v3.2.8",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Stichoza/google-translate-php.git",
-                "reference": "0e07828824c46f1bfd1822d824cf805211bf98a9"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Stichoza/google-translate-php/zipball/0e07828824c46f1bfd1822d824cf805211bf98a9",
-                "reference": "0e07828824c46f1bfd1822d824cf805211bf98a9",
-                "shasum": ""
-            },
-            "require": {
-                "guzzlehttp/guzzle": "~6.0",
-                "php": ">=5.5.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~4.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Stichoza\\GoogleTranslate\\": "src/"
-                },
-                "psr-4": {
-                    "Stichoza\\GoogleTranslate\\": "src/Stichoza/GoogleTranslate/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Levan Velijanashvili",
-                    "email": "me@stichoza.com"
-                }
-            ],
-            "description": "Free Google Translate API PHP Package",
-            "homepage": "http://github.com/Stichoza/google-translate-php",
-            "keywords": [
-                "google",
-                "php",
-                "translate"
-            ],
-            "time": "2016-05-16 08:35:53"
         },
         {
             "name": "studio-42/elfinder",
@@ -5227,7 +5110,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "alexpechkarev/google-geocoder": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

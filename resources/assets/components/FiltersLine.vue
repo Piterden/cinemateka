@@ -32,7 +32,7 @@ export default {
     // Список показываемых фильтров
     filterShow: {
       type: Array,
-      default() {
+      default () {
         return []
       }
     },
@@ -40,7 +40,7 @@ export default {
     // Значения фильтров
     filterValues: {
       type: Object,
-      default() {
+      default () {
         return {}
       },
       twoWay: true
@@ -49,7 +49,7 @@ export default {
     // Списки фильтров
     filterLists: {
       type: Object,
-      default() {
+      default () {
         return {}
       }
     }
@@ -65,3 +65,4 @@ export default {
   }
 }
 </script>
+

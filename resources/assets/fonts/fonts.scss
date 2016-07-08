@@ -32,11 +32,12 @@
 // =============================================================================
 $family: 'VremenaGrotesk';
 $path: '../fonts/font-vremena-grotesk';
-@include font-face($family,$path + '/' + $family + Book, 200, normal);
-@include font-face($family,$path + '/' + $family + BookItalic, 200, italic);
-@include font-face($family,$path + '/' + $family, 400, normal);
-@include font-face($family,$path + '/' + $family + Italic, 400, italic);
-@include font-face($family,$path + '/' + $family + Medium, 600, normal);
-@include font-face($family,$path + '/' + $family + MediumItalic, 600, italic);
-@include font-face($family,$path + '/' + $family + Bold, 800, normal);
-@include font-face($family,$path + '/' + $family + BoldItalic, 800, italic);
+@include font-face($family, $path + '/' + $family + Book, 200, normal);
+@include font-face($family, $path + '/' + $family + BookItalic, 200, italic);
+@include font-face($family, $path + '/' + $family, 400, normal);
+@include font-face($family, $path + '/' + $family + Italic, 400, italic);
+@include font-face($family, $path + '/' + $family + Medium, 600, normal);
+@include font-face($family, $path + '/' + $family + MediumItalic, 600, italic);
+@include font-face($family, $path + '/' + $family + Bold, 800, normal);
+@include font-face($family, $path + '/' + $family + BoldItalic, 800, italic);
+

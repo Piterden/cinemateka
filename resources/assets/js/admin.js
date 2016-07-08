@@ -30,8 +30,8 @@ let $vm = new Vue({
   },
 
   watch: {
-    title(nv,ov) {
-      if (this.freezeSlug) return
+    title(nv, ov) {
+      if(this.freezeSlug) return
       this.$set('slug', this.toTranslit(nv))
     }
   },
@@ -77,3 +77,4 @@ let $vm = new Vue({
   }
 
 })
+
