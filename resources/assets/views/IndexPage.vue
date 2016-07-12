@@ -4,7 +4,20 @@
 
 <template lang="html">
   <div class="wrap router-view {{ $options.name }}">
-    <slot></slot>
+    <swipe
+      :speed="600"
+      :auto="0"
+      :continuous="true"
+      :show-indicators="true"
+      :show-nav="true"
+      :no-drag-when-single="false"
+      :prevent="false"
+    ><swipe-item
+        v-for="slide in $root.slides"
+      >
+        <div class="slides">{{ slide.src }}</div>
+      </swipe-item>
+    </swipe>
     <index-page-events
       :title.once="week.title"
       :tabs.once="week.tabs"
@@ -98,9 +111,9 @@ export default {
      * Срабатывает при нажатии на таб недели
      */
     clickWeekTab(name) { // 'week$'
-      let i = name.slice(4),
-        d = this.getTabDate(i),
-        mon = this.$root.getMonday(d)
+      let i = name.slice(4);
+        // d = this.getTabDate(i);
+        //mon = this.$root.getMonday(d)
       this.$set('week.activeTab', Number(i))
     },
 

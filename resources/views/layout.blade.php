@@ -5,8 +5,8 @@
   <title>Кино в городе</title>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <!-- <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"> -->
-  <meta name="viewport" content="width=1024">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- <meta name="viewport" content="width=1024"> -->
 
   {{-- Encrypted CSRF token for Laravel, in order for Ajax requests to work --}}
   <!-- <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css" /> -->
@@ -14,15 +14,6 @@
   <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="/css/common.css" rel="stylesheet" type="text/css" />
   <link href="/css/app.css" rel="stylesheet" type="text/css" />
-
-  {{-- Data from Backend --}}
-  <script type="text/javascript">
-    window['seances'] = {!! $seances !!};
-    window['programs'] = {!! $programs !!};
-    window['events'] = {!! $events !!};
-    window['places'] = {!! $places !!};
-    window['categories'] = {!! $categories !!};
-  </script>
 
   <!-- Builded begining script -->
   <script src="/js/vendor.js"></script>
@@ -43,11 +34,20 @@
     transition="fade"
     transition-mode="out-in"
     v-cloak
-    keep-alive
-  >@yield('top-block')
+    keep-alive>
   </router-view>
 
   @include('blocks.footer')
+
+  {{-- Data from Backend --}}
+  <script type="text/javascript">
+    window['slides'] = {!! $slides !!};
+    window['seances'] = {!! $seances !!};
+    window['programs'] = {!! $programs !!};
+    window['events'] = {!! $events !!};
+    window['places'] = {!! $places !!};
+    window['categories'] = {!! $categories !!};
+  </script>
 
   <script src="/js/main.js"></script>
 

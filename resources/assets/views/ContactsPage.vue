@@ -171,7 +171,6 @@ export default {
 
   computed: {
     center() {
-      console.log(this);
       let p = this.getActivePlace()
       return p && p != -1 && p.position || {}
     },

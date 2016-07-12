@@ -51,6 +51,7 @@ Route::group(['middleware' => 'web', 'prefix' => 'admin'], function ()
         CRUD::resource('category', 'CategoryCrudController');
         // CRUD::resource('tag', 'TagCrudController');
 
+        CRUD::resource('seance', 'SeanceCrudController');
         /**
          * Загрузка картинок
          */

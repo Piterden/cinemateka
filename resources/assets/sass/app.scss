@@ -1,16 +1,19 @@
 @import '../fonts/fonts.scss';
-
 /**
  * General styles
  */
-
-body, html {
+body,
+html {
   overflow-x: hidden;
 }
 body {
   overflow-y: hidden;
 }
-a, blockquote, body, h4, p {
+a,
+blockquote,
+body,
+h4,
+p {
   color: #000;
   text-decoration: none;
   letter-spacing: .02em;
@@ -21,6 +24,7 @@ a, blockquote, body, h4, p {
   line-height: 24px;
   outline: none;
 }
+
 h1 {
   margin: 45px 0 30px 0;
   letter-spacing: .02em;
@@ -66,11 +70,9 @@ ul {
   padding: 0;
   list-style: none;
 }
-
 /**
  * Header
  */
-
 nav {
   background-color: #000;
   .brand-logo.left {
@@ -108,7 +110,8 @@ nav {
           opacity: 0;
         }
       }
-      &:hover a, a.active {
+      &:hover a,
+      a.active {
         color: #ff0025;
         &:before {
           left: 0;
@@ -124,11 +127,9 @@ nav {
     right: 40px;
   }
 }
-
 /**
  * Main Page Slider
  */
-
 .index-page-swipe {
   height: 507px;
 }
@@ -137,6 +138,11 @@ nav {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: 50% 50%;
+    a {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
   }
 }
 .swipe-indicators {
@@ -151,16 +157,15 @@ nav {
     opacity: 1;
     cursor: pointer;
     transition: background .3s ease-out;
-    &.active, &:hover {
+    &.active,
+    &:hover {
       background: #fff;
     }
   }
 }
-
 /**
  * Header Component
  */
-
 .blocks-header {
   margin: -6px 0 0;
   .block-title {
@@ -175,16 +180,15 @@ nav {
     }
   }
 }
-
 /**
  * MDL Tabs
  */
-
 .mdl-tabs__tab-bar {
   // UL
   -ms-flex-pack: flex-end;
   height: inherit;
   border: none;
+
   -webkit-justify-content: flex-end;
   justify-content: flex-end;
   .mdl-tabs__tab {
@@ -221,11 +225,9 @@ nav {
     }
   }
 }
-
 /**
  * List Box
  */
-
 .mdl-grid.list-box {
   padding: 6px 28px 17px;
   color: #fff;
@@ -250,7 +252,6 @@ nav {
   .mdl-cell {
     margin: 12px;
     background: #000;
-    text-shadow: 0 0 2px #000;
     .event-item-card {
       position: relative;
       width: 100%;
@@ -273,12 +274,15 @@ nav {
         padding: 0 25px;
         font-weight: 200;
         font-size: 23px;
+        text-shadow: 0 0 2px #000;
       }
       .title {
         padding: 0 25px;
+        text-shadow: 0 0 2px #000;
       }
       .program {
         padding: 18px 25px;
+        text-shadow: 0 0 2px #000;
       }
     }
   }
@@ -312,12 +316,12 @@ nav {
       background-size: cover;
       .bottom-block {
         top: 100%;
-        text-shadow: none;
         .dates {
           color: black;
           padding: 0;
           font-size: 16px;
           margin: 12px 0 4px 0;
+          text-shadow: none;
         }
         .title {
           padding: 0;
@@ -327,9 +331,10 @@ nav {
             font-size: 16px;
             line-height: 1.4em;
             font-weight: bold;
+            text-shadow: none;
             &:hover {
-              text-decoration: underline;
-              color: red;
+             text-decoration: underline;
+             color: red;
             }
           }
         }
@@ -374,7 +379,7 @@ nav {
     border-bottom: 2px solid #000;
     font-weight: bold;
     font-size: 16px;
-    .date {
+    .date{
       color: #ff0025;
     }
   }
@@ -397,6 +402,7 @@ nav {
     width: 6.5%;
   }
 }
+
 // DROPDOWN
 .dropdown {
   position: relative;
@@ -422,8 +428,7 @@ nav {
     height: 12px;
     position: absolute;
     top: 11px;
-    right: 16px;
-    ;
+    right: 16px;;
     border-bottom: 2px solid black;
     border-right: 2px solid black;
     transform: rotate(45deg);
@@ -502,10 +507,11 @@ nav {
     }
   }
 }
+
 .schedule-page {
   .filters-line {
     .event-type-filter ul {
-      overflow-y: hidden;
+    overflow-y: hidden;
     }
     .program-type-filter {
       margin-left: 27px;
@@ -523,7 +529,9 @@ nav {
     .program-type-filter {
       width: 300px;
     }
-    .filter {}
+    .filter {
+
+    }
   }
   .dropdown {
     width: 100%;
@@ -531,7 +539,10 @@ nav {
       padding: 5px 0;
     }
   }
+
 }
+
+
 .date-pickers {
   height: 48px;
   width: 160px;
@@ -576,11 +587,9 @@ nav {
   display: inline-block;
   height: 278px;
 }
-
 /**
  * Footer
  */
-
 footer {
   background: #000;
   color: #fff;
@@ -654,7 +663,8 @@ footer {
 .fade-transition {
   transition: opacity .3s ease;
 }
-.fade-enter, .fade-leave {
+.fade-enter,
+.fade-leave {
   opacity: 0;
 }
 @media (min-width: 840px) {
@@ -664,8 +674,13 @@ footer {
 }
 
 /**
- * Event page
- */
+ * Event page 
+ */ 
+.event-page {
+  .mdl-cell {
+    // margin: 0;
+  }
+}
 
 .event-image {
   /* background-position: left bottom; /* Положение фона */
@@ -678,39 +693,58 @@ footer {
   position: relative;
   color: white;
 }
+
 .event-date {
   font-size: 48px;
-  position: absolute;
-  top: 50px;
-  left: 40px;
+  // position: absolute;
+  margin-top: 40px;
+  // left: 40px;
+  text-shadow: 0 0 2px #000;
 }
+
 .event-title {
   font-size: 48px;
-  position: absolute;
-  top: 111px;
-  left: 40px;
-  max-width: 620px;
+  // position: absolute;
+  // top: 111px;
+  // left: 40px;
+  // max-width: 620px;
+  margin-top: 30px;
   font-weight: bold;
   line-height: 50px;
-  margin: 0;
+  // margin: 0;
+  text-shadow: 0 0 2px #000;
 }
+
 .event-programm {
   position: absolute;
   top: 336px;
   left: 40px;
+  text-shadow: 0 0 2px #000;
 }
+
 .event-programm a {
   color: white;
   text-decoration: underline;
 }
+
 .event-video {
-  width: 535px;
-  height: 307px;
-  position: absolute;
-  right: 40px;
-  bottom: 50px;
-  background-color: grey;
+  width: 100%;
+  // margin: auto 0;
+  // min-height: 300px;
+  // height: 307px;
+  // position: absolute;
+  // right: 40px;
+  // bottom: 50px;
+  // background-color: grey;
+  line-height: 411px;
+  vertical-align: middle;
+  margin-left: auto;
+    iframe {
+      // height: 300px;
+      min-height: 290px;
+    }
 }
+
 .event-param {
   display: inline-block;
   border-bottom: 2px solid black;
@@ -721,32 +755,52 @@ footer {
   text-align: right;
   position: relative;
 }
+
 .event-time {
   display: inline-block;
   position: absolute;
   left: 0;
   font-size: 32px;
 }
+
 .event-place {
   display: inline-block;
   margin-right: 100px;
 }
-.event-place i, .event-price i {
+
+.event-place i,
+.event-price i {
   vertical-align: bottom;
   font-size: 24px;
 }
+
 .event-price {
   display: inline-block;
   position: absolute;
   right: 0;
 }
+
 .event-more-info {
   margin-top: 45px;
 }
+
+.speakers {
+  border: 4px solid black;
+  padding: 25px;
+  margin-top: 20px;
+  width: 70%;
+  float: right;
+  h3 {
+    margin-bottom: 20px;
+  }
+}
+
+
 .more-info-table {
   margin-top: 24px;
   margin-bottom: 40px;
 }
+
 .more-info-table tr td:first-child {
   font-weight: bold;
   width: 170px;
@@ -762,9 +816,7 @@ footer {
   font-size: 16px;
   margin-bottom: 3px;
 }
-
 /* same programm block */
-
 .mdl-grid.list-box.same-programm-block {
   background-color: black;
   padding-top: 121px;
@@ -777,9 +829,9 @@ footer {
   font-size: 32px;
 }
 .same-programm-block h3 a {
-  font-size: 32px;
-  color: white;
-  text-decoration: underline;
+ font-size: 32px;
+ color: white;
+ text-decoration: underline;
 }
 .same-programm-block h3 a:hover {
   color: red;
@@ -807,4 +859,3 @@ footer {
   stroke-width: 2;
   stroke-miterlimit: 10;
 }
-

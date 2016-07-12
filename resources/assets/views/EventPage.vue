@@ -3,15 +3,21 @@
 <template>
   <div class="wrap router-view event-page">
     <div v-if="eventItem" class="event-image" :style="bgStyleObject">
-      <div class="event-date">{{ closestSeanceDate }}</div>
-      <h1 class="event-title">{{ eventItem.title }}</h1>
-      <div class="event-programm">
-        <a v-link="'/program/'+closestProgram.slug">
-          {{ closestProgram.title }}
-        </a>
-      </div>
-      <div v-if="videos.mainvideo" class="event-video">
-        <iframe width="535" height="307" frameborder="0" :src="videos.mainvideo.replace('watch?v=','embed/')"></iframe>
+      <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--7-col">
+          <div class="event-date">{{ closestSeanceDate }}</div>
+          <h1 class="event-title">{{ eventItem.title }}</h1>
+          <div class="event-programm">
+            <a v-link="'/program/'+closestProgram.slug">
+              {{ closestProgram.title }}
+            </a>
+          </div>
+        </div>
+        <div class="mdl-cell mdl-cell--5-col">
+          <div v-if="videos.mainvideo" class="event-video">
+            <iframe width="100%" frameborder="0" :src="videos.mainvideo.replace('watch?v=','embed/')"></iframe>
+          </div>
+        </div>
       </div>
     </div>
     <div class="mdl-grid" v-if="eventItem">
@@ -115,8 +121,23 @@
           </table>
         </div>
       </div>
+      <div class="mdl-cell mdl-cell--5-col">
+        <div v-if="closestSeance.speaker_info" class="speakers">
+          <h3>Спикеры</h3>
+          <div class="">
+            {{ closestSeance.speaker_info }}
+          </div>
+        </div>
+      </div>
     </div>
-    <list-box v-if="closestProgram" :events="closestProgramEvents" :limit.once="3" :filtered-count="2" :cols.once="4" :wrap-class="'same-programm-block'">
+    <list-box
+      v-if="closestProgram"
+      :events="closestProgramEvents"
+      :limit.once="3"
+      :filtered-count="2"
+      :cols.once="4"
+      :wrap-class="'same-programm-block'"
+    >
       <h3 slot="top">События
         <a href="#" v-link="{ path: '/program/' + closestProgram.slug }">
           той же программы
@@ -201,9 +222,11 @@ export default {
   },
 
   methods: {
+    /* eslint-disable no-unused-vars */
     filterMethod(events, filters) {
       return events
     }
+    /* eslint-enable no-unused-vars */
   }
 
 }

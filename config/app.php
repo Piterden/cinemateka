@@ -192,6 +192,8 @@ return [
 
         'Alexpechkarev\GoogleGeocoder\GoogleGeocoderServiceProvider',
 
+        'App\Providers\BladeSetServiceProvider',
+
     ],
 
     /*

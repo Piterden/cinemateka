@@ -123,12 +123,13 @@ class EventCrudController extends CrudController
         ]);
         $this->crud->addField([ // Select2Multiple = n-n relationship (with pivot table)
             'label'        => 'Сеансы',
-            'type'         => 'select2_multiple',
+            'type'         => 'select_seance_multiple',
             'name'         => 'seances', // the method that defines the relationship in your Model
             'entity'       => 'seances', // the method that defines the relationship in your Model
             'attribute'    => 'start_time', // foreign key attribute that is shown to user
             'model'        => 'App\Models\Seance', // foreign key model
-            'allows_null'  => true,
+            // 'allows_null'  => true,
+            'add_label'    => 'Добавить сеанс',
             // 'query_method' => 'all',
             'colspan'      => '3',
             // 'pivot' => true, // on create&update, do you need to add/delete pivot table entries?

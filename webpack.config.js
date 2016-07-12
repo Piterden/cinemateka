@@ -6,7 +6,8 @@ var path = require('path'),
 module.exports = {
   entry: {
     vendor: ['jquery'],
-    admin: ['./admin']
+    admin: ['./admin'],
+    ajaxCrud: ['./ajax-crud']
   },
 
   // Output controls the settings for file generation.

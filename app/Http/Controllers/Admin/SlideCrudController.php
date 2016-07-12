@@ -61,6 +61,10 @@ class SlideCrudController extends CrudController
             'fake'     => true,
             'store_in' => 'caption',
         ], [
+            'name'     => 'link',
+            'label'    => 'Сылка на событие или программу',            
+            'type'     => 'text',
+        ], [
             'name'     => 'caption_content',
             'label'    => 'Содержимое',
             'fake'     => true,

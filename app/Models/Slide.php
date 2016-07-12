@@ -19,7 +19,7 @@ class Slide extends Model
     protected $primaryKey = 'id';
     public $timestamps    = true;
     // protected $guarded = ['id'];
-    protected $fillable    = ['title', 'src', 'caption', 'slider', 'published'];
+    protected $fillable    = ['title', 'src', 'caption', 'slider', 'published', 'link'];
     protected $fakeColumns = ['caption_title', 'caption_content'];
     // protected $hidden = [];
     protected $dates = ['deleted_at', 'created_at', 'edited_at'];

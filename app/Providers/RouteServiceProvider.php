@@ -25,13 +25,13 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot(Router $router)
     {
-        if (Schema::hasTable('menu_items')) {
-            view()->share('menuItems', \App\Models\MenuItem::all());
-        }
+        // if (Schema::hasTable('menu_items')) {
+        //     view()->share('menuItems', \App\Models\MenuItem::all());
+        // }
 
-        if (Schema::hasTable('slides')) {
-            view()->share('slides', \App\Models\Slide::all());
-        }
+        // if (Schema::hasTable('slides')) {
+        //     view()->share('slides', \App\Models\Slide::all());
+        // }
 
         parent::boot($router);
     }

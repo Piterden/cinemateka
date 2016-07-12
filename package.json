@@ -10,6 +10,7 @@
     "dev": "gulp watch"
   },
   "dependencies": {
+    "babel-eslint": "^6.1.2",
     "bootstrap-sass": "^3.3.6",
     "eslint": "^3.0.1",
     "jquery": "^2.2.4",

@@ -16,6 +16,7 @@
   position: absolute;
   top: 50px;
   left: 40px;
+  text-shadow: 0 0 2px #000;
 }
 
 .program-title {
@@ -26,6 +27,7 @@
   max-width: 500px;
   font-weight: bold;
   line-height: 50px;
+  text-shadow: 0 0 2px #000;
 }
 
 .program-programm {
@@ -113,21 +115,23 @@
 /* same programm block */
 
 .mdl-grid.list-box.same-programm-block {
-  background-color: black;
+  background-color: white;
   padding-top: 121px;
   position: relative;
+  margin-bottom: 100px;
 }
 
 .same-programm-block > h3 {
   position: absolute;
   top: 40px;
   left: 40px;
+  color: black;
   font-size: 32px;
 }
 
 .same-programm-block h3 a {
   font-size: 32px;
-  color: white;
+  color: black;
   text-decoration: underline;
 }
 
@@ -165,14 +169,21 @@
 <template>
   <div class="wrap router-view program-page">
     <div class="program-image" :style="{'background-image': 'url(/'+images.mainimage+')'}">
-      <div class="program-date"></div>
+      <div class="program-date">
+        <span v-if="formatted_start != formatted_end">
+          {{ formatted_start }}-{{ formatted_end }}
+        </span>
+        <span v-else>
+          {{ formatted_start }}
+        </span>
+      </div>
       <div class="program-title">{{ programItem.title }}</div>
       <div class="program-programm">
         <a v-link="'/program/'+closestProgram.slug">
           {{ closestProgram.title }}
         </a>
       </div>
-      <div v-if="programItem.videos" class="program-video">
+      <div v-if="videos.mainvideo" class="program-video">
         <iframe width="535" height="307" frameborder="0" :src="videos.mainvideo.replace('watch?v=','embed/')"></iframe>
       </div>
     </div>
@@ -180,8 +191,8 @@
       <div class="mdl-cell mdl-cell--7-col">
         <div class="program-desc">
           <div class="program-param">
-            <div class="program-time" v-if="closestSeance">
-              <i class="fa fa-clock-o" aria-hidden="true"></i> {{ closestSeanceTime }}
+            <div class="program-time" v-if="programItem.start_date">
+              <!-- <i class="fa fa-clock-o" aria-hidden="true"></i> -->
             </div>
             <div class="program-place" v-if="closestPlace">
               <i class="material-icons">place</i> {{ closestPlace.title }}
@@ -195,7 +206,7 @@
             {{ programItem.description }}
           </div>
         </div>
-        <div class="program-more-info">
+        <div class="program-more-info" style="display: none;">
           <h3>Подробнее о фильме</h3>
           <table class="more-info-table">
             <tbody>
@@ -278,16 +289,18 @@
         </div>
       </div>
     </div>
-    <list-box v-if="closestProgram" :programs="closestProgramEvents" :limit.once="3" :filtered-count="2" :cols.once="4" :wrap-class="'same-programm-block'">
-      <h3 slot="top">События
-        <a href="#" v-link="{ path: '/program/' + closestProgram.slug }">
-          той же программы
-        </a>
-      </h3>
-      <div slot="bottom" class="more-events-in-shadue">
-        <a href="#">Больше событий в расписании
+    <list-box v-if="programEvents"
+      :events="programEvents"
+      :limit.once="100"
+      :filtered-count="2"
+      :cols.once="4"
+      :wrap-class="'same-programm-block'"
+    >
+      <h3 slot="top">События программы</h3>
+      <!-- <div slot="bottom" class="more-events-in-shadue">
+        <a href="#">Больше событий в расписании -->
           <!-- ?xml version="1.0" encoding="utf-8"? -->
-          <svg version="1.1"
+          <!-- <svg version="1.1"
             id="Layer_1"
             xmlns="http://www.w3.org/2000/svg"
             xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -307,7 +320,7 @@
             </g></g>
           </svg>
         </a>
-      </div>
+      </div> -->
     </list-box>
   </div>
 </template>
@@ -328,6 +341,23 @@ export default {
     },
     videos() {
       return this.programItem.videos && JSON.parse(this.programItem.videos)
+    },
+    formatted_start() {
+      let d = this.programItem.start_date && this.$root.parse(this.programItem.start_date)
+      return d && this.$root.formatDateToStr(d, 'DD.MM')
+    },
+    formatted_end() {
+      let d = this.programItem.end_date && this.$root.parse(this.programItem.end_date)
+      return d && this.$root.formatDateToStr(d, 'DD.MM')
+    },
+    programEvents() {
+      return this.$root.getProgramEvents(this.programItem)
+    }
+  },
+
+  methods: {
+    filterMethod(e) {
+      return e
     }
   }
 

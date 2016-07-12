@@ -31,6 +31,10 @@ class AppServiceProvider extends ServiceProvider
         view()->share('places', \App\Models\Place::where([
             'published' => 1
         ])->get()->toJson());
+
+        view()->share('slides', \App\Models\Slide::where([
+            'published' => 1
+        ])->get()->toJson());
     }
 
     /**

@@ -108,19 +108,25 @@ export default {
     getSpendingRange() {
       if (this.item === undefined) return ''
       let seances = this.item.seances || [],
-        start, end
+        start, end, formatted_start, formatted_end
       if (!seances.length) {
         return ''
       }
       start = new Date(seances[0].start_time)
-      if (seances.length == 1) {
+      // if (seances.length == 1) {
 
-      }
+      // }
       end = new Date(seances[seances.length - 1].start_time)
       if ((end - start) / 1000 / 60 / 60 / 24 / 365 > 1) {
-        return this.$root.formatDateToStr(start, 'DD.MM.YY') + this.separator + this.$root.formatDateToStr(end, 'DD.MM.YY')
+        formatted_start = this.$root.formatDateToStr(start, 'DD.MM.YY')
+        formatted_end = this.$root.formatDateToStr(end, 'DD.MM.YY')
+      } else {
+        formatted_start = this.$root.formatDateToStr(start, 'DD.MM')
+        formatted_end = this.$root.formatDateToStr(end, 'DD.MM')
       }
-      return this.$root.formatDateToStr(start, 'DD.MM') + this.separator + this.$root.formatDateToStr(end, 'DD.MM')
+      return (formatted_start == formatted_end)
+        ? formatted_start
+        : formatted_start + this.separator + formatted_end
     },
 
     getCols(method) {

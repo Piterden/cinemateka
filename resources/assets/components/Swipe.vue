@@ -106,7 +106,9 @@
     </div>
   </div>
 </template>
-<script type="text/ecmascript-6">
+
+<script>
+
 import {
   once,
   addClass,
@@ -114,7 +116,6 @@ import {
 } from 'wind-dom'
 
 export default {
-  name: 'mt-swipe',
 
   created() {
     this.dragState = {}
@@ -135,40 +136,13 @@ export default {
   },
 
   props: {
-    speed: {
-      type: Number,
-      default: 300
-    },
-
-    auto: {
-      type: Number,
-      default: 3000
-    },
-
-    continuous: {
-      type: Boolean,
-      default: true
-    },
-
-    showIndicators: {
-      type: Boolean,
-      default: true
-    },
-
-    showNav: {
-      type: Boolean,
-      default: true
-    },
-
-    noDragWhenSingle: {
-      type: Boolean,
-      default: true
-    },
-
-    prevent: {
-      type: Boolean,
-      default: false
-    }
+    speed: {type: Number,default: 300},
+    auto: {type: Number,default: 3000},
+    continuous: {type: Boolean,default: true},
+    showIndicators: {type: Boolean,default: true},
+    showNav: {type: Boolean,default: true},
+    noDragWhenSingle: {type: Boolean,default: true},
+    prevent: {type: Boolean,default: false},
   },
 
   events: {
@@ -537,4 +511,5 @@ export default {
     })
   }
 }
+
 </script>

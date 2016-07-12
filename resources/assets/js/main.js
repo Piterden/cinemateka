@@ -1,3 +1,9 @@
+/** ***************************************************/
+/** **************** eslint config ********************/
+/** ***************************************************/
+/* eslint-disable no-unused-vars */
+/** ***************************************************/
+
 // Расширение объекта Array
 import Array from './inc.js'
 
@@ -40,9 +46,9 @@ import Datepicker from '../components/Datepicker.vue'
 import DatePickers from '../components/DatePickers.vue'
 
 // Dev ops.
-Vue.config.debug = true
+Vue.config.debug = false
+Vue.config.silent = true
   // console.log(Vue.config);
-
 
 /**
  * Регистрация vue-компонентов === html-элементов

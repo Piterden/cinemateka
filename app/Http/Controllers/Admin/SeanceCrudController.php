@@ -6,10 +6,13 @@ use Backpack\CRUD\app\Http\Controllers\CrudController;
 // VALIDATION: change the requests to match your own file names if you need form validation
 use App\Http\Requests\SeanceRequest as StoreRequest;
 use App\Http\Requests\SeanceRequest as UpdateRequest;
+use Request;
+
 
 class SeanceCrudController extends CrudController {
 
-	public function __construct() {
+
+    public function __construct() {
         parent::__construct();
 
         /*
@@ -97,4 +100,28 @@ class SeanceCrudController extends CrudController {
 	{
 		return parent::updateCrud();
 	}
+
+    /**
+     * Show the form for creating inserting a new row.
+     *
+     * @return Response
+     */
+    public function create()
+    {
+        $request = Request::capture();
+
+        $this->crud->hasAccessOrFail('create');
+
+        // prepare the fields you need to show
+        $this->data['crud']   = $this->crud;
+        $this->data['fields'] = $this->crud->getCreateFields();
+        $this->data['title']  = trans('backpack::crud.add').' '.$this->crud->entity_name;
+
+        if ($request->ajax()) {
+            return view('crud::create_ajax', $this->data);
+        }
+
+        // load the view from /resources/views/vendor/backpack/crud/ if it exists, otherwise load the one in the package
+        return view('crud::create', $this->data);
+    }
 }

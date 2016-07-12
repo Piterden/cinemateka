@@ -26,6 +26,7 @@ class CreateSlidesTable extends Migration
                 $table->integer('category_id')->unsigned()->nullable()->comment('ID слайдера');
 
                 $table->string('title', 255)->comment('Название слайда');
+                $table->string('link', 255)->comment('Ссылка на событие или программу');
                 $table->string('src')->comment('Ссылка на изображение');
                 $table->mediumtext('caption')->comment('Дополнительный текст');
 

@@ -1,3 +1,9 @@
+/*****************************************************/
+/****************** eslint config ********************/
+/*****************************************************/
+/*  global events programs places seances categories slides */
+/*****************************************************/
+
 import Vue from 'vue'
 
 /**
@@ -50,6 +56,13 @@ let App = Vue.extend({
         return seances
       }
     },
+
+    slides: {
+      type: Array,
+      default() {
+        return slides
+      }
+    }
   },
 
   created() {
@@ -79,8 +92,13 @@ let App = Vue.extend({
         }
       }
       p.properties = JSON.parse(p.properties)
-      console.log(p)
       return p
+    })
+    this.slides = slides.map((s) => {
+      if (typeof s.caption == 'string') {
+        s.caption = JSON.parse(s.caption)
+      }
+      return s
     })
   },
 
@@ -94,6 +112,7 @@ let App = Vue.extend({
     delete window['programs']
     delete window['places']
     delete window['categories']
+    delete window['slides']
   },
 
   /**
@@ -275,7 +294,9 @@ let App = Vue.extend({
      */
     getProgramEvents(p) {
       if(p.seances === undefined) return []
-      let eIds = p.seances.map((s) => {
+      let eIds = p.seances.sort((a,b) => {
+        return a.start_time > b.start_time
+      }).map((s) => {
         return s.event_id
       }).getUnique()
       return eIds.map((id) => {
