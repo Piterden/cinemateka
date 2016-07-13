@@ -18,7 +18,7 @@
         <div class="box-title"></div>
       </div>
       <div class="box-body">
-        <full-calendar></full-calendar>
+        {{-- <full-calendar></full-calendar> --}}
       </div>
     </div>
   </div>

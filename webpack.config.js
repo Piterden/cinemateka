@@ -5,9 +5,9 @@ var path = require('path'),
 // Export the webpack configuration
 module.exports = {
   entry: {
-    vendor: ['jquery'],
+    vendor: ['jquery', '../../../node_modules/material-design-lite/material.min.js'],
     admin: ['./admin'],
-    ajaxCrud: ['./ajax-crud']
+    // ajaxCrud: ['./ajax-crud']
   },
 
   // Output controls the settings for file generation.
@@ -27,7 +27,8 @@ module.exports = {
           omit: 1
         }),
         'style',
-        'css'
+        'css',
+        'sass'
       ]
     }, {
       test: /\.scss$/,

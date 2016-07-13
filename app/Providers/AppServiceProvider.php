@@ -15,26 +15,32 @@ class AppServiceProvider extends ServiceProvider
         /**
          * Share collections to all views
          */
+        $seances = \App\Models\Seance::all();
 
-        view()->share('seances', \App\Models\Seance::all()->toJson());
+        $categories = \App\Models\Category::all();
 
-        view()->share('categories', \App\Models\Category::all()->toJson());
+        $events = \App\Models\Event::where([
+            'published' => 1,
+        ])->get();
 
-        view()->share('events', \App\Models\Event::where([
-            'published' => 1
-        ])->get()->toJson());
+        $programs = \App\Models\Program::where([
+            'published' => 1,
+        ])->get();
 
-        view()->share('programs', \App\Models\Program::where([
-            'published' => 1
-        ])->get()->toJson());
+        $places = \App\Models\Place::where([
+            'published' => 1,
+        ])->get();
 
-        view()->share('places', \App\Models\Place::where([
-            'published' => 1
-        ])->get()->toJson());
+        $slides = \App\Models\Slide::where([
+            'published' => '1',
+        ])->get();
 
-        view()->share('slides', \App\Models\Slide::where([
-            'published' => 1
-        ])->get()->toJson());
+        view()->share('seances', $seances);
+        view()->share('categories', $categories);
+        view()->share('events', $events);
+        view()->share('programs', $programs);
+        view()->share('places', $places);
+        view()->share('slides', $slides);
     }
 
     /**

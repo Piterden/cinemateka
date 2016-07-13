@@ -15,6 +15,7 @@
       :cols.once="cols"
       :method="method"
       :style-object="styleObject"
+      transition="item"
     ></list-box-item>
     <slot name="bottom"></slot>
     <div v-if="moreVisible"

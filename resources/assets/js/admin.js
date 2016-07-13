@@ -1,14 +1,21 @@
+/*****************************************************/
+/****************** eslint config ********************/
+/*****************************************************/
+/*  global events programs places seances categories */
+/*****************************************************/
 'use strict'
 
 import Vue from 'vue'
 import VueResource from 'vue-resource'
-import FullCalendar from './vue/FullCalendar.vue'
+// import FullCalendar
+//  from './vue/FullCalendar.vue'
+import FooterBar from './vue/FooterBar.vue'
 
 Vue.use(VueResource)
 
-Vue.component('full-calendar', FullCalendar)
+// Vue.component('full-calendar', FullCalendar)
 
-let $vm = new Vue({
+new Vue({
   el: 'body',
 
   data() {
@@ -30,7 +37,7 @@ let $vm = new Vue({
   },
 
   watch: {
-    title(nv, ov) {
+    title(nv) {
       if(this.freezeSlug) return
       this.$set('slug', this.toTranslit(nv))
     }
@@ -43,7 +50,7 @@ let $vm = new Vue({
      * @return {String}     Транслитерированная строка
      */
     toTranslit(rus) {
-      let translit = { "а": "a", "б": "b", "в": "v", "г": "g", "д": "d", "е": "e", "ё": "yo", "ж": "zh", "з": "z", "и": "i", "й": "j", "к": "k", "л": "l", "м": "m", "н": "n", "о": "o", "п": "p", "р": "r", "с": "s", "т": "t", "у": "u", "ф": "f", "х": "h", "ц": "c", "ч": "ch", "ш": "sh", "щ": "shh", "ъ": "'", "ы": "y", "ь": "._", "э": "e-", "ю": "yu", "я": "ya", " ": "-" }
+      let translit = { 'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e', 'ё': 'yo', 'ж': 'zh', 'з': 'z', 'и': 'i', 'й': 'j', 'к': 'k', 'л': 'l', 'м': 'm', 'н': 'n', 'о': 'o', 'п': 'p', 'р': 'r', 'с': 's', 'т': 't', 'у': 'u', 'ф': 'f', 'х': 'h', 'ц': 'c', 'ч': 'ch', 'ш': 'sh', 'щ': 'shh', 'ъ': '\'', 'ы': 'y', 'ь': '._', 'э': 'e-', 'ю': 'yu', 'я': 'ya', ' ': '-' }
       return rus.toLowerCase().split('').map(function(lt) {
         return translit[lt] || lt
       }).join('')

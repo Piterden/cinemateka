@@ -25,6 +25,13 @@
   white-space: normal;
   text-align: left;
 }
+.mdl-data-table thead th:nth-child(1) {
+  display: none;
+}
+.mdl-data-table tbody tr:nth-child(1) td:nth-child(1) {
+  display: none;
+}
+
 .mdl-data-table tbody tr:first-child td {
   border-top-width: 3px;
 }
@@ -67,10 +74,48 @@ tbody .place > div {
   padding-left: 5px;
   min-width: 160px;
 }
+tbody .place > div > div {
+  display: inline;
+}
 tbody .price > div {
   padding-left: 5px;
   min-width: 47px;
 }
+.mdl-tooltip.is-active {
+  border: 2px solid black;
+  background-color: white;
+  text-align: left;
+  border-radius: 0;
+  width: 250px;
+}
+.s-place, .s-place a {
+  font-size: 14px;
+  color: black;
+}
+.s-place-address i {
+  font-size: 18px;
+}
+.s-place-metro {
+    margin-left: 15px;
+    font-size: 11px;
+    margin-top: 5px;
+}
+.s-place-site  {
+  margin-top: 8px;
+}
+.s-place-email {
+  margin-top: 6px;
+}
+.s-place-tel {
+  margin-top: 6px;
+}
+.s-place-tel i {
+  font-size: 22px;
+  margin-left: 2px;
+  margin-right: 3px;
+  vertical-align: middle;
+}
+    
 </style>
 
 <template lang="html">
@@ -90,10 +135,11 @@ tbody .price > div {
       <tbody>
         <tr
           v-for="seance in seances
+            | orderBy 'start_time'
             | filterMethod filterValues
-            | limitBy limit
-            | orderBy 'start_time'"
+            | limitBy limit"
           track-by="id"
+          keep-alive
         >
           <td class="id hidden">
             <div class="seance-id">{{ seance.id }}</div>
@@ -124,6 +170,28 @@ tbody .price > div {
               <a href="#" v-link="{ path: '/contacts/' + seance.place_id }">
                 {{ seance.place.title }}
               </a>
+              <div id="{{'tt' + seance.id }}"><i class="fa fa-info-circle" aria-hidden="true"></i></div>
+              <div class="mdl-tooltip" for="{{'tt' + seance.id }}">
+                <div class="s-place s-place-address" v-if="seance.place.address">
+                  <i class="fa fa-map-marker" aria-hidden="true"></i>
+                  {{ seance.place.address }}
+                </div>
+                <div class="s-place s-place-metro" v-if="seance.place.metro">
+                  ст. м. {{ seance.place.metro }}
+                </div>
+                <div class="s-place s-place-site" v-if="seance.place.properties">
+                  <i class="fa fa-globe" aria-hidden="true"></i>
+                  <a href="{{ seance.place.properties.site }}" target="_blank">{{ seance.place.properties.site }}</a>
+                </div>
+                <div class="s-place s-place-email" v-if="seance.place.properties">
+                  <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                  <a href="mailto:{{ seance.place.properties.email }}">{{ seance.place.properties.email }}</a>
+                </div>
+                <div class="s-place s-place-tel" v-if="seance.place.properties">
+                  <i class="fa fa-mobile" aria-hidden="true"></i>
+                  <a href="tel:{{ seance.place.properties.phone }}">{{ seance.place.properties.phone }}</a>
+                </div>
+              </div>
             </div>
           </td>
           <td class="price">

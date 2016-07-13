@@ -13,9 +13,20 @@
       :no-drag-when-single="false"
       :prevent="false"
     ><swipe-item
-        v-for="slide in $root.slides"
+        v-for="slide in slides"
+        class="slide"
+        style="background-image: url('/{{ slide.src }}')"
       >
-        <div class="slides">{{ slide.src }}</div>
+        <a href="{{ slide.link }}">
+          <div v-if="slide.caption" class="caption-wrapper">
+            <div v-if="slide.caption.caption_title" class="caption-title">
+              {{ slide.caption.caption_title }}
+            </div>
+            <div v-if="slide.caption.caption_content" class="caption-content">
+              {{ slide.caption.caption_content }}
+            </div>
+          </div>
+        </a>
       </swipe-item>
     </swipe>
     <index-page-events
@@ -76,6 +87,12 @@ export default {
         calcSizesMethod: 'same',
         activeTab: 0,
       }
+    }
+  },
+
+  computed: {
+    slides() {
+      return this.$root.getPublished(this.$root.slides)
     }
   },
 

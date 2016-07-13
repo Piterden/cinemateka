@@ -1,14 +1,15 @@
 <style lang="css" scoped>
-
+.mdl-grid, .mdl-cell {
+  height: 100%;
+}
 .error-box {
-  position: absolute;
   width: 380px;
   height: 285px;
-  top: 70px;
-  left: 40px;
+  margin: 70px 40px 250px;
   padding: 0 30px 0 370px;
   font-size: 16px;
   border: 4px solid red;
+  position: relative;
 }
 .error-box h1 {
   font-size: 48px;
@@ -53,7 +54,7 @@
   			</svg>
   			<h1>Страница не найдена</h1>
   			Неправильно набран адрес, или такой страницына сайте больше не существует.<br><br>
-  			Вернуться на главную страницу.
+  			Вернуться на <a href="/">главную страницу.</a>
 			</div>
 		</div>
 	</div>

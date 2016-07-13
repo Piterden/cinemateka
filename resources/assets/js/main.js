@@ -13,10 +13,12 @@ import Array from './inc.js'
 import _ from 'lodash'
 import Vue from 'vue'
 import VueMdl from 'vue-mdl'
+import VueAnimatedList from 'vue-animated-list'
 
 /**
- * Плагин Material Design Light
+ * Плагины
  */
+Vue.use(VueAnimatedList)
 Vue.use(VueMdl)
 
 /**

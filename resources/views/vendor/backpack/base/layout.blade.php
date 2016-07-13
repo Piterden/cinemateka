@@ -152,7 +152,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/locale/ru.js"></script>
     <script src="{{ asset('vendor/adminlte') }}/plugins/fullcalendar/fullcalendar.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.25/vue.js"></script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.25/vue.js"></script> --}}
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/0.9.1/vue-resource.js"></script> --}}
     <script src="{{ asset('js/admin.js') }}"></script>
 </body>

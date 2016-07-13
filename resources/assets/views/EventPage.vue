@@ -123,7 +123,7 @@
       </div>
       <div class="mdl-cell mdl-cell--5-col">
         <div v-if="closestSeance.speaker_info" class="speakers">
-          <h3>Спикеры</h3>
+          <h3><i class="fa fa-comment"></i> Спикеры</h3>
           <div class="">
             {{ closestSeance.speaker_info }}
           </div>

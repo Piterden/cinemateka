@@ -130,7 +130,7 @@ nav {
 /**
  * Main Page Slider
  */
-.index-page-swipe {
+.swipe {
   height: 507px;
 }
 .swipe-items-wrap {
@@ -142,6 +142,24 @@ nav {
       width: 100%;
       height: 100%;
       display: block;
+      .caption-wrapper {
+        display: inline-block;
+        max-width: 45%;
+        min-width: 30%;
+        border: 10px solid white;
+        margin-top: 120px;
+        margin-left:  10%;
+        font-size: 48px;
+        color: white;
+        line-height: 1.3em;
+        padding: 15px;
+        .caption-title {
+          font-weight: 100;
+        }
+        .caption-content {
+          font-weight: bold;
+        }
+      }
     }
   }
 }
@@ -279,10 +297,16 @@ nav {
       .title {
         padding: 0 25px;
         text-shadow: 0 0 2px #000;
+        a:hover {
+          text-decoration: underline;
+        }
       }
       .program {
         padding: 18px 25px;
         text-shadow: 0 0 2px #000;
+        a:hover {
+          text-decoration: underline;
+        }
       }
     }
   }
@@ -674,8 +698,8 @@ footer {
 }
 
 /**
- * Event page 
- */ 
+ * Event page
+ */
 .event-page {
   .mdl-cell {
     // margin: 0;
@@ -858,4 +882,8 @@ footer {
   stroke: white;
   stroke-width: 2;
   stroke-miterlimit: 10;
+}
+.item-move {
+  /* applied to the element when moving */
+  transition: transform .5s cubic-bezier(.55,0,.1,1);
 }
