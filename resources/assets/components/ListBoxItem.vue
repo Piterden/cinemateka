@@ -15,16 +15,21 @@
     <div class="event-item-card"
       :style="bgStyleObject"
     >
-      <div class="category">{{ eventTypeName }}</div>
+      <a href="#" v-link="{ path: '/event/' + item.slug }">
+        <div class="category">{{ eventTypeName }}</div>
+      </a>
+      <a href="#" v-link="{ path: '/event/' + item.slug }">
+        <div class="bluncardy"></div>
+      </a>
       <div class="bottom-block">
-        <div class="dates">
-          {{ getSpendingRange() }}
-        </div>
-        <div class="title">
-          <a href="#" v-link="{ path: '/event/' + item.slug }">
-            <h3>{{ item.title }}</h3>
-          </a>
-        </div>
+        <a href="#" v-link="{ path: '/event/' + item.slug }">
+          <div class="dates">
+            {{ getSpendingRange() }}
+          </div>
+          <div class="title">
+              <h3>{{ item.title }}</h3>
+          </div>
+        </a>
         <div class="program" v-if="closestProgram">
           <a href="#" v-link="{ path:'/program/' + closestProgram.slug }">
             {{ closestProgram.title }}
@@ -94,7 +99,7 @@ export default {
      * @return {Number} Grid Width
      */
     firstLastDoubleWidth() {
-      let showed = this.$parent.$children.length
+      // let showed = this.$parent.$children.length
       return !this.index || (
         this.$parent.$children.length == this.limit && this.index == this.limit - 1
       ) ? this.cols * 2 : this.cols

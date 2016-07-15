@@ -122,7 +122,7 @@ router.beforeEach((trans) => {
   // console.log()
   let fPath = trans.from && trans.from.path,
     tPath = trans.to && trans.to.path,
-    fSlug = trans.from && trans.from.params && trans.from.params.slug,
+    // fSlug = trans.from && trans.from.params && trans.from.params.slug,
     tSlug = trans.to && trans.to.params && trans.to.params.slug,
     tId = trans.to && trans.to.params && trans.to.params.placeId,
     app = router.app

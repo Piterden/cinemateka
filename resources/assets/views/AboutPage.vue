@@ -20,9 +20,6 @@
 </template>
 <script>
 export default {
-
-  name: 'about-page',
-
   data() {
     return {
 

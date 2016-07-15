@@ -282,11 +282,19 @@ nav {
         font-weight: bold;
         font-size: 16px;
       }
+      .bluncardy {
+        height: calc(100% - 60px);
+        width: 100%;
+        content: '';
+      }
       .bottom-block {
         position: absolute;
         bottom: 0;
         left: 0;
         width: 100%;
+        a:hover {
+          text-decoration: underline;
+        }
       }
       .dates {
         padding: 0 25px;
@@ -716,6 +724,16 @@ footer {
   width: 100%;
   position: relative;
   color: white;
+  .mdl-grid {
+    padding-top: 0;
+    padding-bottom: 0;
+    .mdl-cell {
+      margin: 0;
+    }
+    .mdl-cell--5-col {
+      margin-left: 32px;
+    }
+  }
 }
 
 .event-date {

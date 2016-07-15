@@ -1,3 +1,6 @@
+/* global module __dirname */
+/* eslint-disable no-unused-vars */
+
 var path = require('path'),
   webpack = require('webpack'),
   ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -6,7 +9,7 @@ var path = require('path'),
 module.exports = {
   entry: {
     vendor: ['jquery', '../../../node_modules/material-design-lite/material.min.js'],
-    admin: ['./admin'],
+    admin: ['../admin/admin'],
     // ajaxCrud: ['./ajax-crud']
   },
 

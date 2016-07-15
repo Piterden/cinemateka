@@ -18,9 +18,7 @@
       transition="item"
     ></list-box-item>
     <slot name="bottom"></slot>
-    <div v-if="moreVisible"
-      class="show-more-block mdl-cell mdl-cell--12-col"
-    >
+    <div v-if="moreVisible" class="show-more-block mdl-cell mdl-cell--12-col">
       <a class="show-more-btn"
         @click="showMore">
         Показать еще
@@ -92,6 +90,10 @@ export default {
     wrapClass: {
       type: String,
       default: ''
+    },
+    notEmpty: {
+      type: Boolean,
+      default: true
     }
   },
 
@@ -155,7 +157,7 @@ export default {
   watch: {
     filterValues: {
       deep: true,
-      handler(n, o) {
+      handler() {
         this.handleResize()
       }
     }
@@ -169,7 +171,9 @@ export default {
      * @return {Array}      Фильтрованный массив объектов событий
      */
     filterMethod(events, filters) {
-      return this.$parent.filterMethod(events, filters)
+      let res = this.$parent.filterMethod(events, filters)
+      this.notEmpty = res.length > 0
+      return res
     }
   }
 }

@@ -33,6 +33,7 @@
   <button class="btn btn-primary"
     id="{{ $field['name'] }}-add"
     data-event-id="{{ $event_id }}"
+    v-on:click="addSeance({{ $event_id }})"
   >
     {{ $field['add_label'] }}
   </button>
@@ -87,13 +88,7 @@
                   }
               });
 
-              $('#{{ $field['name'] }}-add').on('click', function(e) {
-                e.preventDefault();
-                var $this = $(this),
-                  event_id = $this.data('event_id')
-                $.colorbox({href:'/admin/seance/create'});
-                return false;
-              });
+              $('#{{ $field['name'] }}-add').on('click', );
 
             });
         </script>

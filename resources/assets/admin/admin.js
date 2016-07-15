@@ -5,28 +5,37 @@
 /*****************************************************/
 'use strict'
 
+import moment from 'moment'
 import Vue from 'vue'
-import VueResource from 'vue-resource'
+import VueDatetimePicker from 'vue-datetime-picker'
+
+// import VueResource from 'vue-resource'
 // import FullCalendar
 //  from './vue/FullCalendar.vue'
-import FooterBar from './vue/FooterBar.vue'
+// import Navbar from './vue/Navbar.vue'
 
-Vue.use(VueResource)
+window[Vue] = Vue
+// Vue.use(VueResource)
 
-// Vue.component('full-calendar', FullCalendar)
+// Vue.component('vue-datetime-picker', VueDatetimePicker)
+// Vue.component('navbar', Navbar)
 
 new Vue({
   el: 'body',
-
-  data() {
-    return {
-      // Коллекции
-      events: events,
-      programs: programs,
-      seances: seances,
-      categories: categories,
-      places: places,
-    }
+  components: {
+    'vue-datetime-picker': VueDatetimePicker
+  },
+  data: {
+    events: events,
+    programs: programs,
+    seances: seances,
+    categories: categories,
+    places: places,
+    result1: null,
+    result2: null,
+    result3: null,
+    startDatetime: moment(),
+    endDatetime: null
   },
 
   props: {
@@ -55,9 +64,38 @@ new Vue({
         return translit[lt] || lt
       }).join('')
     },
+    formatDatetime: function(datetime) {
+      if (datetime === null) {
+        return '[null]';
+      } else {
+        return datetime.format('YYYY-MM-DD HH:mm:ss');
+      }
+    },
+    formatDate: function(date) {
+      if (date === null) {
+        return '[null]';
+      } else {
+        return date.format('YYYY-MM-DD');
+      }
+    },
+    formatTime: function(time) {
+      if (time === null) {
+        return '[null]';
+      } else {
+        return time.format('HH:mm:ss');
+      }
+    },
+    onStartDatetimeChanged: function(newStart) {
+      var endPicker = this.$.endPicker.control;
+      endPicker.minDate(newStart);
+    },
+    onEndDatetimeChanged: function(newEnd) {
+      var startPicker = this.$.startPicker.control;
+      startPicker.maxDate(newEnd);
+    },
 
     /**
-     * При вводе "slug" с клавиатуры
+     * При вводе 'slug' с клавиатуры
      * @param  {Object} e DOM Event Object
      */
     doTranslit(e) {
@@ -65,6 +103,12 @@ new Vue({
       input.value = this.toTranslit(input.value)
     },
 
+    addSeance(e) {
+      // let $this = $(this),
+      //   event_id = $this.data('event_id')
+      // $.colorbox({href:'/admin/seance/create'});
+      return false;
+    }
     /**
      * Ctrl+S сохранение
      * @param  {Object} e DOM Event Obj

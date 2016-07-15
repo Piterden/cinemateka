@@ -1,7 +1,6 @@
 <!-- select2 -->
   <div class="form-group col-md-{{ $field['colspan'] or 12 }}">
     <label>{{ $field['label'] }}</label>
-    <?php $entity_model = $crud->model; ?>
     <select
     	class="form-control select2"
 
@@ -12,9 +11,7 @@
     	@endforeach
     	>
 
-    	@if ($entity_model::isColumnNullable($field['name']))
-            <option value="">-</option>
-        @endif
+        {{-- <option value="">-</option> --}}
 
 	    	@if (isset($field['model']))
 	    		@foreach ($field['model']::all() as $connected_entity_entry)

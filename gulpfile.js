@@ -1,6 +1,6 @@
-var elixir = require('laravel-elixir'),
+var elixir = require('laravel-elixir')/*,
   assetsPath = elixir.config.assetsPath,
-  publicPath = elixir.config.publicPath;
+  publicPath = elixir.config.publicPath*/
 
 require('laravel-elixir-webpack-advanced')
 require('laravel-elixir-imagemin')
@@ -35,12 +35,6 @@ elixir(function (mix) {
   // })
 
   mix.imagemin()
-
-  // mix.scripts([
-  //   './node_modules/material-design-lite/material.min.js'
-  // ])
-
-  // mix.babel('./resources/assets/js/admin.js')
 
 })
 

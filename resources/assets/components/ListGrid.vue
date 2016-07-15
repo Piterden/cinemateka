@@ -115,7 +115,7 @@ tbody .price > div {
   margin-right: 3px;
   vertical-align: middle;
 }
-    
+
 </style>
 
 <template lang="html">
@@ -170,8 +170,8 @@ tbody .price > div {
               <a href="#" v-link="{ path: '/contacts/' + seance.place_id }">
                 {{ seance.place.title }}
               </a>
-              <div id="{{'tt' + seance.id }}"><i class="fa fa-info-circle" aria-hidden="true"></i></div>
-              <div class="mdl-tooltip" for="{{'tt' + seance.id }}">
+              <div id="tt{{ seance.id }}"><i class="fa fa-info-circle" aria-hidden="true"></i></div>
+              <div class="mdl-tooltip" for="tt{{ seance.id }}">
                 <div class="s-place s-place-address" v-if="seance.place.address">
                   <i class="fa fa-map-marker" aria-hidden="true"></i>
                   {{ seance.place.address }}

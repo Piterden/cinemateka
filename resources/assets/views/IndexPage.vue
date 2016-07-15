@@ -119,7 +119,7 @@ export default {
      */
     getTabDate(i) {
       let d = new Date(),
-        t = 60 * 60 * 24 * 7 * 1000 * i + d.getTime()
+        t = 60 * 60 * 24 * 14 * 1000 * i + d.getTime()
       d.setTime(t)
       return d
     },
@@ -148,8 +148,9 @@ export default {
      */
     getMonthTabsList() {
       let mn = this.$root.getMonthNames(),
-        d = new Date(),
-        nn = mn.splice(d.getMonth()).concat(mn)
+        d = new Date()
+      d.setDate(d.getDate() + 14)
+      let nn = mn.splice(d.getMonth()).concat(mn)
       return nn.map((m, i) => {
         let num = this.$root.getSoonTabMonth(i)
         return {

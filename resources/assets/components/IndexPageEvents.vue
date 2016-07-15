@@ -3,7 +3,7 @@
 
 <template>
   <div class="events-block">
-    <blocks-header :title="title">
+    <blocks-header :title="title" v-show="0">
       <ul class="mdl-tabs__tab-bar">
         <li v-for="(index, tab) in tabs"
           class="mdl-tabs__tab">
@@ -48,11 +48,10 @@ export default {
 
   computed: {
     filterValues() {
+      let d = new Date(),
+        n = new Date(d.getFullYear(), d.getMonth(), d.getDate() + 13, 23, 59, 59)
       return {
-        date_interval: [
-          this.$root.getMonday(this.$parent.getTabDate(this.activeTab)),
-          this.$root.getSunday(this.$parent.getTabDate(this.activeTab))
-        ]
+        date_interval: [d, n]
       }
     }
   },

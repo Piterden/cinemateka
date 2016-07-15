@@ -6,7 +6,9 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
   {{-- Encrypted CSRF token for Laravel, in order for Ajax requests to work --}}
+  <meta name="csrf-token" content="{{ csrf_token() }}" />
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
   <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -32,8 +34,8 @@
     transition="fade"
     transition-mode="out-in"
     v-cloak
-    keep-alive>
-  </router-view>
+    keep-alive
+  ></router-view>
 
   @include('blocks.footer')
 

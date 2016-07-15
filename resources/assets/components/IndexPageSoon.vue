@@ -6,7 +6,9 @@
 		<blocks-header :title="title">
       <ul class="mdl-tabs__tab-bar">
         <li v-for="(index, tab) in tabs"
-          class="mdl-tabs__tab">
+          class="mdl-tabs__tab"
+          v-show="1"
+        >
           <a class="{{ this.activeTab == index ? 'active' : '' }}"
             @click.prevent="clickTab(tab.name)">
             {{ tab.title }}
@@ -64,7 +66,8 @@ export default {
     dateToMonthStart() {
       let y = this.$root.getSoonTabYear(this.activeTab),
         m = this.$root.getSoonTabMonth(this.activeTab),
-        d = 1
+        now = new Date(),
+        d = this.activeTab == 0 ? now.getDate() + 14 : 1
       return new Date(y, m, d)
     },
 

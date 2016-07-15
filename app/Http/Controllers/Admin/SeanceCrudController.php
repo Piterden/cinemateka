@@ -39,23 +39,73 @@ class SeanceCrudController extends CrudController {
         // $this->crud->removeFields($array_of_names, 'update/create/both');
 
         $this->crud->addField([
-            'name' => '0',
+            'name' => 'separator',
             'label' => 'Основная информация',
             'type' => 'separator',
-            'colspan' => 10
+            'colspan' => '10'
+        ]);
+        $this->crud->addField([ // Select2Multiple = n-n relationship (with pivot table)
+            'label'     => 'Событие',
+            'type'      => 'select2',
+            'name'      => 'event_id', // the method that defines the relationship in your Model
+            'entity'    => 'event_id', // the method that defines the relationship in your Model
+            'attribute' => 'title', // foreign key attribute that is shown to user
+            'model'     => 'App\Models\Event', // foreign key model
+            'colspan'   => '6',
+            // 'pivot'     => true, // on create&update, do you need to add/delete pivot table entries?
+        ]);
+        $this->crud->addField([ // Select2Multiple = n-n relationship (with pivot table)
+            'label'     => 'Программа',
+            'type'      => 'select2',
+            'name'      => 'program_id', // the method that defines the relationship in your Model
+            'entity'    => 'program_id', // the method that defines the relationship in your Model
+            'attribute' => 'title', // foreign key attribute that is shown to user
+            'model'     => 'App\Models\Program', // foreign key model
+            'colspan'   => '6',
+            // 'pivot'     => true, // on create&update, do you need to add/delete pivot table entries?
         ]);
         $this->crud->addField([ // CHECKBOX
             'name' => 'published',
             'label' => 'Опубликованно',
             'type' => 'checkbox',
-            'colspan' => 2
+            'colspan' => '3'
         ]);
         $this->crud->addField([ // TEXT
             'name' => 'start_time',
             'label' => 'Начало',
-            'type' => 'text',
-            'cssclass' => '',
+            'type' => 'datetime_picker',
+            'colspan' => '4',
         ]);
+        // $this->crud->addField([ // TEXT
+        //     'name' => 'start_time',
+        //     'label' => 'Начало',
+        //     'type' => 'text',
+        //     'cssclass' => '',
+        // ]);
+        // $this->crud->addField([ // TEXT
+        //     'name' => 'start_time',
+        //     'label' => 'Начало',
+        //     'type' => 'text',
+        //     'cssclass' => '',
+        // ]);
+        // $this->crud->addField([ // TEXT
+        //     'name' => 'start_time',
+        //     'label' => 'Начало',
+        //     'type' => 'text',
+        //     'cssclass' => '',
+        // ]);
+        // $this->crud->addField([ // TEXT
+        //     'name' => 'start_time',
+        //     'label' => 'Начало',
+        //     'type' => 'text',
+        //     'cssclass' => '',
+        // ]);
+        // $this->crud->addField([ // TEXT
+        //     'name' => 'start_time',
+        //     'label' => 'Начало',
+        //     'type' => 'text',
+        //     'cssclass' => '',
+        // ]);
 
         // ------ CRUD COLUMNS
         // $this->crud->addColumn(); // add a single column, at the end of the stack

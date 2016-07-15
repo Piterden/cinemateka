@@ -401,7 +401,10 @@ let App = Vue.extend({
      */
     getSoonTabMonth(i = 0) {
       let d = new Date()
-      d.setUTCMonth(d.getMonth() + i)
+      if (i == 0) {
+        d.setDate(d.getDate() + 14)
+      }
+      d.setMonth(d.getMonth() + i)
       return d.getUTCMonth()
     },
 
@@ -419,6 +422,13 @@ let App = Vue.extend({
      *  ФОРМАТИРОВАНИЕ И ПРЕОБРАЗОВАНИЕ ДАТ
      * ================================================================
      *!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+    // getPlusTwoWeekDate(d) {
+    //   let y = d.getFullYear(),
+    //     m = d.getMonth(),
+    //     day = d.getDate()
+    //   return new Date(y, m, day + 13, 23, 59, 59)
+    // },
+
     /**
      * Возвращает объект даты конца недели по
      * строке даты понедельника этой недели
