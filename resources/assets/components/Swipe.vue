@@ -99,7 +99,12 @@
       <slot></slot>
     </div>
     <div class="swipe-indicators" v-show="showIndicators">
-      <div class="swipe-indicator" v-for="page in pages" :class="{ active: $index === index }"></div>
+      <div v-for="page in pages"
+        :class="{
+          'swipe-indicator': true,
+          active: $index === index
+        }"
+      ></div>
     </div>
     <div class="swipe-nav" v-show="showNav">
       <div class="swipe-prev" @click="prev()"></div>
