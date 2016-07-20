@@ -8,6 +8,7 @@
       class="filter {{ key.replace('_','-') }}-filter">
       <toggler
         v-if="isToggler(key)"
+        v-show="0"
         :value.sync="filterValues[key]"
         :list.once="filterLists[key]"
       ></toggler>

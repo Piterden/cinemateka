@@ -21,6 +21,7 @@ class Event extends Model
     // protected $hidden = ['id'];
     protected $fillable = [
         'published',
+        'wide',
         'title',
         'slug',
         'category_id',
@@ -46,10 +47,7 @@ class Event extends Model
         'properties',
     ];
     protected $fakeColumns = [
-        'images',
         'meta',
-        'videos',
-        'awards',
         'properties',
     ];
     protected $dates   = ['deleted_at', 'created_at', 'edited_at'];

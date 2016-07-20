@@ -56,17 +56,17 @@
       <div class="place-metro" v-if="place.metro">
         {{ place.metro }}
       </div>
-      <div class="place-site" v-if="place.properties">
+      <div class="place-site" v-if="place.place_site">
         <i class="fa fa-globe" aria-hidden="true"></i>
-        <a href="{{ place.properties.site }}" target="_blank">{{ place.properties.site }}</a>
+        <a href="{{ place.place_site }}" target="_blank">{{ place.place_site }}</a>
       </div>
-      <div class="place-email" v-if="place.properties">
+      <div class="place-email" v-if="place.place_email">
         <i class="fa fa-envelope-o" aria-hidden="true"></i>
-        <a href="mailto:{{ place.properties.email }}">{{ place.properties.email }}</a>
+        <a href="mailto:{{ place.place_email }}">{{ place.place_email }}</a>
       </div>
-      <div class="place-tel" v-if="place.properties">
+      <div class="place-tel" v-if="place.place_phone">
         <i class="fa fa-mobile" aria-hidden="true"></i>
-        <a href="tel:{{ place.properties.phone }}">{{ place.properties.phone }}</a>
+        <a href="tel:{{ place.place_phone }}">{{ place.place_phone }}</a>
       </div>
     </div>
   </div>

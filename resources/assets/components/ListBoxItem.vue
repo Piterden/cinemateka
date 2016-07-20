@@ -30,10 +30,12 @@
               <h3>{{ item.title }}</h3>
           </div>
         </a>
-        <div class="program" v-if="closestProgram">
-          <a href="#" v-link="{ path:'/program/' + closestProgram.slug }">
-            {{ closestProgram.title }}
-          </a>
+        <div class="program">
+          <div v-if="closestProgram">
+            <a href="#" v-link="{ path:'/program/' + closestProgram.slug }">
+              {{ closestProgram.title }}
+            </a>
+          </div>
         </div>
       </div>
     </div>

@@ -9,8 +9,7 @@ var path = require('path'),
 module.exports = {
   entry: {
     vendor: ['jquery', '../../../node_modules/material-design-lite/material.min.js'],
-    admin: ['../admin/admin'],
-    // ajaxCrud: ['./ajax-crud']
+    admin: ['../admin/admin']
   },
 
   // Output controls the settings for file generation.

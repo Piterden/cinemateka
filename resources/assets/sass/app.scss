@@ -319,6 +319,7 @@ nav {
     }
   }
 }
+
 .show-more-block {
   padding: 0;
   background: transparent;
@@ -336,6 +337,19 @@ nav {
     font-weight: bold;
     font-size: 15px;
     cursor: pointer;
+  }
+}
+.archive-page {
+  .list-box {
+    .show-more-block {
+      background: transparent;
+      a {
+        color: black;
+        &:hover {
+          color: red;
+        }
+      }
+    }
   }
 }
 .soon-block {
@@ -593,7 +607,7 @@ nav {
   }
 }
 .date-interval-filter {
-  margin-left: 27px;
+  // margin-left: 27px;
   width: 165px;
 }
 .date-pickers-calendar {

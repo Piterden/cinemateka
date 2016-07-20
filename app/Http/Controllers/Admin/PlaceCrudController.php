@@ -77,27 +77,21 @@ class PlaceCrudController extends CrudController
             'colspan' => 6,
         ]);
         $this->crud->addField([
-            'name'     => 'site',
+            'name'     => 'place_site',
             'type'     => 'text',
             'label'    => 'Сайт',
-            'fake'     => true,
-            'store_in' => 'properties',
             'colspan'  => 4,
         ]);
         $this->crud->addField([
-            'name'     => 'email',
+            'name'     => 'place_email',
             'type'     => 'email',
             'label'    => 'E-mail',
-            'fake'     => true,
-            'store_in' => 'properties',
             'colspan'  => 4,
         ]);
         $this->crud->addField([
-            'name'     => 'phone',
+            'name'     => 'place_phone',
             'type'     => 'text',
             'label'    => 'Телефон',
-            'fake'     => true,
-            'store_in' => 'properties',
             'colspan'  => 4,
         ]);
         // $this->crud->addField([
@@ -105,19 +99,16 @@ class PlaceCrudController extends CrudController
         //     'type'     => 'text',
         //     'step'     => 0.00000001,
         //     'label'    => 'Широта',
-        //     'fake'     => true,
-        //     'store_in' => 'position',
+        //     // 'fake'     => true,
+        //     // 'store_in' => 'position',
         //     'colspan'  => 4,
         // ]);
-        // $this->crud->addField([
-        //     'name'     => 'lng',
-        //     'type'     => 'text',
-        //     'step'     => 0.00000001,
-        //     'label'    => 'Долгота',
-        //     'fake'     => true,
-        //     'store_in' => 'position',
-        //     'colspan'  => 4,
-        // ]);
+        $this->crud->addField([
+            'name'     => 'position',
+            'type'     => 'text',
+            'label'    => 'Координаты',
+            'colspan'  => 4,
+        ]);
 
         // $this->crud->removeColumn('column_name'); // remove a column from the stack
         // $this->crud->removeColumns(['column_name_1', 'column_name_2']); // remove an array of columns from the stack

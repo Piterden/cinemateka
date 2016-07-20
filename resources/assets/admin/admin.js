@@ -13,12 +13,21 @@ import VueDatetimePicker from 'vue-datetime-picker'
 // import FullCalendar
 //  from './vue/FullCalendar.vue'
 // import Navbar from './vue/Navbar.vue'
+import RepeaterImage from './RepeaterImage.vue'
+import RepeaterVideo from './RepeaterVideo.vue'
+import RepeaterText from './RepeaterText.vue'
+import SelectSeance from './SelectSeance.vue'
 
-window[Vue] = Vue
-// Vue.use(VueResource)
+// window[Vue] = Vue
+  // Vue.use(VueResource)
+Vue.debug = true
 
 // Vue.component('vue-datetime-picker', VueDatetimePicker)
 // Vue.component('navbar', Navbar)
+Vue.component('vue-repeater-image', RepeaterImage)
+Vue.component('vue-repeater-video', RepeaterVideo)
+Vue.component('vue-repeater-text', RepeaterText)
+Vue.component('vue-select-seance', SelectSeance)
 
 new Vue({
   el: 'body',
@@ -65,21 +74,21 @@ new Vue({
       }).join('')
     },
     formatDatetime: function(datetime) {
-      if (datetime === null) {
+      if(datetime === null) {
         return '[null]';
       } else {
         return datetime.format('YYYY-MM-DD HH:mm:ss');
       }
     },
     formatDate: function(date) {
-      if (date === null) {
+      if(date === null) {
         return '[null]';
       } else {
         return date.format('YYYY-MM-DD');
       }
     },
     formatTime: function(time) {
-      if (time === null) {
+      if(time === null) {
         return '[null]';
       } else {
         return time.format('HH:mm:ss');
@@ -103,12 +112,12 @@ new Vue({
       input.value = this.toTranslit(input.value)
     },
 
-    addSeance(e) {
-      // let $this = $(this),
-      //   event_id = $this.data('event_id')
-      // $.colorbox({href:'/admin/seance/create'});
-      return false;
-    }
+    // addSeance(e) {
+    //   // let $this = $(this),
+    //   //   event_id = $this.data('event_id')
+    //   // $.colorbox({href:'/admin/seance/create'});
+    //   return false;
+    // }
     /**
      * Ctrl+S сохранение
      * @param  {Object} e DOM Event Obj

@@ -10,7 +10,7 @@ rules:
     - 2
     - unix
   semi:
-    - 0
+    - 1
     - never
 env:
   es6: true

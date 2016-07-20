@@ -203,7 +203,7 @@
             </div>
           </div>
           <div class="program-desc-text" v-if="programItem.description">
-            {{ programItem.description }}
+            {{{ programItem.description }}}
           </div>
         </div>
         <div class="program-more-info" style="display: none;">

@@ -54,7 +54,7 @@ export default {
           e = new Date(d.getFullYear(), d.getMonth() + 1, d.getDate()),
           interval = [this.$root.parse(d), this.$root.parse(e)]
         return {
-          'now_soon': this.$root.getNowSoones()[0],
+          'now_soon': this.$root.getNowSoones()[1],
           'date_interval': interval,
           'event_type': 'Все события',
           'program_type': 'Все программы',

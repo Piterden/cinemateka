@@ -58,11 +58,6 @@ class EventCrudController extends CrudController
         /*
          *  ------ CRUD FIELDS
          */
-        // $this->crud->addField([
-        //     'name'  => 'service_1',
-        //     'value' => '<div class="col-md-12"><h3>Дополнительная информация</h3></div>',
-        //     'type'  => 'custom_html',
-        // ]);
         $this->crud->addField([ // TEXT
             'name'        => 'title',
             'label'       => 'Заголовок',
@@ -87,21 +82,23 @@ class EventCrudController extends CrudController
             'type'    => 'checkbox',
             'colspan' => '2',
         ]);
-        $this->crud->addField([ // Image
-            'name'     => 'mainimage',
+        $this->crud->addField([ // CHECKBOX
+            'name'    => 'wide',
+            'label'   => 'Широкая плитка',
+            'type'    => 'checkbox',
+            'colspan' => '2',
+        ]);
+        $this->crud->addField([
             'label'    => 'Главная картинка',
-            'type'     => 'browse',
-            'colspan'  => '5',
-            'fake'     => true,
-            'store_in' => 'images',
+            'name'  => 'images',
+            'type'  => 'repeater_image',
             'cssclass' => 'main-image',
+            'colspan'  => '5',
         ]);
         $this->crud->addField([ // Image
-            'name'     => 'mainvideo',
+            'name'     => 'videos',
             'label'    => 'Главное видео',
-            'type'     => 'video',
-            'fake'     => true,
-            'store_in' => 'videos',
+            'type'  => 'repeater_video',
             'colspan'  => '5',
         ]);
         $this->crud->addField([ // select
@@ -199,6 +196,12 @@ class EventCrudController extends CrudController
             'colspan' => '2',
         ]);
         $this->crud->addField([ // TEXT
+            'name'      => 'actors',
+            'label'     => 'Актеры в главных ролях',
+            'type'      => 'repeater_text',
+            'colspan' => '6',
+        ]);
+        $this->crud->addField([ // TEXT
             'name'    => 'director',
             'label'   => 'Режиссёр',
             'type'    => 'text',
@@ -223,18 +226,10 @@ class EventCrudController extends CrudController
             'colspan' => '6',
         ]);
         $this->crud->addField([ // TEXT
-            'name'      => 'actors',
-            'label'     => 'Актеры в главных ролях',
-            'type'      => 'text',
-            // 'entity'    => 'tags', // the method that defines the relationship in your Model
-            // 'attribute' => 'name', // foreign key attribute that is shown to user
-            // 'model'     => "App\Models\Tag", // foreign key model
-            // 'pivot'     => true, // on create&update, do you need to add/delete pivot table entries?
-        ]);
-        $this->crud->addField([ // TEXT
             'name'  => 'awards',
             'label' => 'Награды',
-            'type'  => 'text',
+            'type'  => 'repeater_text',
+            'colspan' => '6',
         ]);
         $this->crud->addField([ // TEXT
             'name'  => 'link',

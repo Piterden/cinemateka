@@ -28,7 +28,7 @@
 .mdl-data-table thead th:nth-child(1) {
   display: none;
 }
-.mdl-data-table tbody tr:nth-child(1) td:nth-child(1) {
+.mdl-data-table tbody tr td:nth-child(1) {
   display: none;
 }
 
@@ -179,17 +179,17 @@ tbody .price > div {
                 <div class="s-place s-place-metro" v-if="seance.place.metro">
                   ст. м. {{ seance.place.metro }}
                 </div>
-                <div class="s-place s-place-site" v-if="seance.place.properties">
+                <div class="s-place s-place-site" v-if="seance.place.place_site">
                   <i class="fa fa-globe" aria-hidden="true"></i>
-                  <a href="{{ seance.place.properties.site }}" target="_blank">{{ seance.place.properties.site }}</a>
+                  <a href="{{ seance.place.place_site }}" target="_blank">{{ seance.place.place_site }}</a>
                 </div>
-                <div class="s-place s-place-email" v-if="seance.place.properties">
+                <div class="s-place s-place-email" v-if="seance.place.place_email">
                   <i class="fa fa-envelope-o" aria-hidden="true"></i>
-                  <a href="mailto:{{ seance.place.properties.email }}">{{ seance.place.properties.email }}</a>
+                  <a href="mailto:{{ seance.place.place_email }}">{{ seance.place.place_email }}</a>
                 </div>
-                <div class="s-place s-place-tel" v-if="seance.place.properties">
+                <div class="s-place s-place-tel" v-if="seance.place.place_phone">
                   <i class="fa fa-mobile" aria-hidden="true"></i>
-                  <a href="tel:{{ seance.place.properties.phone }}">{{ seance.place.properties.phone }}</a>
+                  <a href="tel:{{ seance.place.place_phone }}">{{ seance.place.place_phone }}</a>
                 </div>
               </div>
             </div>
