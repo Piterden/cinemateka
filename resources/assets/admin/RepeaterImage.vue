@@ -32,7 +32,7 @@
     </button>
     <input class="form-control"
       :name="fieldName"
-      v-model="strValue"
+      v-model="strValue | json"
       type="hidden">
   </ul>
 </template>

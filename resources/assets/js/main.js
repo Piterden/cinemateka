@@ -13,10 +13,14 @@ import Array from './inc.js'
 // import _ from 'lodash'
 import Vue from 'vue'
 import VueMdl from 'vue-mdl'
+import VueHead from 'vue-head'
+// import VueResource from 'vue-resource'
 /**
  * Плагины
  */
 Vue.use(VueMdl)
+Vue.use(VueHead)
+// Vue.use(VueResource)
 
 /**
  * Google Maps Components
@@ -43,10 +47,12 @@ import DropdownList from '../components/DropdownList.vue'
 import Toggler from '../components/Toggler.vue'
 import Datepicker from '../components/Datepicker.vue'
 import DatePickers from '../components/DatePickers.vue'
+import SocialShare from '../components/SocialShare.vue'
+import Modal from '../components/Modal.vue'
 
 // Dev ops.
-Vue.config.debug = false
-Vue.config.silent = true
+Vue.config.debug = true
+// Vue.config.silent = true
   // console.log(Vue.config);
 
 /**
@@ -68,6 +74,8 @@ Vue.component('dropdown-list', DropdownList)
 Vue.component('toggler', Toggler)
 Vue.component('datepicker', Datepicker)
 Vue.component('date-pickers', DatePickers)
+Vue.component('social-share', SocialShare)
+Vue.component('modal', Modal)
 
 // Google Maps Components Registration
 Vue.component('map', Map)

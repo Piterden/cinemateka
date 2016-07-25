@@ -28,7 +28,8 @@ export default {
     return {
       visibleFilters: [
         'now_soon',
-        'date_interval',
+        // 'date_interval',
+        'month',
         'event_type',
         'program_type',
         'place_type'
@@ -56,6 +57,7 @@ export default {
         return {
           'now_soon': this.$root.getNowSoones()[1],
           'date_interval': interval,
+          'month': 'Все месяцы',
           'event_type': 'Все события',
           'program_type': 'Все программы',
           'place_type': 'Все площадки'
@@ -68,6 +70,7 @@ export default {
       default () {
         return {
           now_soon: this.$root.getNowSoones(),
+          month: ['Все месяцы', ...this.$root.getMonthNames()],
           event_type: this.$root.getEventTypes(),
           program_type: this.$root.programs.map((pr) => {
             return pr.title
@@ -114,11 +117,12 @@ export default {
             s_evt = seance.eventTypeName.toLowerCase(),
             s_prt = seance.program.title.toLowerCase(),
             s_plt = seance.place.title.toLowerCase(),
+            s_m = seanceTime.getMonth(),
             f_et = filters.event_type.toLowerCase(),
             f_prt = filters.program_type.toLowerCase(),
             f_plt = filters.place_type.toLowerCase(),
-            f_ns = filters.now_soon.toLowerCase()
-
+            f_ns = filters.now_soon.toLowerCase(),
+            f_m = filters.month - 1
           if (f_et != 'все события' && f_et != s_evt) {
             return false
           }
@@ -132,6 +136,9 @@ export default {
             endTime = new Date(y, m, d + 300, 23, 59, 59)
           }
           if (seanceTime < fromTime || seanceTime > endTime) {
+            return false
+          }
+          if (f_m != -1 && f_m != s_m) {
             return false
           }
           // case 'date_interval':

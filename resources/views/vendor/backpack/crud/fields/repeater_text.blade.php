@@ -3,7 +3,7 @@
     <label>{{ $field['label'] }}</label>
     {{-- <?php $entity_model = $crud->model; ?> --}}
     <vue-repeater-text
-      :str-value='{!! $field['value'] !!}'
+      :str-value='{!! $field['value'] or "{}" !!}'
       :field-name="'{{ $field['name'] }}'"
     >
     </vue-repeater-text>

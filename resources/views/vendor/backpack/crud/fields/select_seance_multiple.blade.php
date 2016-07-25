@@ -2,9 +2,16 @@
 <div class="form-group col-md-{{ $field['colspan'] or 12 }}">
   <label>{{ $field['label'] }}</label>
   <vue-select-seance
-    :str-value='{!! $field['value'] !!}'
+    :str-value='{!! $field['value'] or "{}" !!}'
     :field-name="'{{ $field['name'] }}'"
   ></vue-select-seance>
+  {{-- <select2>
+    <select>
+      <option> - </option>
+      <option value="1">a</option>
+      <option value="2">b</option>
+    </select>
+  </select2> --}}
 </div>
 
 {{-- {{ dump($fields) }} --}}

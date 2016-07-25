@@ -1,11 +1,51 @@
-var elixir = require('laravel-elixir')/*,
-  assetsPath = elixir.config.assetsPath,
-  publicPath = elixir.config.publicPath*/
+var elixir = require('laravel-elixir')
+// var _ = require('underscore')
+  /*,
+    assetsPath = elixir.config.assetsPath,
+    publicPath = elixir.config.publicPath*/
 
+// require('laravel-elixir-coffeescript')
+// require('laravel-elixir-ngtemplatecache')
 require('laravel-elixir-webpack-advanced')
 require('laravel-elixir-imagemin')
 
 elixir(function (mix) {
+
+  // var namespace = 'console'
+  // var instances = [
+  //   { name: 'admin' }
+  //   //add more instance here
+  // ]
+
+  // _.each(instances, function (instance) {
+  //   mix.coffee(
+  //     [
+  //       namespace + '/' + instance.name + '/app.coffee',
+  //       namespace + '/' + instance.name + '/**/**'
+  //     ],
+  //     elixir.config.get('public.js.outputFolder') + '/'
+  //     + namespace + '/' + instance.name + '/app.js')
+
+  //   mix.sass(
+  //     [namespace + '/' + instance.name + '/app.sass'],
+  //     elixir.config.get('public.css.outputFolder') + '/'
+  //     + namespace + '/' + instance.name
+  //   )
+
+  //   mix.ngTemplateCache(
+  //     '/' + namespace + '/' + instance.name + '/**/*.html',
+  //     elixir.config.get('public.js.outputFolder') + '/'
+  //     + namespace + '/' + instance.name,
+  //     null, {
+  //       templateCache: {
+  //         standalone: true
+  //       },
+  //       htmlmin: {
+  //         collapseWhitespace: true,
+  //         removeComments: true
+  //       }
+  //     })
+  // })
 
   mix.styles(
     // From:
@@ -27,12 +67,6 @@ elixir(function (mix) {
     jQuery: 'jquery',
     'window.jQuery': 'jquery'
   })
-
-  // mix.webpack('admin', require('./webpack.admin.js'), {
-  //   $: 'jquery',
-  //   jQuery: 'jquery',
-  //   'window.jQuery': 'jquery'
-  // })
 
   mix.imagemin()
 
@@ -65,3 +99,4 @@ elixir(function (mix) {
 
 //   }
 // }
+

@@ -194,7 +194,6 @@ return [
 
         'App\Providers\BladeSetServiceProvider',
 
-
     ],
 
     /*

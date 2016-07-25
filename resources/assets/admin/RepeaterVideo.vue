@@ -21,17 +21,19 @@
           class="btn btn-default"
           @click.prevent="openElFinder(item.key)"
         ><i class="fa fa-cloud-upload"></i>
-        <span v-if="item.val">Изменить файл</span>
-        <span v-else>Добавить файл</span>
+          <span v-if="item.val">Изменить файл</span>
+          <span v-else>Добавить файл</span>
         </button>
+
         <button type="button"
           class="btn btn-default"
           @click.prevent="clearField(item.key)"
-        ><i class="fa fa-eraser"></i> Очистить
-        <button class="btn btn-error"
-          @click.prevent="deleteItem(item.key, $index)">
-          Удалить <i class="fa fa-times"></i>
+        >Очистить <i class="fa fa-eraser"></i>
         </button>
+
+        <button class="btn btn-error"
+          @click.prevent="deleteItem(item.key, $index)"
+        >Удалить <i class="fa fa-times"></i>
         </button>
       </div>
     </li>
@@ -40,7 +42,7 @@
     </button>
     <input class="form-control"
       :name="fieldName"
-      v-model="strValue"
+      v-model="strValue | json"
       type="hidden">
   </ul>
 </template>

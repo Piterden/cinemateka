@@ -9,7 +9,7 @@ import moment from 'moment'
 import Vue from 'vue'
 import VueDatetimePicker from 'vue-datetime-picker'
 
-// import VueResource from 'vue-resource'
+import VueResource from 'vue-resource'
 // import FullCalendar
 //  from './vue/FullCalendar.vue'
 // import Navbar from './vue/Navbar.vue'
@@ -19,7 +19,7 @@ import RepeaterText from './RepeaterText.vue'
 import SelectSeance from './SelectSeance.vue'
 
 // window[Vue] = Vue
-  // Vue.use(VueResource)
+Vue.use(VueResource)
 Vue.debug = true
 
 // Vue.component('vue-datetime-picker', VueDatetimePicker)

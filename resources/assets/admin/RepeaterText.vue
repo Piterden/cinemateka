@@ -27,7 +27,7 @@
     </button>
     <input class="form-control"
       :name="fieldName"
-      v-model="strValue"
+      v-model="strValue | json"
       type="hidden">
   </ul>
 </template>
@@ -40,7 +40,6 @@ export default {
       default: ''
     },
     strValue: {
-      type: Array,
       default: []
     },
     oldFun: Function,
@@ -61,6 +60,7 @@ export default {
       this.strValue.$remove(key)
     }
   }
+
 }
 </script>
 <style lang="css" scoped>

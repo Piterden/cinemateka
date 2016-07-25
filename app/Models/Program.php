@@ -33,6 +33,7 @@ class Program extends Model /*implements SluggableInterface*/
         'videos',
         'images',
         'properties',
+        'press_materials',
     ];
     protected $fakeColumns = [
         'meta',

@@ -148,10 +148,13 @@
 
     @include('backpack::inc.alerts')
 
+    {{-- <script src="{{ asset('bower_components/vue/dist/vue.js') }}"></script> --}}
+    {{-- <script src="{{ asset('bower_components/vue-router/dist/vue-router.js') }}"></script> --}}
+    {{-- @include('vuetools::vue') --}}
+
     @yield('after_scripts')
 
     <!-- JavaScripts -->
-    {{-- <script src="{{ elixir('js/admin.js') }}"></script> --}}
     <script src="/js/vendor.js"></script>
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script> --}}
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/locale/ru.js"></script> --}}

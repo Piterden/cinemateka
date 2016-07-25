@@ -1,7 +1,5 @@
 define( function() {
 
-"use strict";
-
 /**
  * Determines whether an object can have data
  */

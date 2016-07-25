@@ -72,3 +72,8 @@ Route::group(['middleware' => 'web', 'prefix' => 'admin'], function ()
 
     });
 });
+
+Route::group(['middleware' => 'web', 'prefix' => 'rest'], function()
+{
+    Route::resource('seance', 'SeanceRestController');
+});

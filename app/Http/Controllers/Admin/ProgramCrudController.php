@@ -77,9 +77,15 @@ class ProgramCrudController extends CrudController
         $this->crud->addField([ // WYSIWYG
             'name'        => 'description',
             'label'       => 'Описание',
-            // 'type'        => 'ckeditor',
-            'type'        => 'summernote',
-            'placeholder' => 'Your textarea text here',
+            // 'type'        => 'summernote',
+            'type'        => 'ckeditor',
+            'placeholder' => 'Введите описание',
+            'colspan'     => '12',
+        ]);$this->crud->addField([ // WYSIWYG
+            'name'        => 'press_materials',
+            'label'       => 'Пресс-материалы',
+            'type'        => 'ckeditor',
+            'colspan'     => '12',
         ]);
         $this->crud->addField([ // Select2Multiple = n-n relationship (with pivot table)
             'label'     => 'Сеансы',

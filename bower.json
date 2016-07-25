@@ -1,0 +1,19 @@
+{
+  "name": "laravel application",
+  "description": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "vendor/bower_dl",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.6",
+    "moment": "~2.11.2",
+    "select2": "~4.0.1",
+    "iCheck": "icheck#~1.0.2",
+    "vue": "https://github.com/vuejs/vue.git#~1.0.21",
+    "vue-router": "^0.7.13"
+  }
+}

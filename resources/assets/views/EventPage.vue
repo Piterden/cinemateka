@@ -1,4 +1,7 @@
-<style lang="css">
+<style lang="css" scoped>
+  h3 {
+    margin-bottom: 24px;
+  }
 </style>
 <template>
   <div class="wrap router-view event-page">
@@ -105,9 +108,9 @@
                 <td>Ограничения</td>
                 <td>{{ eventItem.age_restrictions || 0 }}+</td>
               </tr>
-              <tr v-if="eventItem.avards">
+              <tr v-if="eventItem.awards">
                 <td>Награды/фестивали</td>
-                <td>{{ eventItem.avards }}</td>
+                <td>{{ eventItem.awards }}</td>
               </tr>
               <tr v-if="eventItem.link">
                 <td>Cайт</td>
@@ -124,9 +127,54 @@
       <div class="mdl-cell mdl-cell--5-col">
         <div v-if="closestSeance.speaker_info" class="speakers">
           <h3><i class="fa fa-comment"></i> Спикеры</h3>
-          <div class="">
-            {{ closestSeance.speaker_info }}
-          </div>
+          {{ closestSeance.speaker_info }}
+        </div>
+      </div>
+    </div>
+    <div class="mdl-grid social-block">
+      <div class="mdl-cell mdl-cell--12-col">
+        <social-share
+          :post-url="selfUrl"
+          :post-title="eventItem.title"
+          :post-text="eventItem.description"
+          :post-img="selfImageUrl"
+          :icon-facebook="'/images/icn-social-facebook.png'"
+          :icon-vkontakte="'/images/icn-social-vkontakte.png'"
+          :icon-twitter="'/images/icn-social-twitter.png'"
+        ></social-share>
+      </div>
+    </div>
+    <div class="mdl-grid press-block">
+      <div class="mdl-cell mdl-cell--6-col pic-gallery" v-if="gallery.length">
+        <h3>Галерея</h3>
+        <swipe
+          :speed="600"
+          :auto="0"
+          :continuous="true"
+          :show-indicators="true"
+          :show-nav="true"
+          :no-drag-when-single="false"
+          :prevent="false"
+        ><swipe-item
+            v-for="slide in gallery"
+            class="slide"
+            style="background-image: url('/{{ slide }}')"
+          >
+            <div v-if="slide.caption" class="caption-wrapper">
+              <div v-if="slide.caption.caption_title" class="caption-title">
+                {{ slide.caption.caption_title }}
+              </div>
+              <div v-if="slide.caption.caption_content" class="caption-content">
+                {{ slide.caption.caption_content }}
+              </div>
+            </div>
+          </swipe-item>
+        </swipe>
+      </div>
+      <div class="mdl-cell mdl-cell--6-col" v-if="eventItem.press_materials">
+        <h3>Пресс-материалы</h3>
+        <div class="press-materials-links">
+          {{{ eventItem.press_materials }}}
         </div>
       </div>
     </div>
@@ -144,7 +192,7 @@
         </a>
       </h3>
       <div slot="bottom" class="more-events-in-shadue">
-        <a href="#">Больше событий в расписании
+        <a href="#" v-link="{ path: '/schedule/' }">Больше событий в расписании
           <!-- ?xml version="1.0" encoding="utf-8"? -->
           <svg version="1.1"
             id="Layer_1"
@@ -218,6 +266,19 @@ export default {
     },
     hasChrono() {
       return this.eventItem.chrono > 0 ? this.eventItem.chrono : ''
+    },
+    gallery() {
+      let obj = this.images, arr = [], key
+      for (key in obj) {
+        if (obj.hasOwnProperty(key) && key != 'mainimage') arr.push(obj[key])
+      }
+      return arr
+    },
+    selfUrl() {
+      return window.location.href
+    },
+    selfImageUrl() {
+      return 'http://' + window.location.host + '/' + this.images.mainimage
     }
   },
 
@@ -227,6 +288,52 @@ export default {
       return events
     }
     /* eslint-enable no-unused-vars */
+  },
+
+  head: {
+    // title() {
+    //   return {
+    //     inner: this.eventItem.title
+    //   }
+    // },
+    meta() {
+      return {
+        name: {
+          'application-name': this.$root.meta.app,
+          description: this.eventItem.description,
+          'twitter:title': this.eventItem.title,
+          'twitter:description': this.eventItem.description,
+          'twitter:image': this.selfImageUrl
+        },
+        itemprop: {
+          name: this.eventItem.title,
+          description: this.eventItem.description,
+          image: this.selfImageUrl
+        },
+        property: {
+          // 'fb:app_id': 123456789,
+          'og:url': this.selfUrl,
+          'og:title': this.eventItem.title,
+          'og:description': this.eventItem.description,
+          'og:image': this.selfImageUrl
+        }
+      }
+    },
+    // Examples of link tags
+    // link: {
+    //   canonical: {
+    //     href: window.location.origin
+    //   },
+    //   author: {
+    //     href: 'humans.txt'
+    //   },
+    //   stylesheet: {
+    //     href: 'https://example.com/styles.css'
+    //   },
+    //   import: {
+    //     href: 'component.html'
+    //   }
+    // }
   }
 
 }

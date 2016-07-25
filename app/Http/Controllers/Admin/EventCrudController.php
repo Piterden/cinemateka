@@ -63,18 +63,8 @@ class EventCrudController extends CrudController
             'label'       => 'Заголовок',
             'type'        => 'text',
             'placeholder' => 'Название события',
-            'colspan'     => '5',
+            'colspan'     => '10',
             'v-model'     => 'title',
-        ]);
-        $this->crud->addField([
-            'name'     => 'slug',
-            'label'    => 'ЧПУ (URL)',
-            'type'     => 'text',
-            'hint'     => 'Если не заполнять, создастся автоматически',
-            'colspan'  => '5',
-            'cssclass' => 'input-slug',
-            'v-model'  => 'slug',
-            '@keyup'   => '$root.doTranslit($event)',
         ]);
         $this->crud->addField([ // CHECKBOX
             'name'    => 'published',
@@ -97,7 +87,7 @@ class EventCrudController extends CrudController
         ]);
         $this->crud->addField([ // Image
             'name'     => 'videos',
-            'label'    => 'Главное видео',
+            'label'    => 'Главное видео <br>(пример заполнения - https://www.youtube.com/watch?v=9msmCgJdr24 )',
             'type'  => 'repeater_video',
             'colspan'  => '5',
         ]);
@@ -114,9 +104,14 @@ class EventCrudController extends CrudController
         $this->crud->addField([ // WYSIWYG
             'name'        => 'description',
             'label'       => 'Описание',
-            'type'        => 'summernote',
+            'type'        => 'ckeditor', //summernote
             'placeholder' => 'Введите описание события',
-            'colspan'     => '9',
+            'colspan'     => '12',
+        ]);$this->crud->addField([ // WYSIWYG
+            'name'        => 'press_materials',
+            'label'       => 'Пресс-материалы',
+            'type'        => 'ckeditor',
+            'colspan'     => '12',
         ]);
         $this->crud->addField([ // Select2Multiple = n-n relationship (with pivot table)
             'label'        => 'Сеансы',
@@ -196,12 +191,6 @@ class EventCrudController extends CrudController
             'colspan' => '2',
         ]);
         $this->crud->addField([ // TEXT
-            'name'      => 'actors',
-            'label'     => 'Актеры в главных ролях',
-            'type'      => 'repeater_text',
-            'colspan' => '6',
-        ]);
-        $this->crud->addField([ // TEXT
             'name'    => 'director',
             'label'   => 'Режиссёр',
             'type'    => 'text',
@@ -226,15 +215,25 @@ class EventCrudController extends CrudController
             'colspan' => '6',
         ]);
         $this->crud->addField([ // TEXT
+            'name'      => 'actors',
+            'label'     => 'Актеры в главных ролях',
+            'hint'     => 'Пример заполнения - ["Татьяна Друбич, Александр Баширов, Виктор Цой"]',
+            'type'      => 'text',
+            // 'type'      => 'repeater_text',
+            'colspan' => '12',
+        ]);
+        $this->crud->addField([ // TEXT
             'name'  => 'awards',
             'label' => 'Награды',
-            'type'  => 'repeater_text',
+            'type'  => 'text',
+            // 'type'  => 'repeater_text',
             'colspan' => '6',
         ]);
         $this->crud->addField([ // TEXT
             'name'  => 'link',
             'label' => 'Ссылка',
             'type'  => 'text',
+            'colspan' => '6',
         ]);
 
         $this->crud->addField([
@@ -242,14 +241,25 @@ class EventCrudController extends CrudController
             'value' => '<div class="col-md-12"><h3>Мета-инфо</h3></div>',
             'type'  => 'custom_html',
         ]);
-
         $this->crud->addField([ // TEXT
             'name'     => 'meta_title',
             'label'    => 'Meta-Title',
             'hint'     => 'Если не заполнять, примет значение название события',
+            'colspan'  => '6',
             'fake'     => true,
             'store_in' => 'meta',
         ]);
+        $this->crud->addField([
+            'name'     => 'slug',
+            'label'    => 'ЧПУ (URL)',
+            'type'     => 'text',
+            'hint'     => 'Если не заполнять, создастся автоматически',
+            'colspan'  => '6',
+            'cssclass' => 'input-slug',
+            'v-model'  => 'slug',
+            '@keyup'   => '$root.doTranslit($event)',
+        ]);
+
         $this->crud->addField([ // TEXT
             'name'     => 'meta_description',
             'label'    => 'Meta-Description',

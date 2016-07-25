@@ -16,4 +16,5 @@ class RestController extends Controller
     {
         return view('user.profile', ['user' => User::findOrFail($id)]);
     }
+
 }

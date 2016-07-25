@@ -93,7 +93,7 @@ export default {
      * @return {Number} Одинаковая ширина для всех элементов
      */
     same() {
-      return this.cols
+      return this.item.wide != '1' ? this.cols : this.cols * 2
     },
 
     /**
