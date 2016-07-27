@@ -31,7 +31,8 @@ database:               # **Data storage configuration**
 public:                 # **Compiled frontend** *Webserver root*
 resources:              # **Frontend view layer**
     assets:
-        components:     # **VueJS components blocks**
+        admin:          # **Admin sources**
+        components:     # **VueJS components partials**
         fonts:          # **Webfonts**
         images:         # **Graphic files**
         js:             # **Javascripts**
