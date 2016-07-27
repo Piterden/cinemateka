@@ -54,6 +54,7 @@ module.exports = {
   },
 
   plugins: [
-    new ExtractTextPlugin('[name].min.css')
+    new ExtractTextPlugin('[name].min.css'),
+    new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en|ru/)
   ]
 };

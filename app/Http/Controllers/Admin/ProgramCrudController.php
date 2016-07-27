@@ -33,24 +33,18 @@ class ProgramCrudController extends CrudController
             'type'    => 'separator',
             'colspan' => 10,
         ]);
-        $this->crud->addField([ // CHECKBOX
-            'name'    => 'published',
-            'label'   => 'Опубликованно',
-            'type'    => 'checkbox',
-            'colspan' => 2,
-        ]);
         $this->crud->addField([ // TEXT
             'name'        => 'title',
             'label'       => 'Заголовок',
             'type'        => 'text',
             'placeholder' => 'Название программы',
+            'colspan'     => '10',
         ]);
-        $this->crud->addField([
-            'name'  => 'slug',
-            'label' => 'ЧПУ (URL)',
-            'type'  => 'text',
-            'hint'  => 'Если не заполнять, создастся автоматически',
-            // 'disabled' => 'disabled'
+        $this->crud->addField([ // CHECKBOX
+            'name'    => 'published',
+            'label'   => 'Опубликованно',
+            'type'    => 'checkbox',
+            'colspan' => 2,
         ]);
         $this->crud->addField([ // TEXT
             'name'  => 'slogan',
@@ -106,8 +100,18 @@ class ProgramCrudController extends CrudController
             'label'    => 'Meta-Title',
             'hint'     => 'Если не заполнять, примет значение название события',
             'fake'     => true,
+            'colspan'  => '6',
             'store_in' => 'meta',
         ]);
+        $this->crud->addField([
+            'name'  => 'slug',
+            'label' => 'ЧПУ (URL)',
+            'type'  => 'text',
+            'colspan'  => '6',
+            'hint'  => 'Если не заполнять, создастся автоматически',
+            // 'disabled' => 'disabled'
+        ]);
+
         $this->crud->addField([ // TEXT
             'name'     => 'meta_description',
             'label'    => 'Meta-Description',

@@ -20,15 +20,15 @@ class AppServiceProvider extends ServiceProvider
         $categories = \App\Models\Category::all();
 
         $events = \App\Models\Event::where([
-            'published' => 1,
+            'published' => '1',
         ])->get();
 
         $programs = \App\Models\Program::where([
-            'published' => 1,
+            'published' => '1',
         ])->get();
 
         $places = \App\Models\Place::where([
-            'published' => 1,
+            'published' => '1',
         ])->get();
 
         $slides = \App\Models\Slide::where([

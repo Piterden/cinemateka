@@ -4,6 +4,7 @@
 /*  global events programs places seances categories slides */
 /*****************************************************/
 
+import moment from 'moment'
 import Vue from 'vue'
 
 /**
@@ -24,7 +25,7 @@ let App = Vue.extend({
    * приложения через root-объект. Сюда подгружаются данные из PHP.
    */
   props: {
-    // Все события         // @type {Array} of EventObjects
+    // События         // @type {Array} of EventObjects
     events: {
       type: Array,
       default() {
@@ -32,7 +33,7 @@ let App = Vue.extend({
       }
     },
 
-    // Все программы       // @type {Array} of ProgramObjects
+    // Программы       // @type {Array} of ProgramObjects
     programs: {
       type: Array,
       default() {
@@ -40,7 +41,7 @@ let App = Vue.extend({
       }
     },
 
-    // Все места           // @type {Array} of SeanceObjects
+    // Места           // @type {Array} of SeanceObjects
     places: {
       type: Array,
       default() {
@@ -48,7 +49,7 @@ let App = Vue.extend({
       }
     },
 
-    // Все типы событий    // @type {Array} of SeanceObjects
+    // Типы событий    // @type {Array} of SeanceObjects
     categories: {
       type: Array,
       default() {
@@ -56,7 +57,7 @@ let App = Vue.extend({
       }
     },
 
-    // Все сеансы          // @type {Array} of SeanceObjects
+    // Сеансы          // @type {Array} of SeanceObjects
     seances: {
       type: Array,
       default() {
@@ -64,6 +65,7 @@ let App = Vue.extend({
       }
     },
 
+    // Слайды          // @type {Array} of SlideObjects
     slides: {
       type: Array,
       default() {
@@ -72,7 +74,7 @@ let App = Vue.extend({
     }
   },
 
-  created() {
+  created() { // Root-comp created
     /**
      * Записываем связи в объекты событий и программ
      */
@@ -81,11 +83,17 @@ let App = Vue.extend({
       e.seances = this.getSeancesByEventId(e.id)
       e.event_type = cat && cat.name
       return e
+    }).sort((a, b) => {
+      let cloA = this.getClosestSeance(a) || {start_time: moment().format()},
+        cloB = this.getClosestSeance(b) || {start_time: moment().format()}
+      return cloA.start_time > cloB.start_time
     })
+
     this.programs = programs.map((p) => {
       p.seances = this.getSeancesByProgramId(p.id)
       return p
     })
+
     this.places = places.map((p) => {
       if(typeof p.position == 'string') {
         p.position = JSON.parse(p.position)
@@ -101,18 +109,20 @@ let App = Vue.extend({
       p.properties = JSON.parse(p.properties)
       return p
     })
+
     this.slides = slides.map((s) => {
       if (typeof s.caption == 'string') {
         s.caption = JSON.parse(s.caption)
       }
       return s
     })
+
   },
 
   ready() {
     /**
      * По готовности удаляем коллекции данных из глобальной области видимости.
-     * Они закешированы в переменных компонента.
+     * Они закешированы в переменных root-компонента.
      */
     delete window['events']
     delete window['seances']
@@ -135,6 +145,18 @@ let App = Vue.extend({
      *  СВЯЗАННЫЕ ОБЪЕКТЫ
      * ================================================================
      *!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+
+    /**
+     * Получает объект по id
+     * @param  {Mixed} id
+     * @return {Object} Событие
+     */
+    getById(arr, id) {
+      return arr.find((i) => {
+        return Number(i.id) == Number(id)
+      })
+    },
+
     /**
      * Получает только опубликованные материалы из коллекции
      * @param  {Array}  a     Коллекция объектов [ {}, {}, {}, ... ]
@@ -149,11 +171,11 @@ let App = Vue.extend({
     /**
      * Возвращает ближайший сеанс
      * @param  {EventObject}   e    Объект события
-     * @return {ProgramObject}      Объект программы
+     * @return {SeanceObject}       Объект сеанса
      */
     getClosestSeance(e) {
       return e && e.seances.find((s) => {
-        return new Date(s.start_time) > new Date()
+        return moment(s.start_time) > moment()
       })
     },
 
@@ -172,7 +194,7 @@ let App = Vue.extend({
     /**
      * Возвращает площадку ближайшего сеанса
      * @param  {EventObject}   e    Объект события
-     * @return {ProgramObject}      Объект программы
+     * @return {PlaceObject}        Объект площадки
      */
     getClosestSeancePlace(e) {
       let cs = this.getClosestSeance(e)
@@ -312,13 +334,13 @@ let App = Vue.extend({
      */
     getProgramEvents(p) {
       if(p.seances === undefined) return []
-      let eIds = p.seances.sort((a,b) => {
+      let eIds = p.seances.sort((a, b) => {
         return a.start_time > b.start_time
       }).map((s) => {
         return s.event_id
       }).getUnique()
       return eIds.map((id) => {
-        return this.getEventById(id)
+        return this.$root.getById(this.$root.events, id)
       })
     },
 
@@ -357,8 +379,8 @@ let App = Vue.extend({
     getExistedYears() {
       return this.events.map((ev) => {
         return ev.seances && ev.seances.map((s) => {
-          let d = new Date(s.start_time)
-          return Number(d.getFullYear())
+          let d = moment(s.start_time)
+          return d.year()
         }).getUnique()
       }).collapse().getUnique().sort((a, b) => {
         return a > b
@@ -429,13 +451,6 @@ let App = Vue.extend({
      *  ФОРМАТИРОВАНИЕ И ПРЕОБРАЗОВАНИЕ ДАТ
      * ================================================================
      *!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
-    // getPlusTwoWeekDate(d) {
-    //   let y = d.getFullYear(),
-    //     m = d.getMonth(),
-    //     day = d.getDate()
-    //   return new Date(y, m, day + 13, 23, 59, 59)
-    // },
-
     /**
      * Возвращает объект даты конца недели по
      * строке даты понедельника этой недели

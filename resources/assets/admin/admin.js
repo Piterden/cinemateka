@@ -7,9 +7,9 @@
 
 import moment from 'moment'
 import Vue from 'vue'
-import VueDatetimePicker from 'vue-datetime-picker'
-
+// import VueDatetimePicker from 'vue-datetime-picker'
 import VueResource from 'vue-resource'
+
 // import FullCalendar
 //  from './vue/FullCalendar.vue'
 import RepeaterImage from './RepeaterImage.vue'
@@ -18,19 +18,20 @@ import RepeaterText from './RepeaterText.vue'
 import SelectSeance from './SelectSeance.vue'
 import Modal from '../components/Modal.vue'
 import DropdownAdmin from './DropdownAdmin.vue'
+import Datepicker from './DatepickerAdmin.vue'
 
 // window[Vue] = Vue
 Vue.use(VueResource)
 Vue.debug = true
 
 // Vue.component('vue-datetime-picker', VueDatetimePicker)
-Vue.component('vue-datetime-picker', VueDatetimePicker)
 Vue.component('vue-repeater-image', RepeaterImage)
 Vue.component('vue-repeater-video', RepeaterVideo)
 Vue.component('vue-repeater-text', RepeaterText)
 Vue.component('vue-select-seance', SelectSeance)
 Vue.component('modal', Modal)
 Vue.component('dropdown-admin', DropdownAdmin)
+Vue.component('date-picker', Datepicker)
 
 new Vue({
 
@@ -42,11 +43,6 @@ new Vue({
     seances: seances,
     categories: categories,
     places: places,
-    // result1: null,
-    // result2: null,
-    // result3: null,
-    // startDatetime: moment(),
-    // endDatetime: null
   },
 
   props: {
@@ -55,19 +51,6 @@ new Vue({
     slug: String,
     imagesJson: Object,
   },
-
-  computed: {
-    event_id() {
-
-    }
-  },
-
-  // watch: {
-  //   title(nv) {
-  //     if(this.freezeSlug) return
-  //     this.$set('slug', this.toTranslit(nv))
-  //   }
-  // },
 
   http: {
     headers: {
@@ -86,35 +69,6 @@ new Vue({
       return rus.toLowerCase().split('').map(function(lt) {
         return translit[lt] || lt
       }).join('')
-    },
-    formatDatetime(datetime) {
-      if(datetime === null) {
-        return '[null]'
-      } else {
-        return datetime.format('YYYY-MM-DD HH:mm:ss')
-      }
-    },
-    formatDate(date) {
-      if(date === null) {
-        return '[null]'
-      } else {
-        return date.format('YYYY-MM-DD')
-      }
-    },
-    formatTime(time) {
-      if(time === null) {
-        return '[null]'
-      } else {
-        return time.format('HH:mm:ss')
-      }
-    },
-    onStartDatetimeChanged(newStart) {
-      var endPicker = this.$.endPicker.control
-      endPicker.minDate(newStart)
-    },
-    onEndDatetimeChanged(newEnd) {
-      var startPicker = this.$.startPicker.control
-      startPicker.maxDate(newEnd)
     },
 
     /**
@@ -155,6 +109,12 @@ new Vue({
       })
     },
 
+    /**
+     * Уведомления
+     * @param  {String} title
+     * @param  {String} text
+     * @param  {String} type
+     */
     fireNotify(title, text, type) {
       new PNotify({
         title: title,
@@ -162,28 +122,6 @@ new Vue({
         type: type || 'notice'
       })
     }
-    // addSeance(e) {
-    //   // let $this = $(this),
-    //   //   event_id = $this.data('event_id')
-    //   // $.colorbox({href:'/admin/seance/create'});
-    //   return false;
-    // }
-    /**
-     * Ctrl+S сохранение
-     * @param  {Object} e DOM Event Obj
-     */
-    // doSaveEntry(e) {
-    //   if (!e.metaKey && !e.ctrlKey) return
-    //   this.save(document.getElementById('entry-form'))
-    // },
-
-    // submitEditForm(e) {
-    //   this.save(e.target)
-    // },
-
-    // save(form) {
-    //   this.$http.put(form.action, form.serialize())
-    // }
   }
 
 })

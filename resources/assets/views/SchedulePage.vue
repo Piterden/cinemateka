@@ -22,6 +22,9 @@
   </div>
 </template>
 <script>
+import moment from 'moment'
+moment.locale('ru')
+
 export default {
 
   data() {
@@ -107,16 +110,16 @@ export default {
      * @TODO dates frop pickers
      */
     filterMethod(seances = [], filters) {
-      let fromTime = new Date(),
-        y = fromTime.getFullYear(),
-        m = fromTime.getMonth(),
-        d = fromTime.getDate(),
+      let fromTime = moment(),
+        y = fromTime.year(),
+        m = fromTime.month(),
+        d = fromTime.date(),
         endTime = new Date(y, m, d + 1, 23, 59, 59),
         filteredArray = seances.filter((seance) => {
           let seanceTime = new Date(seance.start_time),
-            s_evt = seance.eventTypeName.toLowerCase(),
-            s_prt = seance.program.title.toLowerCase(),
-            s_plt = seance.place.title.toLowerCase(),
+            s_evt = seance.eventTypeName && seance.eventTypeName.toLowerCase(),
+            s_prt = seance.program && seance.program.title.toLowerCase(),
+            s_plt = seance.place && seance.place.title.toLowerCase(),
             s_m = seanceTime.getMonth(),
             f_et = filters.event_type.toLowerCase(),
             f_prt = filters.program_type.toLowerCase(),
@@ -177,7 +180,7 @@ export default {
      * @return {Object}        Объект события
      */
     getEvent(seance) {
-      return this.$root.getEventById(seance.event_id)
+      return this.$root.getById(this.$root.events, seance.event_id)
     },
     /**
      * Программа сеанса
@@ -185,7 +188,7 @@ export default {
      * @return {Object}        Объект программы
      */
     getProgram(seance) {
-      return this.$root.getProgramById(seance.program_id)
+      return this.$root.getById(this.$root.programs, seance.program_id)
     },
     /**
      * Место проведения сеанса
@@ -193,7 +196,7 @@ export default {
      * @return {Object}        Объект места
      */
     getPlace(seance) {
-      return this.$root.getPlaceById(seance.place_id)
+      return this.$root.getById(this.$root.places, seance.place_id)
     },
     /**
      * Название категории (типа события)
@@ -201,8 +204,10 @@ export default {
      * @return {String}       Name
      */
     getEventTypeName(evObj) {
-      let cat = this.$root.getCategoryById(evObj.category_id)
-      return cat !== undefined ? cat.name : ''
+      if (evObj === undefined) return ''
+      let catId = Number(evObj.category_id) || 0
+      let cat = catId ? this.$root.getCategoryById(catId) : {name: ''}
+      return cat.name
     }
   }
 }

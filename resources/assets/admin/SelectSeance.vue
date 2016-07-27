@@ -7,29 +7,28 @@
     <div class="row">
       <div class="col-md-12">
         <button type="button"
-          class="btn btn-default"
-          @click.prevent="showModal = true"
+          class="btn btn-default{{ disabledClass }}"
+          @click.prevent="onAddSeance()"
         ><i class="fa fa-cloud-upload"></i>
           Добавить сеанс
         </button>
+        <p class="bg-warning" v-if="disabledClass">
+          Необходимо сохранить событие перед добавлением сеанса!
+        </p>
       </div>
     </div>
     <modal
       :show.sync="showModal"
       :seance.sync="activeSeance"
     >
-      <div slot="header">Добавить сеанс</div>
+      <div slot="header"></div>
       <div slot="body">
         <form id="addSeanceForm" @submit.prevent="saveSeance">
-          <input name="_method" type="hidden" :value="activeSeance ? 'PUT' : 'POST'">
+          <input name="_method" type="hidden" :value="activeSeance.id ? 'PUT' : 'POST'">
           <input name="_token" type="hidden" :value.sync="token">
-          <input v-if="activeSeance" name="id" type="hidden" :value="activeSeance.id">
-          <div class="form-group col-md-6">
-            <label>Дата</label>
-            <input class="form-control" type="text" name="start_time" :value="sDate">
-          </div>
-          <div class="form-group col-md-6">
-            <label>Событие</label>
+          <input v-if="activeSeance.id" name="id" type="hidden" :value="activeSeance.id">
+          <div class="form-group col-md-12 event-name">
+            <!-- <label>Событие</label> -->
             <dropdown-admin
               :input-name="'event_id'"
               :value="eventId"
@@ -37,42 +36,49 @@
               :disabled="'disabled'"
             ></dropdown-admin>
           </div>
-          <div class="form-group col-md-6">
-            <label>Программа</label>
-            <dropdown-admin
-              :input-name="'program_id'"
-              :value="activeSeance && activeSeance.program_id"
-              :list="$root.programs"
-            ></dropdown-admin>
+          <div class="form-group col-md-5">
+            <label>Дата</label>
+            <date-picker
+              :time.sync="starttime"
+              :option="timeoption"
+              :input-name="'start_time'"
+            ></date-picker>
           </div>
-          <div class="form-group col-md-6">
-            <label>Площадка</label>
+          <div class="form-group col-md-5">
+            <label>Место</label>
             <dropdown-admin
               :input-name="'place_id'"
-              :value="activeSeance && activeSeance.place_id"
+              :value="activeSeance.id && activeSeance.place_id"
               :list="$root.places"
             ></dropdown-admin>
           </div>
-          <div class="form-group col-md-6">
-            <label>Инфо о спикере</label>
-            <textarea class="form-control"
-              type="text"
-              name="speaker_info"
-            >{{ activeSeance && activeSeance.speaker_info || '' }}</textarea>
+          <div class="form-group col-md-2">
+            <label>Цена</label>
+            <input class="form-control" type="text" name="price"
+              :value="activeSeance.id && activeSeance.price"
+            >
           </div>
-          <div class="form-group col-md-6">
+          <div class="form-group col-md-12">
+            <label>Программа</label>
+            <dropdown-admin
+              :input-name="'program_id'"
+              :value="activeSeance.id && activeSeance.program_id"
+              :list="$root.programs"
+            ></dropdown-admin>
+          </div>
+          <div class="form-group col-md-12">
+            <label>Инфо о спикере</label>
+            <textarea class="form-control ckeditor" name="speaker_info"
+            >{{ activeSeance.id && activeSeance.speaker_info || '' }}</textarea>
+
+          </div>
+          <!-- <div class="form-group col-md-6">
             <label>Описание</label>
             <textarea class="form-control"
               type="text"
               name="description"
             >{{ activeSeance && activeSeance.description || '' }}</textarea>
-          </div>
-          <div class="form-group col-md-6">
-            <label>Цена</label>
-            <input class="form-control" type="text" name="price"
-              :value="activeSeance && activeSeance.price"
-            >
-          </div>
+          </div> -->
           <div class="form-group col-md-12">
             <button class="modal-default-button" @click.prevent="showModal = false">
               Отмена
@@ -88,7 +94,9 @@
   </div>
 </template>
 <script>
+
 /* global $ PNotify */
+
 import moment from 'moment'
 moment.locale('ru')
 
@@ -96,27 +104,60 @@ export default {
 
   data() {
     return {
-      showModal: false
+      showModal: false,
+      activeSeance: { event_id: this.eventId },
+      starttime: moment().format('D MMMM YYYY в H:mm'),
+      timeoption: {
+        type: 'min',
+        week: moment.weekdaysShort(),
+        month: moment.months(),
+        format: 'D MMMM YYYY в H:mm',
+        inputStyle: {
+          'display': 'block',
+          'padding': '7px 12px',
+          'line-height': '1.3',
+          'font-size': '14px',
+          'font-family': 'Lato, Helvetica, sans-serif',
+          'border': '1px solid #ccc',
+          'box-shadow': 'none',
+          'border-radius': '0',
+          'color': 'rgb(95, 95, 95)',
+          'width': '100%'
+        },
+        color: {
+          header: '#ccc',
+          headerText: '#f00'
+        },
+        buttons: {
+          ok: 'Выбрать',
+          cancel: 'Отменить'
+        },
+        overlayOpacity: 0.5, // 0.5 as default
+        dismissible: true // as true as default
+      }
     }
   },
 
-  props: ['eventId', 'fieldName', 'token', 'activeSeance'],
+  props: ['eventId', 'fieldName', 'token'],
 
   computed: {
     eventSeances() {
       return this.eventId && this.$root.getSeancesByEventId(this.eventId)
     },
     sDate() {
-      return this.activeSeance
-        ? moment(this.activeSeance.start_time).format('D MMMM YYYY в hh:mm')
-        : moment().format('D MMMM YYYY в hh:mm')
+      return this.activeSeance.id
+        ? moment(this.activeSeance.start_time).format('D MMMM YYYY в H:mm')
+        : moment().format('D MMMM YYYY в H:mm')
+    },
+    disabledClass() {
+      return window.location.href.endsWith('create') ? ' disabled' : ''
     }
   },
 
   methods: {
     saveSeance() {
       let obj = this.getFormFields('addSeanceForm')
-      obj.start_time = moment(obj.start_time, 'D MMMM YYYY в hh:mm')
+      obj.start_time = moment(obj.start_time, 'D MMMM YYYY в H:mm')
         .format('YYYY-MM-DD HH:mm:ss')
       if (obj.id) {
         // Update
@@ -147,6 +188,10 @@ export default {
       this.showModal = false
       this.$root.fireNotify('Сеанс обновлен', 'Вы успешно обновили сеанс', 'success')
     },
+    onAddSeance() {
+      this.activeSeance = { event_id: this.eventId }
+      this.showModal = true
+    },
     showError() {
       this.$root.fireNotify('Ошибка!!!', 'Что-то пошло не так!', 'error')
     }
@@ -168,7 +213,7 @@ export default {
       props: ['seance'],
       computed: {
         startTime() {
-          return moment(this.seance.start_time).format('D MMMM YYYY в hh:mm')
+          return moment(this.seance.start_time).format('D MMMM YYYY в H:mm')
         },
         placeName() {
           let pl = this.$root.getById(this.$root.places, this.seance.place_id)
@@ -180,7 +225,9 @@ export default {
       },
       methods: {
         editSeance() {
+          let fDate = moment(this.seance.start_time).format('D MMMM YYYY в H:mm')
           this.$parent.activeSeance = this.seance
+          this.$parent.starttime = fDate
           this.$parent.showModal = true
         },
         deleteSeance() {
@@ -244,6 +291,40 @@ export default {
     .fa-edit {
       font-size: 20px;
       color: #4CAF50;
+    }
+  }
+}
+.modal-header {
+  display: none;
+}
+#addSeanceForm {
+  .event-name {
+    .dropdown {
+      border: none;
+      label {
+        text-transform: none;
+        .drop-ttl {
+          padding: 0;
+        }
+      }
+    }
+  }
+  .dropdown {
+    margin: 0;
+    width: 100%;
+    ul {
+      list-style-type: none;
+      list-style-position: outside;
+      padding: 0;
+      width: calc(100% + 4px);
+      li {
+        padding: 5px 10px;
+        margin: 0px;
+      }
+    }
+    &> label {
+      padding: 0;
+      margin-bottom: 0;
     }
   }
 }

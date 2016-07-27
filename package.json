@@ -10,26 +10,22 @@
     "dev": "gulp watch"
   },
   "dependencies": {
-    "bootstrap-sass": "^3.3.6",
+    "bootstrap-sass": "^3.3.7",
     "eslint": "^3.1.1",
-    "isotope-layout": "^3.0.1",
     "jquery": "^2.2.4",
-    "laravel-elixir-ng-templates": "^0.1.3",
-    "laravel-elixir-ngtemplatecache": "^0.2.0",
     "lodash": "^3.10.1",
     "material-design-lite": "^1.1.3",
     "moment": "^2.13.0",
     "underscore": "^1.8.3",
     "vue": "^1.0.24",
     "vue-animated-list": "^1.0.2",
-    "vue-datetime-picker": "^0.2.1",
+    "vue-datepicker": "^1.2.0",
     "vue-google-maps": "^0.1.19",
     "vue-head": "^1.0.5",
     "vue-mdl": "^0.8.3",
     "vue-resource": "^0.7.2",
     "vue-router": "^0.7.13",
-    "vue-swipe": "^0.2.6",
-    "vueisotope": "^1.0.1"
+    "vue-swipe": "^0.2.6"
   },
   "devDependencies": {
     "babel-eslint": "^6.1.0",

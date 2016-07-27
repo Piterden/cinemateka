@@ -229,10 +229,15 @@ class EventCrudController extends CrudController
             'colspan' => '6',
         ]);
 
+        // $this->crud->addField([
+        //     'name'  => 'service_3',
+        //     'value' => '<div class="col-md-12"><h3>Мета-инфо</h3></div>',
+        //     'type'  => 'custom_html',
+        // ]);
         $this->crud->addField([
-            'name'  => 'service_3',
-            'value' => '<div class="col-md-12"><h3>Мета-инфо</h3></div>',
-            'type'  => 'custom_html',
+            'name'  => '2',
+            'label' => 'SEO данные',
+            'type'  => 'separator',
         ]);
         $this->crud->addField([ // TEXT
             'name'     => 'meta_title',

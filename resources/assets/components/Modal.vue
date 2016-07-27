@@ -44,9 +44,9 @@ export default {
     show(nv) {
       if (nv) {
         this.$root.$el.addEventListener('keydown', this.keydownHandler)
-        return
+      } else {
+        this.$root.$el.removeEventListener('keydown', this.keydownHandler)
       }
-      this.$root.$el.removeEventListener('keydown', this.keydownHandler)
     }
   },
 
@@ -76,14 +76,14 @@ export default {
   vertical-align: middle;
 }
 .modal-container {
-  width: 50%;
-  margin: 0px auto;
-  padding: 20px 30px;
+  width: 80%;
+  margin: 0 auto;
+  padding: 0 20px;
   background-color: #fff;
   border-radius: 2px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
   transition: all .3s ease;
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: Lato, Helvetica, Arial, sans-serif;
 }
 .modal-header h3 {
   margin-top: 0;
