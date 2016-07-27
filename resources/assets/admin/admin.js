@@ -1,7 +1,7 @@
 /*****************************************************/
 /****************** eslint config ********************/
 /*****************************************************/
-/*  global events programs places seances categories */
+/*  global events programs places seances categories $ PNotify */
 /*****************************************************/
 'use strict'
 
@@ -12,39 +12,41 @@ import VueDatetimePicker from 'vue-datetime-picker'
 import VueResource from 'vue-resource'
 // import FullCalendar
 //  from './vue/FullCalendar.vue'
-// import Navbar from './vue/Navbar.vue'
 import RepeaterImage from './RepeaterImage.vue'
 import RepeaterVideo from './RepeaterVideo.vue'
 import RepeaterText from './RepeaterText.vue'
 import SelectSeance from './SelectSeance.vue'
+import Modal from '../components/Modal.vue'
+import DropdownAdmin from './DropdownAdmin.vue'
 
 // window[Vue] = Vue
 Vue.use(VueResource)
 Vue.debug = true
 
 // Vue.component('vue-datetime-picker', VueDatetimePicker)
-// Vue.component('navbar', Navbar)
+Vue.component('vue-datetime-picker', VueDatetimePicker)
 Vue.component('vue-repeater-image', RepeaterImage)
 Vue.component('vue-repeater-video', RepeaterVideo)
 Vue.component('vue-repeater-text', RepeaterText)
 Vue.component('vue-select-seance', SelectSeance)
+Vue.component('modal', Modal)
+Vue.component('dropdown-admin', DropdownAdmin)
 
 new Vue({
+
   el: 'body',
-  components: {
-    'vue-datetime-picker': VueDatetimePicker
-  },
+
   data: {
     events: events,
     programs: programs,
     seances: seances,
     categories: categories,
     places: places,
-    result1: null,
-    result2: null,
-    result3: null,
-    startDatetime: moment(),
-    endDatetime: null
+    // result1: null,
+    // result2: null,
+    // result3: null,
+    // startDatetime: moment(),
+    // endDatetime: null
   },
 
   props: {
@@ -54,10 +56,22 @@ new Vue({
     imagesJson: Object,
   },
 
-  watch: {
-    title(nv) {
-      if(this.freezeSlug) return
-      this.$set('slug', this.toTranslit(nv))
+  computed: {
+    event_id() {
+
+    }
+  },
+
+  // watch: {
+  //   title(nv) {
+  //     if(this.freezeSlug) return
+  //     this.$set('slug', this.toTranslit(nv))
+  //   }
+  // },
+
+  http: {
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
   },
 
@@ -73,34 +87,34 @@ new Vue({
         return translit[lt] || lt
       }).join('')
     },
-    formatDatetime: function(datetime) {
+    formatDatetime(datetime) {
       if(datetime === null) {
-        return '[null]';
+        return '[null]'
       } else {
-        return datetime.format('YYYY-MM-DD HH:mm:ss');
+        return datetime.format('YYYY-MM-DD HH:mm:ss')
       }
     },
-    formatDate: function(date) {
+    formatDate(date) {
       if(date === null) {
-        return '[null]';
+        return '[null]'
       } else {
-        return date.format('YYYY-MM-DD');
+        return date.format('YYYY-MM-DD')
       }
     },
-    formatTime: function(time) {
+    formatTime(time) {
       if(time === null) {
-        return '[null]';
+        return '[null]'
       } else {
-        return time.format('HH:mm:ss');
+        return time.format('HH:mm:ss')
       }
     },
-    onStartDatetimeChanged: function(newStart) {
-      var endPicker = this.$.endPicker.control;
-      endPicker.minDate(newStart);
+    onStartDatetimeChanged(newStart) {
+      var endPicker = this.$.endPicker.control
+      endPicker.minDate(newStart)
     },
-    onEndDatetimeChanged: function(newEnd) {
-      var startPicker = this.$.startPicker.control;
-      startPicker.maxDate(newEnd);
+    onEndDatetimeChanged(newEnd) {
+      var startPicker = this.$.startPicker.control
+      startPicker.maxDate(newEnd)
     },
 
     /**
@@ -112,6 +126,42 @@ new Vue({
       input.value = this.toTranslit(input.value)
     },
 
+    /**
+     * Сеансы для события в хронологическом порядке
+     * @param  {Mixed} id
+     * @return {Array}
+     */
+    getSeancesByEventId(id) {
+      let a = this.seances.filter((s) => {
+        return Number(s.event_id) == Number(id)
+      })
+      if(a.length > 0) {
+        a.sort((a, b) => {
+          return moment(a.start_time) > moment(b.start_time)
+        })
+        return a
+      }
+      return false
+    },
+
+    /**
+     * Объект по id
+     * @param  {Mixed} id
+     * @return {Object} Событие
+     */
+    getById(arr, id) {
+      return arr.find((i) => {
+        return Number(i.id) == Number(id)
+      })
+    },
+
+    fireNotify(title, text, type) {
+      new PNotify({
+        title: title,
+        text: text,
+        type: type || 'notice'
+      })
+    }
     // addSeance(e) {
     //   // let $this = $(this),
     //   //   event_id = $this.data('event_id')

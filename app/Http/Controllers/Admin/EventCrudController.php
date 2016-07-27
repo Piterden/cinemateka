@@ -66,6 +66,29 @@ class EventCrudController extends CrudController
             'colspan'     => '10',
             'v-model'     => 'title',
         ]);
+        $this->crud->addField([ // select
+            'name'        => 'category_id',
+            'label'       => 'Тип события',
+            'type'        => 'select',
+            'allows_null' => false,
+            'entity'      => 'category',
+            'colspan'     => '2',
+            'attribute'   => 'name',
+            'model'       => "App\Models\Category",
+        ]);
+        $this->crud->addField([
+            'label'    => 'Картинка',
+            'name'  => 'images',
+            'type'  => 'repeater_image',
+            'cssclass' => 'main-image',
+            'colspan'  => '5',
+        ]);
+        $this->crud->addField([ // Image
+            'name'     => 'videos',
+            'label'    => 'Видео',
+            'type'  => 'repeater_video',
+            'colspan'  => '5',
+        ]);
         $this->crud->addField([ // CHECKBOX
             'name'    => 'published',
             'label'   => 'Опубликованно',
@@ -77,29 +100,6 @@ class EventCrudController extends CrudController
             'label'   => 'Широкая плитка',
             'type'    => 'checkbox',
             'colspan' => '2',
-        ]);
-        $this->crud->addField([
-            'label'    => 'Главная картинка',
-            'name'  => 'images',
-            'type'  => 'repeater_image',
-            'cssclass' => 'main-image',
-            'colspan'  => '5',
-        ]);
-        $this->crud->addField([ // Image
-            'name'     => 'videos',
-            'label'    => 'Главное видео <br>(пример заполнения - https://www.youtube.com/watch?v=9msmCgJdr24 )',
-            'type'  => 'repeater_video',
-            'colspan'  => '5',
-        ]);
-        $this->crud->addField([ // select
-            'name'        => 'category_id',
-            'label'       => 'Тип события',
-            'type'        => 'select',
-            'allows_null' => false,
-            'entity'      => 'category',
-            'colspan'     => '2',
-            'attribute'   => 'name',
-            'model'       => "App\Models\Category",
         ]);
         $this->crud->addField([ // WYSIWYG
             'name'        => 'description',
@@ -117,14 +117,7 @@ class EventCrudController extends CrudController
             'label'        => 'Сеансы',
             'type'         => 'select_seance_multiple',
             'name'         => 'seances', // the method that defines the relationship in your Model
-            'entity'       => 'seances', // the method that defines the relationship in your Model
-            'attribute'    => 'start_time', // foreign key attribute that is shown to user
-            'model'        => 'App\Models\Seance', // foreign key model
-            // 'allows_null'  => true,
-            'add_label'    => 'Добавить сеанс',
-            // 'query_method' => 'all',
-            'colspan'      => '3',
-            // 'pivot' => true, // on create&update, do you need to add/delete pivot table entries?
+            'colspan'      => '12',
         ]);
         $this->crud->addField([
             'name'  => 'service_2',

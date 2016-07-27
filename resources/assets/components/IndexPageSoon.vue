@@ -96,7 +96,7 @@ export default {
      */
     filterMethod(events, filters) {
       return events.filter((e) => {
-        return e.seances.find((s) => {
+        return e.seances && e.seances.find((s) => {
           let d = new Date(s.start_time)
           return d > filters.date_interval[0] && d < filters.date_interval[1]
         })

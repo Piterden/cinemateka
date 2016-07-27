@@ -1,7 +1,7 @@
 <style lang="css">
 </style>
 
-<template lang="html">
+<template>
   <div class="mdl-grid list-box {{ wrapClass }}" v-cloak>
     <slot name="top"></slot>
     <list-box-item

@@ -34,6 +34,7 @@ Route::group(['middleware' => 'web', 'prefix' => 'admin'], function ()
     Route::get('/', 'AdminController@redirectToDashboard');
     Route::get('dashboard', 'AdminController@dashboard');
 
+
     Route::group(['namespace' => 'Admin'], function ()
     {
         // Backpack\CinemaCRUD
@@ -51,7 +52,6 @@ Route::group(['middleware' => 'web', 'prefix' => 'admin'], function ()
         CRUD::resource('category', 'CategoryCrudController');
         // CRUD::resource('tag', 'TagCrudController');
 
-        CRUD::resource('seance', 'SeanceCrudController');
         /**
          * Загрузка картинок
          */
@@ -75,5 +75,6 @@ Route::group(['middleware' => 'web', 'prefix' => 'admin'], function ()
 
 Route::group(['middleware' => 'web', 'prefix' => 'rest'], function()
 {
-    Route::resource('seance', 'SeanceRestController');
+    Route::resource('seance', 'SeanceController');
+    // Route::resource('seance', 'SeanceRestController');
 });

@@ -167,7 +167,7 @@
 }
 </style>
 <template>
-  <div class="wrap router-view program-page">
+  <div class="wrap router-view program-page" v-if="programItem">
     <div class="program-image" :style="{'background-image': 'url(/'+images.mainimage+')'}">
       <div class="program-date">
         <span v-if="formatted_start != formatted_end">

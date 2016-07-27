@@ -1,3 +1,15 @@
+<style lang="css" scoped>
+  ul {
+    list-style-type: none;
+    list-style-position: outside;
+    padding: 0;
+  }
+  .btn-group {
+    position: absolute;
+    top: 88px;
+  }
+</style>
+
 <template>
   <ul class="repeater-wrap">
     <li v-for="item in sorted" :id="item.key" v-if="item.val !== undefined">
@@ -17,7 +29,7 @@
         aria-label="..."
         style="margin-top: 3px;"
       >
-        <button type="button"
+        <!-- <button type="button"
           class="btn btn-default"
           @click.prevent="openElFinder(item.key)"
         ><i class="fa fa-cloud-upload"></i>
@@ -29,7 +41,7 @@
           class="btn btn-default"
           @click.prevent="clearField(item.key)"
         >Очистить <i class="fa fa-eraser"></i>
-        </button>
+        </button> -->
 
         <button class="btn btn-error"
           @click.prevent="deleteItem(item.key, $index)"
@@ -107,5 +119,3 @@ export default {
   }
 }
 </script>
-<style lang="css" scoped>
-</style>

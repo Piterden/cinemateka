@@ -1,3 +1,14 @@
+<style lang="css" scoped>
+  ul {
+    list-style-type: none;
+    list-style-position: outside;
+    padding: 0;
+  }
+  li {
+
+  }
+</style>
+
 <template>
   <ul class="repeater-wrap">
     <li v-for="item in sorted" :id="item.key" v-if="item.val !== undefined">
@@ -16,15 +27,15 @@
         <span v-if="item.val">Изменить файл</span>
         <span v-else>Добавить файл</span>
         </button>
-        <button type="button"
+        <!--<button type="button"
           class="btn btn-default"
           @click.prevent="clearField(item.key)"
-        ><i class="fa fa-eraser"></i> Очистить
+        > <i class="fa fa-eraser"></i> Очистить -->
         <button class="btn btn-error"
           @click.prevent="deleteItem(item.key, $index)">
           Удалить <i class="fa fa-times"></i>
         </button>
-        </button>
+        <!-- </button> -->
       </div>
     </li>
     <button class="btn btn-success" @click.prevent="addItem()">
@@ -114,5 +125,3 @@ export default {
   }
 }
 </script>
-<style lang="css" scoped>
-</style>

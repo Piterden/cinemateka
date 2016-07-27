@@ -80,7 +80,7 @@ export default {
         f_m = filters.month,
         filtered = events.filter((e) => {
           // Если не назначено сеансов - скрываем событие
-          if (e.seances === undefined || !e.seances.length) {
+          if (e.seances === undefined || !e.seances || !e.seances.length) {
             return false
           }
           // Если не совпадает категория - скрываем

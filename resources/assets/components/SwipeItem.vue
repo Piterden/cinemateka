@@ -7,15 +7,15 @@
 export default {
 
   ready() {
-    this.$dispatch('swipeItemCreated', this);
+    this.$dispatch('swipeItemCreated', this)
   },
 
   detached() {
-    this.$dispatch('swipeItemDestroyed', this);
+    this.$dispatch('swipeItemDestroyed', this)
   },
 
   destroyed() {
-    this.$dispatch('swipeItemDestroyed', this);
+    this.$dispatch('swipeItemDestroyed', this)
   }
-};
+}
 </script>

@@ -72,6 +72,9 @@ export default {
 
   computed: {
     closestProgram() {
+      /* eslint-disable no-console */
+      console.log(this.$router)
+      /* eslint-enable no-console */
       return this.$root.getClosestSeanceProgram(this.item)
     },
 

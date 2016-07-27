@@ -131,7 +131,7 @@
         </div>
       </div>
     </div>
-    <div class="mdl-grid social-block">
+    <div class="mdl-grid social-block" v-if="eventItem">
       <div class="mdl-cell mdl-cell--12-col">
         <social-share
           :post-url="selfUrl"
@@ -144,7 +144,7 @@
         ></social-share>
       </div>
     </div>
-    <div class="mdl-grid press-block">
+    <div class="mdl-grid press-block" v-if="eventItem">
       <div class="mdl-cell mdl-cell--6-col pic-gallery" v-if="gallery.length">
         <h3>Галерея</h3>
         <swipe
@@ -291,11 +291,11 @@ export default {
   },
 
   head: {
-    // title() {
-    //   return {
-    //     inner: this.eventItem.title
-    //   }
-    // },
+    title() {
+      return {
+        inner: this.eventItem.title + ' - Кино в городе'
+      }
+    },
     meta() {
       return {
         name: {

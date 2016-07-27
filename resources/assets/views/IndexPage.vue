@@ -17,7 +17,7 @@
         class="slide"
         style="background-image: url('/{{ slide.src }}')"
       >
-        <a href="{{ slide.link }}">
+        <a v-link="slide.link">
           <div v-if="slide.caption" class="caption-wrapper">
             <div v-if="slide.caption.caption_title" class="caption-title">
               {{ slide.caption.caption_title }}
@@ -128,7 +128,7 @@ export default {
      * Срабатывает при нажатии на таб недели
      */
     clickWeekTab(name) { // 'week$'
-      let i = name.slice(4);
+      let i = name.slice(4)
         // d = this.getTabDate(i);
         //mon = this.$root.getMonday(d)
       this.$set('week.activeTab', Number(i))
@@ -159,7 +159,7 @@ export default {
           title: this.$root.getMonthNames()[num].slice(0, 3)
         }
       })
-    },
+    }
   },
 
   ready() {

@@ -356,7 +356,7 @@ let App = Vue.extend({
      */
     getExistedYears() {
       return this.events.map((ev) => {
-        return ev.seances.map((s) => {
+        return ev.seances && ev.seances.map((s) => {
           let d = new Date(s.start_time)
           return Number(d.getFullYear())
         }).getUnique()

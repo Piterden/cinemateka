@@ -26,13 +26,37 @@
 </template>
 <script>
 export default {
+
   props: {
     show: {
       type: Boolean,
       required: true,
       twoWay: true
+    },
+    seance: {
+      default() {
+        return {}
+      }
+    }
+  },
+
+  watch: {
+    show(nv) {
+      if (nv) {
+        this.$root.$el.addEventListener('keydown', this.keydownHandler)
+        return
+      }
+      this.$root.$el.removeEventListener('keydown', this.keydownHandler)
+    }
+  },
+
+  methods: {
+    keydownHandler(e) {
+      if (e.keyCode != 27) return
+      this.show = false
     }
   }
+
 }
 </script>
 <style lang="css" scoped>
@@ -52,7 +76,7 @@ export default {
   vertical-align: middle;
 }
 .modal-container {
-  width: 300px;
+  width: 50%;
   margin: 0px auto;
   padding: 20px 30px;
   background-color: #fff;
