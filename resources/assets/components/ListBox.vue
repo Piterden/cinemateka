@@ -1,13 +1,11 @@
-<style lang="css">
-</style>
-
 <template>
   <div class="mdl-grid list-box {{ wrapClass }}" v-cloak>
     <slot name="top"></slot>
     <list-box-item
       v-if="events"
       v-for="item in events
-        | filterMethod filterValues | limitBy limit"
+        | filterMethod filterValues
+        | limitBy limit"
       :class="itemClass"
       :index.once="$index"
       :item.sync="item"
@@ -26,30 +24,23 @@
     </div>
   </div>
 </template>
-
 <script>
 export default {
 
   props: {
     filteredCount: Number,
-    // Программы
-    // programs: Array,
-    // Принудительная ширина элемента списка
     itemWidth: Number,
-    // Объект стилей для квадратов
-    styleObject: {
+    styleObject: { // Объект стилей для квадратов
       type: Object,
       default () {
         return {}
       }
     },
-    // События
-    events: {
+    events: { // События
       type: Array,
       required: true
     },
-    // Значения фильтров
-    filterValues: {
+    filterValues: { // Значения фильтров
       type: Object,
       default () {
         return {}
@@ -72,25 +63,15 @@ export default {
     // Название метода для вычисления ширины
     method: {
       type: String,
-      default () {
-        return 'same'
-      }
+      default: 'same'
     },
     // Ширина квадрата в колонках сетки
     cols: {
       type: Number,
-      default () {
-        return 4
-      }
+      default: 4
     },
-    itemClass: {
-      type: String,
-      default: ''
-    },
-    wrapClass: {
-      type: String,
-      default: ''
-    },
+    itemClass: String,
+    wrapClass: String,
     notEmpty: {
       type: Boolean,
       default: true
@@ -178,4 +159,5 @@ export default {
   }
 }
 </script>
-
+<style lang="css">
+</style>

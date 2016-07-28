@@ -5,14 +5,14 @@
   <div class="index-wrapper">
     <div class="events-block">
       <list-box
-        :events="getTopEvents()"
+        :events.once="evTop"
         :limit="20"
         :cols.once="4"
-        :method.once="'same'">
+  			:filter-values.sync="filterValuesTop"
       </list-box>
     </div>
-  	<div class="soon-block">
-  		<blocks-header :title="title">
+    <div class="soon-block">
+      <blocks-header :title="title">
         <ul class="mdl-tabs__tab-bar">
           <li v-for="(index, tab) in tabs"
             class="mdl-tabs__tab"
@@ -25,12 +25,11 @@
           </li>
         </ul>
       </blocks-header>
-  		<list-box
-  			:events="getBottomEvents()"
+      <list-box
+        :events.sync="evBot"
         :limit.once="12"
         :cols.once="3"
-        :method.once="'same'"
-  			:filter-values.sync="filterValuesBottom"
+        :filter-values.sync="filterValuesBottom"
   		></list-box>
   	</div>
   </div>
@@ -46,36 +45,60 @@ export default {
     return {
       title: 'Скоро',
       tabs: this.getTabs(),
-      limit: 12,
-      cols: 3,
-      calcSizesMethod: 'same',
       activeTab: 0
     }
   },
 
+  props: {
+    evTop: Array,
+    evBot: Array,
+    filterValuesTop: {
+      type: Object,
+      default() {
+        return {
+          date_interval: [
+            moment(this.fromTime).format('YYYY-MM-DD HH:mm:ss'),
+            moment(this.topToTime).endOf('day').format('YYYY-MM-DD HH:mm:ss')
+          ]
+        }
+      }
+    }
+  },
+
   computed: {
-    filterValuesTop() {
-      let d = moment(),
-        n = d.add(14, 'days')
-      return {
-        date_interval: [d, n]
-      }
-    },
     filterValuesBottom() {
-      return {
-        date_interval: [this.topToTime, this.getTabMonth(this.activeTab)]
+      let fv = {}
+      if (this.activeTab == 0) {
+        fv.date_interval = [
+          this.topToTime.format('YYYY-MM-DD HH:mm:ss'),
+          moment().add(1, 'months').endOf('month').format('YYYY-MM-DD HH:mm:ss')
+        ]
+      } else {
+        let start = moment().set(
+            'month', this.getTabMonth(this.activeTab)
+          ).startOf('month').format('YYYY-MM-DD HH:mm:ss'),
+          end = moment().set(
+            'month', this.getTabMonth(this.activeTab)
+          ).endOf('month').format('YYYY-MM-DD HH:mm:ss')
+        fv.date_interval = [start, end]
       }
+      return fv
     },
     fromTime() {
       return moment().startOf('day')
     },
     topToTime() {
-      return this.fromTime.add(14, 'days')
+      let d = moment(this.fromTime)
+      return d.add(14, 'days')
     }
   },
 
   methods: {
 
+    /**
+     * [getTabs description]
+     * @return {[type]} [description]
+     */
     getTabs() {
       let mNum = moment(this.topToTime).month(),
         mArr = moment.monthsShort(),
@@ -83,45 +106,32 @@ export default {
       return mArr.concat(end).map((m, i) => {
         return {
           name: 'month' + i,
-          title: moment().month(m).format('MMM')
+          title: moment().month(this.getTabMonth(i)).format('MMM')
         }
       })
     },
 
     /**
      * Возвращает год для вкладки №i
+     * @return {Number}
      */
-    getTabYear(i) {
-      let d = moment()
-      d.add(i, 'months')
-      return d.year()
+    getTabYear(i = 0) {
+      return moment().add(i, 'months').year()
     },
 
     /**
      * Возвращает месяц для вкладки №i
+     * @return {Number}
      */
     getTabMonth(i = 0) {
-      let d = moment(),
-        nowMonth = d.month()
-      d.add(14, 'days')
-      if (d.month() != nowMonth) {
-        i++
-      }
-      d.add(i, 'months')
-      return d.month()
+      return moment().add(14, 'days').add(i, 'months').get('month')
     },
 
     /**
-     * Устанавливает дату на 23:59 последнего числа месяца
-     * @return {Date}
+     * Сеансы верхнего блока в ближайшие 2 недели
+     * @return {Array}
      */
-    dateToMonthEnd() {
-      let y = this.getTabYear(this.activeTab),
-        m = this.getTabMonth(this.activeTab) + 1
-      return moment([y, m, 0])
-    },
-
-    getTopEvents() {
+    getTopSeances() {
       let events = this.$root.events,
         fromTime = moment(),
         toTime = fromTime.add(14, 'days'),
@@ -132,14 +142,7 @@ export default {
           })
           return ss && ss.length > 0
         })
-      // if (ee.length < 3) {
-
-      // }
       return ee
-    },
-
-    getBottomEvents() {
-      return this.$root.events
     },
 
     /**
@@ -157,27 +160,55 @@ export default {
      */
     filterMethod(events, filters) {
       return events.filter((e) => {
+        if (undefined === e) return false
         return e.seances && e.seances.find((s) => {
-          let d = new Date(s.start_time)
-          return d > filters.date_interval[0] && d < filters.date_interval[1]
+          let d = moment(s.start_time),
+            start = moment(filters.date_interval[0]),
+            end = moment(filters.date_interval[1])
+          return d > start && d < end
         })
       })
     },
 
     /**
-     * Фильтрует события по заданным значениям
-     * @param  {Array}        events    Все события
-     * @param  {Object}       filters   Фильтры со значениями
-     * @return {Array} of Event Objects
+     * Callback to map seances to events
+     * @param  {Object} s seance
+     * @return {Object}   event
      */
-    filterFirstMethod(events, filters) {
-      return events.filter((e) => {
-        return e.seances && e.seances.find((s) => {
-          let d = new Date(s.start_time)
-          return d > filters.date_interval[0] && d < filters.date_interval[1]
-        })
-      })
+    seancesToEvents(s) {
+      if (s !== undefined || s.event_id !== undefined) {
+        let e = this.$root.getById(this.$root.events, s.event_id)
+        return e
+      }
+    }
+
+  },
+
+  /**
+   * Mine the collections on load page
+   */
+  created() {
+    this.evTop = this.getTopSeances().map(this.seancesToEvents).filter((e) => {
+      return e !== undefined && e !== null
+    })
+    this.evBot = this.$root.seances.filter((s) => {
+      return moment(s.start_time) > moment()
+    }).map(this.seancesToEvents).filter((e) => {
+      return e !== undefined && e !== null
+    })
+    let l = this.evTop.length
+    if (l < 3) {
+      this.filterValuesTop = {
+        date_interval: [
+          moment().format('YYYY-MM-DD HH:mm:ss'),
+          moment().add(10, 'years').format('YYYY-MM-DD HH:mm:ss')
+        ]
+      }
+      for (let i = l; i < 3; i++) {
+        this.evTop.push(this.evBot.splice(0, 1)[0])
+      }
     }
   }
+
 }
 </script>

@@ -1,8 +1,3 @@
-<style lang="css" scoped>
-  h3 {
-    margin-bottom: 24px;
-  }
-</style>
 <template>
   <div class="wrap router-view event-page">
     <div v-if="eventItem" class="event-image" :style="bgStyleObject">
@@ -155,10 +150,11 @@
           :show-nav="true"
           :no-drag-when-single="false"
           :prevent="false"
+          :style="{}"
         ><swipe-item
             v-for="slide in gallery"
             class="slide"
-            style="background-image: url('/{{ slide }}')"
+            :style="{backgroundImage: 'url(/' + slide + ')'}"
           >
             <div v-if="slide.caption" class="caption-wrapper">
               <div v-if="slide.caption.caption_title" class="caption-title">
@@ -222,11 +218,14 @@
   </div>
 </template>
 <script>
+import moment from 'moment'
+moment.locale('ru-RU')
+
 export default {
 
   computed: {
     bgStyleObject() {
-      return {
+      return this.images && {
         backgroundImage: 'url("/' + this.images.mainimage + '")'
       }
     },
@@ -257,12 +256,12 @@ export default {
       return this.eventItem.videos && JSON.parse(this.eventItem.videos)
     },
     closestSeanceTime() {
-      let d = this.closestSeance && new Date(this.closestSeance.start_time)
-      return d && this.$root.timeStrFromDateObj(d)
+      let d = this.closestSeance && moment(this.closestSeance.start_time)
+      return d && moment(d).format('HH:mm')
     },
     closestSeanceDate() {
-      let d = this.closestSeance && new Date(this.closestSeance.start_time)
-      return d && this.$root.formatDateToStr(d, 'DD.MM')
+      let d = this.closestSeance && moment(this.closestSeance.start_time)
+      return d && moment(d).format('DD.MM')
     },
     hasChrono() {
       return this.eventItem.chrono > 0 ? this.eventItem.chrono : ''
@@ -286,8 +285,24 @@ export default {
     /* eslint-disable no-unused-vars */
     filterMethod(events, filters) {
       return events
-    }
+    },
     /* eslint-enable no-unused-vars */
+    calcSwipeHeigth(){
+      let swipe = this.$el.querySelector('.swipe')
+      swipe.style.height = Number(swipe.offsetWidth / 16 * 9) + 'px'
+    },
+    onWinResize() {
+      this.calcSwipeHeigth()
+    }
+  },
+
+  ready() {
+    this.calcSwipeHeigth()
+    window.addEventListener('resize', this.onWinResize)
+  },
+
+  beforeDestroy() {
+    window.removeEventListener('resize', this.onWinResize)
   },
 
   head: {
@@ -318,23 +333,13 @@ export default {
           'og:image': this.selfImageUrl
         }
       }
-    },
-    // Examples of link tags
-    // link: {
-    //   canonical: {
-    //     href: window.location.origin
-    //   },
-    //   author: {
-    //     href: 'humans.txt'
-    //   },
-    //   stylesheet: {
-    //     href: 'https://example.com/styles.css'
-    //   },
-    //   import: {
-    //     href: 'component.html'
-    //   }
-    // }
+    }
   }
 
-}
+}//'
 </script>
+<style lang="css" scoped>
+  h3 {
+    margin-bottom: 24px;
+  }
+</style>

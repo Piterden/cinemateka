@@ -15,7 +15,8 @@ class AppServiceProvider extends ServiceProvider
         /**
          * Share collections to all views
          */
-        $seances = \App\Models\Seance::all();
+        $seances = \App\Models\Seance::where('id', '>', 0)
+            ->orderBy('start_time', 'asc')->get();
 
         $categories = \App\Models\Category::all();
 

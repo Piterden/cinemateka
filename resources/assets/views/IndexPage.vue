@@ -38,43 +38,50 @@ export default {
   computed: {
     slides() {
       return this.$root.getPublished(this.$root.slides)
+    },
+    selfImageUrl() {
+      return this.slides.length && this.slides[0].src
     }
   },
 
   methods: {
-    /**
-     * Обновляет даты на недельных вкладках
-     * после готовности компонента, подставляет
-     * даты сразу в нужном формате
-     */
-    initTabs() {
-      this.week.tabs.forEach((tab, idx) => {
-        if (tab.title === '') {
-          let start = this.$root.getMonday(this.getTabDate(idx)),
-            end = this.$root.getSunday(start)
-          tab.title = this.$root.formatDateToStr(start, 'DD.MM') +
-            '-' + this.$root.formatDateToStr(end, 'DD.MM')
-        }
-      })
-    },
-
-    /**
-     * Возвращает объект даты для заданной недели вкладки
-     * @param {Number}  i   Номер вкладки с 0
-     */
-    getTabDate(i) {
-      let d = new Date(),
-        t = 60 * 60 * 24 * 14 * 1000 * i + d.getTime()
-      d.setTime(t)
-      return d
-    },
-
     /**
      * Срабатывает при нажатии на таб месяца
      */
     clickSoonTab(name) { // 'month$'
       let i = name.slice(5)
       this.$set('month.activeTab', Number(i))
+    }
+  },
+
+  head: {
+    title() {
+      return {
+        inner: 'Кино в городе'
+      }
+    },
+    meta() {
+      return {
+        name: {
+          'application-name': this.$root.meta.app,
+          description: 'description on index',
+          'twitter:title': 'Главная - Кино в городе',
+          'twitter:description': 'description on index',
+          'twitter:image': this.selfImageUrl
+        },
+        itemprop: {
+          name: 'Главная - Кино в городе',
+          description: 'description on index',
+          image: this.selfImageUrl
+        },
+        property: {
+          // 'fb:app_id': 123456789,
+          'og:url': this.selfUrl,
+          'og:title': 'Главная - Кино в городе',
+          'og:description': 'description on index',
+          'og:image': this.selfImageUrl
+        }
+      }
     }
   }
 }

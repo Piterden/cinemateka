@@ -12,9 +12,7 @@
     transition="fade"
     transition-mode="out-in"
   >
-    <div class="event-item-card"
-      :style="bgStyleObject"
-    >
+    <div class="event-item-card" :style="bgStyleObject">
       <a href="#" v-link="{ path: '/event/' + item.slug }">
         <div class="category">{{ eventTypeName }}</div>
       </a>
@@ -42,7 +40,9 @@
   </div>
 </template>
 <script>
-// @click.stop.prevent="$router.go( 'event/' + item.slug )"
+import moment from 'moment'
+moment.locale('ru-RU')
+
 export default {
 
   data() {
@@ -60,52 +60,43 @@ export default {
     method: String,
     limit: Number,
     height: Number,
-    separator: {
-      type: String,
-      default: ' – '
-    },
-    styleObject: {
-      type: Object,
-      default: 'inherit'
-    }
+    separator: { type: String, default: ' – ' },
+    styleObject: { type: Object, default: 'inherit' }
   },
 
   computed: {
     closestProgram() {
       return this.$root.getClosestSeanceProgram(this.item)
     },
-
     bgStyleObject() {
-      return {
+      return this.thumb ? {
         backgroundImage: 'url("/' + this.thumb + '")'
-      }
+      } : {}
     },
-
     /**
      * Изображение плитки
      */
     thumb() {
       return this.item && this.item.images && JSON.parse(this.item.images).mainimage
     },
-
     /**
      * Вычисляет ширину элемента списка в кол-ве колонок
-     * @return {Number} Одинаковая ширина для всех элементов
+     * Одинаковая ширина для всех элементов кроме отмеченных в админке
+     * @return {Number}
      */
     same() {
       return this.item.wide != '1' ? this.cols : this.cols * 2
     },
-
     /**
      * Получает первый и, если нужно, последний элемент в 2 раза шире
      * @return {Number} Grid Width
      */
-    firstLastDoubleWidth() {
-      // let showed = this.$parent.$children.length
-      return !this.index || (
-        this.$parent.$children.length == this.limit && this.index == this.limit - 1
-      ) ? this.cols * 2 : this.cols
-    }
+    // firstLastDoubleWidth() {
+    //   // let showed = this.$parent.$children.length
+    //   return !this.index || (
+    //     this.$parent.$children.length == this.limit && this.index == this.limit - 1
+    //   ) ? this.cols * 2 : this.cols
+    // }
   },
 
   methods: {
@@ -119,17 +110,18 @@ export default {
       if (!seances.length) {
         return ''
       }
-      start = new Date(seances[0].start_time)
-      // if (seances.length == 1) {
-
-      // }
-      end = new Date(seances[seances.length - 1].start_time)
-      if ((end - start) / 1000 / 60 / 60 / 24 / 365 > 1) {
-        formatted_start = this.$root.formatDateToStr(start, 'DD.MM.YY')
-        formatted_end = this.$root.formatDateToStr(end, 'DD.MM.YY')
+      start = moment(seances[0].start_time)
+      if (seances.length > 1) {
+        end = moment(seances[seances.length - 1].start_time)
       } else {
-        formatted_start = this.$root.formatDateToStr(start, 'DD.MM')
-        formatted_end = this.$root.formatDateToStr(end, 'DD.MM')
+        end = start.clone()
+      }
+      if (end.diff(start, 'year') >= 1) {
+        formatted_start = moment(start).format('DD.MM.YY')
+        formatted_end = moment(end).format('DD.MM.YY')
+      } else {
+        formatted_start = moment(start).format('DD.MM')
+        formatted_end = moment(end).format('DD.MM')
       }
       return (formatted_start == formatted_end)
         ? formatted_start
