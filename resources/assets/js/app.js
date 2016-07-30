@@ -7,6 +7,10 @@
 import moment from 'moment'
 import Vue from 'vue'
 
+/* eslint-disable no-console */
+console.log(seances)
+  /* eslint-enable no-console */
+
 /**
  * Главный ($root) vue-компонент.
  * Доступ к App instance из любого места в файлах-компонентах *.vue
@@ -84,8 +88,8 @@ let App = Vue.extend({
       e.event_type = cat && cat.name
       return e
     }).sort((a, b) => {
-      let cloA = this.getClosestSeance(a) || {start_time: moment().format()},
-        cloB = this.getClosestSeance(b) || {start_time: moment().format()}
+      let cloA = this.getClosestSeance(a) || { start_time: moment().format() },
+        cloB = this.getClosestSeance(b) || { start_time: moment().format() }
       return cloA.start_time > cloB.start_time
     })
 
@@ -111,12 +115,21 @@ let App = Vue.extend({
     })
 
     this.slides = slides.map((s) => {
-      if (typeof s.caption == 'string') {
+      if(typeof s.caption == 'string') {
         s.caption = JSON.parse(s.caption)
       }
       return s
     })
 
+    this.seances = this.seances.map((s) => {
+      s.startDate = this.getStartDate(s)
+      s.startTime = this.getStartTime(s)
+      s.event = this.getEvent(s)
+      s.program = this.getProgram(s)
+      s.place = this.getPlace(s)
+      s.eventTypeName = this.getEventTypeName(s.event)
+      return s
+    })
   },
 
   ready() {
@@ -151,7 +164,7 @@ let App = Vue.extend({
      * @param  {Mixed} id
      * @return {Object} Событие
      */
-    getById(arr, id) {
+    getById(arr = [], id = 0) {
       return arr.find((i) => {
         return Number(i.id) == Number(id)
       })
@@ -174,7 +187,7 @@ let App = Vue.extend({
      * @return {SeanceObject}       Объект сеанса
      */
     getClosestSeance(e) {
-      return e && e.seances.find((s) => {
+      return e && e.seances && e.seances.length && e.seances.find((s) => {
         return moment(s.start_time) > moment()
       })
     },
@@ -340,7 +353,7 @@ let App = Vue.extend({
         return s.event_id
       }).getUnique()
       return eIds.map((id) => {
-        return this.$root.getById(this.$root.events, id)
+        return this.getById(this.events, id)
       })
     },
 
@@ -364,6 +377,63 @@ let App = Vue.extend({
       return this.programs.find((p) => {
         return p.slug == slug
       })
+    },
+
+    /**
+     * Дата проведения сеанса
+     * @param  {Object} seance Объект сеанса
+     * @return {String}        Дата ДД.ММ
+     */
+    getStartDate(seance) {
+      return moment(seance.start_time).format('DD.MM')
+    },
+
+    /**
+     * Время проведения сеанса
+     * @param  {Object} seance Объект сеанса
+     * @return {String}        Время ЧЧ:ММ
+     */
+    getStartTime(seance) {
+      return moment(seance.start_time).format('HH:mm')
+    },
+
+    /**
+     * Событие сеанса
+     * @param  {Object} seance Объект сеанса
+     * @return {Object}        Объект события
+     */
+    getEvent(seance) {
+      return this.getById(this.events, seance.event_id)
+    },
+
+    /**
+     * Программа сеанса
+     * @param  {Object} seance Объект сеанса
+     * @return {Object}        Объект программы
+     */
+    getProgram(seance) {
+      return this.getById(this.programs, seance.program_id)
+    },
+
+    /**
+     * Место проведения сеанса
+     * @param  {Object} seance Объект сеанса
+     * @return {Object}        Объект места
+     */
+    getPlace(seance) {
+      return this.getById(this.places, seance.place_id)
+    },
+
+    /**
+     * Название категории (типа события)
+     * @param  {Object} evObj Объект события
+     * @return {String}       Name
+     */
+    getEventTypeName(evObj) {
+      if(evObj === undefined) return ''
+      let catId = Number(evObj.category_id) || 0
+      let cat = catId ? this.getCategoryById(catId) : { name: '' }
+      return cat.name
     },
 
     /**!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -430,7 +500,7 @@ let App = Vue.extend({
      */
     getSoonTabMonth(i = 0) {
       let d = new Date()
-      if (i == 0) {
+      if(i == 0) {
         d.setDate(d.getDate() + 14)
       }
       d.setMonth(d.getMonth() + i)

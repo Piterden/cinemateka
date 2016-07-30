@@ -35,27 +35,31 @@ Vue.component('date-picker', Datepicker)
 
 new Vue({
 
-  el: 'body',
+  el: 'body#App',
 
-  data: {
-    events: events,
-    programs: programs,
-    seances: seances,
-    categories: categories,
-    places: places,
-  },
-
-  props: {
-    title: String,
-    file: String,
-    slug: String,
-    imagesJson: Object,
+  data() {
+    return {
+      events: events,
+      programs: programs,
+      seances: seances,
+      categories: categories,
+      places: places,
+      title: '',
+      slug: ''
+    }
   },
 
   http: {
     headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
+  },
+
+  ready() {
+    document.addEventListener('keydown', this.submit)
+    this.$watch('title', (nv) => {
+      this.$set('slug', this.toTranslit(nv))
+    })
   },
 
   methods: {
@@ -65,7 +69,7 @@ new Vue({
      * @return {String}     Транслитерированная строка
      */
     toTranslit(rus) {
-      let translit = { 'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e', 'ё': 'yo', 'ж': 'zh', 'з': 'z', 'и': 'i', 'й': 'j', 'к': 'k', 'л': 'l', 'м': 'm', 'н': 'n', 'о': 'o', 'п': 'p', 'р': 'r', 'с': 's', 'т': 't', 'у': 'u', 'ф': 'f', 'х': 'h', 'ц': 'c', 'ч': 'ch', 'ш': 'sh', 'щ': 'shh', 'ъ': '\'', 'ы': 'y', 'ь': '._', 'э': 'e-', 'ю': 'yu', 'я': 'ya', ' ': '-' }
+      let translit = { 'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e', 'ё': 'yo', 'ж': 'zh', 'з': 'z', 'и': 'i', 'й': 'j', 'к': 'k', 'л': 'l', 'м': 'm', 'н': 'n', 'о': 'o', 'п': 'p', 'р': 'r', 'с': 's', 'т': 't', 'у': 'u', 'ф': 'f', 'х': 'h', 'ц': 'c', 'ч': 'ch', 'ш': 'sh', 'щ': 'shh', 'ъ': '\'', 'ы': 'y', 'ь': '', 'э': 'ae', 'ю': 'yu', 'я': 'ya', ' ': '-' }
       return rus.toLowerCase().split('').map(function(lt) {
         return translit[lt] || lt
       }).join('')
@@ -121,8 +125,16 @@ new Vue({
         text: text,
         type: type || 'notice'
       })
+    },
+
+    submit(e) {
+      if (!e.ctrlKey || e.code !== 'KeyS') return
+      e.preventDefault()
+      let f = document.getElementById('entry-form')
+      if (f) {
+        $(f).trigger('submit')
+      }
     }
   }
-
 })
 

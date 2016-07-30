@@ -139,7 +139,6 @@ tbody .price > div {
             | filterMethod filterValues
             | limitBy limit"
           track-by="id"
-          keep-alive
         >
           <td class="id hidden">
             <div class="seance-id">{{ seance.id }}</div>

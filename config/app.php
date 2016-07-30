@@ -248,7 +248,6 @@ return [
         'CRUD'      => 'Backpack\CRUD\CrudServiceProvider',
         'Form'      => 'Collective\Html\FormFacade',
         'Html'      => 'Collective\Html\HtmlFacade',
-        // 'Image'     => Intervention\Image\Facades\Image::class,
 
     ],
 

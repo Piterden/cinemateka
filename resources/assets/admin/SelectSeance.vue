@@ -68,17 +68,20 @@
           </div>
           <div class="form-group col-md-12">
             <label>Инфо о спикере</label>
-            <textarea class="form-control ckeditor" name="speaker_info"
-            >{{ activeSeance.id && activeSeance.speaker_info || '' }}</textarea>
-
+            <textarea class="form-control"
+              id="speaker_info_{{ activeSeance.id }}"
+              name="speaker_info_{{ activeSeance.id }}"
+            >
+              {{ activeSeance.speaker_info || '' }}
+            </textarea>
           </div>
-          <!-- <div class="form-group col-md-6">
+          <div class="form-group col-md-6" v-if="0">
             <label>Описание</label>
             <textarea class="form-control"
               type="text"
               name="description"
             >{{ activeSeance && activeSeance.description || '' }}</textarea>
-          </div> -->
+          </div>
           <div class="form-group col-md-12">
             <button class="modal-default-button" @click.prevent="showModal = false">
               Отмена
@@ -95,7 +98,7 @@
 </template>
 <script>
 
-/* global $ PNotify */
+/* global $ PNotify CKEDITOR */
 
 import moment from 'moment'
 moment.locale('ru')
@@ -105,7 +108,7 @@ export default {
   data() {
     return {
       showModal: false,
-      activeSeance: { event_id: this.eventId },
+      activeSeance: { event_id: this.eventId, id: 0 },
       starttime: moment().format('D MMMM YYYY в H:mm'),
       timeoption: {
         type: 'min',
@@ -159,6 +162,7 @@ export default {
       let obj = this.getFormFields('addSeanceForm')
       obj.start_time = moment(obj.start_time, 'D MMMM YYYY в H:mm')
         .format('YYYY-MM-DD HH:mm:ss')
+      obj.speaker_info = this.cke.getData()
       if (obj.id) {
         // Update
         this.$http.put('/rest/seance/' + obj.id, obj)
@@ -192,8 +196,18 @@ export default {
       this.activeSeance = { event_id: this.eventId }
       this.showModal = true
     },
-    showError() {
-      this.$root.fireNotify('Ошибка!!!', 'Что-то пошло не так!', 'error')
+    showError(res) {
+      this.$root.fireNotify('Ошибка!!!', 'Что-то пошло не так! ' + res.status, 'error')
+    }
+  },
+
+  watch: {
+    showModal(nv) {
+      if (nv) {
+        this.cke = CKEDITOR.replace('speaker_info_' + this.activeSeance.id )
+      } else {
+        this.cke && this.cke.destroy()
+      }
     }
   },
 
@@ -243,8 +257,10 @@ export default {
                 promptTrigger: true,
                 click(notice, value) {
                   _this.$http.delete('/rest/seance/' + _this.seance.id, {
-                    _method: 'DELETE',
-                    _token: _this.$parent.token
+                    params: {
+                      _method: 'DELETE',
+                      _token: document.querySelector('[name="csrf-token"]').content
+                    }
                   }).then(() => {
                     _this.$destroy(true)
                   }, _this.showError)

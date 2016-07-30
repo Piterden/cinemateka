@@ -96,12 +96,23 @@
 
           @if ( !( isset($crud->edit_permission) && $crud->edit_permission === false && isset($crud->delete_permission) && $crud->delete_permission === false ) )
             <td>
-              <a href="{{ Request::segment(2).'/'.$entry->id }}" class="btn btn-xs btn-default"><i class="fa fa-eye" target="_blank"></i> {{ trans('backpack::crud.preview') }}</a>
+              <a href="{{ '/'.Request::segment(2).'/'.$entry->slug }}"
+                class="btn btn-xs btn-default"
+                target="_blank"
+              ><i class="fa fa-eye"></i> {{ trans('backpack::crud.preview') }}
+              </a>
               @if ($crud->hasAccess('update'))
-                <a href="{{ Request::url().'/'.$entry->id }}/edit" class="btn btn-xs btn-default"><i class="fa fa-edit"></i> {{ trans('backpack::crud.edit') }}</a>
+                <a href="{{ Request::url().'/'.$entry->id }}/edit"
+                  class="btn btn-xs btn-default"
+                ><i class="fa fa-edit"></i> {{ trans('backpack::crud.edit') }}
+                </a>
               @endif
               @if ($crud->hasAccess('delete'))
-                <a href="{{ Request::url().'/'.$entry->id }}" class="btn btn-xs btn-default" data-button-type="delete"><i class="fa fa-trash"></i> {{ trans('backpack::crud.delete') }}</a>
+                <a href="{{ Request::url().'/'.$entry->id }}"
+                  class="btn btn-xs btn-default"
+                  data-button-type="delete"
+                ><i class="fa fa-trash"></i> {{ trans('backpack::crud.delete') }}
+                </a>
               @endif
             </td>
           @endif

@@ -14,19 +14,21 @@
 /**
  * Vue OPA
  */
-
-Route::get('/', 'PageController@staticPage');
-Route::get('about', 'PageController@staticPage');
-Route::get('contacts', 'PageController@staticPage');
-Route::get('schedule/{page?}', 'PageController@listPage');
-Route::get('archive/{page?}', 'PageController@listPage');
-Route::get('event/{slug}', 'PageController@entityPage');
-Route::get('program/{slug}', 'PageController@entityPage');
+Route::group(['middleware' => ['web']], function()
+{
+    Route::get('/', 'PageController@staticPage');
+    Route::get('about', 'PageController@staticPage');
+    Route::get('contacts', 'PageController@staticPage');
+    Route::get('schedule/{page?}', 'PageController@listPage');
+    Route::get('archive/{page?}', 'PageController@listPage');
+    Route::get('event/{slug}', 'PageController@entityPage');
+    Route::get('program/{slug}', 'PageController@entityPage');
+});
 
 /**
  * Admin interface
  */
-Route::group(['middleware' => 'web', 'prefix' => 'admin'], function ()
+Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin'], function ()
 {
     // Admin authentication routes
     Route::auth();
@@ -73,8 +75,7 @@ Route::group(['middleware' => 'web', 'prefix' => 'admin'], function ()
     });
 });
 
-Route::group(['middleware' => 'web', 'prefix' => 'rest'], function()
+Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'rest'], function()
 {
     Route::resource('seance', 'SeanceController');
-    // Route::resource('seance', 'SeanceRestController');
 });

@@ -61,32 +61,34 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<body class="hold-transition {{ config('backpack.base.skin') }} sidebar-mini">
+<body class="hold-transition {{ config('backpack.base.skin') }} sidebar-mini" id="App">
     <!-- Site wrapper -->
     <div class="wrapper">
 
-      <header class="main-header">
-        <!-- Logo -->
-        <a href="{{ url('') }}" class="logo" target="_blank">
-          <!-- mini logo for sidebar mini 50x50 pixels -->
-          <span class="logo-mini">{!! config('backpack.base.logo_mini') !!}</span>
-          <!-- logo for regular state and mobile devices -->
-          <span class="logo-lg">{!! config('backpack.base.logo_lg') !!}</span>
-        </a>
-        <!-- Header Navbar: style can be found in header.less -->
-        <nav class="navbar navbar-static-top" role="navigation">
-          <!-- Sidebar toggle button-->
-          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
+      @if (Auth::check())
+        <header class="main-header">
+          <!-- Logo -->
+          <a href="{{ url('') }}" class="logo" target="_blank">
+            <!-- mini logo for sidebar mini 50x50 pixels -->
+            <span class="logo-mini">{!! config('backpack.base.logo_mini') !!}</span>
+            <!-- logo for regular state and mobile devices -->
+            <span class="logo-lg">{!! config('backpack.base.logo_lg') !!}</span>
           </a>
+          <!-- Header Navbar: style can be found in header.less -->
+          <nav class="navbar navbar-static-top" role="navigation">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </a>
 
-          @include('backpack::inc.menu')
-        </nav>
-        {{-- <navbar></navbar> --}}
-      </header>
+            @include('backpack::inc.menu')
+          </nav>
+          {{-- <navbar></navbar> --}}
+        </header>
+      @endif
 
       <!-- =============================================== -->
 
@@ -120,15 +122,17 @@
     </div>
     <!-- ./wrapper -->
 
-    {{-- Data from Backend --}}
-    <script type="text/javascript">
-      {{-- Коллекции --}}
-      window['seances'] = {!! $seances !!};
-      window['programs'] = {!! $programs !!};
-      window['events'] = {!! $events !!};
-      window['places'] = {!! $places !!};
-      window['categories'] = {!! $categories !!};
-    </script>
+    @if (Auth::check())
+      {{-- Data from Backend --}}
+      <script type="text/javascript">
+        {{-- Коллекции --}}
+        window['seances'] = {!! $seances !!};
+        window['programs'] = {!! $programs !!};
+        window['events'] = {!! $events !!};
+        window['places'] = {!! $places !!};
+        window['categories'] = {!! $categories !!};
+      </script>
+    @endif
 
     @yield('before_scripts')
 

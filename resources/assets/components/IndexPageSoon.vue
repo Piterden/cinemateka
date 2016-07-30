@@ -136,7 +136,7 @@ export default {
         fromTime = moment(),
         toTime = fromTime.add(14, 'days'),
         ee = events.filter((e) => {
-          let ss = e.seances.filter((s) => {
+          let ss = e && e.seances && e.seances.length && e.seances.filter((s) => {
             let st = moment(s.start_time)
             return fromTime < st && toTime > st
           })

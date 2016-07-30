@@ -17,13 +17,11 @@
 <div class="row">
   <div class="col-md-12">
     <!-- Default box -->
-
       {!! Form::open([
         'id' => 'entry-form',
         'url' => $crud->route.'/'.$entry->id,
         'method' => 'put',
         'class' => $crud->entity_name.'-edit-form',
-        //'@submit' => '$root.submitEditForm($event)'
       ]) !!}
       <div class="box">
         <div class="box-header with-border">
@@ -42,13 +40,23 @@
             <button type="submit" class="btn btn-success ladda-button" data-style="zoom-in">
               <span class="ladda-label">
                 <i class="fa fa-save"></i>
-                {{ trans('backpack::crud.save') }}
+                Сохранить
               </span>
             </button><!-- /.top-submit-button-->
+            <a href="{{ url('/' . $crud->entity_name . '/' . $entry->slug) }}"
+              class="btn btn-primary ladda-button"
+              data-style="zoom-in"
+              target="_blank"
+            >
+              <span class="ladda-label">
+                <i class="fa fa-eye"></i>
+                Просмотреть
+              </span>
+            </a><!-- /.top-submit-button-->
             <a href="{{ url($crud->route) }}" class="btn btn-default ladda-button" data-style="zoom-in">
               <span class="ladda-label">
                 <i class="fa fa-ban"></i>
-                {{ trans('backpack::crud.cancel') }}
+                Отмена
               </span>
             </a><!-- /.top-submit-button-->
           </div><!-- /.box-actions-->

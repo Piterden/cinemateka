@@ -3,9 +3,9 @@
     <div v-if="eventItem" class="event-image" :style="bgStyleObject">
       <div class="mdl-grid">
         <div class="mdl-cell mdl-cell--7-col">
-          <div class="event-date">{{ closestSeanceDate }}</div>
+          <div class="event-date" v-if="closestSeanceDate">{{ closestSeanceDate }}</div>
           <h1 class="event-title">{{ eventItem.title }}</h1>
-          <div class="event-programm">
+          <div class="event-programm" v-if="closestProgram">
             <a v-link="'/program/'+closestProgram.slug">
               {{ closestProgram.title }}
             </a>
@@ -22,18 +22,18 @@
       <div class="mdl-cell mdl-cell--7-col">
         <div class="event-desc">
           <div class="event-param">
-            <div class="event-time">
+            <div class="event-time" v-if="closestSeanceTime">
               <i class="fa fa-clock-o" aria-hidden="true"></i> {{ closestSeanceTime }}
             </div>
             <div class="event-place" v-if="closestPlace">
               <i class="fa fa-map-marker" aria-hidden="true"></i> «{{ closestPlace.title }}»
             </div>
-            <div class="event-price">
+            <div class="event-price" v-if="closestSeance">
               <i class="material-icons">account_balance_wallet</i>
               <strong>{{ closestSeance.price }}</strong> р.
             </div>
           </div>
-          <div class="event-desc-text">
+          <div class="event-desc-text" v-if="eventItem.description">
             {{{ eventItem.description }}}
           </div>
         </div>
@@ -119,10 +119,10 @@
           </table>
         </div>
       </div>
-      <div class="mdl-cell mdl-cell--5-col">
+      <div class="mdl-cell mdl-cell--5-col" v-if="closestSeance">
         <div v-if="closestSeance.speaker_info" class="speakers">
           <h3><i class="fa fa-comment"></i> Спикеры</h3>
-          {{ closestSeance.speaker_info }}
+          {{{ closestSeance.speaker_info }}}
         </div>
       </div>
     </div>
@@ -289,6 +289,7 @@ export default {
     /* eslint-enable no-unused-vars */
     calcSwipeHeigth(){
       let swipe = this.$el.querySelector('.swipe')
+      if (!swipe) return 'inherit'
       swipe.style.height = Number(swipe.offsetWidth / 16 * 9) + 'px'
     },
     onWinResize() {
@@ -319,7 +320,7 @@ export default {
           'twitter:title': this.eventItem.title,
           'twitter:description': this.eventItem.description,
           'twitter:image': this.selfImageUrl
-        },
+        }, //' comment to fix sublime highlighting
         itemprop: {
           name: this.eventItem.title,
           description: this.eventItem.description,
@@ -331,12 +332,11 @@ export default {
           'og:title': this.eventItem.title,
           'og:description': this.eventItem.description,
           'og:image': this.selfImageUrl
-        }
+        } //' comment to fix sublime highlighting
       }
     }
   }
-
-}//'
+}
 </script>
 <style lang="css" scoped>
   h3 {

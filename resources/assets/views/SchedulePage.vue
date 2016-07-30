@@ -86,21 +86,6 @@ export default {
     }
   },
 
-  /**
-   * Инициализация компонента. Добавляем значения к каждому сеансу.
-   */
-  created() {
-    this.seances = this.seances.map((s) => {
-      s.startDate = this.getStartDate(s)
-      s.startTime = this.getStartTime(s)
-      s.event = this.getEvent(s)
-      s.program = this.getProgram(s)
-      s.place = this.getPlace(s)
-      s.eventTypeName = this.getEventTypeName(s.event)
-      return s
-    })
-  },
-
   methods: {
     /**
      * Фильтрует события по заданным значениям
@@ -155,59 +140,6 @@ export default {
         })
       this.filteredCount = filteredArray.length
       return filteredArray
-    },
-    /**
-     * Дата проведения сеанса
-     * @param  {Object} seance Объект сеанса
-     * @return {String}        Дата ДД.ММ
-     */
-    getStartDate(seance) {
-      let d = new Date(seance.start_time)
-      return this.$root.formatDateToStr(d, 'DD.MM')
-    },
-    /**
-     * Время проведения сеанса
-     * @param  {Object} seance Объект сеанса
-     * @return {String}        Время ЧЧ:ММ
-     */
-    getStartTime(seance) {
-      let d = new Date(seance.start_time)
-      return this.$root.timeStrFromDateObj(d, 'hh:mm')
-    },
-    /**
-     * Событие сеанса
-     * @param  {Object} seance Объект сеанса
-     * @return {Object}        Объект события
-     */
-    getEvent(seance) {
-      return this.$root.getById(this.$root.events, seance.event_id)
-    },
-    /**
-     * Программа сеанса
-     * @param  {Object} seance Объект сеанса
-     * @return {Object}        Объект программы
-     */
-    getProgram(seance) {
-      return this.$root.getById(this.$root.programs, seance.program_id)
-    },
-    /**
-     * Место проведения сеанса
-     * @param  {Object} seance Объект сеанса
-     * @return {Object}        Объект места
-     */
-    getPlace(seance) {
-      return this.$root.getById(this.$root.places, seance.place_id)
-    },
-    /**
-     * Название категории (типа события)
-     * @param  {Object} evObj Объект события
-     * @return {String}       Name
-     */
-    getEventTypeName(evObj) {
-      if (evObj === undefined) return ''
-      let catId = Number(evObj.category_id) || 0
-      let cat = catId ? this.$root.getCategoryById(catId) : {name: ''}
-      return cat.name
     }
   }
 }

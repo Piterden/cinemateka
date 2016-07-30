@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-// VALIDATION: change the requests to match your own file names if you need form validation
-use App\Http\Requests\EventRequest as StoreRequest;
-use App\Http\Requests\EventRequest as UpdateRequest;
+use Validator;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
+use App\Http\Requests\StoreEventRequest as StoreRequest;
+use App\Http\Requests\UpdateEventRequest as UpdateRequest;
 
 class EventCrudController extends CrudController
 {
@@ -32,12 +32,13 @@ class EventCrudController extends CrudController
          *  ------ CRUD COLUMNS
          */
         $this->crud->addColumn([
-            'name'  => 'title',
-            'label' => 'Название',
+            'name'    => 'title',
+            'label'   => 'Название',
         ]);
         $this->crud->addColumn([
             'name'  => 'published',
             'label' => 'Статус',
+            'value' => 1,
         ]);
         $this->crud->addColumn([
             'name'  => 'created_at',
@@ -78,16 +79,16 @@ class EventCrudController extends CrudController
         ]);
         $this->crud->addField([
             'label'    => 'Картинка',
-            'name'  => 'images',
-            'type'  => 'repeater_image',
+            'name'     => 'images',
+            'type'     => 'repeater_image',
             'cssclass' => 'main-image',
             'colspan'  => '5',
         ]);
         $this->crud->addField([ // Image
-            'name'     => 'videos',
-            'label'    => 'Видео',
-            'type'  => 'repeater_video',
-            'colspan'  => '5',
+            'name'    => 'videos',
+            'label'   => 'Видео',
+            'type'    => 'repeater_video',
+            'colspan' => '5',
         ]);
         $this->crud->addField([ // CHECKBOX
             'name'    => 'published',
@@ -107,17 +108,18 @@ class EventCrudController extends CrudController
             'type'        => 'ckeditor', //summernote
             'placeholder' => 'Введите описание события',
             'colspan'     => '12',
-        ]);$this->crud->addField([ // WYSIWYG
-            'name'        => 'press_materials',
-            'label'       => 'Пресс-материалы',
-            'type'        => 'ckeditor',
-            'colspan'     => '12',
+        ]);
+        $this->crud->addField([ // WYSIWYG
+            'name'    => 'press_materials',
+            'label'   => 'Пресс-материалы',
+            'type'    => 'ckeditor',
+            'colspan' => '12',
         ]);
         $this->crud->addField([ // Select2Multiple = n-n relationship (with pivot table)
-            'label'        => 'Сеансы',
-            'type'         => 'select_seance_multiple',
-            'name'         => 'seances', // the method that defines the relationship in your Model
-            'colspan'      => '12',
+            'label'   => 'Сеансы',
+            'type'    => 'select_seance_multiple',
+            'name'    => 'seances', // the method that defines the relationship in your Model
+            'colspan' => '12',
         ]);
         $this->crud->addField([
             'name'  => 'service_2',
@@ -208,32 +210,26 @@ class EventCrudController extends CrudController
             'colspan' => '6',
         ]);
         $this->crud->addField([ // TEXT
-            'name'      => 'actors',
-            'label'     => 'Актеры в главных ролях',
-            'hint'     => 'Пример заполнения - ["Татьяна Друбич, Александр Баширов, Виктор Цой"]',
-            'type'      => 'text',
+            'name'    => 'actors',
+            'label'   => 'Актеры в главных ролях',
+            'hint'    => 'Пример заполнения - ["Татьяна Друбич, Александр Баширов, Виктор Цой"]',
+            'type'    => 'text',
             // 'type'      => 'repeater_text',
             'colspan' => '12',
         ]);
         $this->crud->addField([ // TEXT
-            'name'  => 'awards',
-            'label' => 'Награды',
-            'type'  => 'text',
+            'name'    => 'awards',
+            'label'   => 'Награды',
+            'type'    => 'text',
             // 'type'  => 'repeater_text',
             'colspan' => '6',
         ]);
         $this->crud->addField([ // TEXT
-            'name'  => 'link',
-            'label' => 'Ссылка',
-            'type'  => 'text',
+            'name'    => 'link',
+            'label'   => 'Ссылка',
+            'type'    => 'text',
             'colspan' => '6',
         ]);
-
-        // $this->crud->addField([
-        //     'name'  => 'service_3',
-        //     'value' => '<div class="col-md-12"><h3>Мета-инфо</h3></div>',
-        //     'type'  => 'custom_html',
-        // ]);
         $this->crud->addField([
             'name'  => '2',
             'label' => 'SEO данные',
@@ -257,7 +253,6 @@ class EventCrudController extends CrudController
             'v-model'  => 'slug',
             '@keyup'   => '$root.doTranslit($event)',
         ]);
-
         $this->crud->addField([ // TEXT
             'name'     => 'meta_description',
             'label'    => 'Meta-Description',
@@ -271,91 +266,49 @@ class EventCrudController extends CrudController
             'fake'     => true,
             'store_in' => 'meta',
         ]);
-        // $this->crud->addField([
-        //     // two interconnected entities
-        //     'label'             => 'Сеансы и программы',
-        //     'field_unique_name' => 'event_seances_programs',
-        //     'type'              => 'checklist_dependency',
-        //     'name'              => 'seances_programs', // the methods that defines the relationship in your Model
-        //     'subfields'         => [
-        //         'primary'   => [
-        //             'label'            => 'Сеансы',
-        //             'name'             => 'seances', // the method that defines the relationship in your Model
-        //             'entity'           => 'seances', // the method that defines the relationship in your Model
-        //             'entity_secondary' => 'programs', // the method that defines the relationship in your Model
-        //             'attribute'        => 'start_time', // foreign key attribute that is shown to user
-        //             'model'            => "App\Models\Seance", // foreign key model
-        //             'pivot'            => true, // on create&update, do you need to add/delete pivot table entries?]
-        //             'number_columns'   => 3, //can be 1,2,3,4,6
-        //         ],
-        //         'secondary' => [
-        //             'label'          => 'Программы',
-        //             'name'           => 'programs', // the method that defines the relationship in your Model
-        //             'entity'         => 'programs', // the method that defines the relationship in your Model
-        //             'entity_primary' => 'seances', // the method that defines the relationship in your Model
-        //             'attribute'      => 'title', // foreign key attribute that is shown to user
-        //             'model'          => "App\Models\Program", // foreign key model
-        //             'pivot'          => true, // on create&update, do you need to add/delete pivot table entries?]
-        //             'number_columns' => 3, //can be 1,2,3,4,6
-        //         ],
-        //     ],
-        // ]);
-
-        // actors
-        // awards
-        // videos
-        // images
-        // properties
-
-        // $this->crud->addField([ // TEXT
-        //     'name'  => 'date',
-        //     'label' => 'Date',
-        //     'type'  => 'date',
-        //     'value' => date('Y-m-d')
-        // ], 'create');
-        // $this->crud->addField([ // TEXT
-        //     'name'  => 'date',
-        //     'label' => 'Date',
-        //     'type'  => 'date'
-        // ], 'update');
-
-        // $this->crud->addField([ // SELECT
-        //     'label'     => "Category",
-        //     'type'      => 'select2',
-        //     'name'      => 'category_id',
-        //     'entity'    => 'category',
-        //     'attribute' => 'name',
-        //     'model'     => "App\Models\Category"
-        // ]);
-        // $this->crud->addField([ // Select2Multiple = n-n relationship (with pivot table)
-        //     'label'     => "Tags",
-        //     'type'      => 'select2_multiple',
-        //     'name'      => 'tags',           // the method that defines the relationship in your Model
-        //     'entity'    => 'tags',           // the method that defines the relationship in your Model
-        //     'attribute' => 'name',           // foreign key attribute that is shown to user
-        //     'model'     => "App\Models\Tag", // foreign key model
-        //     'pivot'     => true             // on create&update, do you need to add/delete pivot table entries?
-        // ]);
-        // $this->crud->addField([ // ENUM
-        //     'name'  => 'status',
-        //     'label' => "Status",
-        //     'type'  => 'enum'
-        // ]);
-        // $this->crud->addField([ // CHECKBOX
-        //     'name'  => 'featured',
-        //     'label' => "Featured item",
-        //     'type'  => 'checkbox'
-        // ]);
-
     }
 
     public function store(StoreRequest $request)
     {
+        $validator = Validator::make($request->all(), [
+            'title'       => ['required', 'max:255'],
+            'slug'        => ['required', 'unique:events', 'max:255'],
+            'category_id' => ['required'],
+        ], [
+            'title.required'       => 'Необходимо указать заголовок',
+            'slug.required'        => 'Необходимо указать псевдоним',
+            'category_id.required' => 'Необходимо указать категорию',
+        ]);
+
+        if ($validator->fails())
+        {
+            return redirect('/admin/event/create')
+            ->withErrors($validator)
+            ->withInput();
+        }
+
         return parent::storeCrud();
     }
 
-    public function update(UpdateRequest $request)
+    public function update(UpdateRequest $request, $id)
     {
+        $validator = Validator::make($request->all(), [
+            'title'       => ['required', 'max:255'],
+            'slug'        => ['required', 'max:255'],
+            'category_id' => ['required'],
+        ], [
+            'title.required'       => 'Необходимо указать заголовок',
+            'slug.required'        => 'Необходимо указать псевдоним',
+            'category_id.required' => 'Необходимо указать категорию',
+        ]);
+
+        if ($validator->fails())
+        {
+            return redirect('/admin/event/'.$id.'/edit')
+            ->withErrors($validator)
+            ->withInput();
+        }
+
         return parent::updateCrud();
     }
 }

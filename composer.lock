@@ -94,16 +94,16 @@
         },
         {
             "name": "backpack/backupmanager",
-            "version": "1.1.7",
+            "version": "1.1.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Laravel-Backpack/BackupManager.git",
-                "reference": "91ea3374cfe8a05ee883ef605f4cf0b6f9c9b39f"
+                "reference": "469767e74dcd1c272cf3aaabab03df7c2de557f1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Laravel-Backpack/BackupManager/zipball/91ea3374cfe8a05ee883ef605f4cf0b6f9c9b39f",
-                "reference": "91ea3374cfe8a05ee883ef605f4cf0b6f9c9b39f",
+                "url": "https://api.github.com/repos/Laravel-Backpack/BackupManager/zipball/469767e74dcd1c272cf3aaabab03df7c2de557f1",
+                "reference": "469767e74dcd1c272cf3aaabab03df7c2de557f1",
                 "shasum": ""
             },
             "require": {
@@ -149,7 +149,7 @@
                 "tabacitu",
                 "updivision"
             ],
-            "time": "2016-07-13 08:30:12"
+            "time": "2016-07-25 14:28:19"
         },
         {
             "name": "backpack/base",
@@ -210,16 +210,16 @@
         },
         {
             "name": "backpack/crud",
-            "version": "2.0.23",
+            "version": "2.0.24",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Laravel-Backpack/CRUD.git",
-                "reference": "02d6e35cf385ba50335c30cda92b26b8db79df62"
+                "reference": "b1ab6ac0d5bf99bf0b8cb2aac1df91ec7baf6c6c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Laravel-Backpack/CRUD/zipball/02d6e35cf385ba50335c30cda92b26b8db79df62",
-                "reference": "02d6e35cf385ba50335c30cda92b26b8db79df62",
+                "url": "https://api.github.com/repos/Laravel-Backpack/CRUD/zipball/b1ab6ac0d5bf99bf0b8cb2aac1df91ec7baf6c6c",
+                "reference": "b1ab6ac0d5bf99bf0b8cb2aac1df91ec7baf6c6c",
                 "shasum": ""
             },
             "require": {
@@ -268,7 +268,7 @@
                 "read",
                 "update"
             ],
-            "time": "2016-07-13 08:51:21"
+            "time": "2016-07-21 14:30:34"
         },
         {
             "name": "backpack/generators",
@@ -1733,16 +1733,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.2.40",
+            "version": "5.2.41",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "6195211140ed0881e89d79a296f893abc56987be"
+                "reference": "29ba2e310cfeb42ab6545bcd81ff4c2ec1f6b5c2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/6195211140ed0881e89d79a296f893abc56987be",
-                "reference": "6195211140ed0881e89d79a296f893abc56987be",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/29ba2e310cfeb42ab6545bcd81ff4c2ec1f6b5c2",
+                "reference": "29ba2e310cfeb42ab6545bcd81ff4c2ec1f6b5c2",
                 "shasum": ""
             },
             "require": {
@@ -1859,7 +1859,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2016-07-19 19:46:25"
+            "time": "2016-07-20 13:13:06"
         },
         {
             "name": "laravelcollective/html",
@@ -2683,16 +2683,16 @@
         },
         {
             "name": "spatie/laravel-backup",
-            "version": "3.8.1",
+            "version": "3.8.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-backup.git",
-                "reference": "08b7b8c778d5aeb0179cc49da4f64415bab9f81f"
+                "reference": "8ba56fe3cc540430f71df0a4382dbe4bb95acdfe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-backup/zipball/08b7b8c778d5aeb0179cc49da4f64415bab9f81f",
-                "reference": "08b7b8c778d5aeb0179cc49da4f64415bab9f81f",
+                "url": "https://api.github.com/repos/spatie/laravel-backup/zipball/8ba56fe3cc540430f71df0a4382dbe4bb95acdfe",
+                "reference": "8ba56fe3cc540430f71df0a4382dbe4bb95acdfe",
                 "shasum": ""
             },
             "require": {
@@ -2741,7 +2741,7 @@
                 "laravel-backup",
                 "spatie"
             ],
-            "time": "2016-07-06 15:30:58"
+            "time": "2016-07-27 15:39:22"
         },
         {
             "name": "spatie/laravel-permission",
@@ -2798,16 +2798,16 @@
         },
         {
             "name": "studio-42/elfinder",
-            "version": "2.1.13",
+            "version": "2.1.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Studio-42/elFinder.git",
-                "reference": "0fdd17e79be892ba807fc38127339372cb1b7c30"
+                "reference": "02c19ae09a36ec83a837b28eb5b232f5ce7b0bd9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Studio-42/elFinder/zipball/0fdd17e79be892ba807fc38127339372cb1b7c30",
-                "reference": "0fdd17e79be892ba807fc38127339372cb1b7c30",
+                "url": "https://api.github.com/repos/Studio-42/elFinder/zipball/02c19ae09a36ec83a837b28eb5b232f5ce7b0bd9",
+                "reference": "02c19ae09a36ec83a837b28eb5b232f5ce7b0bd9",
                 "shasum": ""
             },
             "require": {
@@ -2852,7 +2852,7 @@
             ],
             "description": "File manager for web",
             "homepage": "http://elfinder.org",
-            "time": "2016-07-11 02:16:04"
+            "time": "2016-07-25 00:34:19"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -4403,16 +4403,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "4.8.26",
+            "version": "4.8.27",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "fc1d8cd5b5de11625979125c5639347896ac2c74"
+                "reference": "c062dddcb68e44b563f66ee319ddae2b5a322a90"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/fc1d8cd5b5de11625979125c5639347896ac2c74",
-                "reference": "fc1d8cd5b5de11625979125c5639347896ac2c74",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/c062dddcb68e44b563f66ee319ddae2b5a322a90",
+                "reference": "c062dddcb68e44b563f66ee319ddae2b5a322a90",
                 "shasum": ""
             },
             "require": {
@@ -4471,7 +4471,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2016-05-17 03:09:28"
+            "time": "2016-07-21 06:48:14"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
