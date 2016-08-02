@@ -1,3 +1,30 @@
+<template>
+  <div class="mdl-grid error-wrapper">
+    <div class="mdl-cell mdl-cell--7-col">
+			<div class="error-box err-low">
+  			<svg>
+    			<text y="130">404</text>
+  			</svg>
+  			<h1>Страница не найдена</h1>
+  			Неправильно набран адрес, или такой страницына сайте больше не существует.<br><br>
+  			Вернуться на <a v-link="{ path: '/' }">главную страницу.</a>
+			</div>
+      {{ history | json }}
+		</div>
+	</div>
+</template>
+
+<script>
+export default {
+
+  data() {
+    return {
+      history: window.history
+    }
+  }
+}
+</script>
+
 <style lang="css" scoped>
 .mdl-grid, .mdl-cell {
   height: 100%;
@@ -43,29 +70,4 @@
 .err-low h1 {
   margin-top: 140px;
 }
-
 </style>
-<template>
-  <div class="mdl-grid error-wrapper">
-    <div class="mdl-cell mdl-cell--7-col">
-			<div class="error-box err-low">
-  			<svg>
-    			<text y="130">404</text>
-  			</svg>
-  			<h1>Страница не найдена</h1>
-  			Неправильно набран адрес, или такой страницына сайте больше не существует.<br><br>
-  			Вернуться на <a href="/">главную страницу.</a>
-			</div>
-		</div>
-	</div>
-</template>
-<script>
-export default {
-
-  data() {
-    return {
-
-    }
-  }
-}
-</script>

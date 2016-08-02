@@ -71,7 +71,7 @@ export default {
       if (this.activeTab == 0) {
         fv.date_interval = [
           this.topToTime.format('YYYY-MM-DD HH:mm:ss'),
-          moment().add(1, 'months').endOf('month').format('YYYY-MM-DD HH:mm:ss')
+          moment().endOf('month').format('YYYY-MM-DD HH:mm:ss')
         ]
       } else {
         let start = moment().set(

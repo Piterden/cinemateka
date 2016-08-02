@@ -127,6 +127,10 @@ new Vue({
       })
     },
 
+    /**
+     * Отправка формы
+     * @param  {Event} e  DOM event
+     */
     submit(e) {
       if (!e.ctrlKey || e.code !== 'KeyS') return
       e.preventDefault()

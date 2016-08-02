@@ -158,6 +158,9 @@ export default {
   },
 
   methods: {
+    /**
+     * Сохраняет сеанс
+     */
     saveSeance() {
       let obj = this.getFormFields('addSeanceForm')
       obj.start_time = moment(obj.start_time, 'D MMMM YYYY в H:mm')
@@ -173,31 +176,57 @@ export default {
         .then(this.afterAddSeance, this.showError)
       }
     },
-    getFormFields(selector) {
+
+    /**
+     * Получает поля формы по id
+     * @param  {String} id      id формы
+     * @return {Object}
+     */
+    getFormFields(id) {
       let obj = {},
-        fields = $(document.getElementById(selector)).serializeArray()
+        fields = $(document.getElementById(id)).serializeArray()
       fields.forEach((f) => {
         obj[f.name] = f.value
       })
       return obj
     },
+
+    /**
+     * После добавления сеанса
+     * @param  {Object} resp  Ответ сервера
+     */
     afterAddSeance(resp) {
       this.$root.seances.push(resp.data)
       this.showModal = false
       this.$root.fireNotify('Сеанс добавлен', 'Вы успешно добавили сеанс', 'success')
     },
+
+    /**
+     * После редактирования сеанса
+     * @param  {Object} resp  Ответ сервера
+     */
     afterUpdateSeance(resp) {
       let i = this.$root.seances.findIndex((s) => { return s.id == resp.data.id })
       this.$root.seances.$set(i, resp.data)
       this.showModal = false
       this.$root.fireNotify('Сеанс обновлен', 'Вы успешно обновили сеанс', 'success')
     },
+
+    /**
+     * Нажатие на "Добавить сеанс"
+     */
     onAddSeance() {
       this.activeSeance = { event_id: this.eventId }
       this.showModal = true
     },
-    showError(res) {
-      this.$root.fireNotify('Ошибка!!!', 'Что-то пошло не так! ' + res.status, 'error')
+
+    /**
+     * Показывает уведомление об ошибке
+     * @param  {Object} resp
+     * @return {[type]}     [description]
+     */
+    showError(resp) {
+      this.$root.fireNotify('Ошибка!!!', 'Что-то пошло не так! ' + resp.status, 'error')
     }
   },
 

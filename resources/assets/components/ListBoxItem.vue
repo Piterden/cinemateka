@@ -12,7 +12,7 @@
     transition="fade"
     transition-mode="out-in"
   >
-    <div class="event-item-card" :style="bgStyleObject">
+    <div class="event-item-card" :style="bgStyleObject" v-if="item.slug">
       <a href="#" v-link="{ path: '/event/' + item.slug }">
         <div class="category">{{ eventTypeName }}</div>
       </a>
@@ -28,10 +28,17 @@
               <h3>{{ item.title }}</h3>
           </div>
         </a>
-        <div class="program">
+        <div class="program" v-if="entity === 'event'">
           <div v-if="closestProgram">
             <a href="#" v-link="{ path:'/program/' + closestProgram.slug }">
               {{ closestProgram.title }}
+            </a>
+          </div>
+        </div>
+        <div v-else>
+          <div v-if="closestEvent">
+            <a href="#" v-link="{ path:'/event/' + closestEvent.slug }">
+              {{ closestEvent.title }}
             </a>
           </div>
         </div>
@@ -61,12 +68,18 @@ export default {
     limit: Number,
     height: Number,
     separator: { type: String, default: ' – ' },
-    styleObject: { type: Object, default: 'inherit' }
+    styleObject: { type: Object, default: 'inherit' },
+    entity: { type: String, default: 'event' }
   },
 
   computed: {
     closestProgram() {
+      let programIds = this.$root.getEventProgramsIds(this.item)
       return this.$root.getClosestSeanceProgram(this.item)
+        || this.$root.getById(this.$root.programs, programIds[0])
+    },
+    closestEvent() {
+      return this.$root.getClosestSeanceEvent(this.item)
     },
     bgStyleObject() {
       return this.thumb ? {
@@ -85,18 +98,9 @@ export default {
      * @return {Number}
      */
     same() {
-      return this.item.wide != '1' ? this.cols : this.cols * 2
-    },
-    /**
-     * Получает первый и, если нужно, последний элемент в 2 раза шире
-     * @return {Number} Grid Width
-     */
-    // firstLastDoubleWidth() {
-    //   // let showed = this.$parent.$children.length
-    //   return !this.index || (
-    //     this.$parent.$children.length == this.limit && this.index == this.limit - 1
-    //   ) ? this.cols * 2 : this.cols
-    // }
+      let wide = this.item && this.item.wide || '0'
+      return wide != '1' ? this.cols : this.cols * 2
+    }
   },
 
   methods: {

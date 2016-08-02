@@ -30,8 +30,6 @@ export default {
   data() {
     return {
       visibleFilters: [
-        'now_soon',
-        // 'date_interval',
         'month',
         'event_type',
         'program_type',
@@ -45,21 +43,28 @@ export default {
   },
 
   props: {
+
     filteredCount: Number,
+
+    /**
+     * Видимые сеансы
+     * @type {Object}
+     */
     seances: {
       type: Array,
       default () {
-        return this.$root.seances
+        return this.$root.seances || []
       }
     },
+
+    /**
+     * Значения фильтров
+     * @type {Object}
+     */
     filterValues: {
       default () {
-        let d = new Date(),
-          e = new Date(d.getFullYear(), d.getMonth() + 1, d.getDate()),
-          interval = [this.$root.parse(d), this.$root.parse(e)]
         return {
-          'now_soon': this.$root.getNowSoones()[1],
-          'date_interval': interval,
+          // 'now_soon': this.$root.getNowSoones()[1],
           'month': 'Все месяцы',
           'event_type': 'Все события',
           'program_type': 'Все программы',
@@ -68,19 +73,24 @@ export default {
       },
       twoWay: true
     },
+
+    /**
+     * Списки для фильтров
+     * @type {Object}
+     */
     filterLists: {
       type: Object,
       default () {
         return {
-          now_soon: this.$root.getNowSoones(),
-          month: ['Все месяцы', ...this.$root.getMonthNames()],
+          // now_soon: this.$root.getNowSoones(),
+          month: ['Все месяцы', ...moment.months()],
           event_type: this.$root.getEventTypes(),
-          program_type: this.$root.programs.map((pr) => {
+          program_type: ['Все программы', ...this.$root.programs.map((pr) => {
             return pr.title
-          }).getUnique().addBefore('Все программы'),
-          place_type: this.$root.places.map((pl) => {
+          }).getUnique()],
+          place_type: ['Все площадки', ...this.$root.places.map((pl) => {
             return pl.title
-          }).getUnique().addBefore('Все площадки')
+          }).getUnique()]
         }
       }
     }
@@ -95,22 +105,21 @@ export default {
      * @TODO dates frop pickers
      */
     filterMethod(seances = [], filters) {
-      let fromTime = moment(),
-        y = fromTime.year(),
-        m = fromTime.month(),
-        d = fromTime.date(),
-        endTime = new Date(y, m, d + 1, 23, 59, 59),
+      let fromTime = moment().startOf('day'),
+        endTime = moment(fromTime).add(1, 'year'),
         filteredArray = seances.filter((seance) => {
-          let seanceTime = new Date(seance.start_time),
+          let seanceTime = moment(seance.start_time),
             s_evt = seance.eventTypeName && seance.eventTypeName.toLowerCase(),
             s_prt = seance.program && seance.program.title.toLowerCase(),
             s_plt = seance.place && seance.place.title.toLowerCase(),
-            s_m = seanceTime.getMonth(),
+            s_m = seanceTime.month(),
             f_et = filters.event_type.toLowerCase(),
             f_prt = filters.program_type.toLowerCase(),
             f_plt = filters.place_type.toLowerCase(),
-            f_ns = filters.now_soon.toLowerCase(),
             f_m = filters.month - 1
+          if (seanceTime < fromTime || seanceTime > endTime) {
+            return false
+          }
           if (f_et != 'все события' && f_et != s_evt) {
             return false
           }
@@ -120,22 +129,9 @@ export default {
           if (f_plt != 'все площадки' && f_plt != s_plt) {
             return false
           }
-          if (f_ns == 'скоро') {
-            endTime = new Date(y, m, d + 300, 23, 59, 59)
-          }
-          if (seanceTime < fromTime || seanceTime > endTime) {
-            return false
-          }
           if (f_m != -1 && f_m != s_m) {
             return false
           }
-          // case 'date_interval':
-          //   fromTime = new Date(filters[f][0])
-          //   endTime = new Date(filters[f][1])
-          //   if (seanceTime < fromTime || seanceTime > endTime) {
-          //     return false
-          //   }
-          //   break
           return true
         })
       this.filteredCount = filteredArray.length

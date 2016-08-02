@@ -1,5 +1,3 @@
-<style lang="css">
-</style>
 <template lang="html">
   <div class="dropdown">
     <input id="{{ inputId }}" type="checkbox" :checked="checked" />
@@ -81,8 +79,22 @@ export default {
         return
       }
       this.$set('value', value)
-    }
+    },
+
+    // handleClick() {
+      // let checked = document.querySelector('input[type="checkbox"]:not(:checked)')
+      // if (checked) {
+      //   checked.checked = 'checked'
+      // }
+    // }
+  },
+
+  ready() {
+    // this.$el.removeEventListener('click', this.handleClick)
+    // this.$el.addEventListener('click', this.handleClick)
   }
 
 }
 </script>
+<style lang="css">
+</style>

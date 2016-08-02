@@ -28,22 +28,23 @@ class Place extends Model
         'address',
         'metro',
         'images',
-        'properties',
+        'position',
+        // 'properties',
         'place_site',
         'place_email',
         'place_phone'
     ];
     protected $fakeColumns = ['properties'];
-    protected $dates       = ['created_at', 'edited_at', 'deleted_at'];
+    // protected $dates       = ['created_at', 'edited_at', 'deleted_at'];
     public $timestamps     = true;
-    protected $appends     = ['position'];
+    // protected $appends     = ['position'];
 
     /**
      * |--------------------------------------------------------------------------
      * | FUNCTIONS
      * |--------------------------------------------------------------------------
      */
-    public function getGoogleGeocoderResponse($address)
+    public function googleGeocoderResponse($address)
     {
         $param    = ['address' => 'г. Санкт-Петербург, '.$address];
         $response = Geocoder::geocode('json', $param);
@@ -56,7 +57,7 @@ class Place extends Model
         return [];
     }
 
-    public function getGeoPositionJson($results = [])
+    public function geoPositionJson($results = [])
     {
         if (!count($results))
         {
@@ -99,24 +100,21 @@ class Place extends Model
      * @param  [type] $value          [description]
      * @return [type] [description]
      */
-    public function getPositionAttribute($value)
-    {
-        $res = $this->getGoogleGeocoderResponse($this->address);
-        if (!$value || $value == '{"lat":"","lng":""}')
-        {
-            if (!$address = $this->address)
-            {
-                return $value;
-            }
-            $results = $this->getGoogleGeocoderResponse($address);
-            return $this->getGeoPositionJson($results);
-        }
-    }
+    // public function getPositionAttribute($value)
+    // {
+    // }
 
     /**
      * --------------------------------------------------------------------------
      *  MUTATORS
      * --------------------------------------------------------------------------
      */
-
+    public function setAddressAttribute($value)
+    {
+        if (trim($value))
+        {
+            $results = $this->googleGeocoderResponse($value);
+            $this->attributes['position'] = $this->geoPositionJson($results);
+        }
+    }
 }

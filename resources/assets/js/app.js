@@ -7,10 +7,6 @@
 import moment from 'moment'
 import Vue from 'vue'
 
-/* eslint-disable no-console */
-console.log(seances)
-  /* eslint-enable no-console */
-
 /**
  * Главный ($root) vue-компонент.
  * Доступ к App instance из любого места в файлах-компонентах *.vue
@@ -80,7 +76,7 @@ let App = Vue.extend({
 
   created() { // Root-comp created
     /**
-     * Записываем связи в объекты событий и программ
+     * Записываем связанные объекты в события
      */
     this.events = events.map((e) => {
       let cat = this.getCategoryById(e.category_id)
@@ -93,11 +89,17 @@ let App = Vue.extend({
       return cloA.start_time > cloB.start_time
     })
 
+    /**
+     * Записываем связанные объекты в события
+     */
     this.programs = programs.map((p) => {
       p.seances = this.getSeancesByProgramId(p.id)
       return p
     })
 
+    /**
+     * Записываем связанные объекты в места
+     */
     this.places = places.map((p) => {
       if(typeof p.position == 'string') {
         p.position = JSON.parse(p.position)
@@ -114,6 +116,9 @@ let App = Vue.extend({
       return p
     })
 
+    /**
+     * Записываем связанные объекты в слайды
+     */
     this.slides = slides.map((s) => {
       if(typeof s.caption == 'string') {
         s.caption = JSON.parse(s.caption)
@@ -121,6 +126,9 @@ let App = Vue.extend({
       return s
     })
 
+    /**
+     * Записываем связанные объекты в сеансы
+     */
     this.seances = this.seances.map((s) => {
       s.startDate = this.getStartDate(s)
       s.startTime = this.getStartTime(s)
@@ -129,6 +137,8 @@ let App = Vue.extend({
       s.place = this.getPlace(s)
       s.eventTypeName = this.getEventTypeName(s.event)
       return s
+    }).filter((s) => {
+      return s.event && !s.event.deleted_at
     })
   },
 
@@ -205,6 +215,18 @@ let App = Vue.extend({
     },
 
     /**
+     * Возвращает событие ближайшего сеанса
+     * @param   {ProgramObject}      Объект программы
+     * @return  {EventObject}   e    Объект события
+     */
+    getClosestSeanceEvent(p) {
+      let cs = this.getClosestSeance(p)
+      return cs && cs !== -1 && this.events.find((e) => {
+        return Number(e.id) == Number(cs.event_id)
+      })
+    },
+
+    /**
      * Возвращает площадку ближайшего сеанса
      * @param  {EventObject}   e    Объект события
      * @return {PlaceObject}        Объект площадки
@@ -224,39 +246,6 @@ let App = Vue.extend({
     getIndexById(arr = [], id = 0) {
       return arr.findIndex((el) => {
         return Number(el.id) == Number(id)
-      })
-    },
-
-    /**
-     * Объект программы по id
-     * @param  {Number} id
-     * @return {Object} Программа
-     */
-    getProgramById(id = 0) {
-      return id && this.programs.find((p) => {
-        return Number(p.id) == Number(id)
-      })
-    },
-
-    /**
-     * Объект события по id
-     * @param  {Mixed} id
-     * @return {Object} Событие
-     */
-    getEventById(id) {
-      return this.events.find((e) => {
-        return Number(e.id) == Number(id)
-      })
-    },
-
-    /**
-     * Объект события по id
-     * @param  {Mixed} id
-     * @return {Object} Событие
-     */
-    getPlaceById(id) {
-      return this.places.find((e) => {
-        return Number(e.id) == Number(id)
       })
     },
 
@@ -346,7 +335,7 @@ let App = Vue.extend({
      * @return {Array}    массив событий
      */
     getProgramEvents(p) {
-      if(p.seances === undefined) return []
+      if(p.seances === undefined) return false
       let eIds = p.seances.sort((a, b) => {
         return a.start_time > b.start_time
       }).map((s) => {
@@ -499,21 +488,26 @@ let App = Vue.extend({
      * Возвращает месяц для вкладки №i
      */
     getSoonTabMonth(i = 0) {
-      let d = new Date()
+      let d = moment()
       if(i == 0) {
-        d.setDate(d.getDate() + 14)
+        d.add(14, 'days')
       }
-      d.setMonth(d.getMonth() + i)
-      return d.getUTCMonth()
+      d.add(i, 'months')
+      return d.month()
     },
 
     /**
      * Возвращает год для вкладки №i
      */
     getSoonTabYear(i) {
-      let d = new Date()
-      d.setUTCMonth(d.getMonth() + i)
-      return d.getUTCFullYear()
+      let d = moment().add(i, 'months')
+      return d.year()
+    },
+
+    getProgramNames() {
+      return this.programs.map((program) => {
+        return program.title
+      })
     },
 
     /**!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -526,10 +520,7 @@ let App = Vue.extend({
      * строке даты понедельника этой недели
      */
     getSunday(d) {
-      let y = d.getFullYear(),
-        m = d.getMonth(),
-        day = d.getDate()
-      return new Date(y, m, day + 6, 23, 59, 59)
+      return moment(d).endOf('week')
     },
 
     /**
@@ -537,11 +528,7 @@ let App = Vue.extend({
      * любой дате внутри этой недели
      */
     getMonday(d) {
-      let day = d.getDay(),
-        diff = d.getDate() - day + (day == 0 ? -6 : 1)
-      d.setDate(diff)
-      d.setHours(0, 0, 0, 0)
-      return d
+      return moment(d).startOf('week')
     },
 
     /**
@@ -552,54 +539,6 @@ let App = Vue.extend({
     parse(str) {
       let time = new Date(str)
       return isNaN(time.getTime()) ? null : time
-    },
-
-    /**
-     * Форматирует дату в строку даты
-     * @param  {Date}   time    Объект даты
-     * @param  {String}   format  Маска формата
-     * @return {String}
-     */
-    formatDateToStr(time = new Date(), format = 'YYYY-MM-DD') {
-      let year = time.getFullYear(),
-        month = time.getMonth() + 1,
-        date = time.getDate(),
-        monthName = this.getMonthNames()[time.getMonth()],
-        map = {
-          YYYY: year,
-          YY: String(year).slice(2),
-          MMM: monthName,
-          MM: ('0' + month).slice(-2),
-          M: month,
-          DD: ('0' + date).slice(-2),
-          D: date
-        }
-      return format.replace(/Y+|M+|D+/g, (str) => {
-        return map[str]
-      })
-    },
-
-    /**
-     * Форматирует дату в строку времени
-     * @param  {Date}   time    Объект даты
-     * @param  {String}   format  Маска формата
-     * @return {String}
-     */
-    timeStrFromDateObj(time = new Date(), format = 'hh:mm') {
-      let hour = time.getHours(),
-        minute = time.getMinutes(),
-        second = time.getSeconds(),
-        map = {
-          hh: ('0' + hour).slice(-2),
-          h: hour,
-          mm: ('0' + minute).slice(-2),
-          m: minute,
-          ss: ('0' + second).slice(-2),
-          s: second
-        }
-      return format.replace(/h+|m+|s+/g, (str) => {
-        return map[str]
-      })
     }
   }
 })

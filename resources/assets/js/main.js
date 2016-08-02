@@ -31,9 +31,12 @@ load('AIzaSyCrukK_xKPenGQkn9okGUjoBfECOeiOvSc', '3.25.7')
 /**
  * Vue-компоненты
  */
+// import Toggler from '../components/Toggler.vue'
+// import Datepicker from '../components/Datepicker.vue'
+// import DatePickers from '../components/DatePickers.vue'
+// import IndexPageEvents from '../components/IndexPageEvents.vue'
 import Swipe from '../components/Swipe.vue'
 import SwipeItem from '../components/SwipeItem.vue'
-import IndexPageEvents from '../components/IndexPageEvents.vue'
 import IndexPageSoon from '../components/IndexPageSoon.vue'
 import BlocksHeader from '../components/BlocksHeader.vue'
 import ListBox from '../components/ListBox.vue'
@@ -44,23 +47,22 @@ import ListPlaces from '../components/ListPlaces.vue'
 import ListPlacesItem from '../components/ListPlacesItem.vue'
 import FiltersLine from '../components/FiltersLine.vue'
 import DropdownList from '../components/DropdownList.vue'
-import Toggler from '../components/Toggler.vue'
-import Datepicker from '../components/Datepicker.vue'
-import DatePickers from '../components/DatePickers.vue'
 import SocialShare from '../components/SocialShare.vue'
 import Modal from '../components/Modal.vue'
 
 // Dev ops.
 Vue.config.debug = true
 // Vue.config.silent = true
-  // console.log(Vue.config);
 
 /**
  * Регистрация vue-компонентов === html-элементов
  */
+// Vue.component('index-page-events', IndexPageEvents)
+// Vue.component('toggler', Toggler)
+// Vue.component('datepicker', Datepicker)
+// Vue.component('date-pickers', DatePickers)
 Vue.component('swipe', Swipe)
 Vue.component('swipe-item', SwipeItem)
-Vue.component('index-page-events', IndexPageEvents)
 Vue.component('index-page-soon', IndexPageSoon)
 Vue.component('blocks-header', BlocksHeader)
 Vue.component('list-box', ListBox)
@@ -71,9 +73,6 @@ Vue.component('list-places', ListPlaces)
 Vue.component('list-places-item', ListPlacesItem)
 Vue.component('filters-line', FiltersLine)
 Vue.component('dropdown-list', DropdownList)
-Vue.component('toggler', Toggler)
-Vue.component('datepicker', Datepicker)
-Vue.component('date-pickers', DatePickers)
 Vue.component('social-share', SocialShare)
 Vue.component('modal', Modal)
 

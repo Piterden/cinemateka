@@ -37,14 +37,9 @@ class Program extends Model /*implements SluggableInterface*/
     ];
     protected $fakeColumns = [
         'meta',
-        'videos',
-        'images',
         'properties',
     ];
     protected $dates = [
-        'created_at',
-        'edited_at',
-        'deleted_at',
         'start_date',
         'end_date',
     ];

@@ -1,6 +1,3 @@
-<style lang="css" scoped>
-</style>
-
 <template>
   <div class="wrap router-view archive-page">
     <filters-line
@@ -22,11 +19,14 @@
 </template>
 
 <script>
+import moment from 'moment'
+moment.locale('ru_RU')
+
 export default {
 
   data() {
     return {
-      visibleFilters: ['event_type', 'month', 'year'],
+      visibleFilters: ['event_type', 'month', 'year', 'program'],
       limit: 9,
       incrementLimit: 9,
       cols: 4,
@@ -42,11 +42,12 @@ export default {
     filterValues: {
       type: Object,
       default () {
-        let d = new Date()
+        let d = moment()
         return {
           event_type: 'Все события',
-          month: d.getUTCMonth(),
-          year: d.getFullYear()
+          month: d.month(),
+          year: d.year(),
+          program: 'Все программы'
         }
       },
       twoWay: true
@@ -60,8 +61,9 @@ export default {
       default () {
         return {
           event_type: this.$root.getEventTypes(),
-          month: this.$root.getMonthNames().addBefore('Все месяца'),
-          year: this.$root.getExistedYears().addBefore('Все годы'),
+          month: ['Все месяца', ...moment.months()],
+          year: ['Все годы', ...this.$root.getExistedYears()],
+          program: ['Все программы', ...this.$root.getProgramNames()]
         }
       }
     }
@@ -78,6 +80,7 @@ export default {
       let f_et = filters.event_type.toLowerCase(),
         f_y = filters.year,
         f_m = filters.month,
+        f_p = filters.program.toLowerCase(),
         filtered = events.filter((e) => {
           // Если не назначено сеансов - скрываем событие
           if (e.seances === undefined || !e.seances || !e.seances.length) {
@@ -95,6 +98,14 @@ export default {
           if (f_m !== 0 && !this.checkSeancesByMonth(e, f_m - 1)) {
             return false
           }
+          // Если не совпадает программа - скрываем
+          let programIds = this.$root.getEventProgramsIds(e),
+            program = this.$root.getClosestSeanceProgram(this.item)
+              || this.$root.getById(this.$root.programs, programIds[0])
+          if (f_p != 'все программы' && program
+            && f_p != program.title.toLowerCase()) {
+            return false
+          }
           return true
         })
       this.filteredCount = filtered.length
@@ -109,8 +120,8 @@ export default {
      */
     checkSeancesByYear(e, y) {
       return e.seances.find((s) => {
-        let sd = new Date(s.start_time)
-        return sd.getFullYear() == y
+        let sd = moment(s.start_time)
+        return sd.year() == y
       })
     },
 
@@ -122,11 +133,14 @@ export default {
      */
     checkSeancesByMonth(e, m) {
       return e.seances.find((s) => {
-        let sd = new Date(s.start_time)
-        return sd.getMonth() == m
+        let sd = moment(s.start_time)
+        return sd.month() == m
       })
     }
   }
 
-};
+}
 </script>
+
+<style lang="css" scoped>
+</style>

@@ -1,3 +1,129 @@
+<template lang="html">
+  <div class="wrap router-view contacts-page map-wrapper"
+    :style="{ width: mapWidth + 'px', height: mapHeight + 'px' }"
+  >
+    <list-places
+      :places="places"
+      :cursor-index="activeIndex || 0"
+    ></list-places>
+    <map id="map"
+      :center.sync="center"
+      :zoom.sync="15"
+      :options="options"
+    >
+      <marker
+        v-for="place in places"
+        v-if="place.published != 0"
+        :clickable.sync="true"
+        :title.sync="place.title"
+        :cursor.sync="'pointer'"
+        :draggable.sync="false"
+        :label.sync="place.place_type"
+        :position.sync="place.position"
+        :place.sync="markerPlace"
+      ></marker>
+    </map>
+  </div>
+</template>
+
+<script>
+export default {
+
+  data() {
+    return {
+      places: this.$root.places,
+      markerLabel: {
+        color: '#000',
+        // fontFamily: '',
+        fontSize: '24px',
+        fontWeight: 'normal',
+        text: ''
+      },
+      options: {
+        scrollwheel: false
+      }
+    }
+  },
+
+  props: {
+    mapWidth: {
+      type: Number,
+      default: window.innerWidth
+    },
+    mapHeight: {
+      type: Number,
+      default: window.innerHeight
+    },
+    activeMarker: {
+      type: Number,
+      default: 0
+    }
+  },
+
+  computed: {
+    center() {
+      let p = this.getActivePlace()
+      return p && p != -1 && p.position || {}
+    },
+    activeIndex() {
+      return this.$root.getIndexById(this.$root.places, this.activeMarker)
+    }
+  },
+
+  methods: {
+
+    /**
+     * При изменении размера окна и один раз при загрузке
+     * изменяет размеры фрейма карты
+     * @param  {Event} e DOM event
+     */
+    handleResize(e) {
+      if (e !== undefined) {
+        e.preventDefault()
+        e.stopPropagation()
+      }
+      this.mapWidth = window.innerWidth
+      this.mapHeight = window.innerHeight - 96 - 87
+    },
+
+    clickPlaceItem(index) {
+      let place = this.places[index]
+      if (!place) {
+        return false
+      }
+      this.activeMarker = place.id
+    },
+
+    setCursor(id) {
+      if (!this.places || this.places.length <= 0) return false
+      if (id === undefined) {
+        this.clickPlaceItem(0)
+        return true
+      }
+      let index = this.$root.getIndexById(this.places, id) || 0
+      this.clickPlaceItem(Number(index))
+      return true
+    },
+
+    getActivePlace() {
+      return this.places[this.activeIndex]
+    }
+  },
+
+  ready() {
+    this.setCursor(this.$route.params.placeId)
+    this.handleResize()
+    window.removeEventListener('resize', this.handleResize)
+    window.addEventListener('resize', this.handleResize)
+  },
+
+  beforeDestroy() {
+    window.removeEventListener('resize', this.handleResize)
+  }
+
+}
+</script>
+
 <style lang="css">
 .map-wrapper {
   position: relative;
@@ -106,130 +232,3 @@
   margin: 10px 0 0 25px;
 }
 </style>
-
-<template lang="html">
-  <div class="wrap router-view contacts-page map-wrapper"
-    :style="{ width: mapWidth + 'px', height: mapHeight + 'px' }"
-  >
-    <list-places
-      :places="places"
-      :cursor-index="activeIndex || 0"
-    ></list-places>
-    <map id="map"
-      :center.sync="center"
-      :zoom.sync="15"
-      :options="options"
-    >
-      <marker
-        v-for="place in places"
-        v-if="place.published != 0"
-        :clickable.sync="true"
-        :title.sync="place.title"
-        :cursor.sync="'pointer'"
-        :draggable.sync="false"
-        :label.sync="place.place_type"
-        :position.sync="place.position"
-        :place.sync="markerPlace"
-      ></marker>
-    </map>
-  </div>
-</template>
-
-<script type="text/javascript">
-export default {
-
-  data() {
-    return {
-      places: this.$root.places,
-      markerLabel: {
-        color: '#000',
-        // fontFamily: '',
-        fontSize: '24px',
-        fontWeight: 'normal',
-        text: ''
-      },
-      options: {
-        scrollwheel: false
-      }
-    }
-  },
-
-  props: {
-    mapWidth: {
-      type: Number,
-      default: window.innerWidth
-    },
-    mapHeight: {
-      type: Number,
-      default: window.innerHeight
-    },
-    activeMarker: {
-      type: Number,
-      default: 0
-    }
-  },
-
-  computed: {
-    center() {
-      let p = this.getActivePlace()
-      return p && p != -1 && p.position || {}
-    },
-    activeIndex() {
-      return this.$root.getIndexById(this.$root.places, this.activeMarker)
-    }
-  },
-
-  methods: {
-
-    /**
-     * При изменении размера окна и один раз при загрузке
-     * изменяет размеры фрейма карты
-     * @param  {Event} e DOM event
-     */
-    handleResize(e) {
-      if (e !== undefined) {
-        e.preventDefault()
-        e.stopPropagation()
-      }
-      this.mapWidth = window.innerWidth
-      this.mapHeight = window.innerHeight - 96 - 87
-    },
-
-    clickPlaceItem(index) {
-      let place = this.places[index]
-      if (!place) {
-        return false
-      }
-      this.activeMarker = place.id
-    },
-
-    setCursor(id) {
-      if (!this.places || this.places.length <= 0) return false
-      if (id === undefined) {
-        this.clickPlaceItem(0)
-        return true
-      }
-      let index = this.$root.getIndexById(this.places, id) || 0
-      this.clickPlaceItem(Number(index))
-      return true
-    },
-
-    getActivePlace() {
-      return this.places[this.activeIndex]
-    }
-  },
-
-  ready() {
-    this.setCursor(this.$route.params.placeId)
-    this.handleResize()
-    window.removeEventListener('resize', this.handleResize)
-    window.addEventListener('resize', this.handleResize)
-  },
-
-  beforeDestroy() {
-    window.removeEventListener('resize', this.handleResize)
-  }
-
-}
-</script>
-

@@ -72,6 +72,7 @@ export default {
     },
     itemClass: String,
     wrapClass: String,
+    entity: String,
     notEmpty: {
       type: Boolean,
       default: true
@@ -152,7 +153,9 @@ export default {
      * @return {Array}      Фильтрованный массив объектов событий
      */
     filterMethod(events, filters) {
-      let res = this.$parent.filterMethod(events, filters)
+      let res = this.$parent.filterMethod(events.filter((e) => {
+        return e
+      }), filters)
       this.notEmpty = res.length > 0
       return res
     }

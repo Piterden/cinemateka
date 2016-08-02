@@ -13,7 +13,9 @@
         </div>
         <div class="mdl-cell mdl-cell--5-col">
           <div v-if="videos.mainvideo" class="event-video">
-            <iframe width="100%" frameborder="0" :src="videos.mainvideo.replace('watch?v=','embed/')"></iframe>
+            <iframe width="100%" frameborder="0"
+              :src="videos.mainvideo.replace('watch?v=','embed/')">
+            </iframe>
           </div>
         </div>
       </div>
@@ -224,48 +226,61 @@ moment.locale('ru-RU')
 export default {
 
   computed: {
-    bgStyleObject() {
-      return this.images && {
-        backgroundImage: 'url("/' + this.images.mainimage + '")'
-      }
-    },
-    closestSeance() {
-      return this.eventItem && this.$root.getClosestSeance(this.eventItem)
-    },
-    closestProgram() {
-      return this.eventItem && this.$root.getClosestSeanceProgram(this.eventItem)
-    },
-    closestProgramEvents() {
-      return this.closestProgram && this.$root.getProgramEvents(this.closestProgram)
-    },
-    closestPlace() {
-      return this.eventItem && this.$root.getClosestSeancePlace(this.eventItem)
-    },
+    // Объект события
     eventItem() {
       return this.$root.events.find((e) => {
         return e.slug == this.$route.params.slug
       })
     },
-    images() {
-      return this.eventItem.images && JSON.parse(this.eventItem.images)
+    // Ближайший в будущем сеанс
+    closestSeance() {
+      return this.eventItem && this.$root.getClosestSeance(this.eventItem)
     },
-    actors() {
-      return this.eventItem.actors && JSON.parse(this.eventItem.actors)
+    // Ближайшая в будущем программа
+    closestProgram() {
+      return this.eventItem && this.$root.getClosestSeanceProgram(this.eventItem)
     },
-    videos() {
-      return this.eventItem.videos && JSON.parse(this.eventItem.videos)
+    // События ближайшей в будущем программы
+    closestProgramEvents() {
+      return this.closestProgram && this.$root.getProgramEvents(this.closestProgram)
     },
+    // Площадка ближайшего в будущем сеанса
+    closestPlace() {
+      return this.eventItem && this.$root.getClosestSeancePlace(this.eventItem)
+    },
+    // Время начала ближайшего сеанса
     closestSeanceTime() {
       let d = this.closestSeance && moment(this.closestSeance.start_time)
       return d && moment(d).format('HH:mm')
     },
+    // Дата начала ближайшего сеанса
     closestSeanceDate() {
       let d = this.closestSeance && moment(this.closestSeance.start_time)
       return d && moment(d).format('DD.MM')
     },
+    // Главная картинка
+    bgStyleObject() {
+      return this.images && {
+        backgroundImage: 'url("/' + this.images.mainimage + '")'
+      }
+    },
+    // Картинки JSON
+    images() {
+      return this.eventItem.images && JSON.parse(this.eventItem.images)
+    },
+    // Актеры JSON
+    actors() {
+      return this.eventItem.actors && JSON.parse(this.eventItem.actors)
+    },
+    // Видео JSON
+    videos() {
+      return this.eventItem.videos && JSON.parse(this.eventItem.videos)
+    },
+    // Продолжительность
     hasChrono() {
       return this.eventItem.chrono > 0 ? this.eventItem.chrono : ''
     },
+    // Картинки Array без главной
     gallery() {
       let obj = this.images, arr = [], key
       for (key in obj) {
@@ -273,9 +288,11 @@ export default {
       }
       return arr
     },
+    // Свой URL
     selfUrl() {
       return window.location.href
     },
+    // URL главной картинки
     selfImageUrl() {
       return 'http://' + window.location.host + '/' + this.images.mainimage
     }
@@ -287,13 +304,34 @@ export default {
       return events
     },
     /* eslint-enable no-unused-vars */
+
+    /**
+     * Считает высоту галереи
+     * @return {[type]} [description]
+     */
     calcSwipeHeigth(){
-      let swipe = this.$el.querySelector('.swipe')
+      let swipe = this.$el.querySelector('.swipe'), height
       if (!swipe) return 'inherit'
-      swipe.style.height = Number(swipe.offsetWidth / 16 * 9) + 'px'
+      height = Number(swipe.offsetWidth / 16 * 9)
+      swipe.style.height = height + 'px'
+      return height
     },
+
+    /**
+     * По изменению размера окна
+     * @return {[type]} [description]
+     */
     onWinResize() {
       this.calcSwipeHeigth()
+    }
+  },
+
+  watch: {
+    eventItem: {
+      deep: true,
+      handler() {
+        this.calcSwipeHeigth()
+      }
     }
   },
 

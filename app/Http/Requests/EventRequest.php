@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use App\Http\Requests\Request;
 use Backpack\CRUD\app\Http\Requests\CrudRequest;
 
-class StoreEventRequest extends CrudRequest
+class EventRequest extends CrudRequest
 {
     /**
      * Determine if the user is authorized to make this request.

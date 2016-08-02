@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use Validator;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
-use App\Http\Requests\StoreEventRequest as StoreRequest;
-use App\Http\Requests\UpdateEventRequest as UpdateRequest;
+use App\Http\Requests\EventRequest as StoreRequest;
+use App\Http\Requests\EventRequest as UpdateRequest;
 
 class EventCrudController extends CrudController
 {

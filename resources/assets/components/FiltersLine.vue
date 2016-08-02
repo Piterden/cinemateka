@@ -12,11 +12,6 @@
         :value.sync="filterValues[key]"
         :list.once="filterLists[key]"
       ></toggler>
-      <date-pickers
-        v-if="isDatePicker(key)"
-        :start-date.sync="filterValues[key][0]"
-        :end-date.sync="filterValues[key][1]"
-      ></date-pickers>
       <dropdown-list
         v-if="!(isToggler(key) || isDatePicker(key))"
         :input-id="key.replace('_','-')"

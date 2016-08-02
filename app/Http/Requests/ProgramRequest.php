@@ -22,34 +22,32 @@ class ProgramRequest extends \Backpack\CRUD\app\Http\Requests\CrudRequest
      *
      * @return array
      */
-    public function rules()
-    {
-        return [
-            'title' => 'required|min:5|max:255'
-        ];
-    }
+    // public function rules()
+    // {
+    //     //
+    // }
 
     /**
      * Get the validation attributes that apply to the request.
      *
      * @return array
      */
-    public function attributes()
-    {
-        return [
-            //
-        ];
-    }
+    // public function attributes()
+    // {
+    //     return [
+    //         //
+    //     ];
+    // }
 
     /**
      * Get the validation messages that apply to the request.
      *
      * @return array
      */
-    public function messages()
-    {
-        return [
-            //
-        ];
-    }
+    // public function messages()
+    // {
+    //     return [
+    //         //
+    //     ];
+    // }
 }
