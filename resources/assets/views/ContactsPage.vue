@@ -4,7 +4,7 @@
   >
     <list-places
       :places="places"
-      :cursor-index="activeIndex || 0"
+      :cursor-index="activeMarker || 0"
     ></list-places>
     <map id="map"
       :center.sync="center"
@@ -64,9 +64,6 @@ export default {
     center() {
       let p = this.getActivePlace()
       return p && p != -1 && p.position || {}
-    },
-    activeIndex() {
-      return this.$root.getIndexById(this.$root.places, this.activeMarker)
     }
   },
 
@@ -106,12 +103,12 @@ export default {
     },
 
     getActivePlace() {
-      return this.places[this.activeIndex]
+      return this.places[this.activeMarker]
     }
   },
 
   ready() {
-    this.setCursor(this.$route.params.placeId)
+    // this.setCursor(this.$route.params.placeId)
     this.handleResize()
     window.removeEventListener('resize', this.handleResize)
     window.addEventListener('resize', this.handleResize)
@@ -119,6 +116,42 @@ export default {
 
   beforeDestroy() {
     window.removeEventListener('resize', this.handleResize)
+  },
+
+  head: {
+    title() {
+      return {
+        inner: 'Площадки',
+        separator: '|',
+        complement: this.$root.meta.app
+      }
+    },
+    meta() {
+      let description = '',
+        title = 'Площадки - ' + this.$root.meta.app,
+        image = ''
+      return {
+        name: {
+          'application-name': this.$root.meta.app,
+          description: description,
+          'twitter:title': title,
+          'twitter:description': description,
+          'twitter:image': image
+        }, //' comment to fix sublime highlighting
+        itemprop: {
+          name: title,
+          description: description,
+          image: image
+        },
+        property: {
+          // 'fb:app_id': this.$root.meta.fbAppId,
+          'og:url': window.location.href,
+          'og:title': title,
+          'og:description': description,
+          'og:image': image
+        } //' comment to fix sublime highlighting
+      }
+    }
   }
 
 }

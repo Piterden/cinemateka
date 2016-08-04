@@ -5,11 +5,11 @@
   <div class="index-wrapper">
     <div class="events-block">
       <list-box
+        :cols.once="4"
         :events.once="evTop"
         :limit="20"
-        :cols.once="4"
-  			:filter-values.sync="filterValuesTop"
-      </list-box>
+        :filter-values.sync="filterValuesTop"
+      ></list-box>
     </div>
     <div class="soon-block">
       <blocks-header :title="title">

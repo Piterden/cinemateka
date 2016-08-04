@@ -64,7 +64,6 @@ export default {
     filterValues: {
       default () {
         return {
-          // 'now_soon': this.$root.getNowSoones()[1],
           'month': 'Все месяцы',
           'event_type': 'Все события',
           'program_type': 'Все программы',
@@ -136,6 +135,52 @@ export default {
         })
       this.filteredCount = filteredArray.length
       return filteredArray
+    }
+  },
+
+  // route: {
+  //   activate() {
+  //     console.log('hook-example activated!')
+  //   },
+  //   deactivate() {
+  //     console.log('hook-example deactivated!')
+  //     // transition.abort()
+  //   }
+  // },
+
+  head: {
+    title() {
+      return {
+        inner: 'Расписание',
+        separator: '|',
+        complement: this.$root.meta.app
+      }
+    },
+    meta() {
+      let description = '',
+        title = 'Расписание - ' + this.$root.meta.app,
+        image = ''
+      return {
+        name: {
+          'application-name': this.$root.meta.app,
+          description: description,
+          'twitter:title': title,
+          'twitter:description': description,
+          'twitter:image': image
+        }, //' comment to fix sublime highlighting
+        itemprop: {
+          name: title,
+          description: description,
+          image: image
+        },
+        property: {
+          // 'fb:app_id': this.$root.meta.fbAppId,
+          'og:url': window.location.href,
+          'og:title': title,
+          'og:description': description,
+          'og:image': image
+        } //' comment to fix sublime highlighting
+      }
     }
   }
 }

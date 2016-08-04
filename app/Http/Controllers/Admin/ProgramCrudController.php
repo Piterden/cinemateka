@@ -40,6 +40,7 @@ class ProgramCrudController extends CrudController
             'type'        => 'text',
             'placeholder' => 'Название программы',
             'colspan'     => '10',
+            'v-model'     => 'title',
         ]);
         $this->crud->addField([ // CHECKBOX
             'name'    => 'published',
@@ -106,7 +107,7 @@ class ProgramCrudController extends CrudController
             'type'    => 'text',
             'colspan' => '6',
             'hint'    => 'Если не заполнять, создастся автоматически',
-            // 'disabled' => 'disabled'
+            'v-model' => 'slug',
         ]);
 
         $this->crud->addField([ // TEXT

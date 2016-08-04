@@ -21,6 +21,42 @@ export default {
     return {
       history: window.history
     }
+  },
+
+  head: {
+    title() {
+      return {
+        inner: 'Страница не найдена',
+        separator: '|',
+        complement: this.$root.meta.app
+      }
+    },
+    meta() {
+      let description = '',
+        title = 'Страница не найдена - ' + this.$root.meta.app,
+        image = ''
+      return {
+        name: {
+          'application-name': this.$root.meta.app,
+          description: description,
+          'twitter:title': title,
+          'twitter:description': description,
+          'twitter:image': image
+        }, //' comment to fix sublime highlighting
+        itemprop: {
+          name: title,
+          description: description,
+          image: image
+        },
+        property: {
+          // 'fb:app_id': this.$root.meta.fbAppId,
+          'og:url': window.location.href,
+          'og:title': title,
+          'og:description': description,
+          'og:image': image
+        } //' comment to fix sublime highlighting
+      }
+    }
   }
 }
 </script>

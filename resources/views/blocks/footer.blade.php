@@ -2,7 +2,7 @@
 <footer>
   <div class="mdl-grid">
     <div class="mdl-cell mdl-cell--4-col">
-      <a href="#" class="partners-link">Партнеры</a>
+      <a v-link="'/partners'" class="partners-link">Партнеры</a>
     </div>
     <div class="mdl-cell mdl-cell--4-col">
       <ul class="social-links mdl-typography--text-center">

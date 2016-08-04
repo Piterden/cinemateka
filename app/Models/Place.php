@@ -28,11 +28,12 @@ class Place extends Model
         'address',
         'metro',
         'images',
-        'position',
+        // 'position',
         // 'properties',
         'place_site',
         'place_email',
-        'place_phone'
+        'place_phone',
+        'place_type',
     ];
     protected $fakeColumns = ['properties'];
     // protected $dates       = ['created_at', 'edited_at', 'deleted_at'];
@@ -116,5 +117,6 @@ class Place extends Model
             $results = $this->googleGeocoderResponse($value);
             $this->attributes['position'] = $this->geoPositionJson($results);
         }
+        return $value;
     }
 }

@@ -57,30 +57,35 @@ export default {
   head: {
     title() {
       return {
-        inner: 'Кино в городе'
+        inner: 'Главная',
+        separator: '|',
+        complement: this.$root.meta.app
       }
     },
     meta() {
+      let description = '',
+        title = this.$root.meta.app,
+        image = ''
       return {
         name: {
           'application-name': this.$root.meta.app,
-          description: 'description on index',
-          'twitter:title': 'Главная - Кино в городе',
-          'twitter:description': 'description on index',
-          'twitter:image': this.selfImageUrl
-        },
+          description: description,
+          'twitter:title': title,
+          'twitter:description': description,
+          'twitter:image': image
+        }, //' comment to fix sublime highlighting
         itemprop: {
-          name: 'Главная - Кино в городе',
-          description: 'description on index',
-          image: this.selfImageUrl
+          name: title,
+          description: description,
+          image: image
         },
         property: {
-          // 'fb:app_id': 123456789,
-          'og:url': this.selfUrl,
-          'og:title': 'Главная - Кино в городе',
-          'og:description': 'description on index',
-          'og:image': this.selfImageUrl
-        }
+          // 'fb:app_id': this.$root.meta.fbAppId,
+          'og:url': '',
+          'og:title': title,
+          'og:description': description,
+          'og:image': image
+        } //' comment to fix sublime highlighting
       }
     }
   }

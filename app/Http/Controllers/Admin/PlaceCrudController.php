@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Validator;
 use App\Http\Requests\PlaceRequest as StoreRequest;
-// VALIDATION: change the requests to match your own file names if you need form validation
 use App\Http\Requests\PlaceRequest as UpdateRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 

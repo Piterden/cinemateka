@@ -1,37 +1,3 @@
-<style lang="css" scoped>
-.collapsible {
-  margin: 10px 0 5px 0;
-}
-.collapsible-header {
-  display: block;
-  cursor: pointer;
-  min-height: 40px;
-  line-height: 40px;
-  padding: 0 1rem;
-  background-color: #fff;
-}
-.collapsible-header i {
-  width: 2rem;
-  font-size: 1.6rem;
-  line-height: 40px;
-  display: block;
-  float: left;
-  text-align: center;
-  margin-right: 1rem;
-}
-.collapsible-header:hover {
-  color: red;
-  transition: color .3s linear;
-}
-.collapsible-body {
-  box-sizing: border-box;
-}
-.collapsible-body p {
-  margin: 0;
-  padding: 2rem;
-}
-</style>
-
 <template>
   <div class="collapsible place-item {{ isActive ? 'active' : '' }}">
     <div class="collapsible-header" @click="clickPlaceItem($event)">
@@ -88,7 +54,7 @@ export default {
   },
 
   methods: {
-    clickPlaceItem(e) {
+    clickPlaceItem() {
       this.cursorIndex = this.index
       this.$parent.$parent.activeMarker = this.index
     }
@@ -97,3 +63,36 @@ export default {
 }
 </script>
 
+<style lang="css" scoped>
+.collapsible {
+  margin: 10px 0 5px 0;
+}
+.collapsible-header {
+  display: block;
+  cursor: pointer;
+  min-height: 40px;
+  line-height: 40px;
+  padding: 0 1rem;
+  background-color: #fff;
+}
+.collapsible-header i {
+  width: 2rem;
+  font-size: 1.6rem;
+  line-height: 40px;
+  display: block;
+  float: left;
+  text-align: center;
+  margin-right: 1rem;
+}
+.collapsible-header:hover {
+  color: red;
+  transition: color .3s linear;
+}
+.collapsible-body {
+  box-sizing: border-box;
+}
+.collapsible-body p {
+  margin: 0;
+  padding: 2rem;
+}
+</style>

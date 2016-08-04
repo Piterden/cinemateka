@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="dropdown">
-    <input id="{{ inputId }}" type="checkbox" :checked="checked" />
-    <label for="{{ inputId }}">
+    <input id="{{ inputId }}" type="checkbox" checked />
+    <label for="{{ inputId }}" @click.stop="doOpen">
       <div v-if="isMonth" class="drop-ttl month">{{ textValue }}</div>
       <div v-else class="drop-ttl no-month">{{ value }}</div>
       <ul>
@@ -36,16 +36,25 @@ export default {
         return []
       }
     },
+
     // Флаг "список открыт"
-    checked: {
-      type: String,
-      default () {
-        return 'disabled'
-      }
-    }
+    // checked: {
+    //   type: String,
+    //   default () {
+    //     return 'disabled'
+    //   }
+    // }
   },
 
   computed: {
+    // Состояние
+    opened() {
+      return !this.$el.querySelector('#' + this.inputId).checked
+    },
+    // Проверка на фильтр месяцев
+    isMonth() {
+      return this.inputId === 'month'
+    },
     // Значение для подмены номера месяца на слово
     textValue: {
       get() {
@@ -60,10 +69,6 @@ export default {
       set(v) {
         this.$set('value', this.list.indexOf(v))
       }
-    },
-    // Проверка на фильтр месяцев
-    isMonth() {
-      return this.inputId === 'month'
     }
   },
 
@@ -73,25 +78,38 @@ export default {
      * @param  {String} value Значение нажатого элемента
      */
     handleOptionClick(value) {
+      // this.$el.querySelector('#' + this.inputId).setAttribute('checked', 'checked')
       if (this.isMonth) {
         this.$set('textValue', value)
         this.$set('value', this.list.indexOf(value))
         return
       }
       this.$set('value', value)
+      this.$set('opened', false)
     },
 
-    // handleClick() {
-      // let checked = document.querySelector('input[type="checkbox"]:not(:checked)')
-      // if (checked) {
-      //   checked.checked = 'checked'
-      // }
-    // }
+    doOpen() {
+      // this.$el.querySelector('#' + this.inputId).removeAttribute('checked')
+      this.$set('opened', true)
+    },
+    handleClick() {
+      /* eslint-disable no-console */
+      console.log()
+      /* eslint-enable no-console */
+      // let dd = false
+      if (this.$get('opened')) {
+        this.$el.querySelector('#' + this.inputId).setAttribute('checked', 'checked')
+        this.$set('opened', false)
+        // dd = e.path.find((el) => {
+        //   return el.class == 'dropdown'
+        // })
+      }
+    }
   },
 
   ready() {
-    // this.$el.removeEventListener('click', this.handleClick)
-    // this.$el.addEventListener('click', this.handleClick)
+    this.$root.$el.removeEventListener('click', this.handleClick)
+    this.$root.$el.addEventListener('click', this.handleClick)
   }
 
 }

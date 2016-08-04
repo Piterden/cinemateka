@@ -288,10 +288,6 @@ export default {
       }
       return arr
     },
-    // Свой URL
-    selfUrl() {
-      return window.location.href
-    },
     // URL главной картинки
     selfImageUrl() {
       return 'http://' + window.location.host + '/' + this.images.mainimage
@@ -347,29 +343,34 @@ export default {
   head: {
     title() {
       return {
-        inner: this.eventItem.title + ' - Кино в городе'
+        inner: this.eventItem.title,
+        separator: '|',
+        complement: this.$root.meta.app
       }
     },
     meta() {
+      let description = this.eventItem.description,
+        title = this.eventItem.title,
+        image = this.selfImageUrl
       return {
         name: {
           'application-name': this.$root.meta.app,
-          description: this.eventItem.description,
-          'twitter:title': this.eventItem.title,
-          'twitter:description': this.eventItem.description,
-          'twitter:image': this.selfImageUrl
+          description: description,
+          'twitter:title': title,
+          'twitter:description': description,
+          'twitter:image': image
         }, //' comment to fix sublime highlighting
         itemprop: {
-          name: this.eventItem.title,
-          description: this.eventItem.description,
-          image: this.selfImageUrl
+          name: title,
+          description: description,
+          image: image
         },
         property: {
-          // 'fb:app_id': 123456789,
-          'og:url': this.selfUrl,
-          'og:title': this.eventItem.title,
-          'og:description': this.eventItem.description,
-          'og:image': this.selfImageUrl
+          // 'fb:app_id': this.$root.meta.fbAppId,
+          'og:url': window.location.href,
+          'og:title': title,
+          'og:description': description,
+          'og:image': image
         } //' comment to fix sublime highlighting
       }
     }

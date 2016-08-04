@@ -10,17 +10,17 @@ import Array from './inc.js'
 /**
  * Подключаемые библиотеки
  */
-// import _ from 'lodash'
 import Vue from 'vue'
 import VueMdl from 'vue-mdl'
+import VueRouter from 'vue-router'
 import VueHead from 'vue-head'
-// import VueResource from 'vue-resource'
+
 /**
  * Плагины
  */
 Vue.use(VueMdl)
 Vue.use(VueHead)
-// Vue.use(VueResource)
+Vue.use(VueRouter)
 
 /**
  * Google Maps Components

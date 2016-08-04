@@ -126,6 +126,42 @@ export default {
     filterMethod(e) {
       return e
     }
+  },
+
+  head: {
+    title() {
+      return {
+        inner: this.programItem.title,
+        separator: '|',
+        complement: this.$root.meta.app
+      }
+    },
+    meta() {
+      let description = this.programItem.description,
+        title = this.programItem.title,
+        image = this.programItem.images[0]
+      return {
+        name: {
+          'application-name': this.$root.meta.app,
+          description: description,
+          'twitter:title': title,
+          'twitter:description': description,
+          'twitter:image': image
+        }, //' comment to fix sublime highlighting
+        itemprop: {
+          name: title,
+          description: description,
+          image: image
+        },
+        property: {
+          // 'fb:app_id': this.$root.meta.fbAppId,
+          'og:url': window.location.href,
+          'og:title': title,
+          'og:description': description,
+          'og:image': image
+        } //' comment to fix sublime highlighting
+      }
+    }
   }
 
 }

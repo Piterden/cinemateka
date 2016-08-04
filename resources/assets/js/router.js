@@ -10,6 +10,7 @@ import IndexPage from '../views/IndexPage.vue'
 import SchedulePage from '../views/SchedulePage.vue'
 import ArchivePage from '../views/ArchivePage.vue'
 import AboutPage from '../views/AboutPage.vue'
+import PartnersPage from '../views/PartnersPage.vue'
 import ContactsPage from '../views/ContactsPage.vue'
 import EventPage from '../views/EventPage.vue'
 import ProgramPage from '../views/ProgramPage.vue'
@@ -33,11 +34,11 @@ let router = new VueRouter({
   transitionOnLoad: true
 })
 
-/**!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+/**
  * ================================================================
  * Назначение маршрутов роутеру
  * ================================================================
- *!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+ */
 router.map({
 
   // Ошибка 404
@@ -58,34 +59,27 @@ router.map({
   '/schedule': {
     component(resolve) {
       resolve(Vue.component('schedule-page', SchedulePage))
-    },
-    // subRoutes: {
-    //   '/:page': {
-    //     component(resolve) {
-    //       resolve(Vue.component('schedule-page', SchedulePage))
-    //     }
-    //   }
-    // }
+    }
   },
 
   // Архив
   '/archive': {
     component(resolve) {
       resolve(Vue.component('archive-page', ArchivePage))
-    },
-    // subRoutes: {
-    //   '/:page': {
-    //     component(resolve) {
-    //       resolve(Vue.component('archive-page', ArchivePage))
-    //     }
-    //   }
-    // }
+    }
   },
 
   // О проекте
   '/about': {
     component(resolve) {
       resolve(Vue.component('about-page', AboutPage))
+    }
+  },
+
+  // Партнеры
+  '/partners': {
+    component(resolve) {
+      resolve(Vue.component('partners-page', PartnersPage))
     }
   },
 
@@ -145,7 +139,8 @@ router.beforeEach((trans) => {
 })
 
 let scrollToTop = (scrollDuration) => {
-  let scrollStep = -window.scrollY / (scrollDuration / 15),
+  let scrY = window.scrollY,
+    scrollStep = -scrY / (scrollDuration / 15),
     scrollInterval = setInterval(() => {
       if(window.scrollY != 0) {
         window.scrollBy(0, scrollStep)
@@ -155,8 +150,8 @@ let scrollToTop = (scrollDuration) => {
     }, 15)
 }
 
-router.afterEach((trans) => {
-  scrollToTop(300)
+router.afterEach(( /*trans*/ ) => {
+  scrollToTop(400)
 })
 
 export default router
