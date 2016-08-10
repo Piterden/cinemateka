@@ -12,14 +12,16 @@ import Array from './inc.js'
  */
 import Vue from 'vue'
 import VueMdl from 'vue-mdl'
-import VueRouter from 'vue-router'
 import VueHead from 'vue-head'
+import VueStash from 'vue-stash'
+import VueRouter from 'vue-router'
 
 /**
  * Плагины
  */
 Vue.use(VueMdl)
 Vue.use(VueHead)
+Vue.use(VueStash)
 Vue.use(VueRouter)
 
 /**
@@ -51,8 +53,8 @@ import SocialShare from '../components/SocialShare.vue'
 import Modal from '../components/Modal.vue'
 
 // Dev ops.
-Vue.config.debug = true
-// Vue.config.silent = true
+Vue.config.debug = false
+Vue.config.silent = true
 
 /**
  * Регистрация vue-компонентов === html-элементов

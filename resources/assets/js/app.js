@@ -6,6 +6,7 @@
 
 import moment from 'moment'
 import Vue from 'vue'
+import store from './store.js'
 
 /**
  * Главный ($root) vue-компонент.
@@ -15,11 +16,13 @@ import Vue from 'vue'
 let App = Vue.extend({
   data() {
     return {
+
       meta: {
         app: 'Кино в городе',
-        fbAppId: '',
+        fbAppId: ''
+      },
 
-      }
+      store
     }
   },
   /**

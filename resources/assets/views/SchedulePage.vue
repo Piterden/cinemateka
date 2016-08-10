@@ -27,6 +27,12 @@ moment.locale('ru')
 
 export default {
 
+  store: {
+    schedule() {
+      return 'schedule'
+    }
+  },
+
   data() {
     return {
       visibleFilters: [
@@ -58,22 +64,6 @@ export default {
     },
 
     /**
-     * Значения фильтров
-     * @type {Object}
-     */
-    filterValues: {
-      default () {
-        return {
-          'month': 'Все месяцы',
-          'event_type': 'Все события',
-          'program_type': 'Все программы',
-          'place_type': 'Все площадки'
-        }
-      },
-      twoWay: true
-    },
-
-    /**
      * Списки для фильтров
      * @type {Object}
      */
@@ -92,6 +82,16 @@ export default {
           }).getUnique()]
         }
       }
+    }
+  },
+
+  computed: {
+    /**
+     * Значения фильтров
+     * @type {Object}
+     */
+    filterValues() {
+      return this.$store.schedule
     }
   },
 

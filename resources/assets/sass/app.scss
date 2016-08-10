@@ -26,29 +26,32 @@ p {
 }
 
 h1 {
-  margin: 45px 0 30px 0;
-  letter-spacing: .02em;
-  font-weight: 800;
-  font-size: 48px;
   font-family: 'VremenaGrotesk';
+  font-size: 48px;
+  font-weight: 800;
+  letter-spacing: .02em;
   line-height: 56px;
+  margin: 45px 0 30px;
 }
+
 h2 {
+  font-family: 'VremenaGrotesk';
+  font-size: 32px;
+  font-weight: 800;
   margin: 0;
   letter-spacing: .02em;
-  font-weight: 800;
-  font-size: 32px;
-  font-family: 'VremenaGrotesk';
   line-height: 42px;
 }
+
 h3 {
-  margin: 0;
-  letter-spacing: .02em;
-  font-weight: 600;
-  font-size: 23px;
   font-family: 'VremenaGrotesk';
+  font-size: 23px;
+  font-weight: 600;
+  letter-spacing: .02em;
   line-height: 32px;
+  margin: 0;
 }
+
 a {
   color: #000;
   transition: linear .3s width, linear .3s left, linear .3s opacity, linear .3s color;
@@ -135,9 +138,9 @@ nav {
 }
 .swipe-items-wrap {
   div {
-    background-size: cover;
-    background-repeat: no-repeat;
     background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
     a {
       width: 100%;
       height: 100%;
@@ -404,9 +407,6 @@ nav {
     margin-left: -14px;
     width: 17%;
   }
-  .program-filter {
-    width: 29%;
-  }
   .label {
     display: inline-block;
     font-weight: bold;
@@ -521,7 +521,6 @@ nav {
       width: 100%;
       height: 100%;
       z-index: -1;
-      pointer-events: none;
     }
     > li {
       padding: 10px;

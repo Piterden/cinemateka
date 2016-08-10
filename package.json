@@ -44,8 +44,10 @@
     "sass-loader": "^4.0.0",
     "style-loader": "^0.13.1",
     "stylus": "^0.54.5",
+    "vue-fullcalendar": "^0.1.7",
     "vue-hot-reload-api": "^1.2.0",
     "vue-loader": "^8.5.2",
+    "vue-stash": "^1.0.0",
     "vue-style-loader": "^1.0.0",
     "webpack": "^1.13.1"
   }

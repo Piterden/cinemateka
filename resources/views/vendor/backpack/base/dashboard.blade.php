@@ -18,7 +18,9 @@
         <div class="box-title"></div>
       </div>
       <div class="box-body">
-        {{-- <full-calendar></full-calendar> --}}
+        <vue-full-calendar
+          :events="$root.fcEvents"
+        ></vue-full-calendar>
       </div>
     </div>
   </div>

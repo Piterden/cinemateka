@@ -24,7 +24,7 @@
       </div>
       <div class="place-site" v-if="place.place_site">
         <i class="fa fa-globe" aria-hidden="true"></i>
-        <a href="{{ place.place_site }}" target="_blank">{{ place.place_site }}</a>
+        <a href="http://{{ place.place_site }}" target="_blank">{{ place.place_site }}</a>
       </div>
       <div class="place-email" v-if="place.place_email">
         <i class="fa fa-envelope-o" aria-hidden="true"></i>

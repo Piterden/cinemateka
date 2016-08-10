@@ -5,15 +5,13 @@ namespace App\Models;
 use Backpack\CRUD\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-// use Stichoza\GoogleTranslate\TranslateClient;
-// use Cviebrock\EloquentSluggable\SluggableTrait;
-// use Cviebrock\EloquentSluggable\SluggableInterface;
+use Propaganistas\LaravelCacheSupport\Traits\EloquentCacheable;
 
-class Program extends Model /*implements SluggableInterface*/
+class Program extends Model
 {
     use CrudTrait;
-    // use SluggableTrait;
     use SoftDeletes;
+    use EloquentCacheable;
 
     /**
      * |--------------------------------------------------------------------------

@@ -7,11 +7,9 @@
 
 import moment from 'moment'
 import Vue from 'vue'
-// import VueDatetimePicker from 'vue-datetime-picker'
 import VueResource from 'vue-resource'
+import fullcalendar from 'vue-fullcalendar'
 
-// import FullCalendar
-//  from './vue/FullCalendar.vue'
 import RepeaterImage from './RepeaterImage.vue'
 import RepeaterVideo from './RepeaterVideo.vue'
 import RepeaterText from './RepeaterText.vue'
@@ -22,7 +20,7 @@ import Datepicker from './DatepickerAdmin.vue'
 
 // window[Vue] = Vue
 Vue.use(VueResource)
-Vue.debug = true
+Vue.debug = false
 
 // Vue.component('vue-datetime-picker', VueDatetimePicker)
 Vue.component('vue-repeater-image', RepeaterImage)
@@ -32,6 +30,7 @@ Vue.component('vue-select-seance', SelectSeance)
 Vue.component('modal', Modal)
 Vue.component('dropdown-admin', DropdownAdmin)
 Vue.component('date-picker', Datepicker)
+Vue.component('vue-full-calendar', fullcalendar)
 
 new Vue({
 
@@ -45,7 +44,15 @@ new Vue({
       categories: categories,
       places: places,
       title: '',
-      slug: ''
+      slug: '',
+      fcEvents: [],
+      langSets: {
+        zh: {
+          weekNames: moment.weekdays(),
+          monthNames: moment.months(),
+          titleFormat: 'MM-yyyy'
+        },
+      }
     }
   },
 
@@ -56,6 +63,30 @@ new Vue({
   },
 
   ready() {
+    // this.$set('events', this.events.map((event) => {
+    //   let seances = this.getSeancesByEventId(event.id),
+    //     l = seances.length
+    //   event.start = seances && seances[0].start_time
+    //   event.end = seances && seances[l - 1].start_time
+    //   event.type = 'event'
+    //   return event
+    // }))
+    // this.$set('programs', this.programs.map((program) => {
+    //   program.start = program.start_date
+    //   program.end = program.end_date
+    //   program.type = 'program'
+    //   return program
+    // }))
+    this.$set('seances', this.seances.map((seance) => {
+      let event = this.getById(this.events, seance.event_id)
+      seance.title = event && event.title + ' '
+        + moment(seance.start_time).format('HH-mm')
+      seance.start = seance.start_time
+      seance.end = seance.start_time
+      seance.type = 'seance'
+      return seance
+    }))
+    this.$set('fcEvents', this.seances)
     document.addEventListener('keydown', this.submit)
     this.$watch('title', (nv) => {
       this.$set('slug', this.toTranslit(nv))
@@ -132,10 +163,10 @@ new Vue({
      * @param  {Event} e  DOM event
      */
     submit(e) {
-      if (!e.ctrlKey || e.code !== 'KeyS') return
+      if(!e.ctrlKey || e.code !== 'KeyS') return
       e.preventDefault()
       let f = document.getElementById('entry-form')
-      if (f) {
+      if(f) {
         $(f).trigger('submit')
       }
     }
