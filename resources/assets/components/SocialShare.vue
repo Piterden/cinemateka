@@ -8,44 +8,55 @@
 <script>
 export default {
 
-  props: [
-    'iconFacebook',
-    'iconVkontakte',
-    'iconTwitter',
-    'postUrl',
-    'postTitle',
-    'postText',
-    'postImg'
-  ],
+  props: {
+    iconFacebook:   { type: String },
+    iconVkontakte:  { type: String },
+    iconTwitter:    { type: String },
+    postUrl:        { type: String, default() { return '' } },
+    postTitle:      { type: String, default() { return '' } },
+    postText:       { type: String, default() { return '' } },
+    postImg:        { type: String, default() { return '' } }
+  },
 
   methods: {
+    // shareFacebook() {
+    //   // let url  = 'http://www.facebook.com/sharer.php?s=100'
+    //   //   + '&p[title]='     + this.e(this.postTitle)
+    //   //   + '&p[summary]='   + this.e(this.postText)
+    //   //   + '&p[url]='       + this.e(this.postUrl)
+    //   //   + '&p[image]=' + this.e(this.postImg)
+    // },
+
     shareFacebook() {
-      // let url  = 'http://www.facebook.com/sharer.php?s=100'
-      //   + '&p[title]='     + encodeURIComponent(this.postTitle)
-      //   + '&p[summary]='   + encodeURIComponent(this.postText)
-      //   + '&p[url]='       + encodeURIComponent(this.postUrl)
-      //   + '&p[image]=' + encodeURIComponent(this.postImg)
-      let url = 'https://www.facebook.com/sharer.php?u=' + encodeURIComponent(this.postUrl)
+      // let url = 'https://www.facebook.com/sharer.php?s=100&' +
+      //   'p[title]=' + this.postTitle + '&p[summary]=' + this.postText +
+      //   '&p[url]=' + this.postUrl + '&p[images][0]=' + this.postImg
+      // this.popup(url)
+      let url = 'https://www.facebook.com/sharer.php?u=' + this.e(this.postUrl)
       this.popup(url)
     },
+
     shareVkontakte() {
-      let url = 'http://vkontakte.ru/share.php?'
-        + 'url='          + encodeURIComponent(this.postUrl)
-        + '&title='       + encodeURIComponent(this.postTitle)
-        + '&description=' + encodeURIComponent(this.postText)
-        + '&image='       + encodeURIComponent(this.postImg)
+      let url = 'https://vk.com/share.php?'
+        + 'url=' + this.e(this.postUrl)
+        + '&title=' + this.e(this.postTitle)
+        + '&description=' + this.e(this.postText)
+        + '&image=' + this.e(this.postImg)
         + '&noparse=true'
       this.popup(url)
     },
+
     shareTwitter() {
-      let url  = 'http://twitter.com/share?'
-        + 'text='      + encodeURIComponent(this.postTitle)
-        + '&url='      + encodeURIComponent(this.postUrl)
-        + '&counturl=' + encodeURIComponent(this.postUrl)
+      let url = 'http://twitter.com/share?' + 'text=' + this.e(this.postTitle) + '&url=' + this.e(this.postUrl) + '&counturl=' + this.e(this.postUrl)
       this.popup(url)
     },
+
     popup(url) {
-      window.open(url,'','toolbar=0,status=0,width=626,height=436')
+      window.open(url, '', 'toolbar=0,status=0,width=626,height=436')
+    },
+
+    e(str) {
+      return encodeURIComponent(str)
     }
   }
 }

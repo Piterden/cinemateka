@@ -1,8 +1,5 @@
-/*****************************************************/
-/****************** eslint config ********************/
-/*****************************************************/
-/*  global events programs places seances categories slides */
-/*****************************************************/
+/********************* eslint config ***********************/
+/* global events programs places seances categories slides */
 
 import moment from 'moment'
 import Vue from 'vue'
@@ -19,14 +16,15 @@ let App = Vue.extend({
 
       meta: {
         app: 'Кино в городе',
-        fbAppId: ''
+        fbAppId: '778695275606554'
+        // fbAppSecret:
       },
 
       store
     }
   },
   /**
-   * Здесь задаются коллекции, которые будут доступны, глобальные для всего
+   * Здесь задаются коллекции, которые будут доступны глобально для всего
    * приложения через root-объект. Сюда подгружаются данные из PHP.
    */
   props: {
@@ -117,7 +115,6 @@ let App = Vue.extend({
           p.position[k] = Number(p.position[k])
         }
       }
-      p.properties = JSON.parse(p.properties)
       return p
     })
 
@@ -195,9 +192,10 @@ let App = Vue.extend({
      * @return {SeanceObject}       Объект сеанса
      */
     getClosestSeance(e) {
-      return e && e.seances && e.seances.length && e.seances.find((s) => {
+      let futureSeance = e && e.seances && e.seances.length && e.seances.find((s) => {
         return moment(s.start_time) > moment()
       })
+      return futureSeance || e && e.seances && e.seances[0]
     },
 
     /**
@@ -538,7 +536,7 @@ let App = Vue.extend({
 })
 
 /**
- * Совмещает 2 объекта в один, перезаписывая вторым первый
+ * Совмещает 2 объекта в один, перезаписывая вторым первый (одноуровнево)
  * @private
  * @param {Object}    Умолчания (что заполнять)
  * @param {Object}    Новые свойства (чем заполнять)

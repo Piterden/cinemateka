@@ -9,7 +9,7 @@ use Propaganistas\LaravelCacheSupport\Traits\EloquentCacheable;
 class Tag extends Model
 {
     use CrudTrait;
-    use EloquentCacheable;
+    // use EloquentCacheable;
 
     /**
      * |--------------------------------------------------------------------------

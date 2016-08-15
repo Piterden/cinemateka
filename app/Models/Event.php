@@ -11,7 +11,7 @@ class Event extends Model
 {
     use CrudTrait;
     use SoftDeletes;
-    use EloquentCacheable;
+    // use EloquentCacheable;
 
     /**
      * --------------------------------------------------------------------------

@@ -1,11 +1,5 @@
 var elixir = require('laravel-elixir')
-// var _ = require('underscore')
-  /*,
-    assetsPath = elixir.config.assetsPath,
-    publicPath = elixir.config.publicPath*/
 
-// require('laravel-elixir-coffeescript')
-// require('laravel-elixir-ngtemplatecache')
 require('laravel-elixir-webpack-advanced')
 require('laravel-elixir-imagemin')
 

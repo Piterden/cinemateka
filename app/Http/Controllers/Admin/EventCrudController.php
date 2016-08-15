@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Validator;
+use Illuminate\Support\Facades\Validator;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use App\Http\Requests\EventRequest as StoreRequest;
 use App\Http\Requests\EventRequest as UpdateRequest;

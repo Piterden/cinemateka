@@ -13,7 +13,7 @@ import Array from './inc.js'
 import Vue from 'vue'
 import VueMdl from 'vue-mdl'
 import VueHead from 'vue-head'
-import VueStash from 'vue-stash'
+// import VueStash from 'vue-stash'
 import VueRouter from 'vue-router'
 
 /**
@@ -21,14 +21,14 @@ import VueRouter from 'vue-router'
  */
 Vue.use(VueMdl)
 Vue.use(VueHead)
-Vue.use(VueStash)
+// Vue.use(VueStash)
 Vue.use(VueRouter)
 
 /**
  * Google Maps Components
  */
 import { load, loaded, Map, Marker } from 'vue-google-maps'
-load('AIzaSyCrukK_xKPenGQkn9okGUjoBfECOeiOvSc', '3.25.7')
+load('AIzaSyBzRwk5bppue9vG6yMt74hHqhP2ToNLzlc', '3.25.7')
 
 /**
  * Vue-компоненты

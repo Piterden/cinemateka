@@ -5,6 +5,7 @@
       v-if="events"
       v-for="item in events
         | filterMethod filterValues
+
         | limitBy limit"
       :class="itemClass"
       :index.once="$index"

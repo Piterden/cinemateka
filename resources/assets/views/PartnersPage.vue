@@ -5,6 +5,26 @@
         <h1>Партнеры</h1>
       </div>
       <div class="partner-item mdl-cell mdl-cell--2-col mdl-cell--3-col-desktop">
+        <a href="http://god-kino2016.ru/" target="_blank">
+          <img src="/images/partners/img-partners-godkino.png" alt="Год российского кино" title="Год российского кино">
+        </a>
+      </div>
+      <div class="partner-item mdl-cell mdl-cell--2-col mdl-cell--3-col-desktop">
+        <a href="https://culturalforum.ru/ru" target="_blank">
+          <img src="/images/partners/img-partners-vforum.png" alt="Культурный форум" title="Культурный форум">
+        </a>
+      </div>
+      <div class="partner-item mdl-cell mdl-cell--2-col mdl-cell--3-col-desktop">
+        <a href="http://kinochannel.ru/" target="_blank">
+          <img src="/images/partners/img-partners-kinotv.png" alt="Кино ТВ" title="Кино ТВ">
+        </a>
+      </div>
+      <div class="partner-item mdl-cell mdl-cell--2-col mdl-cell--3-col-desktop">
+        <a href="http://thenewstage.ru" target="_blank">
+          <img src="/images/partners/img-partners-newstage.png" alt="Новая сцена Александринского театра" title="Новая сцена Александринского театра">
+        </a>
+      </div>
+      <div class="partner-item mdl-cell mdl-cell--2-col mdl-cell--3-col-desktop">
         <a href="http://seance.ru/" target="_blank">
           <img src="/images/partners/img-partners-seance.png" alt="Сеанс" title="Сеанс">
         </a>
@@ -14,7 +34,6 @@
           <img src="/images/partners/img-partners-spb.png" alt="Правительство Санкт-Петербурга" title="Правительство Санкт-Петербурга">
         </a>
       </div>
-      
       <div class="partner-item mdl-cell mdl-cell--2-col mdl-cell--3-col-desktop">
         <a href="http://gosfilmofond.ru/" target="_blank">
           <img src="/images/partners/img-partners-filmfound.png" alt="Госфильмофонд России" title="Госфильмофонд России">
@@ -106,11 +125,6 @@
         </a>
       </div>
       <div class="partner-item mdl-cell mdl-cell--2-col mdl-cell--3-col-desktop">
-        <a href="http://kinochannel.ru/" target="_blank">
-          <img src="/images/partners/img-partners-kinotv.png" alt="Кино ТВ" title="Кино ТВ">
-        </a>
-      </div>
-      <div class="partner-item mdl-cell mdl-cell--2-col mdl-cell--3-col-desktop">
         <a href="http://peterburg2.ru" target="_blank">
           <img src="/images/partners/img-partners-spb2.png" alt="Петербург2" title="Петербург2">
         </a>
@@ -121,23 +135,8 @@
         </a>
       </div>
       <div class="partner-item mdl-cell mdl-cell--2-col mdl-cell--3-col-desktop">
-        <a href="http://thenewstage.ru" target="_blank">
-          <img src="/images/partners/img-partners-newstage.png" alt="Новая сцена Александринского театра" title="Новая сцена Александринского театра">
-        </a>
-      </div>
-      <div class="partner-item mdl-cell mdl-cell--2-col mdl-cell--3-col-desktop">
         <a href="http://www.afisha.ru" target="_blank">
           <img src="/images/partners/img-partners-afisha.png" alt="Афиша" title="Афиша">
-        </a>
-      </div>
-      <div class="partner-item mdl-cell mdl-cell--2-col mdl-cell--3-col-desktop">
-        <a href="http://god-kino2016.ru/" target="_blank">
-          <img src="/images/partners/img-partners-godkino.png" alt="Год российского кино" title="Год российского кино">
-        </a>
-      </div>
-      <div class="partner-item mdl-cell mdl-cell--2-col mdl-cell--3-col-desktop">
-        <a href="https://culturalforum.ru/ru" target="_blank">
-          <img src="/images/partners/img-partners-vforum.png" alt="Культурный форум" title="Культурный форум">
         </a>
       </div>
     </div>
@@ -172,7 +171,7 @@ export default {
           image: image
         },
         property: {
-          // 'fb:app_id': this.$root.meta.fbAppId,
+          'fb:app_id': this.$root.meta.fbAppId,
           'og:url': window.location.href,
           'og:title': title,
           'og:description': description,

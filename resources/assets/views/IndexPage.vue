@@ -80,7 +80,7 @@ export default {
           image: image
         },
         property: {
-          // 'fb:app_id': this.$root.meta.fbAppId,
+          'fb:app_id': this.$root.meta.fbAppId,
           'og:url': '',
           'og:title': title,
           'og:description': description,

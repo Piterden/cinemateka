@@ -245,7 +245,7 @@ export default {
      */
     showMore() {
       this.limit += this.incrementLimit
-    },
+    }
 
   },
 

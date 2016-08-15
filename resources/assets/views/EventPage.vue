@@ -291,6 +291,10 @@ export default {
     // URL главной картинки
     selfImageUrl() {
       return 'http://' + window.location.host + '/' + this.images.mainimage
+    },
+    // URL страницы
+    selfUrl() {
+      return window.location.href
     }
   },
 
@@ -366,7 +370,7 @@ export default {
           image: image
         },
         property: {
-          // 'fb:app_id': this.$root.meta.fbAppId,
+          'fb:app_id': this.$root.meta.fbAppId,
           'og:url': window.location.href,
           'og:title': title,
           'og:description': description,

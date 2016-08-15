@@ -30,7 +30,7 @@ export default {
       limit: 9,
       incrementLimit: 9,
       cols: 4,
-      method: 'same',
+      method: 'same'
     }
   },
 
@@ -45,7 +45,7 @@ export default {
         let d = moment()
         return {
           event_type: 'Все события',
-          month: d.month(),
+          month: d.month() + 1,
           year: d.year(),
           program: 'Все программы'
         }
@@ -109,7 +109,12 @@ export default {
           return true
         })
       this.filteredCount = filtered.length
-      return filtered
+      // Сортируем в обратном порядке
+      return filtered.sort((a, b) => {
+        let a_s = this.$root.getClosestSeance(a),
+          b_s = this.$root.getClosestSeance(b)
+        return a_s.start_time < b_s.start_time
+      })
     },
 
     /**
@@ -165,7 +170,7 @@ export default {
           image: image
         },
         property: {
-          // 'fb:app_id': this.$root.meta.fbAppId,
+          'fb:app_id': this.$root.meta.fbAppId,
           'og:url': window.location.href,
           'og:title': title,
           'og:description': description,

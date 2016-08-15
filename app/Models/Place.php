@@ -12,7 +12,7 @@ class Place extends Model
 {
     use CrudTrait;
     use SoftDeletes;
-    use EloquentCacheable;
+    // use EloquentCacheable;
 
     /**
      * |--------------------------------------------------------------------------
@@ -30,14 +30,12 @@ class Place extends Model
         'address',
         'metro',
         'images',
-        // 'position',
-        // 'properties',
         'place_site',
         'place_email',
         'place_phone',
         'place_type',
     ];
-    protected $fakeColumns = ['properties'];
+    // protected $fakeColumns = ['properties'];
     // protected $dates       = ['created_at', 'edited_at', 'deleted_at'];
     public $timestamps     = true;
     // protected $appends     = ['position'];
@@ -119,6 +117,7 @@ class Place extends Model
             $results = $this->googleGeocoderResponse($value);
             $this->attributes['position'] = $this->geoPositionJson($results);
         }
+        $this->attributes['address'] = $value;
         return $value;
     }
 }

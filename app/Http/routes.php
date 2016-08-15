@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +14,7 @@
 /**
  * Vue OPA
  */
-Route::group(['middleware' => ['web']], function()
+Route::group([], function()
 {
     Route::get('/', 'PageController@staticPage');
     Route::get('about', 'PageController@staticPage');
@@ -28,7 +28,10 @@ Route::group(['middleware' => ['web']], function()
 /**
  * Admin interface
  */
-Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin'], function ()
+Route::group([
+    'middleware' => ['auth', 'admin'],
+    'prefix' => 'admin'
+], function ()
 {
     // Admin authentication routes
     Route::auth();
@@ -75,7 +78,7 @@ Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin'], function 
     });
 });
 
-Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'rest'], function()
+Route::group(['middleware' => ['auth', 'api'], 'prefix' => 'rest'], function()
 {
     Route::resource('seance', 'SeanceController');
 });

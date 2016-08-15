@@ -1,9 +1,8 @@
-/* global module __dirname */
 /* eslint-disable no-unused-vars */
 
 var path = require('path'),
   webpack = require('webpack'),
-  ExtractTextPlugin = require('extract-text-webpack-plugin');
+  ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 // Export the webpack configuration
 module.exports = {
@@ -19,7 +18,7 @@ module.exports = {
     chunkFilename: '[id].js'
   },
 
-  // Module settings.
+  // Module settings
   module: {
     loaders: [{
       test: /\.css$/,
@@ -29,8 +28,7 @@ module.exports = {
           omit: 1
         }),
         'style',
-        'css',
-        'sass'
+        'css'
       ]
     }, {
       test: /\.scss$/,
@@ -57,4 +55,4 @@ module.exports = {
     new ExtractTextPlugin('[name].min.css'),
     new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en|ru/)
   ]
-};
+}

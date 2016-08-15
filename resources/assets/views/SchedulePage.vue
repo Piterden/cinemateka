@@ -27,14 +27,25 @@ moment.locale('ru')
 
 export default {
 
-  store: {
-    schedule() {
-      return 'schedule'
-    }
-  },
+  // store: {
+  //   schedule() {
+  //     return 'schedule'
+  //   }
+  // },
 
   data() {
+    /**
+     * Значения фильтров
+     * @type {Object}
+     */
     return {
+      filteredCount: 5,
+      filterValues: {
+        month: 'Все месяцы',
+        event_type: 'Все события',
+        program_type: 'Все программы',
+        place_type: 'Все площадки'
+      },
       visibleFilters: [
         'month',
         'event_type',
@@ -49,9 +60,6 @@ export default {
   },
 
   props: {
-
-    filteredCount: Number,
-
     /**
      * Видимые сеансы
      * @type {Object}
@@ -85,15 +93,6 @@ export default {
     }
   },
 
-  computed: {
-    /**
-     * Значения фильтров
-     * @type {Object}
-     */
-    filterValues() {
-      return this.$store.schedule
-    }
-  },
 
   methods: {
     /**
@@ -104,6 +103,9 @@ export default {
      * @TODO dates frop pickers
      */
     filterMethod(seances = [], filters) {
+      /* eslint-disable no-console */
+      console.log(filters)
+      /* eslint-enable no-console */
       let fromTime = moment().startOf('day'),
         endTime = moment(fromTime).add(1, 'year'),
         filteredArray = seances.filter((seance) => {
@@ -174,7 +176,7 @@ export default {
           image: image
         },
         property: {
-          // 'fb:app_id': this.$root.meta.fbAppId,
+          'fb:app_id': this.$root.meta.fbAppId,
           'og:url': window.location.href,
           'og:title': title,
           'og:description': description,

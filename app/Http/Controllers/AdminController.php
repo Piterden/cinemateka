@@ -1,7 +1,4 @@
-<?php
-namespace App\Http\Controllers;
-
-use Laracasts\Utilities\JavaScript\JavaScriptFacade as JavaScript;
+<?php namespace App\Http\Controllers;
 
 class AdminController extends Controller
 {

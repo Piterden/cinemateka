@@ -9,7 +9,7 @@ use Propaganistas\LaravelCacheSupport\Traits\EloquentCacheable;
 class Category extends Model
 {
     use CrudTrait;
-    use EloquentCacheable;
+    // use EloquentCacheable;
 
     /**
      * |--------------------------------------------------------------------------

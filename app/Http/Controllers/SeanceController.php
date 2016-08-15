@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Seance;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Validator;
 
 class SeanceController extends Controller
 {
@@ -36,12 +37,23 @@ class SeanceController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'start_time' => 'required',
-            'event_id'   => 'required|alpha_num',
+        $statusCode = 200;
+
+        $validator = Validator::make($request->all(), [
+            'start_time' => ['required'],
+            'event_id'   => ['required', 'alpha_num'],
+        ], [
+            'start_time.required' => 'Время начала обязательно',
+            'event_id.required'   => 'ID события обязательно',
+            'event_id.alpha_num'  => 'ID события должно быть числом',
         ]);
 
-        $statusCode = 200;
+        if ($validator->fails())
+        {
+            $statusCode = 400;
+            return Response::json($seance, $statusCode)->withErrors();
+        }
+
         try {
             $seance = Seance::create($request->all());
             $seance->save();
@@ -98,16 +110,33 @@ class SeanceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'id'         => 'required|alpha_num',
-            'start_time' => 'required',
-            'event_id'   => 'required|alpha_num',
-            'program_id' => 'alpha_num',
-            'place_id'   => 'alpha_num',
+        $statusCode = 200;
+
+        $validator = Validator::make($request->all(), [
+            'id'         => ['required', 'alpha_num'],
+            'start_time' => ['required'],
+            'event_id'   => ['required', 'alpha_num'],
+            'program_id' => ['alpha_num'],
+            'place_id'   => ['alpha_num'],
+        ], [
+            'id.required' => 'Время начала обязательно',
+            'start_time.required'   => 'Время начала обязательно',
+            'event_id.required'  => 'ID события обязательно',
+            // 'program_id.required'  => 'ID события обязательно',
+            // 'place_id.required'  => 'ID события обязательно',
+            'event_id.alpha_num'  => 'ID события должно быть числом',
+            'program_id.alpha_num'  => 'ID программы должно быть числом',
+            'place_id.alpha_num'  => 'ID площадки должно быть числом',
         ]);
 
-        $statusCode = 200;
+        if ($validator->fails())
+        {
+            $statusCode = 400;
+            return Response::json($seance, $statusCode)->withErrors();
+        }
+
         try {
+
             $seance = Seance::findOrFail($id);
             $seance->update($request->all());
             $seance->save();

@@ -9,7 +9,7 @@ use Propaganistas\LaravelCacheSupport\Traits\EloquentCacheable;
 class Slide extends Model
 {
     use CrudTrait;
-    use EloquentCacheable;
+    // use EloquentCacheable;
 
     /**
      * |--------------------------------------------------------------------------
