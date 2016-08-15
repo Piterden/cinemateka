@@ -1,6 +1,6 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
+    "name": "piterden/cinemateka",
+    "description": "Cinemateka. Film & events schedule WebApp.",
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "type": "project",

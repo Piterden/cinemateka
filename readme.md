@@ -2,11 +2,36 @@
 
 One page schedule app built with Laravel 5 and VueJS.
 
+## Tech Stack
+
+### Frontend
+
+- VueJS
+- VueRouter
+- VueResource (in admin panel)
+- VueHead
+- Material Design Light
+
+### Backend
+
+- Laravel 5.2
+- Backpack Crud (and others from Backpack stack)
+- AdminLTE (with some Vue salt like multiitem fields or ctrl+s)
+- GoogleGeoCoder
+
+### Dev
+
+- Laravel-Elixir
+- Webpack
+- Babel
+- Eslint
+- SASS
+
 ## Documentation
 
+App don't using vuex or any other store system. Eloquent don't calculate relations in db queries. PHP gives to Vue clean collections, without relations, but every page will have all this collections at one time after first load. Relations calculating by Vue (it's amazing fast, even we'll have difficult relations) at first load. Other routing is depends on VueRouter and so we can turn off WiFi (we'll not receive some images in this situation) and go on site serfing.
 
-
-### File structure
+### Folder structure
 
 ```yaml
 app:                    # **Laravel 5 backend layer**

@@ -1,7 +1,7 @@
 {
   "name": "cinemateka",
   "version": "1.0.0",
-  "description": "Cinemateka. Events schedule webapp of 'Seance' magazine.",
+  "description": "Cinemateka. Film & events schedule WebApp.",
   "author": "Denis Efremov",
   "license": "MIT",
   "private": true,
