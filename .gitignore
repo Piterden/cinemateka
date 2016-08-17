@@ -1,13 +1,15 @@
 /bootstrap/cache
 /bootstrap/compiled.php
-.env.*.php
-.env.php
 /vendor
 /node_modules
 /public/storage
 /bower_components
+/storage/**/*
+!/storage/cache
 Homestead.yaml
 Homestead.json
+.env.*.php
+.env.php
 .env
 *.tar.gz
 *.zip
