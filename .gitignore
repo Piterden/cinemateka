@@ -4,8 +4,6 @@
 /node_modules
 /public/storage
 /bower_components
-/storage/**/*
-!/storage/cache
 Homestead.yaml
 Homestead.json
 .env.*.php
