@@ -166,24 +166,6 @@ nav {
     }
   }
 }
-.swipe-indicators {
-  bottom: 31px;
-  .swipe-indicator {
-    margin: 0 10px;
-    width: 13px;
-    height: 13px;
-    border: 3px solid #fff;
-    border-radius: 50%;
-    background: transparent;
-    opacity: 1;
-    cursor: pointer;
-    transition: background .3s ease-out;
-    &.active,
-    &:hover {
-      background: #fff;
-    }
-  }
-}
 /**
  * Header Component
  */
@@ -255,7 +237,7 @@ nav {
   a {
     color: #fff;
     &:hover {
-      color: red;
+      color: #ff0025;
     }
   }
   .mdl-cell--12-col {
@@ -349,7 +331,7 @@ nav {
       a {
         color: black;
         &:hover {
-          color: red;
+          color: #ff0025;
         }
       }
     }
@@ -383,7 +365,7 @@ nav {
             text-shadow: none;
             &:hover {
              text-decoration: underline;
-             color: red;
+             color: #ff0025;
             }
           }
         }
@@ -465,7 +447,7 @@ nav {
   color: #000;
   &:hover {
     &:after {
-      border-color: red;
+      border-color: #ff0025;
     }
   }
   &:focus {
@@ -944,7 +926,7 @@ footer {
  text-decoration: underline;
 }
 .same-programm-block h3 a:hover {
-  color: red;
+  color: #ff0025;
 }
 .more-events-in-shadue {
   height: 72px;

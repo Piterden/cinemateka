@@ -67,7 +67,7 @@ export default {
     method: String,
     limit: Number,
     height: Number,
-    separator: { type: String, default: ' – ' },
+    separator: { type: String, default: ' — ' },
     styleObject: { type: Object, default: 'inherit' },
     entity: { type: String, default: 'event' }
   },

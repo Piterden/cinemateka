@@ -27,8 +27,29 @@
             <div class="event-time" v-if="closestSeanceTime">
               <i class="fa fa-clock-o" aria-hidden="true"></i> {{ closestSeanceTime }}
             </div>
-            <div class="event-place" v-if="closestPlace">
+            <div class="event-place" v-if="closestPlace" @click="placeTooltip=!placeTooltip">
               <i class="fa fa-map-marker" aria-hidden="true"></i> «{{ closestPlace.title }}»
+              <div class="placeTooltip" v-show="placeTooltip">
+                <div class="place-address" v-if="closestPlace.address">
+                  <i class="fa fa-map-marker" aria-hidden="true"></i>
+                  {{ closestPlace.address }}
+                </div>
+                <div class="place-metro" v-if="closestPlace.metro">
+                  {{ closestPlace.metro }}
+                </div>
+                <div class="place-site" v-if="closestPlace.place_site">
+                  <i class="fa fa-globe" aria-hidden="true"></i>
+                  <a href="http://{{ closestPlace.place_site }}" target="_blank">{{ closestPlace.place_site }}</a>
+                </div>
+                <div class="place-email" v-if="closestPlace.place_email">
+                  <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                  <a href="mailto:{{ closestPlace.place_email }}">{{ closestPlace.place_email }}</a>
+                </div>
+                <div class="place-tel" v-if="closestPlace.place_phone">
+                  <i class="fa fa-mobile" aria-hidden="true"></i>
+                  <a href="tel:{{ closestPlace.place_phone }}">{{ closestPlace.place_phone }}</a>
+                </div>
+              </div>
             </div>
             <div class="event-price" v-if="closestSeance">
               <i class="material-icons">account_balance_wallet</i>
@@ -225,6 +246,12 @@ moment.locale('ru-RU')
 
 export default {
 
+  data() {
+    return {
+      placeTooltip: false
+    }
+  },
+
   computed: {
     // Объект события
     eventItem() {
@@ -382,7 +409,21 @@ export default {
 }
 </script>
 <style lang="css" scoped>
-  h3 {
-    margin-bottom: 24px;
-  }
+h3 {
+  margin-bottom: 24px;
+}
+.event-place {
+  cursor: pointer;
+  position: relative;
+}
+.placeTooltip {
+  position: absolute;
+  top: 38px;
+  width: 250px;
+  left: -120px;
+  text-align: left;
+  background: #fff;
+  border: 3px solid;
+  padding: 0 0 15px 0;
+}
 </style>

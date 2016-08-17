@@ -196,22 +196,6 @@ nav {
       .swipe-items-wrap div a .caption-wrapper .caption-content {
         font-weight: bold; }
 
-.swipe-indicators {
-  bottom: 31px; }
-  .swipe-indicators .swipe-indicator {
-    margin: 0 10px;
-    width: 13px;
-    height: 13px;
-    border: 3px solid #fff;
-    border-radius: 50%;
-    background: transparent;
-    opacity: 1;
-    cursor: pointer;
-    -webkit-transition: background .3s ease-out;
-    transition: background .3s ease-out; }
-    .swipe-indicators .swipe-indicator.active, .swipe-indicators .swipe-indicator:hover {
-      background: #fff; }
-
 /**
  * Header Component
  */
@@ -272,7 +256,7 @@ nav {
   .mdl-grid.list-box a {
     color: #fff; }
     .mdl-grid.list-box a:hover {
-      color: red; }
+      color: #ff0025; }
   .mdl-grid.list-box .mdl-cell--12-col {
     width: calc(100% - 24px); }
   .mdl-grid.list-box .mdl-cell--8-col {
@@ -345,7 +329,7 @@ nav {
   .archive-page .list-box .show-more-block a {
     color: black; }
     .archive-page .list-box .show-more-block a:hover {
-      color: red; }
+      color: #ff0025; }
 
 .soon-block {
   margin-bottom: 55px; }
@@ -374,7 +358,7 @@ nav {
             text-shadow: none; }
             .soon-block .mdl-grid.list-box .mdl-cell .event-item-card .bottom-block .title h3:hover {
               text-decoration: underline;
-              color: red; }
+              color: #ff0025; }
         .soon-block .mdl-grid.list-box .mdl-cell .event-item-card .bottom-block .program {
           display: none; }
 
@@ -430,7 +414,7 @@ nav {
   border: 2px solid;
   color: #000; }
   .dropdown:hover:after {
-    border-color: red; }
+    border-color: #ff0025; }
   .dropdown:focus:after {
     -webkit-transform: rotate(-45deg);
     transform: rotate(-45deg); }
@@ -804,7 +788,7 @@ footer {
   text-decoration: underline; }
 
 .same-programm-block h3 a:hover {
-  color: red; }
+  color: #ff0025; }
 
 .more-events-in-shadue {
   height: 72px;

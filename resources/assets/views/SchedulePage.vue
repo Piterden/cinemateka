@@ -140,16 +140,6 @@ export default {
     }
   },
 
-  // route: {
-  //   activate() {
-  //     console.log('hook-example activated!')
-  //   },
-  //   deactivate() {
-  //     console.log('hook-example deactivated!')
-  //     // transition.abort()
-  //   }
-  // },
-
   head: {
     title() {
       return {

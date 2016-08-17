@@ -471,23 +471,27 @@ export default {
 
 .swipe-indicators {
   position: absolute;
-  bottom: 10px;
   left: 50%;
   transform: translateX(-50%);
 }
 
 .swipe-indicator {
-  width: 8px;
-  height: 8px;
-  display: inline-block;
-  border-radius: 100%;
-  background: #000;
-  opacity: 0.2;
-  margin: 0 3px;
+  margin: 0 10px;
+  width: 13px;
+  height: 13px;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  background: transparent;
+  opacity: 1;
+  cursor: pointer;
+  transition: background .3s ease-out;
 }
 
 .swipe-indicator.active {
   background: #fff;
+}
+.swipe-indicator:hover {
+  background: #ff0025;
 }
 
 .swipe-nav > div {

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="vert-fluid">
     <div class="mdl-grid">
       <div class="mdl-cell mdl-cell--7-col">
         <h1>О проектe</h1>
@@ -11,6 +11,23 @@
 </template>
 <script>
 export default {
+
+  methods: {
+    handleResize(e) {
+      if (e !== undefined) {
+        e.preventDefault()
+        e.stopPropagation()
+      }
+      document.querySelector('.vert-fluid').style
+        .minHeight = Number(window.innerHeight - 96 - 87) + 'px'
+    }
+  },
+
+  ready() {
+    this.handleResize()
+    window.removeEventListener('resize', this.handleResize)
+    window.addEventListener('resize', this.handleResize)
+  },
 
   head: {
     title() {
