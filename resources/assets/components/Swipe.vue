@@ -1,98 +1,3 @@
-<style>
-.swipe {
-  overflow: hidden;
-  position: relative;
-  margin-bottom: 22px;
-}
-
-.swipe-items-wrap {
-  position: relative;
-  overflow: hidden;
-  height: 100%;
-}
-
-.swipe-items-wrap > div {
-  position: absolute;
-  transform: translateX(-100%);
-  width: 100%;
-  height: 100%;
-  display: none;
-}
-
-.swipe-items-wrap > div.active {
-  display: block;
-  transform: none;
-}
-
-.swipe-indicators {
-  position: absolute;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.swipe-indicator {
-  width: 8px;
-  height: 8px;
-  display: inline-block;
-  border-radius: 100%;
-  background: #000;
-  opacity: 0.2;
-  margin: 0 3px;
-}
-
-.swipe-indicator.active {
-  background: #fff;
-}
-
-.swipe-nav > div {
-  background: linear-gradient(left, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
-  position: absolute;
-  width: 10%;
-  height: 100%;
-  top: 0;
-  opacity: .8;
-  cursor: pointer;
-  transition: all .3s ease-out;
-}
-
-.swipe-nav > div:after,
-.swipe-nav > div:before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  border-left: 3px solid #fff;
-  height: 62px;
-  left: 32%;
-}
-
-.swipe-nav > div:after {
-  transform: rotate(24deg);
-  margin-top: -60px;
-}
-
-.swipe-nav > div:before {
-  transform: rotate(-24deg);
-  margin-top: -4px;
-}
-
-.swipe-prev {
-  left: 0;
-}
-
-.swipe-prev:before,
-.swipe-prev:after {}
-
-.swipe-next:before,
-.swipe-next:after {
-  /*right: 32%;*/
-}
-
-.swipe-next {
-  right: 0;
-  transform: rotate(180deg);
-}
-</style>
 <template>
   <div class="swipe">
     <div class="swipe-items-wrap" v-el:wrap>
@@ -104,6 +9,7 @@
           'swipe-indicator': true,
           active: $index === index
         }"
+        @click="goToSlide($index)"
       ></div>
     </div>
     <div class="swipe-nav" v-show="showNav">
@@ -114,12 +20,7 @@
 </template>
 
 <script>
-
-import {
-  once,
-  addClass,
-  removeClass
-} from 'wind-dom'
+import { once, addClass, removeClass } from 'wind-dom'
 
 export default {
 
@@ -142,13 +43,13 @@ export default {
   },
 
   props: {
-    speed: {type: Number,default: 300},
-    auto: {type: Number,default: 3000},
-    continuous: {type: Boolean,default: true},
-    showIndicators: {type: Boolean,default: true},
-    showNav: {type: Boolean,default: true},
-    noDragWhenSingle: {type: Boolean,default: true},
-    prevent: {type: Boolean,default: false},
+    speed:            { type: Number,   default: 300 },
+    auto:             { type: Number,   default: 3000 },
+    continuous:       { type: Boolean,  default: true },
+    showIndicators:   { type: Boolean,  default: true },
+    showNav:          { type: Boolean,  default: true },
+    noDragWhenSingle: { type: Boolean,  default: true },
+    prevent:          { type: Boolean,  default: false }
   },
 
   events: {
@@ -172,6 +73,28 @@ export default {
   },
 
   methods: {
+    goToSlide(idx) {
+      let delta, towards, i
+      if (this.index != idx) {
+        delta = idx - this.index
+      }
+      if (delta > 0) {
+        towards = 'next'
+      } else {
+        towards = 'prev'
+        delta *= -1
+      }
+      for (i = 0; i < delta; i++) {
+        if (i) {
+          setTimeout(() => {
+            this.doAnimate(towards)
+          }, 800 * i)
+        } else {
+          this.doAnimate(towards)
+        }
+      }
+    },
+
     translate(element, offset, speed, callback) {
       if (speed) {
         this.animating = true
@@ -519,3 +442,99 @@ export default {
 }
 
 </script>
+
+<style>
+.swipe {
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 22px;
+}
+
+.swipe-items-wrap {
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+}
+
+.swipe-items-wrap > div {
+  position: absolute;
+  transform: translateX(-100%);
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+
+.swipe-items-wrap > div.active {
+  display: block;
+  transform: none;
+}
+
+.swipe-indicators {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.swipe-indicator {
+  width: 8px;
+  height: 8px;
+  display: inline-block;
+  border-radius: 100%;
+  background: #000;
+  opacity: 0.2;
+  margin: 0 3px;
+}
+
+.swipe-indicator.active {
+  background: #fff;
+}
+
+.swipe-nav > div {
+  background: linear-gradient(left, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
+  position: absolute;
+  width: 10%;
+  height: 100%;
+  top: 0;
+  opacity: .8;
+  cursor: pointer;
+  transition: all .3s ease-out;
+}
+
+.swipe-nav > div:after,
+.swipe-nav > div:before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  border-left: 3px solid #fff;
+  height: 62px;
+  left: 32%;
+}
+
+.swipe-nav > div:after {
+  transform: rotate(24deg);
+  margin-top: -60px;
+}
+
+.swipe-nav > div:before {
+  transform: rotate(-24deg);
+  margin-top: -4px;
+}
+
+.swipe-prev {
+  left: 0;
+}
+
+.swipe-prev:before,
+.swipe-prev:after {}
+
+.swipe-next:before,
+.swipe-next:after {
+  /*right: 32%;*/
+}
+
+.swipe-next {
+  right: 0;
+  transform: rotate(180deg);
+}
+</style>
