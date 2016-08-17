@@ -559,4 +559,3 @@ App.prototype.extend = function(defaults, options) {
 }
 
 export default App
-

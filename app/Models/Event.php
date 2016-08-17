@@ -1,11 +1,11 @@
 <?php
-
 namespace App\Models;
 
 use Backpack\CRUD\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Propaganistas\LaravelCacheSupport\Traits\EloquentCacheable;
+
+// use Propaganistas\LaravelCacheSupport\Traits\EloquentCacheable;
 
 class Event extends Model
 {
@@ -13,14 +13,7 @@ class Event extends Model
     use SoftDeletes;
     // use EloquentCacheable;
 
-    /**
-     * --------------------------------------------------------------------------
-     * GLOBAL VARIABLES
-     * --------------------------------------------------------------------------
-     */
     protected $table = 'events';
-    // protected $guarded = ['id'];
-    // protected $hidden = ['id'];
     protected $fillable = [
         'published',
         'wide',
@@ -53,21 +46,10 @@ class Event extends Model
         'meta',
         'properties',
     ];
-    protected $dates   = ['deleted_at', 'created_at', 'edited_at'];
+    protected $dates   = ['deleted_at'];
     public $timestamps = true;
     protected $casts   = ['year' => 'integer'];
 
-    /**
-     * --------------------------------------------------------------------------
-     * FUNCTIONS
-     * --------------------------------------------------------------------------
-     */
-
-    /**
-     * --------------------------------------------------------------------------
-     * RELATIONS
-     * --------------------------------------------------------------------------
-     */
     public function seances()
     {
         return $this->hasMany('App\Models\Seance');
@@ -78,53 +60,4 @@ class Event extends Model
         return $this->belongsTo('App\Models\Category');
     }
 
-    // public function tags()
-    // {
-    //     return $this->belongsToMany('App\Models\Tag', 'article_tag');
-    // }
-
-    /**
-     * --------------------------------------------------------------------------
-     * SCOPES
-     * |--------------------------------------------------------------------------
-     */
-
-    /**
-     * --------------------------------------------------------------------------
-     * ACCESORS
-     * --------------------------------------------------------------------------
-     */
-    // public function getEventTypeAttribute()
-    // {
-    //     return $this->category()->name;
-    // }
-
-    // public function getImageFields()
-    // {
-    //     return [
-    //         'image' => 'event_images/',
-    //         'photo' => 'event_photos/',
-    //         'other' => ['other_images/', function ($directory, $originalName, $extension) {
-    //             return $originalName;
-    //         }, ],
-    //     ];
-    // }
-
-    /**
-     * --------------------------------------------------------------------------
-     *  MUTATORS
-     * --------------------------------------------------------------------------
-     */
-
-    /**
-     * Image attribute mutator.
-     *
-     * @param [type] $value [description]
-     */
-    // public function setImageAttribute($value)
-    // {
-    //     $value = explode(',', $value);
-    //
-    //     return json_encode($value);
-    // }
 }

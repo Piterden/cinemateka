@@ -1,21 +1,15 @@
 <?php
-
 namespace App\Models;
 
 use Backpack\CRUD\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
-use Propaganistas\LaravelCacheSupport\Traits\EloquentCacheable;
+
+// use Propaganistas\LaravelCacheSupport\Traits\EloquentCacheable;
 
 class Seance extends Model
 {
     use CrudTrait;
     // use EloquentCacheable;
-
-    /*
-    |--------------------------------------------------------------------------
-    | GLOBAL VARIABLES
-    |--------------------------------------------------------------------------
-     */
 
     protected $table    = 'seances';
     public $timestamps  = true;
@@ -37,19 +31,7 @@ class Seance extends Model
         'properties',
     ];
     protected $dates = ['start_time'];
-    // protected $hidden = [];
 
-    /*
-    |--------------------------------------------------------------------------
-    | FUNCTIONS
-    |--------------------------------------------------------------------------
-     */
-
-    /*
-    |--------------------------------------------------------------------------
-    | RELATIONS
-    |--------------------------------------------------------------------------
-     */
     public function event()
     {
         return $this->belongsTo('App\Models\Event');
@@ -65,17 +47,6 @@ class Seance extends Model
         return $this->belongsTo('App\Models\Place');
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | SCOPES
-    |--------------------------------------------------------------------------
-     */
-
-    /*
-    |--------------------------------------------------------------------------
-    | ACCESORS
-    |--------------------------------------------------------------------------
-     */
     public function getEventNameAttribute()
     {
         return App\Models\Event::where([
@@ -97,9 +68,4 @@ class Seance extends Model
         ])->first()->title;
     }
 
-    /*
-|--------------------------------------------------------------------------
-| MUTATORS
-|--------------------------------------------------------------------------
- */
 }

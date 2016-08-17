@@ -24,11 +24,6 @@ class MenuItem extends Model
         return $this->hasMany('App\Models\MenuItem');
     }
 
-    // public function page()
-    // {
-    //     return $this->belongsTo('Backpack\PageManager\app\Models\Page', 'page_id');
-    // }
-
     /**
      * Get all menu items, in a hierarchical collection.
      * Only supports 2 levels of indentation.

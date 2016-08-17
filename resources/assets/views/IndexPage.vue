@@ -22,6 +22,9 @@
             <div v-if="slide.caption.caption_title" class="caption-title">
               {{ slide.caption.caption_title }}
             </div>
+            <div v-else class="caption-title">
+              {{ slide.title }}
+            </div>
             <div v-if="slide.caption.caption_content" class="caption-content">
               {{ slide.caption.caption_content }}
             </div>

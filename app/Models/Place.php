@@ -1,12 +1,12 @@
 <?php
-
 namespace App\Models;
 
 use Geocoder;
 use Backpack\CRUD\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Propaganistas\LaravelCacheSupport\Traits\EloquentCacheable;
+
+// use Propaganistas\LaravelCacheSupport\Traits\EloquentCacheable;
 
 class Place extends Model
 {
@@ -14,15 +14,7 @@ class Place extends Model
     use SoftDeletes;
     // use EloquentCacheable;
 
-    /**
-     * |--------------------------------------------------------------------------
-     * | GLOBAL VARIABLES
-     * |--------------------------------------------------------------------------
-     */
-
-    protected $table = 'places';
-    // protected $guarded = ['id'];
-    // protected $hidden = [];
+    protected $table    = 'places';
     protected $fillable = [
         'published',
         'title',
@@ -35,10 +27,7 @@ class Place extends Model
         'place_phone',
         'place_type',
     ];
-    // protected $fakeColumns = ['properties'];
-    // protected $dates       = ['created_at', 'edited_at', 'deleted_at'];
-    public $timestamps     = true;
-    // protected $appends     = ['position'];
+    public $timestamps = true;
 
     /**
      * |--------------------------------------------------------------------------
@@ -75,46 +64,16 @@ class Place extends Model
             JSON_HEX_AMP | JSON_UNESCAPED_UNICODE);
     }
 
-    /**
-     * |--------------------------------------------------------------------------
-     * | RELATIONS
-     * |--------------------------------------------------------------------------
-     */
     public function seances()
     {
         $this->hasMany('App\Model\Seances');
     }
 
-    /**
-     * |--------------------------------------------------------------------------
-     * | SCOPES
-     * |--------------------------------------------------------------------------
-     */
-
-    /**
-     * |--------------------------------------------------------------------------
-     * | ACCESORS
-     * |--------------------------------------------------------------------------
-     */
-    /**
-     * Geocoding
-     * @param  [type] $value          [description]
-     * @return [type] [description]
-     */
-    // public function getPositionAttribute($value)
-    // {
-    // }
-
-    /**
-     * --------------------------------------------------------------------------
-     *  MUTATORS
-     * --------------------------------------------------------------------------
-     */
     public function setAddressAttribute($value)
     {
         if (trim($value))
         {
-            $results = $this->googleGeocoderResponse($value);
+            $results                      = $this->googleGeocoderResponse($value);
             $this->attributes['position'] = $this->geoPositionJson($results);
         }
         $this->attributes['address'] = $value;

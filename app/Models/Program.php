@@ -1,11 +1,11 @@
 <?php
-
 namespace App\Models;
 
 use Backpack\CRUD\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Propaganistas\LaravelCacheSupport\Traits\EloquentCacheable;
+
+// use Propaganistas\LaravelCacheSupport\Traits\EloquentCacheable;
 
 class Program extends Model
 {
@@ -13,15 +13,7 @@ class Program extends Model
     use SoftDeletes;
     // use EloquentCacheable;
 
-    /**
-     * |--------------------------------------------------------------------------
-     * | GLOBAL VARIABLES
-     * |--------------------------------------------------------------------------
-     */
-
-    protected $table = 'programs';
-    // protected $guarded = ['id'];
-    // protected $hidden = [];
+    protected $table    = 'programs';
     protected $fillable = [
         'title',
         'slug',
@@ -33,43 +25,15 @@ class Program extends Model
         'properties',
         'press_materials',
     ];
-    protected $fakeColumns = [
-        'meta',
-        'properties',
-    ];
-    protected $dates = [
-        'start_date',
-        'end_date',
-    ];
-    public $timestamps = true;
+    protected $fakeColumns = ['meta', 'properties'];
+    protected $dates       = ['start_date', 'end_date'];
+    public $timestamps     = true;
 
-    /**
-     * |--------------------------------------------------------------------------
-     * | FUNCTIONS
-     * |--------------------------------------------------------------------------
-     */
-
-    /**
-     * |--------------------------------------------------------------------------
-     * | RELATIONS
-     * |--------------------------------------------------------------------------
-     */
     public function seances()
     {
         return $this->hasMany('App\Models\Seance');
     }
 
-    /**
-     * |--------------------------------------------------------------------------
-     * | SCOPES
-     * |--------------------------------------------------------------------------
-     */
-
-    /**
-     * |--------------------------------------------------------------------------
-     * | ACCESORS
-     * |--------------------------------------------------------------------------
-     */
     public function getStartDateAttribute($value)
     {
         return $this->seances()->min('start_time');
@@ -80,9 +44,4 @@ class Program extends Model
         return $this->seances()->max('start_time');
     }
 
-    /**
-     * |--------------------------------------------------------------------------
-     * | MUTATORS
-     * |--------------------------------------------------------------------------
-     */
 }

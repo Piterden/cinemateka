@@ -1,11 +1,14 @@
-/vendor/**/*
-/node_modules/**/*
-/public/**/*
-/storage/**/*
-/bower_components/**/*
+/bootstrap/cache
+/bootstrap/compiled.php
+.env.*.php
+.env.php
+/vendor
+/node_modules
+/public/storage
+/bower_components
 Homestead.yaml
 Homestead.json
-*.env
+.env
 *.tar.gz
 *.zip
 *.jpg
@@ -14,3 +17,5 @@ Homestead.json
 *.gif
 sftp-config.json
 .remote-sync.json
+composer.phar
+composer.lock

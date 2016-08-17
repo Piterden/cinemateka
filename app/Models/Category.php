@@ -4,38 +4,15 @@ namespace App\Models;
 
 use Backpack\CRUD\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
-use Propaganistas\LaravelCacheSupport\Traits\EloquentCacheable;
+// use Propaganistas\LaravelCacheSupport\Traits\EloquentCacheable;
 
 class Category extends Model
 {
     use CrudTrait;
     // use EloquentCacheable;
 
-    /**
-     * |--------------------------------------------------------------------------
-     * | GLOBAL VARIABLES
-     * |--------------------------------------------------------------------------
-     */
-
     protected $table      = 'categories';
-    protected $primaryKey = 'id';
-    // public $timestamps = false;
-    // protected $guarded = ['id'];
     protected $fillable = ['name', 'parent_id'];
-    // protected $hidden = [];
-    // protected $dates = [];
-
-    /**
-     * |--------------------------------------------------------------------------
-     * | FUNCTIONS
-     * |--------------------------------------------------------------------------
-     */
-
-    /**
-     * |--------------------------------------------------------------------------
-     * | RELATIONS
-     * |--------------------------------------------------------------------------
-     */
 
     public function parent()
     {
@@ -57,21 +34,4 @@ class Category extends Model
         return $this->hasMany('App\Models\Slide');
     }
 
-    /**
-     * |--------------------------------------------------------------------------
-     * | SCOPES
-     * |--------------------------------------------------------------------------
-     */
-
-    /**
-     * |--------------------------------------------------------------------------
-     * | ACCESORS
-     * |--------------------------------------------------------------------------
-     */
-
-    /**
-     * |--------------------------------------------------------------------------
-     * | MUTATORS
-     * |--------------------------------------------------------------------------
-     */
 }

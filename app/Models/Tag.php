@@ -1,62 +1,18 @@
 <?php
-
 namespace App\Models;
 
 use Backpack\CRUD\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
-use Propaganistas\LaravelCacheSupport\Traits\EloquentCacheable;
+
+// use Propaganistas\LaravelCacheSupport\Traits\EloquentCacheable;
 
 class Tag extends Model
 {
     use CrudTrait;
     // use EloquentCacheable;
 
-    /**
-     * |--------------------------------------------------------------------------
-     * | GLOBAL VARIABLES
-     * |--------------------------------------------------------------------------
-     */
-
-    protected $table      = 'tags';
-    protected $primaryKey = 'id';
-    public $timestamps    = true;
-    // protected $guarded = ['id'];
+    protected $table    = 'tags';
+    public $timestamps  = true;
     protected $fillable = ['name'];
-    // protected $hidden = [];
-    // protected $dates = [];
 
-    /**
-     * |--------------------------------------------------------------------------
-     * | FUNCTIONS
-     * |--------------------------------------------------------------------------
-     */
-
-    /**
-     * |--------------------------------------------------------------------------
-     * | RELATIONS
-     * |--------------------------------------------------------------------------
-     */
-
-    // public function articles()
-    //    {
-    //        return $this->hasMany('App\Models\Article');
-    //    }
-
-    /**
-     * |--------------------------------------------------------------------------
-     * | SCOPES
-     * |--------------------------------------------------------------------------
-     */
-
-    /**
-     * |--------------------------------------------------------------------------
-     * | ACCESORS
-     * |--------------------------------------------------------------------------
-     */
-
-    /**
-     * |--------------------------------------------------------------------------
-     * | MUTATORS
-     * |--------------------------------------------------------------------------
-     */
 }
