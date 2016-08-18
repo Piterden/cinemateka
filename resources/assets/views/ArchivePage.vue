@@ -6,8 +6,7 @@
       :filter-values.sync="filterValues"
     ></filters-line>
     <list-box
-      :events.once="$root.events"
-      :programs.once="$root.programs"
+      :events.once="events"
       :limit.sync="limit"
       :increment-limit.once="incrementLimit"
       :cols.once="cols"
@@ -35,6 +34,21 @@ export default {
   },
 
   props: {
+    events: {
+      default() {
+        return this.$root.events.filter((e) => {
+          let ss = e.seances,
+            now = moment(),
+            futureSeance = false
+          if (ss && ss != []) {
+            futureSeance = ss.find((s) => {
+              return moment(s.start_time) < now
+            })
+          }
+          return Boolean(futureSeance)
+        })
+      }
+    },
     filteredCount: Number,
     /**
      * Значения фильтров
@@ -183,5 +197,18 @@ export default {
 }
 </script>
 
-<style lang="css" scoped>
+<style lang="sass">
+.filters-line.mdl-grid .month-filter {
+  margin-left: .6%;
+}
+.filters-line.mdl-grid .year-filter {
+  margin-left: -.5%;
+  width: 14.5%;
+}
+.filter .dropdown {
+  margin: 0;
+  ul {
+    max-height: 448px;
+  }
+}
 </style>

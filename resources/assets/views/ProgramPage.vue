@@ -4,7 +4,7 @@
       <div class="program-image" :style="{'background-image': 'url(/'+images.mainimage+')'}">
         <div class="program-date">
           <span v-if="formatted_start != formatted_end">
-            {{ formatted_start }}—{{ formatted_end }}
+            {{ formatted_start }} &ndash; {{ formatted_end }}
           </span>
           <span v-else>
             {{ formatted_start }}

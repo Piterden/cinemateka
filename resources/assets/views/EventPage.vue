@@ -52,8 +52,16 @@
               </div>
             </div>
             <div class="event-price" v-if="closestSeance">
-              <i class="material-icons">account_balance_wallet</i>
-              <strong>{{ closestSeance.price }}</strong> р.
+              <div v-if="eventItem.pay_link">
+                <a href="{{ eventItem.pay_link }}" target="_blank">
+                  <i class="material-icons">account_balance_wallet</i>
+                  <strong>{{ closestSeance.price }}</strong> р.
+                </a>
+              </div>
+              <div v-else>
+                <i class="material-icons">account_balance_wallet</i>
+                <strong>{{ closestSeance.price }}</strong> р.
+              </div>
             </div>
           </div>
           <div class="event-desc-text" v-if="eventItem.description">
@@ -102,9 +110,9 @@
                 <td>Язык</td>
                 <td>{{ eventItem.language }}</td>
               </tr>
-              <tr v-if="eventItem.subtitles">
+              <tr v-if="eventItem.subtitles != 'no'">
                 <td>Субтитры</td>
-                <td>{{ eventItem.subtitles }}</td>
+                <td>{{ eventItem.subtitles == 'yes' ? 'Русские' : '' }}</td>
               </tr>
               <tr v-if="eventItem.director">
                 <td>Режиссер</td>
@@ -144,7 +152,7 @@
       </div>
       <div class="mdl-cell mdl-cell--5-col" v-if="closestSeance">
         <div v-if="closestSeance.speaker_info" class="speakers">
-          <h3><i class="fa fa-comment"></i> Спикеры</h3>
+          <h3><i class="fa fa-comment"></i> Фильм представляет</h3>
           {{{ closestSeance.speaker_info }}}
         </div>
       </div>
@@ -174,7 +182,8 @@
           :no-drag-when-single="false"
           :prevent="false"
           :style="{}"
-        ><swipe-item
+        >
+          <swipe-item
             v-for="slide in gallery"
             class="slide"
             :style="{backgroundImage: 'url(/' + slide + ')'}"
@@ -240,6 +249,7 @@
     </list-box>
   </div>
 </template>
+
 <script>
 import moment from 'moment'
 moment.locale('ru-RU')
@@ -311,7 +321,9 @@ export default {
     gallery() {
       let obj = this.images, arr = [], key
       for (key in obj) {
-        if (obj.hasOwnProperty(key) && key != 'mainimage') arr.push(obj[key])
+        if (obj.hasOwnProperty(key) && key != 'mainimage') {
+          arr.push(obj[key].replace(' ', '%20'))
+        }
       }
       return arr
     },
@@ -408,13 +420,21 @@ export default {
   }
 }
 </script>
-<style lang="css" scoped>
+
+<style lang="sass">
 h3 {
   margin-bottom: 24px;
 }
 .event-place {
   cursor: pointer;
   position: relative;
+  a {
+    border-bottom: 2px solid black;
+    &:hover {
+      border-bottom: 2px solid red;
+      transition : border-color .3s linear;
+    }
+  }
 }
 .placeTooltip {
   position: absolute;
@@ -425,5 +445,17 @@ h3 {
   background: #fff;
   border: 3px solid;
   padding: 0 0 15px 0;
+  &:after {
+    content: '';
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background: #fff;
+    border-top: 3px solid;
+    border-left: 3px solid;
+    transform: rotate(45deg);
+    top: -11px;
+    left: 181px;
+  }
 }
 </style>

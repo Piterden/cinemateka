@@ -121,6 +121,12 @@ class EventCrudController extends CrudController
             'name'    => 'seances', // the method that defines the relationship in your Model
             'colspan' => '12',
         ]);
+        $this->crud->addField([ // TEXT
+            'name'    => 'pay_link',
+            'label'   => 'Ссылка на Рамлер кассу',
+            'type'    => 'text',
+            'colspan' => '12',
+        ]);
         $this->crud->addField([
             'name'  => 'service_2',
             'value' => '<div class="col-md-12"><h3>Дополнительная информация</h3></div>',

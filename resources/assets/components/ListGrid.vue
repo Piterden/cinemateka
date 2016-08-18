@@ -1,123 +1,3 @@
-<style lang="css">
-.mdl-data-table {
-  width: 100%;
-  border: none;
-  font-size: 16px;
-}
-.mdl-data-table th {
-  letter-spacing: .02em;
-  font-size: 16px;
-  padding: 0 0 10px 5px;
-  text-align: left;
-  font-weight: bold;
-  color: black;
-}
-.mdl-data-table tbody tr {
-  height: 100px;
-}
-.mdl-data-table tbody tr td {
-  padding-right: 0;
-  padding-left: 0;
-  padding-top: 0;
-  padding-bottom: 0;
-  border-top-width: 0;
-  border-bottom: none;
-  white-space: normal;
-  text-align: left;
-}
-.mdl-data-table thead th:nth-child(1) {
-  display: none;
-}
-.mdl-data-table tbody tr td:nth-child(1) {
-  display: none;
-}
-
-.mdl-data-table tbody tr:first-child td {
-  border-top-width: 3px;
-}
-tbody .date > div {
-  width: 70px;
-  margin-right: 15px;
-}
-tbody .date .seance-date {
-  font-size: 23px;
-  text-align: right;
-}
-tbody .date .seance-time {
-  width: 68px;
-  font-size: 16px;
-  text-align: right;
-}
-tbody .event {
-  width: 100%;
-}
-tbody .event > div {
-  margin-left: 5px;
-  padding-right: 30px;
-}
-tbody .event > div a {
-  font-size: 23px;
-  font-weight: bold;
-}
-tbody .type > div {
-  padding-left: 5px;
-  min-width: 150px;
-}
-tbody .program > div {
-  padding-left: 5px;
-  min-width: 200px;
-}
-tbody .program > div a {
-  text-decoration: underline;
-}
-tbody .place > div {
-  padding-left: 5px;
-  min-width: 160px;
-}
-tbody .place > div > div {
-  display: inline;
-}
-tbody .price > div {
-  padding-left: 5px;
-  min-width: 47px;
-}
-.mdl-tooltip.is-active {
-  border: 2px solid black;
-  background-color: white;
-  text-align: left;
-  border-radius: 0;
-  width: 250px;
-}
-.s-place, .s-place a {
-  font-size: 14px;
-  color: black;
-}
-.s-place-address i {
-  font-size: 18px;
-}
-.s-place-metro {
-    margin-left: 15px;
-    font-size: 11px;
-    margin-top: 5px;
-}
-.s-place-site  {
-  margin-top: 8px;
-}
-.s-place-email {
-  margin-top: 6px;
-}
-.s-place-tel {
-  margin-top: 6px;
-}
-.s-place-tel i {
-  font-size: 22px;
-  margin-left: 2px;
-  margin-right: 3px;
-  vertical-align: middle;
-}
-
-</style>
-
 <template lang="html">
   <div class="mdl-grid">
     <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable">
@@ -165,28 +45,28 @@ tbody .price > div {
             </div>
           </td>
           <td class="place">
-            <div>
-              <a href="#" v-link="{ path: '/contacts/' + seance.place_id }">
+            <div class="placeWrapper">
+              <a href="#" @click.prevent="toggleTooltip(seance.id)">
                 {{ seance.place.title }}
+                 <i class="fa fa-info-circle" aria-hidden="true"></i>
               </a>
-              <div id="tt{{ seance.id }}"><i class="fa fa-info-circle" aria-hidden="true"></i></div>
-              <div class="mdl-tooltip" for="tt{{ seance.id }}">
-                <div class="s-place s-place-address" v-if="seance.place.address">
+              <div class="hidden" id="tt{{ seance.id }}">
+                <div class="place-address" v-if="seance.place.address">
                   <i class="fa fa-map-marker" aria-hidden="true"></i>
                   {{ seance.place.address }}
                 </div>
-                <div class="s-place s-place-metro" v-if="seance.place.metro">
-                  ст. м. {{ seance.place.metro }}
+                <div class="place-metro" v-if="seance.place.metro">
+                  {{ seance.place.metro }}
                 </div>
-                <div class="s-place s-place-site" v-if="seance.place.place_site">
+                <div class="place-site" v-if="seance.place.place_site">
                   <i class="fa fa-globe" aria-hidden="true"></i>
-                  <a href="{{ seance.place.place_site }}" target="_blank">{{ seance.place.place_site }}</a>
+                  <a href="http://{{ seance.place.place_site }}" target="_blank">{{ seance.place.place_site }}</a>
                 </div>
-                <div class="s-place s-place-email" v-if="seance.place.place_email">
+                <div class="place-email" v-if="seance.place.place_email">
                   <i class="fa fa-envelope-o" aria-hidden="true"></i>
                   <a href="mailto:{{ seance.place.place_email }}">{{ seance.place.place_email }}</a>
                 </div>
-                <div class="s-place s-place-tel" v-if="seance.place.place_phone">
+                <div class="place-tel" v-if="seance.place.place_phone">
                   <i class="fa fa-mobile" aria-hidden="true"></i>
                   <a href="tel:{{ seance.place.place_phone }}">{{ seance.place.place_phone }}</a>
                 </div>
@@ -245,6 +125,15 @@ export default {
      */
     showMore() {
       this.limit += this.incrementLimit
+    },
+
+    toggleTooltip(sId) {
+      let tt = document.getElementById('tt' + sId)
+      if (tt.className == 'hidden') {
+        tt.className = 'visible'
+      } else {
+        tt.className = 'hidden'
+      }
     }
 
   },
@@ -257,3 +146,151 @@ export default {
 
 }
 </script>
+
+<style lang="sass">
+.mdl-data-table {
+  width: 100%;
+  border: none;
+  font-size: 16px;
+  th {
+    letter-spacing: .02em;
+    font-size: 16px;
+    padding: 0 0 10px 5px;
+    text-align: left;
+    font-weight: bold;
+    color: #000;
+  }
+  thead th:nth-child(1) {
+    display: none;
+  }
+  tbody {
+    tr {
+      height: 100px;
+      td {
+        padding-right: 0;
+        padding-left: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+        border-top-width: 0;
+        border-bottom: none;
+        white-space: normal;
+        text-align: left;
+      }
+      td:nth-child(1) {
+        display: none;
+      }
+      &:first-child td {
+        border-top-width: 3px;
+      }
+    }
+    .date {
+      > div {
+        width: 70px;
+        margin-right: 15px;
+      }
+      .seance-date {
+        font-size: 23px;
+        text-align: right;
+      }
+      .seance-time {
+        width: 68px;
+        font-size: 16px;
+        text-align: right;
+      }
+    }
+    .event {
+      width: 100%;
+      > div {
+        margin-left: 5px;
+        padding-right: 30px;
+        a {
+          font-size: 23px;
+          font-weight: bold;
+        }
+      }
+    }
+    .type > div {
+      padding-left: 5px;
+      min-width: 150px;
+    }
+    .program > div {
+      padding-left: 5px;
+      min-width: 200px;
+      a {
+        text-decoration: underline;
+      }
+    }
+    .place > div {
+      padding-left: 5px;
+      min-width: 160px;
+      > div {
+        display: inline;
+      }
+    }
+    .price > div {
+      padding-left: 5px;
+      min-width: 47px;
+    }
+  }
+}
+.mdl-tooltip.is-active {
+  border: 2px solid #000;
+  background-color: white;
+  text-align: left;
+  border-radius: 0;
+  width: 250px;
+}
+.s-place, .s-place a {
+  font-size: 14px;
+  color: #000;
+}
+.s-place-address i {
+  font-size: 18px;
+}
+.s-place-metro {
+  margin-left: 15px;
+  font-size: 11px;
+  margin-top: 5px;
+}
+.s-place-site  {
+  margin-top: 8px;
+}
+.s-place-email {
+  margin-top: 6px;
+}
+.s-place-tel {
+  margin-top: 6px;
+  i {
+    font-size: 22px;
+    margin-left: 2px;
+    margin-right: 3px;
+    vertical-align: middle;
+  }
+}
+.placeWrapper {
+  position: relative;
+  > div {
+    position: absolute;
+    top: 38px;
+    width: 250px;
+    left: -120px;
+    text-align: left;
+    background: #fff;
+    border: 3px solid;
+    padding: 0 0 15px 0;
+    z-index: 1;
+    &:after {
+      content: '';
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      background: #fff;
+      border-top: 3px solid;
+      border-left: 3px solid;
+      transform: rotate(45deg);
+      top: -11px;
+      left: 181px;
+    }
+  }
+}
+</style>

@@ -123,8 +123,15 @@ nav {
   background-color: #000; }
   nav .brand-logo.left {
     position: absolute;
+    display: block;
     top: 24px;
-    left: 42px; }
+    left: 42px;
+    width: 147px;
+    height: 48px; }
+    nav .brand-logo.left:hover path {
+      fill: #fe001d;
+      -webkit-transition: fill .3s linear;
+      transition: fill .3s linear; }
   nav ul {
     display: inline-block;
     margin: 0;
@@ -163,8 +170,15 @@ nav {
           opacity: 1; }
   nav .brand-logo.right {
     position: absolute;
-    top: 37px;
+    display: block;
+    width: 89px;
+    height: 22px;
+    top: 33px;
     right: 40px; }
+    nav .brand-logo.right:hover g {
+      fill: #fe001d;
+      -webkit-transition: fill .3s linear;
+      transition: fill .3s linear; }
 
 /**
  * Main Page Slider
@@ -674,7 +688,8 @@ footer {
   width: 100%;
   line-height: 411px;
   vertical-align: middle;
-  margin-left: auto; }
+  margin-left: auto;
+  max-width: 515px; }
   .event-video iframe {
     min-height: 290px; }
 
@@ -726,7 +741,8 @@ footer {
 
 .more-info-table tr td:first-child {
   font-weight: bold;
-  width: 170px; }
+  width: 170px;
+  vertical-align: top; }
 
 .more-info-table tr td:nth-child(2) {
   max-width: 340px;
@@ -742,6 +758,7 @@ footer {
 .social-block .mdl-cell {
   border-top: 2px solid black; }
   .social-block .mdl-cell a {
+    cursor: pointer;
     display: inline-block;
     margin: 30px 16px 35px 0; }
     .social-block .mdl-cell a img:hover {

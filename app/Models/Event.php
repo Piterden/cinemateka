@@ -41,6 +41,7 @@ class Event extends Model
         'images',
         'properties',
         'press_materials',
+        'pay_link',
     ];
     protected $fakeColumns = [
         'meta',

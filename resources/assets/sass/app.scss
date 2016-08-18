@@ -80,8 +80,15 @@ nav {
   background-color: #000;
   .brand-logo.left {
     position: absolute;
+    display: block;
     top: 24px;
     left: 42px;
+    width: 147px;
+    height: 48px;
+    &:hover path {
+      fill: rgb(254, 0, 29);
+      transition: fill .3s linear;
+    }
   }
   ul {
     display: inline-block;
@@ -126,8 +133,15 @@ nav {
   }
   .brand-logo.right {
     position: absolute;
-    top: 37px;
+    display: block;
+    width: 89px;
+    height: 22px;
+    top: 33px;
     right: 40px;
+    &:hover g {
+      fill: rgb(254, 0, 29);
+      transition: fill .3s linear;
+    }
   }
 }
 /**
@@ -783,6 +797,7 @@ footer {
   line-height: 411px;
   vertical-align: middle;
   margin-left: auto;
+  max-width: 515px;
     iframe {
       // height: 300px;
       min-height: 290px;
@@ -848,6 +863,7 @@ footer {
 .more-info-table tr td:first-child {
   font-weight: bold;
   width: 170px;
+  vertical-align: top;
 }
 .more-info-table tr td:nth-child(2) {
   max-width: 340px;
@@ -864,6 +880,7 @@ footer {
   .mdl-cell {
     border-top: 2px solid black;
       a {
+        cursor: pointer;
         display: inline-block;
         margin: 30px 16px 35px 0;
         img:hover {

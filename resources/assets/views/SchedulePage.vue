@@ -1,8 +1,3 @@
-<style lang="sass" scoped>
-.schedule-page .filters-line.mdl-grid {
-  padding-bottom: 13px;
-}
-</style>
 <template>
   <div class="wrap router-view schedule-page">
     <filters-line
@@ -21,31 +16,30 @@
     ></list-grid>
   </div>
 </template>
+
 <script>
 import moment from 'moment'
 moment.locale('ru')
 
 export default {
 
-  // store: {
-  //   schedule() {
-  //     return 'schedule'
-  //   }
-  // },
-
   data() {
-    /**
-     * Значения фильтров
-     * @type {Object}
-     */
     return {
       filteredCount: 5,
+      /**
+       * Значения фильтров
+       * @type {Object}
+       */
       filterValues: {
         month: 'Все месяцы',
         event_type: 'Все события',
         program_type: 'Все программы',
         place_type: 'Все площадки'
       },
+      /**
+       * Видимые фильтры
+       * @type {Array}
+       */
       visibleFilters: [
         'month',
         'event_type',
@@ -103,9 +97,6 @@ export default {
      * @TODO dates frop pickers
      */
     filterMethod(seances = [], filters) {
-      /* eslint-disable no-console */
-      console.log(filters)
-      /* eslint-enable no-console */
       let fromTime = moment().startOf('day'),
         endTime = moment(fromTime).add(1, 'year'),
         filteredArray = seances.filter((seance) => {
@@ -178,3 +169,8 @@ export default {
 }
 </script>
 
+<style lang="sass" scoped>
+.schedule-page .filters-line.mdl-grid {
+  padding-bottom: 13px;
+}
+</style>
