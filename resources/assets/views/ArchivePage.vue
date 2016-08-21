@@ -203,7 +203,10 @@ export default {
 }
 .filters-line.mdl-grid .year-filter {
   margin-left: -.5%;
-  width: 14.5%;
+  width: 16.9%;
+}
+.filters-line.mdl-grid .program-filter {
+  margin-left: -2.5%;
 }
 .filter .dropdown {
   margin: 0;

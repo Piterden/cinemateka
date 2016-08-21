@@ -131,9 +131,24 @@ export default {
       let tt = document.getElementById('tt' + sId)
       if (tt.className == 'hidden') {
         tt.className = 'visible'
+        setTimeout(() => {
+          this.$root.$el.addEventListener('click', this.handleClick)
+        }, 0)
       } else {
         tt.className = 'hidden'
+        setTimeout(() => {
+          this.$root.$el.removeEventListener('click', this.handleClick)
+        }, 0)
       }
+    },
+
+    handleClick() {
+      document.querySelectorAll('[id^="tt"]').forEach((el) => {
+        el.className = 'hidden'
+      })
+      setTimeout(() => {
+        this.$root.$el.removeEventListener('click', this.handleClick)
+      }, 0)
     }
 
   },
@@ -142,6 +157,9 @@ export default {
     filterMethod(seances, method) {
       return this.$parent.filterMethod(seances, method)
     }
+  },
+
+  ready() {
   }
 
 }

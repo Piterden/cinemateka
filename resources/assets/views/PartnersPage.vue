@@ -5,6 +5,13 @@
         <h1>Партнеры</h1>
       </div>
       <div class="partner-item mdl-cell mdl-cell--2-col mdl-cell--3-col-desktop">
+        <div class="spb">
+          <a href="http://gov.spb.ru/gov/admin/" target="_blank">
+            <img src="/images/partners/img-partners-spb.png" alt="Правительство Санкт-Петербурга" title="Правительство Санкт-Петербурга">
+          </a>
+        </div>
+      </div>
+      <div class="partner-item mdl-cell mdl-cell--2-col mdl-cell--3-col-desktop">
         <div class="godkino">
           <a href="http://god-kino2016.ru/" target="_blank">
             <img src="/images/partners/img-partners-godkino.png" alt="Год российского кино" title="Год российского кино">
@@ -19,9 +26,37 @@
         </div>
       </div>
       <div class="partner-item mdl-cell mdl-cell--2-col mdl-cell--3-col-desktop">
-        <div class="kinotv">
-          <a href="http://kinochannel.ru/" target="_blank">
-            <img src="/images/partners/img-partners-kinotv.png" alt="Кино ТВ" title="Кино ТВ">
+        <div class="filmfound">
+          <a href="http://gosfilmofond.ru/" target="_blank">
+            <img src="/images/partners/img-partners-filmfound.png" alt="Госфильмофонд России" title="Госфильмофонд России">
+          </a>
+        </div>
+      </div>
+      <div class="partner-item mdl-cell mdl-cell--2-col mdl-cell--3-col-desktop">
+        <div class="lenfilm">
+          <a href="http://www.lenfilm.ru/" target="_blank">
+            <img src="/images/partners/img-partners-lenfilm.png" alt="Ленфильм" title="Ленфильм">
+          </a>
+        </div>
+      </div>
+      <div class="partner-item mdl-cell mdl-cell--2-col mdl-cell--3-col-desktop">
+        <div class="mosfilm">
+          <a href="http://mosfilm.ru/main.php" target="_blank">
+            <img src="/images/partners/img-partners-mosfilm.png" alt="Мосфильм" title="Мосфильм">
+          </a>
+        </div>
+      </div>
+      <div class="partner-item mdl-cell mdl-cell--2-col mdl-cell--3-col-desktop">
+        <div class="rodina">
+          <a href="http://rodinakino.ru/" target="_blank">
+            <img src="/images/partners/img-partners-rodina.png" alt="Кинотеатр Родина" title="Кинотеатр Родина">
+          </a>
+        </div>
+      </div>
+      <div class="partner-item mdl-cell mdl-cell--2-col mdl-cell--3-col-desktop">
+        <div class="avrora">
+          <a href="http://www.avrora.spb.ru/" target="_blank">
+            <img src="/images/partners/img-partners-avrora.png" alt="Кинотеатр Аврора" title="Кинотеатр Аврора">
           </a>
         </div>
       </div>
@@ -40,58 +75,16 @@
         </div>
       </div> -->
       <div class="partner-item mdl-cell mdl-cell--2-col mdl-cell--3-col-desktop">
-        <div class="spb">
-          <a href="http://gov.spb.ru/gov/admin/" target="_blank">
-            <img src="/images/partners/img-partners-spb.png" alt="Правительство Санкт-Петербурга" title="Правительство Санкт-Петербурга">
+        <div class="porydokslov">
+          <a href="http://wordorder.ru/" target="_blank">
+            <img src="/images/partners/img-partners-porydokslov.png" alt="Порядок слов" title="Порядок слов">
           </a>
         </div>
       </div>
       <div class="partner-item mdl-cell mdl-cell--2-col mdl-cell--3-col-desktop">
-        <div class="filmfound">
-          <a href="http://gosfilmofond.ru/" target="_blank">
-            <img src="/images/partners/img-partners-filmfound.png" alt="Госфильмофонд России" title="Госфильмофонд России">
-          </a>
-        </div>
-      </div>
-      <div class="partner-item mdl-cell mdl-cell--2-col mdl-cell--3-col-desktop">
-        <div class="kultkino">
-          <a href="http://cultofcinema.com/" target="_blank">
-            <img src="/images/partners/img-partners-kultkino.png" alt="Культкино" title="Культкино">
-          </a>
-        </div>
-      </div>
-      <div class="partner-item mdl-cell mdl-cell--2-col mdl-cell--3-col-desktop">
-        <div class="kinoafisha">
-          <a href="http://www.kinoafisha.spb.ru/" target="_blank">
-            <img src="/images/partners/img-partners-kinoafisha.png" alt="Киноафиша" title="Киноафиша">
-          </a>
-        </div>
-      </div>
-      <div class="partner-item mdl-cell mdl-cell--2-col mdl-cell--3-col-desktop">
-        <div class="avrora">
-          <a href="http://www.avrora.spb.ru/" target="_blank">
-            <img src="/images/partners/img-partners-avrora.png" alt="Кинотеатр Аврора" title="Кинотеатр Аврора">
-          </a>
-        </div>
-      </div>
-      <div class="partner-item mdl-cell mdl-cell--2-col mdl-cell--3-col-desktop">
-        <div class="kinolenfilm">
-          <a href="#" target="_blank">
-            <img src="/images/partners/img-partners-kinolenfilm.png" alt="Кинотеатр Ленфильм" title="Кинотеатр Ленфильм">
-          </a>
-        </div>
-      </div>
-      <div class="partner-item mdl-cell mdl-cell--2-col mdl-cell--3-col-desktop">
-        <div class="lenfilm">
-          <a href="http://www.lenfilm.ru/" target="_blank">
-            <img src="/images/partners/img-partners-lenfilm.png" alt="Ленфильм" title="Ленфильм">
-          </a>
-        </div>
-      </div>
-      <div class="partner-item mdl-cell mdl-cell--2-col mdl-cell--3-col-desktop">
-        <div class="rodina">
-          <a href="http://rodinakino.ru/" target="_blank">
-            <img src="/images/partners/img-partners-rodina.png" alt="Кинотеатр Родина" title="Кинотеатр Родина">
+        <div class="kinotv">
+          <a href="http://kinochannel.ru/" target="_blank">
+            <img src="/images/partners/img-partners-kinotv.png" alt="Кино ТВ" title="Кино ТВ">
           </a>
         </div>
       </div>
@@ -103,16 +96,37 @@
         </div>
       </div>
       <div class="partner-item mdl-cell mdl-cell--2-col mdl-cell--3-col-desktop">
-        <div class="bukvoed">
-          <a href="http://www.bookvoed.ru/" target="_blank">
-            <img src="/images/partners/img-partners-bukvoed.png" alt="Буквоед" title="Буквоед">
+        <div class="tvspb">
+          <a href="http://topspb.tv/" target="_blank">
+            <img src="/images/partners/img-partners-tvspb.png" alt="ТВ Санкт-Петербург" title="ТВ Санкт-Петербург">
           </a>
         </div>
       </div>
       <div class="partner-item mdl-cell mdl-cell--2-col mdl-cell--3-col-desktop">
-        <div class="porydokslov">
-          <a href="http://wordorder.ru/" target="_blank">
-            <img src="/images/partners/img-partners-porydokslov.png" alt="Порядок слов" title="Порядок слов">
+        <div class="kinoafisha">
+          <a href="http://www.kinoafisha.spb.ru/" target="_blank">
+            <img src="/images/partners/img-partners-kinoafisha.png" alt="Киноафиша" title="Киноафиша">
+          </a>
+        </div>
+      </div>
+      <div class="partner-item mdl-cell mdl-cell--2-col mdl-cell--3-col-desktop">
+        <div class="kultkino">
+          <a href="http://cultofcinema.com/" target="_blank">
+            <img src="/images/partners/img-partners-kultkino.png" alt="Культкино" title="Культкино">
+          </a>
+        </div>
+      </div>
+      <div class="partner-item mdl-cell mdl-cell--2-col mdl-cell--3-col-desktop">
+        <div class="go2go">
+          <a href="http://www.2do2go.ru/spb" target="_blank">
+            <img src="/images/partners/img-partners-2go2go.png" alt="2do2go" title="2do2go">
+          </a>
+        </div>
+      </div>
+      <div class="partner-item mdl-cell mdl-cell--2-col mdl-cell--3-col-desktop">
+        <div class="kudago">
+          <a href="http://kudago.com/spb/" target="_blank">
+            <img src="/images/partners/img-partners-kudago.png" alt="Kudago" title="Kudago">
           </a>
         </div>
       </div>
@@ -120,20 +134,6 @@
         <div class="bumaga">
           <a href="http://paperpaper.ru" target="_blank">
             <img src="/images/partners/img-partners-bumaga.png" alt="Бумага" title="Бумага">
-          </a>
-        </div>
-      </div>
-      <div class="partner-item mdl-cell mdl-cell--2-col mdl-cell--3-col-desktop">
-        <div class="chronicles">
-          <a href="https://new.vk.com/xronikibar" target="_blank">
-            <img src="/images/partners/img-partners-chronicles.png" alt="Бар Хроники" title="Бар Хроники">
-          </a>
-        </div>
-      </div>
-      <div class="partner-item mdl-cell mdl-cell--2-col mdl-cell--3-col-desktop">
-        <div class="morecoffe">
-          <a href="https://new.vk.com/morecoffee" target="_blank">
-            <img src="/images/partners/img-partners-morecoffe.png" alt="Больше кофе" title="Больше кофе">
           </a>
         </div>
       </div>
@@ -152,23 +152,30 @@
         </div>
       </div>
       <div class="partner-item mdl-cell mdl-cell--2-col mdl-cell--3-col-desktop">
-        <div class="kudago">
-          <a href="http://kudago.com/spb/" target="_blank">
-            <img src="/images/partners/img-partners-kudago.png" alt="Kudago" title="Kudago">
+        <div class="bukvoed">
+          <a href="http://www.bookvoed.ru/" target="_blank">
+            <img src="/images/partners/img-partners-bukvoed.png" alt="Буквоед" title="Буквоед">
+          </a>
+        </div>
+      </div>            
+      <div class="partner-item mdl-cell mdl-cell--2-col mdl-cell--3-col-desktop">
+        <div class="morecoffe">
+          <a href="https://new.vk.com/morecoffee" target="_blank">
+            <img src="/images/partners/img-partners-morecoffe.png" alt="Больше кофе" title="Больше кофе">
           </a>
         </div>
       </div>
       <div class="partner-item mdl-cell mdl-cell--2-col mdl-cell--3-col-desktop">
-        <div class="go2go">
-          <a href="http://www.2do2go.ru/spb" target="_blank">
-            <img src="/images/partners/img-partners-2go2go.png" alt="2do2go" title="2do2go">
+        <div class="chronicles">
+          <a href="https://new.vk.com/xronikibar" target="_blank">
+            <img src="/images/partners/img-partners-chronicles.png" alt="Бар Хроники" title="Бар Хроники">
           </a>
         </div>
       </div>
       <div class="partner-item mdl-cell mdl-cell--2-col mdl-cell--3-col-desktop">
-        <div class="tvspb">
-          <a href="http://topspb.tv/" target="_blank">
-            <img src="/images/partners/img-partners-tvspb.png" alt="ТВ Санкт-Петербург" title="ТВ Санкт-Петербург">
+        <div class="afisha">
+          <a href="http://www.afisha.ru" target="_blank">
+            <img src="/images/partners/img-partners-afisha.png" alt="Афиша" title="Афиша">
           </a>
         </div>
       </div>
@@ -180,16 +187,9 @@
         </div>
       </div>
       <div class="partner-item mdl-cell mdl-cell--2-col mdl-cell--3-col-desktop">
-        <div class="mosfilm">
-          <a href="http://mosfilm.ru/main.php" target="_blank">
-            <img src="/images/partners/img-partners-mosfilm.png" alt="Мосфильм" title="Мосфильм">
-          </a>
-        </div>
-      </div>
-      <div class="partner-item mdl-cell mdl-cell--2-col mdl-cell--3-col-desktop">
-        <div class="afisha">
-          <a href="http://www.afisha.ru" target="_blank">
-            <img src="/images/partners/img-partners-afisha.png" alt="Афиша" title="Афиша">
+        <div class="kinolenfilm">
+          <a href="#" target="_blank">
+            <img src="/images/partners/img-partners-kinolenfilm.png" alt="Кинотеатр Ленфильм" title="Кинотеатр Ленфильм">
           </a>
         </div>
       </div>

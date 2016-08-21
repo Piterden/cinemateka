@@ -22,7 +22,7 @@
       <div class="bottom-block">
         <a href="#" v-link="{ path: '/event/' + item.slug }">
           <div class="dates">
-            {{ getSpendingRange() }}
+            {{{ getSpendingRange() }}}
           </div>
           <div class="title">
               <h3>{{ item.title }}</h3>
@@ -67,7 +67,7 @@ export default {
     method: String,
     limit: Number,
     height: Number,
-    separator: { type: String, default: ' — ' },
+    separator: { type: String, default: '&ndash;' },
     styleObject: { type: Object, default: 'inherit' },
     entity: { type: String, default: 'event' }
   },

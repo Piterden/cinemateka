@@ -1,10 +1,10 @@
 <!-- \footer -->
 <footer>
   <div class="mdl-grid">
-    <div class="mdl-cell mdl-cell--4-col">
+    <div class="mdl-cell mdl-cell--5-col">
       <a v-link="'/partners'" class="partners-link">Партнеры</a>
     </div>
-    <div class="mdl-cell mdl-cell--4-col">
+    <div class="mdl-cell mdl-cell--2-col">
       <ul class="social-links mdl-typography--text-center">
         <li>
           <a href="https://www.facebook.com/seancecinema" target="_blank">
@@ -23,7 +23,7 @@
         </li> -->
       </ul>
     </div>
-    <div class="mdl-cell mdl-cell--4-col mdl-typography--text-right">
+    <div class="mdl-cell mdl-cell--5-col mdl-typography--text-right">
       <div class="copyrights">
         <div class="seance">
           <i class="material-icons">copyright</i> 1990-2016 Мастерская «Сеанс»

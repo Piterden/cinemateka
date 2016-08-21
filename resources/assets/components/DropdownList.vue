@@ -35,7 +35,7 @@ export default {
       default () {
         return []
       }
-    },
+    }
 
     // Флаг "список открыт"
     // checked: {
@@ -114,5 +114,8 @@ export default {
 
 }
 </script>
-<style lang="css">
+<style lang="sass">
+.dropdown ul {
+  overflow-y: auto;
+}
 </style>

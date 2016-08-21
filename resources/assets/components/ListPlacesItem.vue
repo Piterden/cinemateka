@@ -11,10 +11,7 @@
         {{ place.properties.place_type }}
       </div>
     </div>
-    <div
-      class="collapsible-body"
-      v-show="isActive"
-    >
+    <div class="collapsible-body" v-show="isActive">
       <div class="place-address" v-if="place.address">
         <i class="fa fa-map-marker" aria-hidden="true"></i>
         {{ place.address }}
@@ -49,14 +46,15 @@ export default {
 
   computed: {
     isActive() {
-      return this.cursorIndex == this.index
+      return this.cursorIndex == this.place.id
     }
   },
 
   methods: {
     clickPlaceItem() {
-      this.cursorIndex = this.index
-      this.$parent.$parent.activeMarker = this.index
+      // this.cursorIndex = this.place.id
+      this.$parent.$parent.$set('activeMarker', this.place.id)
+      this.$parent.$parent.$set('center', this.place.position)
     }
   }
 

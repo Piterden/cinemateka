@@ -155,6 +155,24 @@
           <h3><i class="fa fa-comment"></i> Фильм представляет</h3>
           {{{ closestSeance.speaker_info }}}
         </div>
+        <div v-if="eventItem.pay_link">
+          <a href="{{ eventItem.pay_link }}" target="_blank">
+            <div class="ticket-button">
+            Купить билет
+
+                <!-- <div v-if="eventItem.pay_link">
+                  <a href="{{ eventItem.pay_link }}" target="_blank">
+                    <i class="material-icons">account_balance_wallet</i>
+                    <strong>{{ closestSeance.price }}</strong> р.
+                  </a>
+                </div> -->
+                <!-- <div v-else>
+                  <i class="material-icons">account_balance_wallet</i>
+                  <strong>{{ closestSeance.price }}</strong> р.
+                </div> -->
+            </div>
+          </a>
+        </div>
       </div>
     </div>
     <div class="mdl-grid social-block" v-if="eventItem">
@@ -219,31 +237,17 @@
           той же программы
         </a>
       </h3>
-      <div slot="bottom" class="more-events-in-shadue">
-        <a href="#" v-link="{ path: '/schedule/' }">Больше событий в расписании
-          <!-- ?xml version="1.0" encoding="utf-8"? -->
-          <svg version="1.1"
-            id="Layer_1"
-            xmlns="http://www.w3.org/2000/svg"
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            x="0px"
-            y="0px"
-            viewBox="0 0 72 20"
-            style="enable-background:new 0 0 72 20;"
-            xml:space="preserve"
-          >
-            <g>
-              <g>
-                <line class="st0"
-                  x1="0"
-                  y1="9.4"
-                  x2="70"
-                  y2="9.4"></line>
-                <polyline class="st0"
-                  points="57.8,1 70,9.4 58.2,19"></polyline>
+      <div slot="bottom" class="more-events-in-shadue-wrapper">
+        <a href="#" v-link="{ path: '/schedule/' }">
+          <div class="more-events-in-shadue">
+            Больше событий в расписании
+            <svg version="1.1" viewBox="0 0 72 20">
+              <g class="st0" stroke="white" stroke-linejoin="miter" stroke-width="2">
+                <line  x1="0" y1="9.5" x2="70" y2="9.5"></line>
+                <polyline fill="none" points="59,.5 71,9.5 59,18.5"></polyline>
               </g>
-            </g>
-          </svg>
+            </svg>
+          </div>
         </a>
       </div>
     </list-box>
@@ -425,37 +429,66 @@ export default {
 h3 {
   margin-bottom: 24px;
 }
-.event-place {
-  cursor: pointer;
+.event-price {
+  // cursor: pointer;
   position: relative;
   a {
-    border-bottom: 2px solid black;
+    // border-bottom: 2px solid black;
     &:hover {
-      border-bottom: 2px solid red;
-      transition : border-color .3s linear;
+      // border-bottom: 2px solid red;
+      // transition : border-color .3s linear;
     }
   }
 }
-.placeTooltip {
-  position: absolute;
-  top: 38px;
-  width: 250px;
-  left: -120px;
-  text-align: left;
-  background: #fff;
-  border: 3px solid;
-  padding: 0 0 15px 0;
-  &:after {
-    content: '';
+.speakers {
+  margin-bottom: 13px;
+}
+.ticket-button {
+  width: calc(70% + 58px);
+  height: 60px;
+  margin-top: 20px;
+  line-height: 60px;
+  text-align: center;
+  float: right;
+  background-color: black;
+  color: white;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: .1em;
+  &:hover {
+    background-color: #ff0025;
+    transition: background-color .3s linear;
+  }
+}
+.event-place {
+  position: relative;
+  cursor: pointer;
+  transition: color .3s linear;
+  &:hover {
+    color: #ff0025;
+  }
+  .placeTooltip {
     position: absolute;
-    width: 15px;
-    height: 15px;
+    top: 38px;
+    width: 250px;
+    left: -120px;
+    text-align: left;
     background: #fff;
-    border-top: 3px solid;
-    border-left: 3px solid;
-    transform: rotate(45deg);
-    top: -11px;
-    left: 181px;
+    border: 3px solid;
+    padding: 0 0 15px 0;
+    color: #000;
+    &:after {
+      content: '';
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      background: #fff;
+      border-top: 3px solid;
+      border-left: 3px solid;
+      transform: rotate(45deg);
+      top: -11px;
+      left: 181px;
+    }
   }
 }
 </style>

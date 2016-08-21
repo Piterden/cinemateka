@@ -47,9 +47,6 @@
   font-family: "VremenaGrotesk";
   src: url("../fonts/font-vremena-grotesk/VremenaGroteskBoldItalic.eot?") format("eot"), url("../fonts/font-vremena-grotesk/VremenaGroteskBoldItalic.woff2") format("woff2"), url("../fonts/font-vremena-grotesk/VremenaGroteskBoldItalic.woff") format("woff"), url("../fonts/font-vremena-grotesk/VremenaGroteskBoldItalic.ttf") format("truetype"), url("../fonts/font-vremena-grotesk/VremenaGroteskBoldItalic.svg#VremenaGrotesk") format("svg"); }
 
-/**
- * General styles
- */
 body,
 html {
   overflow-x: hidden; }
@@ -63,14 +60,14 @@ body,
 h4,
 p {
   color: #000;
-  text-decoration: none;
-  letter-spacing: .02em;
-  font-weight: 400;
-  font-style: normal;
-  font-size: 16px;
   font-family: 'VremenaGrotesk';
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: .02em;
   line-height: 24px;
-  outline: none; }
+  outline: none;
+  text-decoration: none; }
 
 h1 {
   font-family: 'VremenaGrotesk';
@@ -84,9 +81,9 @@ h2 {
   font-family: 'VremenaGrotesk';
   font-size: 32px;
   font-weight: 800;
-  margin: 0;
   letter-spacing: .02em;
-  line-height: 42px; }
+  line-height: 42px;
+  margin: 0; }
 
 h3 {
   font-family: 'VremenaGrotesk';
@@ -741,12 +738,12 @@ footer {
 
 .more-info-table tr td:first-child {
   font-weight: bold;
-  width: 170px;
-  vertical-align: top; }
+  vertical-align: top;
+  width: 170px; }
 
 .more-info-table tr td:nth-child(2) {
-  max-width: 340px;
-  border-right: 25px solid white; }
+  border-right: 25px solid white;
+  max-width: 340px; }
 
 .more-info-table tr td:nth-child(3) {
   vertical-align: top; }
@@ -807,28 +804,36 @@ footer {
 .same-programm-block h3 a:hover {
   color: #ff0025; }
 
+.more-events-in-shadue-wrapper {
+  width: 100%; }
+  .more-events-in-shadue-wrapper a {
+    text-transform: uppercase;
+    letter-spacing: .2em;
+    color: white; }
+
 .more-events-in-shadue {
-  height: 72px;
   border: 2px solid white;
-  width: 100%;
+  height: 72px;
+  line-height: 72px;
   margin: 45px 12px;
   text-align: center;
-  line-height: 72px; }
-
-.more-events-in-shadue a {
-  text-transform: uppercase;
-  letter-spacing: .2em;
-  color: white; }
-
-.more-events-in-shadue svg {
-  width: 70px; }
+  -webkit-transition: border-color .3s linear;
+  transition: border-color .3s linear; }
+  .more-events-in-shadue svg {
+    width: 70px; }
+  .more-events-in-shadue:hover {
+    border-color: #ff0025;
+    transition: border-color .3s linear;
+    -webkit-transition: border-color .3s linear; }
+    .more-events-in-shadue:hover .st0 {
+      stroke: #ff0025;
+      -webkit-transition: stroke .3s linear;
+      transition: stroke .3s linear; }
 
 .st0 {
-  width: 70px;
-  fill: none;
-  stroke: white;
-  stroke-width: 2;
-  stroke-miterlimit: 10; }
+  stroke-miterlimit: 10;
+  -webkit-transition: stroke .3s linear;
+  transition: stroke .3s linear; }
 
 .item-move {
   /* applied to the element when moving */

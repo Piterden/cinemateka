@@ -37,7 +37,7 @@
 
 <script>
 import moment from 'moment'
-moment.locale('ru')
+moment.locale('ru-RU')
 
 export default {
 
@@ -69,10 +69,17 @@ export default {
     filterValuesBottom() {
       let fv = {}
       if (this.activeTab == 0) {
-        fv.date_interval = [
-          this.topToTime.format('YYYY-MM-DD HH:mm:ss'),
-          moment().endOf('month').format('YYYY-MM-DD HH:mm:ss')
-        ]
+        if (moment().format('MMM') == this.tabs[this.activeTab].title) {
+          fv.date_interval = [
+            this.topToTime.format('YYYY-MM-DD HH:mm:ss'),
+            moment().endOf('month').format('YYYY-MM-DD HH:mm:ss')
+          ]
+        } else {
+          fv.date_interval = [
+            moment().add(1, 'month').startOf('month').format('YYYY-MM-DD HH:mm:ss'),
+            moment().add(1, 'month').endOf('month').format('YYYY-MM-DD HH:mm:ss')
+          ]
+        }
       } else {
         let start = moment().set(
             'month', this.getTabMonth(this.activeTab)

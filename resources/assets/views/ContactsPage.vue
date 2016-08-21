@@ -4,7 +4,7 @@
   >
     <list-places
       :places="places"
-      :cursor-index="activeMarker || 0"
+      :cursor-index="activeMarker"
     ></list-places>
     <map id="map"
       :center.sync="center"
@@ -18,9 +18,11 @@
         :title.sync="place.title"
         :cursor.sync="'pointer'"
         :draggable.sync="false"
-        :label.sync="place.place_type"
+        :icon.sync="markerIcon"
+        :label.sync="place.title"
         :position.sync="place.position"
         :place.sync="markerPlace"
+        @g-click="activatePlace(place)"
       ></marker>
     </map>
   </div>
@@ -33,15 +35,25 @@ export default {
     return {
       places: this.$root.places,
       markerLabel: {
-        color: '#000',
+        color: '#ff0025',
         // fontFamily: '',
         fontSize: '24px',
         fontWeight: 'normal',
         text: ''
       },
+      markerIcon: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|FF0025',
       options: {
         scrollwheel: false
-      }
+        // styles: [{
+        //   featureType: 'poi',
+        //   elementType: 'labels.icon',
+        //   stylers: [
+        //     { visibility: 'off' }
+        //   ]
+        // }]
+      },
+      center: {},
+      activeMarker: 0
     }
   },
 
@@ -53,22 +65,10 @@ export default {
     mapHeight: {
       type: Number,
       default: window.innerHeight
-    },
-    activeMarker: {
-      type: Number,
-      default: 0
-    }
-  },
-
-  computed: {
-    center() {
-      let p = this.getActivePlace()
-      return p && p != -1 && p.position || {}
     }
   },
 
   methods: {
-
     /**
      * При изменении размера окна и один раз при загрузке
      * изменяет размеры фрейма карты
@@ -88,34 +88,30 @@ export default {
       if (!place) {
         return false
       }
-      this.activeMarker = place.id
+      this.$set('activeMarker', place.id)
+      this.$set('center', place.position)
     },
 
-    setCursor(id) {
-      if (!this.places || this.places.length <= 0) return false
-      if (id === undefined) {
-        this.clickPlaceItem(0)
-        return true
-      }
-      let index = this.$root.getIndexById(this.places, id) || 0
-      this.clickPlaceItem(Number(index))
-      return true
-    },
-
-    getActivePlace() {
-      return this.places[this.activeMarker]
+    activatePlace(place) {
+      this.$set('activeMarker', place.id)
+      this.$set('center', place.position)
     }
   },
 
-  ready() {
-    // this.setCursor(this.$route.params.placeId)
-    this.handleResize()
-    window.removeEventListener('resize', this.handleResize)
-    window.addEventListener('resize', this.handleResize)
-  },
-
-  beforeDestroy() {
-    window.removeEventListener('resize', this.handleResize)
+  route: {
+    activate() {
+      let activePlace = this.places && this.places[0]
+      if (activePlace) {
+        this.$set('center', activePlace.position)
+        this.$set('activeMarker', activePlace.id)
+      }
+      this.handleResize()
+      window.removeEventListener('resize', this.handleResize)
+      window.addEventListener('resize', this.handleResize)
+    },
+    deactivate() {
+      window.removeEventListener('resize', this.handleResize)
+    }
   },
 
   head: {

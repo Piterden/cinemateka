@@ -18,8 +18,10 @@ export default {
         e.preventDefault()
         e.stopPropagation()
       }
-      document.querySelector('.vert-fluid').style
-        .minHeight = Number(window.innerHeight - 96 - 87) + 'px'
+      let vertFluid = document.querySelector('.vert-fluid')
+      if (vertFluid) {
+        vertFluid.style.minHeight = Number(window.innerHeight - 96 - 87) + 'px'
+      }
     }
   },
 

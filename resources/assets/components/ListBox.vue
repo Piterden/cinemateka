@@ -119,6 +119,12 @@ export default {
      */
     showMore() {
       this.limit += this.incrementLimit
+    },
+
+    init() {
+      this.handleResize()
+      window.removeEventListener('resize', this.handleResize)
+      window.addEventListener('resize', this.handleResize)
     }
   },
 
@@ -128,13 +134,28 @@ export default {
    * @method ready
    */
   ready() {
-    this.handleResize()
-    window.removeEventListener('resize', this.handleResize)
-    window.addEventListener('resize', this.handleResize)
+    this.init()
   },
 
   beforeDestroy() {
     window.removeEventListener('resize', this.handleResize)
+  },
+
+  route: {
+    /**
+     * По готовности роута. Равняет высоту квадратов и вешает обработчик.
+     * @method ready
+     */
+    activate() {
+      this.init()
+    },
+    /**
+     * По уходу со страницы - снимает обработчик.
+     * @return {[type]} [description]
+     */
+    deactivate() {
+      window.removeEventListener('resize', this.handleResize)
+    }
   },
 
   watch: {
