@@ -425,20 +425,12 @@ export default {
 }
 </script>
 
-<style lang="sass">
+<style lang="css">
 h3 {
   margin-bottom: 24px;
 }
 .event-price {
-  // cursor: pointer;
   position: relative;
-  a {
-    // border-bottom: 2px solid black;
-    &:hover {
-      // border-bottom: 2px solid red;
-      // transition : border-color .3s linear;
-    }
-  }
 }
 .speakers {
   margin-bottom: 13px;
@@ -455,40 +447,40 @@ h3 {
   text-transform: uppercase;
   font-weight: bold;
   letter-spacing: .1em;
-  &:hover {
-    background-color: #ff0025;
-    transition: background-color .3s linear;
-  }
+}
+.ticket-button:hover {
+  background-color: #ff0025;
+  transition: background-color .3s linear;
 }
 .event-place {
   position: relative;
   cursor: pointer;
   transition: color .3s linear;
-  &:hover {
-    color: #ff0025;
-  }
-  .placeTooltip {
-    position: absolute;
-    top: 38px;
-    width: 250px;
-    left: -120px;
-    text-align: left;
-    background: #fff;
-    border: 3px solid;
-    padding: 0 0 15px 0;
-    color: #000;
-    &:after {
-      content: '';
-      position: absolute;
-      width: 15px;
-      height: 15px;
-      background: #fff;
-      border-top: 3px solid;
-      border-left: 3px solid;
-      transform: rotate(45deg);
-      top: -11px;
-      left: 181px;
-    }
-  }
+}
+.event-place:hover {
+  color: #ff0025;
+}
+.event-place .placeTooltip {
+  position: absolute;
+  top: 38px;
+  width: 250px;
+  left: -120px;
+  text-align: left;
+  background: #fff;
+  border: 3px solid;
+  padding: 0 0 15px 0;
+  color: #000;
+}
+.event-place .placeTooltip:after {
+  content: '';
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background: #fff;
+  border-top: 3px solid;
+  border-left: 3px solid;
+  transform: rotate(45deg);
+  top: -11px;
+  left: 181px;
 }
 </style>

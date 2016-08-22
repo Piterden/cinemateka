@@ -165,91 +165,91 @@ export default {
 }
 </script>
 
-<style lang="sass">
+<style lang="css">
 .mdl-data-table {
   width: 100%;
   border: none;
   font-size: 16px;
-  th {
-    letter-spacing: .02em;
-    font-size: 16px;
-    padding: 0 0 10px 5px;
-    text-align: left;
-    font-weight: bold;
-    color: #000;
-  }
-  thead th:nth-child(1) {
-    display: none;
-  }
-  tbody {
-    tr {
-      height: 100px;
-      td {
-        padding-right: 0;
-        padding-left: 0;
-        padding-top: 0;
-        padding-bottom: 0;
-        border-top-width: 0;
-        border-bottom: none;
-        white-space: normal;
-        text-align: left;
-      }
-      td:nth-child(1) {
-        display: none;
-      }
-      &:first-child td {
-        border-top-width: 3px;
-      }
-    }
-    .date {
-      > div {
-        width: 70px;
-        margin-right: 15px;
-      }
-      .seance-date {
-        font-size: 23px;
-        text-align: right;
-      }
-      .seance-time {
-        width: 68px;
-        font-size: 16px;
-        text-align: right;
-      }
-    }
-    .event {
-      width: 100%;
-      > div {
-        margin-left: 5px;
-        padding-right: 30px;
-        a {
-          font-size: 23px;
-          font-weight: bold;
-        }
-      }
-    }
-    .type > div {
-      padding-left: 5px;
-      min-width: 150px;
-    }
-    .program > div {
-      padding-left: 5px;
-      min-width: 200px;
-      a {
-        text-decoration: underline;
-      }
-    }
-    .place > div {
-      padding-left: 5px;
-      min-width: 160px;
-      > div {
-        display: inline;
-      }
-    }
-    .price > div {
-      padding-left: 5px;
-      min-width: 47px;
-    }
-  }
+}
+.mdl-data-table th {
+  letter-spacing: .02em;
+  font-size: 16px;
+  padding: 0 0 10px 5px;
+  text-align: left;
+  font-weight: bold;
+  color: #000;
+}
+.mdl-data-table thead th:nth-child(1) {
+  display: none;
+}
+.mdl-data-table tbody {
+}
+.mdl-data-table tbody tr {
+  height: 100px;
+}
+.mdl-data-table tbody tr td {
+  padding-right: 0;
+  padding-left: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  border-top-width: 0;
+  border-bottom: none;
+  white-space: normal;
+  text-align: left;
+}
+.mdl-data-table tbody tr td:nth-child(1) {
+  display: none;
+}
+.mdl-data-table tbody tr:first-child td {
+  border-top-width: 3px;
+}
+.mdl-data-table tbody .date {
+}
+.mdl-data-table tbody .date > div {
+  width: 70px;
+  margin-right: 15px;
+}
+.mdl-data-table tbody .date .seance-date {
+  font-size: 23px;
+  text-align: right;
+}
+.mdl-data-table tbody .date .seance-time {
+  width: 68px;
+  font-size: 16px;
+  text-align: right;
+}
+.mdl-data-table tbody .event {
+  width: 100%;
+}
+.mdl-data-table tbody .event > div {
+  margin-left: 5px;
+  padding-right: 30px;
+}
+.mdl-data-table tbody .event > div a {
+  font-size: 23px;
+  font-weight: bold;
+}
+.mdl-data-table tbody .type > div {
+  padding-left: 5px;
+  min-width: 150px;
+}
+.mdl-data-table tbody .program > div {
+  padding-left: 5px;
+  min-width: 200px;
+}
+.mdl-data-table tbody .program > div a {
+  text-decoration: underline;
+}
+.mdl-data-table tbody .place > div {
+  padding-left: 5px;
+  min-width: 160px;
+}
+.mdl-data-table tbody .place > div > div {
+  display: inline;
+}
+.mdl-data-table tbody .price > div {
+  padding-left: 5px;
+  min-width: 47px;
 }
 .mdl-tooltip.is-active {
   border: 2px solid #000;
@@ -278,37 +278,37 @@ export default {
 }
 .s-place-tel {
   margin-top: 6px;
-  i {
-    font-size: 22px;
-    margin-left: 2px;
-    margin-right: 3px;
-    vertical-align: middle;
-  }
+}
+.s-place-tel i {
+  font-size: 22px;
+  margin-left: 2px;
+  margin-right: 3px;
+  vertical-align: middle;
 }
 .placeWrapper {
   position: relative;
-  > div {
-    position: absolute;
-    top: 38px;
-    width: 250px;
-    left: -120px;
-    text-align: left;
-    background: #fff;
-    border: 3px solid;
-    padding: 0 0 15px 0;
-    z-index: 1;
-    &:after {
-      content: '';
-      position: absolute;
-      width: 15px;
-      height: 15px;
-      background: #fff;
-      border-top: 3px solid;
-      border-left: 3px solid;
-      transform: rotate(45deg);
-      top: -11px;
-      left: 181px;
-    }
-  }
+}
+.placeWrapper > div {
+  position: absolute;
+  top: 38px;
+  width: 250px;
+  left: -120px;
+  text-align: left;
+  background: #fff;
+  border: 3px solid;
+  padding: 0 0 15px 0;
+  z-index: 1;
+}
+.placeWrapper > div:after {
+  content: '';
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background: #fff;
+  border-top: 3px solid;
+  border-left: 3px solid;
+  transform: rotate(45deg);
+  top: -11px;
+  left: 181px;
 }
 </style>
