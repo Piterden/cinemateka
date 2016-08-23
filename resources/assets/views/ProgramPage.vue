@@ -61,8 +61,9 @@
             <div v-for="seance in programItem.seances"
               v-if="seance.speaker_info"
               v-show="showSpeaker($index)"
+              class="speakerRow"
             >{{{ seance.speaker_info }}}</div>
-            <div class="showSpeakers">
+            <h4 :class="showSpeakersClass">
               <a href="#" @click.prevent="toggleSpeakers">
                 <span v-if="!showSpeakers">
                   Все спикеры ({{ speakersCount }})
@@ -71,7 +72,7 @@
                   Скрыть спикеров
                 </span>
               </a>
-            </div>
+            </h4>
           </div>
         </div>
       </div>
@@ -163,6 +164,12 @@ export default {
       return this.programItem.seances.filter((s) => {
         return s.speaker_info
       }).length
+    },
+    showSpeakersClass() {
+      return {
+        showSpeakers: true,
+        rotated: this.showSpeakers
+      }
     }
   },
 
@@ -303,15 +310,51 @@ export default {
   font-weight: bold;
   width: 170px;
 }
-.more-info-table tr td:nth-child(2) {
-  /* max-width: 340px; */
-}
 .more-info-table tr td:nth-child(3) {
   vertical-align: top;
 }
 .actors-list li {
   font-size: 16px;
   margin-bottom: 3px;
+}
+.speakerRow {
+  margin-bottom: 40px;
+}
+.showSpeakers {
+  text-align: right;
+  padding-right: 30px;
+  position: relative;
+  text-transform: uppercase;
+  border-top: 2px solid;
+  padding-top: 20px;
+  transition: transform .3s linear;
+}
+.showSpeakers:before, .showSpeakers:after {
+  content: '';
+  height: 2px;
+  width: 14px;
+  background: #000;
+  position: absolute;
+  top: 30px;
+}
+.showSpeakers:before {
+  right: 10px;
+  transform: rotate(45deg);
+}
+.showSpeakers:after {
+  right: 1px;
+  transform: rotate(-45deg);
+}
+.showSpeakers.rotated:before {
+  transform: rotate(-45deg);
+}
+.showSpeakers.rotated:after {
+  transform: rotate(45deg);
+}
+.showSpeakers a {
+  font-size: 14px;
+  font-weight: 200;
+  letter-spacing: .05em;
 }
 
 /* same programm block */

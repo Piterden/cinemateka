@@ -1,11 +1,3 @@
-<style lang="css">
-.fade-transition {
-  transition: opacity .3s ease;
-}
-.fade-enter, .fade-leave {
-  opacity: 0;
-}
-</style>
 <template lang="html">
   <div class="mdl-cell mdl-cell--{{ getCols(method) }}-col"
     :style="styleObject"
@@ -46,6 +38,7 @@
     </div>
   </div>
 </template>
+
 <script>
 import moment from 'moment'
 moment.locale('ru-RU')
@@ -140,3 +133,14 @@ export default {
 }
 </script>
 
+<style lang="css">
+.fade-transition {
+  transition: opacity .3s ease;
+}
+.fade-enter, .fade-leave {
+  opacity: 0;
+}
+@media (min-width: 1440px) {
+
+}
+</style>
