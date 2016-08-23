@@ -1,6 +1,3 @@
-<style lang="css" scoped>
-</style>
-
 <template lang="html">
   <div class="index-wrapper">
     <div class="events-block">
@@ -30,8 +27,8 @@
         :limit.once="12"
         :cols.once="3"
         :filter-values.sync="filterValuesBottom"
-  		></list-box>
-  	</div>
+      ></list-box>
+    </div>
   </div>
 </template>
 
@@ -103,7 +100,7 @@ export default {
   methods: {
 
     /**
-     * [getTabs description]
+     * Формирует список вкладок
      * @return {[type]} [description]
      */
     getTabs() {
@@ -219,3 +216,6 @@ export default {
 
 }
 </script>
+
+<style lang="css" scoped>
+</style>

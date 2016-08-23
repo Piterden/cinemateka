@@ -1,7 +1,9 @@
 <template>
   <div class="wrap router-view program-page">
     <div class="r-wrapper" v-if="programItem">
-      <div class="program-image" :style="{'background-image': 'url(/'+images.mainimage+')'}">
+      <div class="program-image"
+        :style="{backgroundImage: 'url(/'+images.mainimage+')'}"
+      >
         <div class="program-date">
           <span v-if="formatted_start != formatted_end">
             {{ formatted_start }}&ndash;{{ formatted_end }}
@@ -12,7 +14,9 @@
         </div>
         <div class="program-title">{{ programItem.title }}</div>
         <div v-if="videos.mainvideo" class="program-video">
-          <iframe width="535" height="307" frameborder="0" :src="videos.mainvideo.replace('watch?v=','embed/')"></iframe>
+          <iframe width="535" height="307" frameborder="0"
+            :src="videos.mainvideo.replace('watch?v=','embed/')"
+          ></iframe>
         </div>
       </div>
       <div class="mdl-grid">
@@ -44,6 +48,30 @@
                 </tr>
               </tbody>
             </table>
+          </div>
+        </div>
+        <div class="mdl-cell mdl-cell--5-col" v-if="hasSeances">
+          <div class="speakers">
+            <div v-if="programItem.seances.length > 1">
+              <h3><i class="fa fa-comment"></i> Фильмы представляют</h3>
+            </div>
+            <div v-else>
+              <h3><i class="fa fa-comment"></i> Фильм представляет</h3>
+            </div>
+            <div v-for="seance in programItem.seances"
+              v-if="seance.speaker_info"
+              v-show="showSpeaker($index)"
+            >{{{ seance.speaker_info }}}</div>
+            <div class="showSpeakers">
+              <a href="#" @click.prevent="toggleSpeakers">
+                <span v-if="!showSpeakers">
+                  Все спикеры ({{ speakersCount }})
+                </span>
+                <span v-else>
+                  Скрыть спикеров
+                </span>
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -91,6 +119,12 @@ moment.locale('ru_RU')
 
 export default {
 
+  data() {
+    return {
+      showSpeakers: false
+    }
+  },
+
   computed: {
     // Объект программы
     programItem() {
@@ -119,12 +153,28 @@ export default {
     // События
     programEvents() {
       return this.$root.getProgramEvents(this.programItem)
+    },
+    // Имеет сеансы
+    hasSeances() {
+      return this.programItem.seances && this.programItem.seances != []
+    },
+    // Кол-во спикеров программы
+    speakersCount() {
+      return this.programItem.seances.filter((s) => {
+        return s.speaker_info
+      }).length
     }
   },
 
   methods: {
     filterMethod(e) {
       return e
+    },
+    showSpeaker(idx) {
+      return !this.showSpeakers ? idx <= 3 : true
+    },
+    toggleSpeakers() {
+      this.showSpeakers = !this.showSpeakers
     }
   },
 

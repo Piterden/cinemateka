@@ -2,7 +2,7 @@
 /bootstrap/compiled.php
 /vendor
 /node_modules
-/public/storage
+/public
 /bower_components
 Homestead.yaml
 Homestead.json
