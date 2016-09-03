@@ -155,6 +155,22 @@ export default {
         let sd = moment(s.start_time)
         return sd.month() == m
       })
+    },
+
+    /**
+     * По загрузке страницы
+     */
+    onEnter() {
+      if (!this.filteredCount) {
+        let m = this.filterValues.month
+        this.filterValues.month = m - 1
+      }
+    }
+  },
+
+  route: {
+    activate() {
+      this.onEnter()
     }
   },
 

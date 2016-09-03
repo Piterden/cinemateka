@@ -170,6 +170,7 @@ export default {
         rotated: this.showSpeakers
       }
     },
+    // Спикеры без повторений
     speakers() {
       return this.programItem.seances.map((s) => {
         return s.speaker_info

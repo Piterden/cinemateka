@@ -120,9 +120,18 @@ router.beforeEach((trans) => {
     tId = trans.to && trans.to.params && trans.to.params.placeId,
     app = router.app
 
-  if(fPath && fPath == tPath) {
-    trans.abort()
+  if(fPath) {
+    if (fPath == tPath) {
+      trans.abort()
+    }
+    // if (tPath.startsWith('/event/') && fPath.startsWith('/event/')
+    //   || tPath.startsWith('/program/') && fPath.startsWith('/program/')) {
+    //   /* eslint-disable no-console */
+    //   console.log(trans.to.router)
+    //   /* eslint-enable no-console */
+    // }
   }
+
 
   if(tPath.startsWith('/event/') && !app.getEventBySlug(tSlug)) {
     trans.redirect('/404')

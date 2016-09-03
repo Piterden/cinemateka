@@ -364,25 +364,59 @@ export default {
      */
     onWinResize() {
       this.calcSwipeHeigth()
+    },
+
+    /**
+     * По загрузке страницы
+     */
+    onEnter() {
+      this.calcSwipeHeigth()
+      window.addEventListener('resize', this.onWinResize)
+    },
+
+    /**
+     * По уходу со страницы
+     */
+    onLeave() {
+      window.removeEventListener('resize', this.onWinResize)
+    },
+
+    /**
+     * Ручная смена тайтла
+     */
+    changeTitle(newItem, oldItem) {
+      if (!newItem || !oldItem) return
+      if (newItem.title != oldItem.title) {
+        let titleTag = document.getElementsByTagName('title')[0]
+        titleTag.innerHTML = newItem.title
+      }
     }
   },
 
   watch: {
     eventItem: {
       deep: true,
-      handler() {
+      handler(newItem, oldItem) {
         this.calcSwipeHeigth()
+        // Меняем тайтл вручную при смене события на другое
+        this.changeTitle(newItem, oldItem)
       }
     }
   },
 
   ready() {
-    this.calcSwipeHeigth()
-    window.addEventListener('resize', this.onWinResize)
+    this.onEnter()
   },
-
   beforeDestroy() {
-    window.removeEventListener('resize', this.onWinResize)
+    this.onLeave()
+  },
+  route: {
+    activate() {
+      this.onEnter()
+    },
+    deactivate() {
+      this.onLeave()
+    }
   },
 
   /**
