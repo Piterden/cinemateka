@@ -218,5 +218,28 @@ export default {
 </script>
 
 <style lang="css">
-
+@media screen and (min-width: 1420px) {
+  .soon-block .mdl-grid.list-box .mdl-cell .event-item-card .category,
+  .soon-block .mdl-grid.list-box .mdl-cell .event-item-card .bottom-block .dates,
+  .soon-block .mdl-grid.list-box .mdl-cell .event-item-card .bottom-block .title h3 {
+    font-size: 1.3em;
+    line-height: 1.5;
+  }
+}
+@media screen and (min-width: 1900px) {
+  .soon-block .mdl-grid.list-box .mdl-cell .event-item-card .category,
+  .soon-block .mdl-grid.list-box .mdl-cell .event-item-card .bottom-block .dates,
+  .soon-block .mdl-grid.list-box .mdl-cell .event-item-card .bottom-block .title h3 {
+    font-size: 1.6em;
+    line-height: 1.65;
+  }
+}
+@media screen and (min-width: 2100px) {
+  .soon-block .mdl-grid.list-box .mdl-cell .event-item-card .category,
+  .soon-block .mdl-grid.list-box .mdl-cell .event-item-card .bottom-block .dates,
+  .soon-block .mdl-grid.list-box .mdl-cell .event-item-card .bottom-block .title h3 {
+    font-size: 1.8em;
+    line-height: 1.8;
+  }
+}
 </style>

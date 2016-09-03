@@ -17,20 +17,20 @@
             {{{ getSpendingRange() }}}
           </div>
           <div class="title">
-              <h3>{{ item.title }}</h3>
+              <h3>{{{ item.title }}}</h3>
           </div>
         </a>
         <div class="program" v-if="entity === 'event'">
           <div v-if="closestProgram">
             <a href="#" v-link="{ path:'/program/' + closestProgram.slug }">
-              {{ closestProgram.title }}
+              {{{ closestProgram.title }}}
             </a>
           </div>
         </div>
         <div v-else>
           <div v-if="closestEvent">
             <a href="#" v-link="{ path:'/event/' + closestEvent.slug }">
-              {{ closestEvent.title }}
+              {{{ closestEvent.title }}}
             </a>
           </div>
         </div>

@@ -165,6 +165,7 @@ export default {
         return s.speaker_info
       }).length
     },
+    // Классы кнопки показа всех спикеров
     showSpeakersClass() {
       return {
         showSpeakers: true,

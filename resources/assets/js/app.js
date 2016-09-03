@@ -270,6 +270,7 @@ let App = Vue.extend({
      */
     getSeancesByProgramId(id) {
       let a = this.seances.filter((s) => {
+        console.log(s)
         return Number(s.program_id) === Number(id)
       })
       if(a.length > 0) {
@@ -339,6 +340,8 @@ let App = Vue.extend({
       }).getUnique()
       return eIds.map((id) => {
         return this.getById(this.events, id)
+      }).filter((e) => {
+        return e !== undefined
       })
     },
 

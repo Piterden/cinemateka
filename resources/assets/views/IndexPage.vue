@@ -17,18 +17,32 @@
         class="slide"
         :style="{ backgroundImage: 'url(/' + slide.src + ')'}"
       >
-        <a v-link="slide.link">
-          <div v-if="slide.caption" class="caption-wrapper">
+        <a v-if="external(slide.link)" :href="slide.link" target="_blank">
+          <div v-if="hasText(slide)" class="caption-wrapper">
             <div v-if="slide.caption.caption_title" class="caption-title">
-              {{ slide.caption.caption_title }}
+              {{{ slide.caption.caption_title }}}
             </div>
-            <div v-else class="caption-title">
-              {{ slide.title }}
+            <div v-if="slide.title" class="caption-title">
+              {{{ slide.title }}}
             </div>
             <div v-if="slide.caption.caption_content" class="caption-content">
-              {{ slide.caption.caption_content }}
+              {{{ slide.caption.caption_content }}}
             </div>
           </div>
+        </a>
+        <a v-else v-link="slide.link">
+          <div v-if="hasText(slide)" class="caption-wrapper">
+            <div v-if="slide.caption.caption_title" class="caption-title">
+              {{{ slide.caption.caption_title }}}
+            </div>
+            <div v-if="slide.title" class="caption-title">
+              {{{ slide.title }}}
+            </div>
+            <div v-if="slide.caption.caption_content" class="caption-content">
+              {{{ slide.caption.caption_content }}}
+            </div>
+          </div>
+
         </a>
       </swipe-item>
     </swipe>
@@ -54,6 +68,18 @@ export default {
     clickSoonTab(name) { // 'month$'
       let i = name.slice(5)
       this.$set('month.activeTab', Number(i))
+    },
+    /**
+     * Проверка внешней ссылки
+     */
+    external(link) {
+      return link.startsWith('http')
+    },
+    /**
+     * Проверка на наличие текста у слайда
+     */
+    hasText(slide) {
+      return slide.title || slide.caption && slide.caption.caption_title
     }
   },
 

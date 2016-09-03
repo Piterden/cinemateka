@@ -67,11 +67,12 @@ export default {
 }
 .collapsible-header {
   display: block;
-  cursor: pointer;
-  min-height: 40px;
-  line-height: 40px;
-  padding: 0 1rem;
   background-color: #fff;
+  padding: 0;
+  line-height: 40px;
+  min-height: 40px;
+  cursor: pointer;
+  white-space: nowrap;
 }
 .collapsible-header i {
   width: 2rem;

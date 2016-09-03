@@ -21,7 +21,6 @@ import VueRouter from 'vue-router'
  */
 Vue.use(VueMdl)
 Vue.use(VueHead)
-// Vue.use(VueStash)
 Vue.use(VueRouter)
 
 /**
@@ -33,10 +32,6 @@ load('AIzaSyBzRwk5bppue9vG6yMt74hHqhP2ToNLzlc', '3.25.7')
 /**
  * Vue-компоненты
  */
-// import Toggler from '../components/Toggler.vue'
-// import Datepicker from '../components/Datepicker.vue'
-// import DatePickers from '../components/DatePickers.vue'
-// import IndexPageEvents from '../components/IndexPageEvents.vue'
 import Swipe from '../components/Swipe.vue'
 import SwipeItem from '../components/SwipeItem.vue'
 import IndexPageSoon from '../components/IndexPageSoon.vue'
@@ -59,10 +54,6 @@ Vue.config.silent = true
 /**
  * Регистрация vue-компонентов === html-элементов
  */
-// Vue.component('index-page-events', IndexPageEvents)
-// Vue.component('toggler', Toggler)
-// Vue.component('datepicker', Datepicker)
-// Vue.component('date-pickers', DatePickers)
 Vue.component('swipe', Swipe)
 Vue.component('swipe-item', SwipeItem)
 Vue.component('index-page-soon', IndexPageSoon)

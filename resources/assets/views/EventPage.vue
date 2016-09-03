@@ -1,10 +1,10 @@
 <template>
   <div class="wrap router-view event-page">
-    <div v-if="eventItem" class="event-image" :style="bgStyleObject">
+    <div v-if="eventItem" class="event-image" style="background-image: url('/{{ eventItem.title_image }}');">
       <div class="mdl-grid">
         <div class="mdl-cell mdl-cell--7-col">
           <div class="event-date" v-if="closestSeanceDate">{{ closestSeanceDate }}</div>
-          <h1 class="event-title">{{ eventItem.title }}</h1>
+          <h1 class="event-title">{{{ eventItem.title }}}</h1>
           <div class="event-programm" v-if="closestProgram">
             <a v-link="'/program/'+closestProgram.slug">
               {{ closestProgram.title }}
@@ -301,8 +301,8 @@ export default {
     },
     // Главная картинка
     bgStyleObject() {
-      return this.images && {
-        backgroundImage: 'url("/' + this.images.mainimage + '")'
+      return this.title_image && {
+        backgroundImage: 'url("/' + this.title_image + '")'
       }
     },
     // Картинки JSON
@@ -326,7 +326,7 @@ export default {
       let obj = this.images, arr = [], key
       for (key in obj) {
         if (obj.hasOwnProperty(key) && key != 'mainimage') {
-          arr.push(obj[key].replace(' ', '%20'))
+          arr.push(encodeURIComponent(obj[key]))
         }
       }
       return arr
@@ -342,11 +342,9 @@ export default {
   },
 
   methods: {
-    /* eslint-disable no-unused-vars */
-    filterMethod(events, filters) {
-      return events
+    filterMethod(e) {
+      return e
     },
-    /* eslint-enable no-unused-vars */
 
     /**
      * Считает высоту галереи
@@ -387,6 +385,10 @@ export default {
     window.removeEventListener('resize', this.onWinResize)
   },
 
+  /**
+   * Содержимое head
+   * @type {Object}
+   */
   head: {
     title() {
       return {
@@ -434,6 +436,13 @@ h3 {
 }
 .speakers {
   margin-bottom: 13px;
+}
+.speakers img {
+  border-color: transparent;
+  border-radius: 50%;
+  max-width: 100px;
+  max-height: 100px;
+  margin: 5px 10px 0 0;
 }
 .ticket-button {
   width: calc(70% + 58px);

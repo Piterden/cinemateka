@@ -42,6 +42,6 @@ return [
     |
     */
 
-    'registration_open' => false,
+    'registration_open' => true,
 
 ];

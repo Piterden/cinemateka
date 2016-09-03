@@ -5,6 +5,7 @@
     <a @click.prevent="shareTwitter"><img :src="iconTwitter"></a>
   </div>
 </template>
+
 <script>
 export default {
 

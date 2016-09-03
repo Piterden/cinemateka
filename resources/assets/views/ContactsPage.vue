@@ -41,9 +41,17 @@ export default {
         fontWeight: 'normal',
         text: ''
       },
-      markerIcon: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|FF0025',
+      markerIcon: '/assets/img/img-home-pin.png',
+      // markerIcon: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|FF0025',
       options: {
-        scrollwheel: false
+        disableDefaultUI: true,
+        // scrollwheel: false,
+        styles: [{
+          "featureType": "all",
+          "stylers": [
+            { "saturation": -85 }]
+        }]
+        // animation: google.maps.Animation.DROP
         // styles: [{
         //   featureType: 'poi',
         //   elementType: 'labels.icon',
@@ -164,7 +172,7 @@ export default {
 }
 
 .vue-map-container {
-  filter: grayscale(1);
+  /* filter: grayscale(1); */
 }
 
 .places-wrapper {

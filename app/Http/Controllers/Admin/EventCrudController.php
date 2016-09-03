@@ -84,6 +84,13 @@ class EventCrudController extends CrudController
             'cssclass' => 'main-image',
             'colspan'  => '5',
         ]);
+        $this->crud->addField([
+            'label'    => 'Картинка на странице события (самая большая)',
+            'name'     => 'title_image',
+            'type'     => 'browse',
+            'cssclass' => 'main-image',
+            'colspan'  => '5',
+        ]);
         $this->crud->addField([ // Image
             'name'    => 'videos',
             'label'   => 'Видео',
