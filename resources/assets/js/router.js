@@ -149,7 +149,7 @@ let scrollToTop = (scrollDuration) => {
     }, 15)
 }
 
-router.afterEach(( /*trans*/ ) => {
+router.afterEach(() => {
   scrollToTop(400)
 })
 

@@ -47,9 +47,9 @@ export default {
         disableDefaultUI: true,
         // scrollwheel: false,
         styles: [{
-          "featureType": "all",
-          "stylers": [
-            { "saturation": -85 }]
+          'featureType': 'all',
+          'stylers': [
+            { 'saturation': -85 }]
         }]
         // animation: google.maps.Animation.DROP
         // styles: [{

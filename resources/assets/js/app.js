@@ -83,13 +83,16 @@ let App = Vue.extend({
      */
     this.events = events.map((e) => {
       let cat = this.getCategoryById(e.category_id)
-      e.seances = this.getSeancesByEventId(e.id)
+      e.seances = this.getSeancesByEventId(e.id).filter((s) => {
+        return this.getById(this.events, s.event_id)
+      })
       e.event_type = cat && cat.name
       return e
     }).sort((a, b) => {
-      let cloA = this.getClosestSeance(a) || { start_time: moment().format() },
-        cloB = this.getClosestSeance(b) || { start_time: moment().format() }
-      return cloA.start_time > cloB.start_time
+      let startObj = { start_time: moment().format() },
+        cloA = this.getClosestSeance(a) || startObj,
+        cloB = this.getClosestSeance(b) || startObj
+      return moment(cloA.start_time) > moment(cloB.start_time)
     })
 
     /**
@@ -140,7 +143,7 @@ let App = Vue.extend({
       s.eventTypeName = this.getEventTypeName(s.event)
       return s
     }).filter((s) => {
-      return s.event && !s.event.deleted_at
+      return s.event && s.event !== undefined && !s.event.deleted_at
     })
   },
 
@@ -155,6 +158,8 @@ let App = Vue.extend({
     delete window['places']
     delete window['categories']
     delete window['slides']
+
+    document.getElementById('dataCollections').remove()
   },
 
   /**
@@ -251,14 +256,14 @@ let App = Vue.extend({
      * @return {Array}
      */
     getSeancesByEventId(id) {
-      let a = this.seances.filter((s) => {
+      let arr = this.seances.filter((s) => {
         return Number(s.event_id) == Number(id)
       })
-      if(a.length > 0) {
-        a.sort((a, b) => {
-          return new Date(a.start_time) > new Date(b.start_time)
+      if(arr.length > 0) {
+        arr.sort((a, b) => {
+          return moment(a.start_time) > moment(b.start_time)
         })
-        return a
+        return arr
       }
       return false
     },
@@ -269,15 +274,14 @@ let App = Vue.extend({
      * @return {Array}
      */
     getSeancesByProgramId(id) {
-      let a = this.seances.filter((s) => {
-        console.log(s)
+      let arr = this.seances.filter((s) => {
         return Number(s.program_id) === Number(id)
       })
-      if(a.length > 0) {
-        a.sort((a, b) => {
-          return new Date(a.start_time) > new Date(b.start_time)
+      if(arr.length > 0) {
+        arr.sort((a, b) => {
+          return moment(a.start_time) > moment(b.start_time)
         })
-        return a
+        return arr
       }
       return false
     },

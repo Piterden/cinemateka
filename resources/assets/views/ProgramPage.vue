@@ -6,10 +6,10 @@
       >
         <div class="program-date">
           <span v-if="formatted_start != formatted_end">
-            {{ formatted_start }}&ndash;{{ formatted_end }}
+            {{{ formatted_start }}}&ndash;{{{ formatted_end }}}
           </span>
           <span v-else>
-            {{ formatted_start }}
+            {{{ formatted_start }}}
           </span>
         </div>
         <div class="program-title">{{ programItem.title }}</div>
@@ -52,24 +52,24 @@
         </div>
         <div class="mdl-cell mdl-cell--5-col" v-if="hasSeances">
           <div class="speakers">
-            <div v-if="programItem.seances.length > 1">
+            <div v-if="speakers.length > 1">
               <h3><i class="fa fa-comment"></i> Фильмы представляют</h3>
             </div>
             <div v-else>
               <h3><i class="fa fa-comment"></i> Фильм представляет</h3>
             </div>
-            <div v-for="seance in programItem.seances"
-              v-if="seance.speaker_info"
+            <div v-for="speaker in speakers"
+              v-if="speaker"
               v-show="showSpeaker($index)"
               class="speakerRow"
-            >{{{ seance.speaker_info }}}</div>
+            >{{{ speaker }}}</div>
             <h4 :class="showSpeakersClass">
               <a href="#" @click.prevent="toggleSpeakers">
                 <span v-if="!showSpeakers">
                   Все спикеры ({{ speakersCount }})
                 </span>
                 <span v-else>
-                  Скрыть спикеров
+                  Скрыть спикеров ({{ speakersCount }})
                 </span>
               </a>
             </h4>
@@ -161,9 +161,7 @@ export default {
     },
     // Кол-во спикеров программы
     speakersCount() {
-      return this.programItem.seances.filter((s) => {
-        return s.speaker_info
-      }).length
+      return this.speakers.length
     },
     // Классы кнопки показа всех спикеров
     showSpeakersClass() {
@@ -171,6 +169,13 @@ export default {
         showSpeakers: true,
         rotated: this.showSpeakers
       }
+    },
+    speakers() {
+      return this.programItem.seances.map((s) => {
+        return s.speaker_info
+      }).filter((s) => {
+        return s
+      }).getUnique()
     }
   },
 
@@ -179,7 +184,7 @@ export default {
       return e
     },
     showSpeaker(idx) {
-      return !this.showSpeakers ? idx <= 3 : true
+      return !this.showSpeakers ? idx <= 2 : true
     },
     toggleSpeakers() {
       this.showSpeakers = !this.showSpeakers

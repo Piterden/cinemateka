@@ -20,7 +20,6 @@ return [
     | Your application's API key. This key identifies your application for
     | purposes of quota management. Learn how to get a key from the APIs Console.
     */
-    // 'applicationKey' => 'AIzaSyDNXSt0BFb-tN4jcLNoyokplrmQ5LaW5cQ',
     'applicationKey' => 'AIzaSyCQc9KlTA521fqdQItpDNagQk1DZ2u8umI',
 
     /*

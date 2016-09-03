@@ -39,7 +39,7 @@
   @include('blocks.footer')
 
   {{-- Data from Backend --}}
-  <script type="text/javascript">
+  <script type="text/javascript" id="dataCollections">
     window['slides'] = {!! $slides !!};
     window['seances'] = {!! $seances !!};
     window['programs'] = {!! $programs !!};
