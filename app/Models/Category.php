@@ -4,12 +4,12 @@ namespace App\Models;
 
 use Backpack\CRUD\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
-// use Propaganistas\LaravelCacheSupport\Traits\EloquentCacheable;
+use Propaganistas\LaravelCacheSupport\Traits\EloquentCacheable;
 
 class Category extends Model
 {
     use CrudTrait;
-    // use EloquentCacheable;
+    use EloquentCacheable;
 
     protected $table      = 'categories';
     protected $fillable = ['name', 'parent_id'];

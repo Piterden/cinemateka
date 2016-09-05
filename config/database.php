@@ -65,6 +65,7 @@ return [
             'strict' => false,
             'engine' => null,
             'dump_command_path' => "/usr/bin/",
+            // 'options' => [PDO::MYSQL_ATTR_MAX_BUFFER_SIZE => 134217728]
         ],
 
         'pgsql' => [

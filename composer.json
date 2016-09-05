@@ -20,7 +20,8 @@
         "barryvdh/laravel-debugbar": "^2.2",
         "alexpechkarev/google-geocoder": "dev-master",
         "intervention/image": "^2.3",
-        "propaganistas/laravel-cache-support": "~1.0"
+        "propaganistas/laravel-cache-support": "~1.0",
+        "roumen/sitemap": "2.6.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

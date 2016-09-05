@@ -5,13 +5,13 @@ use Backpack\CRUD\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-// use Propaganistas\LaravelCacheSupport\Traits\EloquentCacheable;
+use Propaganistas\LaravelCacheSupport\Traits\EloquentCacheable;
 
 class Event extends Model
 {
     use CrudTrait;
     use SoftDeletes;
-    // use EloquentCacheable;
+    use EloquentCacheable;
 
     protected $table = 'events';
     protected $fillable = [

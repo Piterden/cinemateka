@@ -5,13 +5,13 @@ use Backpack\CRUD\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-// use Propaganistas\LaravelCacheSupport\Traits\EloquentCacheable;
+use Propaganistas\LaravelCacheSupport\Traits\EloquentCacheable;
 
 class Program extends Model
 {
     use CrudTrait;
     use SoftDeletes;
-    // use EloquentCacheable;
+    use EloquentCacheable;
 
     protected $table    = 'programs';
     protected $fillable = [

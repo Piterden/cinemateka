@@ -194,6 +194,8 @@ return [
 
         'App\Providers\BladeSetServiceProvider',
 
+        Roumen\Sitemap\SitemapServiceProvider::class,
+
     ],
 
     /*

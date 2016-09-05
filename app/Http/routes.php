@@ -1,4 +1,4 @@
- <?php
+<?php
 
 /*
 |--------------------------------------------------------------------------
@@ -14,23 +14,19 @@
 /**
  * Vue OPA
  */
-Route::group([], function()
-{
-    Route::get('/', 'PageController@staticPage');
-    Route::get('about', 'PageController@staticPage');
-    Route::get('contacts', 'PageController@staticPage');
-    Route::get('schedule/{page?}', 'PageController@listPage');
-    Route::get('archive/{page?}', 'PageController@listPage');
-    Route::get('event/{slug}', 'PageController@entityPage');
-    Route::get('program/{slug}', 'PageController@entityPage');
-});
+Route::get('/', 'PageController@index');
+
+/**
+ * Sitemap
+ */
+Route::get('sitemap', 'SitemapController@index');
 
 /**
  * Admin interface
  */
 Route::group([
     'middleware' => ['auth', 'admin'],
-    'prefix' => 'admin'
+    'prefix'     => 'admin',
 ], function ()
 {
     // Admin authentication routes
@@ -38,7 +34,6 @@ Route::group([
     // Other Backpack\Base routes
     Route::get('/', 'AdminController@redirectToDashboard');
     Route::get('dashboard', 'AdminController@dashboard');
-
 
     Route::group(['namespace' => 'Admin'], function ()
     {
@@ -78,7 +73,8 @@ Route::group([
     });
 });
 
-Route::group(['middleware' => ['auth', 'api'], 'prefix' => 'rest'], function()
+Route::group(['middleware' => ['auth', 'api'], 'prefix' => 'rest'], function ()
 {
     Route::resource('seance', 'SeanceController');
 });
+
