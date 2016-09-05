@@ -160,7 +160,7 @@ export default {
     /**
      * По загрузке страницы
      */
-    onEnter() {
+    onShow() {
       if (!this.filteredCount) {
         let m = this.filterValues.month
         this.filterValues.month = m - 1
@@ -169,10 +169,23 @@ export default {
   },
 
   route: {
+    /**
+     * По готовности роута. Равняет высоту квадратов и вешает обработчик.
+     * @method ready
+     */
     activate() {
-      this.onEnter()
+      this.onShow()
+      // $.trigger('fix.resize')
+    },
+    /**
+     * По уходу со страницы - снимает обработчик.
+     * @return {[type]} [description]
+     */
+    deactivate() {
+
     }
   },
+
 
   head: {
     title() {
@@ -213,7 +226,7 @@ export default {
 }
 </script>
 
-<style lang="sass">
+<style lang="css">
 .filters-line.mdl-grid .month-filter {
   margin-left: .6%;
 }
@@ -226,8 +239,8 @@ export default {
 }
 .filter .dropdown {
   margin: 0;
-  ul {
-    max-height: 448px;
-  }
+}
+.filter .dropdown ul {
+  max-height: 448px;
 }
 </style>

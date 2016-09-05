@@ -1,62 +1,64 @@
 <template lang="html">
   <div class="mdl-grid">
-    <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable">
-      <thead>
-        <tr>
-          <th class="id hidden">ID</th>
-          <th class="date">Дата</th>
-          <th class="event">Событие</th>
-          <th class="type">Тип события</th>
-          <th class="program">Программа</th>
-          <th class="place">Площадка</th>
-          <th class="price">Билет</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          v-for="seance in seances
-            | orderBy 'start_time'
-            | filterMethod filterValues
-            | limitBy limit"
-          track-by="id"
-        >
-          <td class="id hidden">
-            <div class="seance-id">{{ seance.id }}</div>
-          </td>
-          <td class="date">
-            <div class="seance-date">{{ seance.startDate }}</div>
-            <div class="seance-time">{{ seance.startTime }}</div>
-          </td>
-          <td class="event">
-            <div>
-              <a href="#" v-link="{ path: '/event/' + seance.event.slug }">
-                {{ seance.event.title }}
-              </a>
-            </div>
-          </td>
-          <td class="type">
-            <div>{{ seance.eventTypeName }}</div>
-          </td>
-          <td class="program">
-            <div>
-              <a href="#" v-link="{ path: '/program/' + seance.program.slug }">
-                {{ seance.program.title }}
-              </a>
-            </div>
-          </td>
-          <td class="place">
-            <div class="placeWrapper">
-              <a href="#" @click.prevent="toggleTooltip(seance.id)">
-                {{ seance.place.title }}
-                 <i class="fa fa-info-circle" aria-hidden="true"></i>
-              </a>
+    <div class="scroll-box">
+      <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable">
+        <thead>
+          <tr>
+            <th class="id hidden">ID</th>
+            <th class="date">Дата</th>
+            <th class="event">Событие</th>
+            <th class="type">Тип события</th>
+            <th class="program">Программа</th>
+            <th class="place">Площадка</th>
+            <th class="price">Билет</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            v-for="seance in seances
+              | orderBy 'start_time'
+              | filterMethod filterValues
+              | limitBy limit"
+            track-by="id"
+          >
+            <td class="id hidden">
+              <div class="seance-id">{{ seance.id }}</div>
+            </td>
+            <td class="date">
+              <div class="seance-date">{{ seance.startDate }}</div>
+              <div class="seance-time">{{ seance.startTime }}</div>
+            </td>
+            <td class="event">
+              <div>
+                <a href="#" v-link="{ path: '/event/' + seance.event.slug }">
+                  {{ seance.event.title }}
+                </a>
+              </div>
+            </td>
+            <td class="type">
+              <div>{{ seance.eventTypeName }}</div>
+            </td>
+            <td class="program">
+              <div>
+                <a href="#" v-link="{ path: '/program/' + seance.program.slug }">
+                  {{{ seance.program.title }}}
+                </a>
+              </div>
+            </td>
+            <td class="place">
+              <div class="placeWrapper">
+                <a href="#" @click.prevent="toggleTooltip(seance.id)">
+                  {{{ seance.place.title }}}
+                  <i class="fa fa-info-circle" aria-hidden="true"></i>
+                </a>
+              </div>
               <div class="hidden" id="tt{{ seance.id }}">
                 <div class="place-address" v-if="seance.place.address">
                   <i class="fa fa-map-marker" aria-hidden="true"></i>
-                  {{ seance.place.address }}
+                  {{{ seance.place.address }}}
                 </div>
                 <div class="place-metro" v-if="seance.place.metro">
-                  {{ seance.place.metro }}
+                  {{{ seance.place.metro }}}
                 </div>
                 <div class="place-site" v-if="seance.place.place_site">
                   <i class="fa fa-globe" aria-hidden="true"></i>
@@ -71,17 +73,16 @@
                   <a href="tel:{{ seance.place.place_phone }}">{{ seance.place.place_phone }}</a>
                 </div>
               </div>
-            </div>
-          </td>
-          <td class="price">
-            <div>{{ seance.price }} {{{ roubleIcon }}}</div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+            </td>
+            <td class="price">
+              <div>{{ seance.price }} {{{ roubleIcon }}}</div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
     <div class="show-more-block mdl-cell mdl-cell--12-col"
-      v-show="moreVisible"
-    >
+      v-show="moreVisible">
       <a class="show-more-btn"
         @click="showMore"
       >Показать еще</a>
@@ -188,14 +189,16 @@ export default {
   height: 100px;
 }
 .mdl-data-table tbody tr td {
-  padding-right: 0;
-  padding-left: 0;
-  padding-top: 0;
-  padding-bottom: 0;
+  padding: 0;
   border-top-width: 0;
   border-bottom: none;
   white-space: normal;
   text-align: left;
+}
+@media (max-width: 1024px) {
+  .mdl-data-table tbody tr td {
+    padding: 25px 0;
+  }
 }
 .mdl-data-table tbody tr td:nth-child(1) {
   display: none;
@@ -245,7 +248,7 @@ export default {
   min-width: 160px;
 }
 .mdl-data-table tbody .place > div > div {
-  display: inline;
+  display: block;
 }
 .mdl-data-table tbody .price > div {
   padding-left: 5px;
@@ -288,10 +291,10 @@ export default {
 .placeWrapper {
   position: relative;
 }
-.placeWrapper > div {
+[id^="tt"] {
   position: absolute;
-  top: 38px;
-  width: 250px;
+  top: 90%;
+  width: 300px;
   left: -120px;
   text-align: left;
   background: #fff;
@@ -299,7 +302,7 @@ export default {
   padding: 0 0 15px 0;
   z-index: 1;
 }
-.placeWrapper > div:after {
+[id^="tt"]:after {
   content: '';
   position: absolute;
   width: 15px;

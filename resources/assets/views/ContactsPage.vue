@@ -166,23 +166,8 @@ export default {
   position: relative;
 }
 
-#map {
-  width: calc(100% - 15px);
-  height: calc(100% - 183px);
-}
-
 .vue-map-container {
   /* filter: grayscale(1); */
-}
-
-.places-wrapper {
-  position: absolute;
-  top: 10%;
-  left: 5%;
-  width: 385px;
-  background-color: white;
-  z-index: 5555;
-  padding: 0 24px;
 }
 
 .place-item {

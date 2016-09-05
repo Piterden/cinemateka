@@ -1,7 +1,3 @@
-<style lang="css">
-
-</style>
-
 <template lang="html">
   <ul class="filters-line mdl-grid">
     <li v-for="key in filterShow"
@@ -62,3 +58,6 @@ export default {
 }
 </script>
 
+<style lang="css">
+
+</style>

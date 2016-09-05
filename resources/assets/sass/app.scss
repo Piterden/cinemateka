@@ -98,10 +98,18 @@ nav {
     padding: 0;
     width: 100%;
     text-align: center;
+    @media (min-width: 480px) and (max-width: 839px) {
+      padding: 0 0 0 30px;
+    }
     li {
       display: inline-block;
       float: none;
-      margin: 0 15px;
+      @media (min-width: 840px) {
+        margin: 0 15px;
+      }
+      @media (min-width: 480px) and (max-width: 839px) {
+        margin: 0 10px;
+      }
       a {
         position: relative;
         display: block;
@@ -120,6 +128,9 @@ nav {
           background: #ff0025;
           content: '';
           opacity: 0;
+        }
+        @media (min-width: 480px) and (max-width: 839px) {
+          font-size: 11px;
         }
       }
       &:hover a,
@@ -260,13 +271,37 @@ nav {
     width: calc(100% - 24px);
   }
   .mdl-cell--8-col {
-    width: calc(66.6666666667% - 24px);
+    @media (min-width: 840px) {
+      width: calc(66.6666666667% - 24px);
+    }
+    @media (min-width: 480px) and (max-width: 839px) {
+      width: calc(100% - 24px);
+    }
+    @media (max-width: 479px) {
+      width: calc(100% - 24px);
+    }
   }
   .mdl-cell--4-col {
-    width: calc(33.3333333337% - 24px);
+    @media (min-width: 840px) {
+      width: calc(33.3333333337% - 24px);
+    }
+    @media (min-width: 480px) and (max-width: 839px) {
+      width: calc(50% - 24px);
+    }
+    @media (max-width: 479px) {
+      width: calc(100% - 24px);
+    }
   }
   .mdl-cell--3-col {
-    width: calc(25% - 24px);
+    @media (min-width: 840px) {
+      width: calc(25% - 24px);
+    }
+    @media (min-width: 480px) and (max-width: 839px) {
+      width: calc(50% - 24px);
+    }
+    @media (max-width: 479px) {
+      width: calc(100% - 24px);
+    }
   }
   .mdl-cell {
     margin: 12px;
@@ -277,11 +312,25 @@ nav {
       height: 100%;
       background-position: 50% 50%;
       background-size: cover;
+      a {
+        @media (max-width: 1024px) {
+
+        }
+        @media (min-width: 480px) and (max-width: 839px) {
+          font-size: .8em;
+        }
+        @media (max-width: 479px) {
+          font-size: .8em;
+        }
+      }
       .category {
         padding: 18px 25px;
         text-transform: lowercase;
         font-weight: bold;
         font-size: 16px;
+        @media (max-width: 1024px) {
+          padding: 0 5px;
+        }
       }
       .bluncardy {
         height: calc(100% - 60px);
@@ -302,12 +351,23 @@ nav {
         font-weight: 200;
         font-size: 23px;
         text-shadow: 0 0 2px #000;
+        @media (max-width: 1024px) {
+          padding: 0 5px;
+        }
       }
       .title {
         padding: 0 25px;
         text-shadow: 0 0 2px #000;
+        @media (max-width: 1024px) {
+          padding: 0 5px;
+        }
         a:hover {
           text-decoration: underline;
+        }
+        h3 {
+          @media (max-width: 1024px) {
+            line-height: 1;
+          }
         }
       }
       .program {
@@ -316,11 +376,16 @@ nav {
         a:hover {
           text-decoration: underline;
         }
+        @media (max-width: 1024px) {
+          padding: 0 5px;
+        }
       }
     }
   }
 }
-
+.scroll-box {
+  overflow-x: auto;
+}
 .show-more-block {
   padding: 0;
   background: transparent;
@@ -394,8 +459,21 @@ nav {
 }
 .filters-line.mdl-grid {
   padding: 47px 40px 20px;
+  .filter {
+    @media (max-width: 479px) {
+      width: 100% !important;
+      margin: 0px 0 10px 20% !important;
+    }
+    @media (min-width: 480px) and (max-width: 839px) {
+      width: 42% !important;
+      margin: 0 0 10px 8% !important;
+    }
+  }
   .event-type-filter {
     width: 33.3333333%;
+    // @media (min-width: 480px) {
+    //   width: 100%;
+    // }
   }
   .month-filter {
     margin-left: 10px;
@@ -500,7 +578,7 @@ nav {
     font-size: 16px;
   }
   .drop-ttl {
-    padding: 5px 10px;
+    padding: 5px 40px 5px 10px;
     font-weight: 400;
   }
   ul {
@@ -589,9 +667,48 @@ nav {
       padding: 5px 0;
     }
   }
-
 }
 
+.main-titles {
+  padding-left: 30px;
+}
+
+.places-wrapper {
+  position: absolute;
+  top: 10%;
+  left: 5%;
+  width: 385px;
+  background-color: white;
+  z-index: 5555;
+  padding: 0 24px;
+  @media (max-width: 1024px) {
+    position: relative;
+    width: 28%;
+    margin: 0;
+    float: left;
+    height: 100%;
+    overflow: auto;
+    top: 0;
+    left: 0;
+    padding: 0 0 0 2%;
+  }
+  @media (max-width: 839px) {
+    width: 100%;
+  }
+}
+
+#map {
+  width: calc(100% - 15px);
+  height: calc(100% - 183px);
+  @media (max-width: 1024px) {
+    width: 70%;
+    float: left;
+    height: 100%;
+  }
+  @media (max-width: 839px) {
+    width: 100%;
+  }
+}
 
 .date-pickers {
   height: 48px;
@@ -778,7 +895,7 @@ footer {
 .event-programm {
   position: absolute;
   top: 336px;
-  left: 40px;
+  left: 70px;
   text-shadow: 0 0 2px #000;
 }
 
@@ -857,22 +974,27 @@ footer {
 }
 
 
-.more-info-table {
+.more-info-table tr {
   margin-top: 24px;
   margin-bottom: 40px;
-}
-
-.more-info-table tr td:first-child {
-  font-weight: bold;
-  vertical-align: top;
-  width: 170px;
-}
-.more-info-table tr td:nth-child(2) {
-  border-right: 25px solid white;
-  max-width: 340px;
-}
-.more-info-table tr td:nth-child(3) {
-  vertical-align: top;
+  td {
+    white-space: nowrap;
+  }
+  li {
+    white-space: nowrap;
+  }
+  td:first-child {
+    font-weight: bold;
+    vertical-align: top;
+    width: 170px;
+  }
+  td:nth-child(2) {
+    border-right: 25px solid white;
+    max-width: 340px;
+  }
+  td:nth-child(3) {
+    vertical-align: top;
+  }
 }
 .actors-list li {
   font-size: 16px;

@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="mdl-cell mdl-cell--{{ getCols(method) }}-col"
+  <div class="mdl-cell mdl-cell--{{ getCols(method) }}-col mdl-cell--12-col-phone mdl-cell--12-col-phone"
     :style="styleObject"
     transition="fade"
     transition-mode="out-in"

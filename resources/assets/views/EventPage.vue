@@ -2,7 +2,7 @@
   <div class="wrap router-view event-page">
     <div v-if="eventItem" class="event-image" style="background-image: url('/{{ eventItem.title_image }}');">
       <div class="mdl-grid">
-        <div class="mdl-cell mdl-cell--7-col">
+        <div class="mdl-cell mdl-cell--7-col main-titles">
           <div class="event-date" v-if="closestSeanceDate">{{ closestSeanceDate }}</div>
           <h1 class="event-title">{{{ eventItem.title }}}</h1>
           <div class="event-programm" v-if="closestProgram">
@@ -462,7 +462,7 @@ export default {
 </script>
 
 <style lang="css">
-h3 {
+.event-page h3 {
   margin-bottom: 24px;
 }
 .event-price {
