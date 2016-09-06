@@ -480,6 +480,7 @@ export default {
   width: 13px;
   height: 13px;
   border: 3px solid #fff;
+  box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.3);
   border-radius: 50%;
   background: transparent;
   opacity: 1;

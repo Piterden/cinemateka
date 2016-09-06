@@ -4,12 +4,12 @@ namespace App\Models;
 
 use Backpack\CRUD\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
-use Propaganistas\LaravelCacheSupport\Traits\EloquentCacheable;
+// use Propaganistas\LaravelCacheSupport\Traits\EloquentCacheable;
 
 class MenuItem extends Model
 {
     use CrudTrait;
-    use EloquentCacheable;
+    // use EloquentCacheable;
 
     protected $table    = 'menu_items';
     protected $fillable = ['name', 'type', 'link', 'parent_id'];

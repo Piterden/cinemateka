@@ -32,7 +32,7 @@ class CreateEventsTable extends Migration
                 $table->string('orig_title', 255)->default('')->comment('Оригинальное название');
                 $table->string('year', 50)->default('')->comment('Год');
                 $table->string('country', 100)->default('')->comment('Страна');
-                $table->string('carrier', 50)->default('')->comment('Носитель (DCP, 35 mm, Blu-ray)');
+                $table->string('carrier', 50)->default('')->comment('Носитель (DCP, 35 мм, Blu-ray)');
                 $table->string('language', 50)->default('')->comment('Язык');
                 $table->string('subtitles', 100)->default('')->comment('Субтитры или дубляж');
                 $table->string('director', 255)->default('')->comment('Режиссер');
