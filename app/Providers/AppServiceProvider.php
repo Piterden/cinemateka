@@ -2,6 +2,12 @@
 namespace App\Providers;
 
 // use Cache;
+use App\Models\Event;
+use App\Models\Place;
+use App\Models\Slide;
+use App\Models\Seance;
+use App\Models\Program;
+use App\Models\Category;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -16,24 +22,24 @@ class AppServiceProvider extends ServiceProvider
         /**
          * Share collections to all views
          */
-        $seances = \App\Models\Seance::where('id', '>', 0)
-            ->orderBy('start_time', 'asc')->get();
+        $seances = Seance::where('id', '>', 0)
+        ->orderBy('start_time', 'asc')->get();
 
-        $categories = \App\Models\Category::all();
+        $categories = Category::all();
 
-        $events = \App\Models\Event::where([
+        $events = Event::where([
             'published' => '1',
         ])->get();
 
-        $programs = \App\Models\Program::where([
+        $programs = Program::where([
             'published' => '1',
         ])->get();
 
-        $places = \App\Models\Place::where([
+        $places = Place::where([
             'published' => '1',
         ])->get();
 
-        $slides = \App\Models\Slide::where([
+        $slides = Slide::where([
             'published' => '1',
         ])->get();
 

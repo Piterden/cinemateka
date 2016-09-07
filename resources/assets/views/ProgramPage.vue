@@ -62,7 +62,10 @@
               v-if="speaker"
               v-show="showSpeaker($index)"
               class="speakerRow"
-            >{{{ speaker }}}</div>
+            >
+              {{{ speaker }}}
+              <div class="clearfix"></div>
+            </div>
             <h4 :class="showSpeakersClass">
               <a href="#" @click.prevent="toggleSpeakers">
                 <span v-if="!showSpeakers">
