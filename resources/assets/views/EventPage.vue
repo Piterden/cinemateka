@@ -74,7 +74,7 @@
             <tbody>
               <tr>
                 <td>Оригин. название</td>
-                <td>{{ eventItem.orig_title || eventItem.title }}</td>
+                <td class="normal-wrap">{{ eventItem.orig_title || eventItem.title }}</td>
                 <td rowspan="15" v-if="eventItem.actors">
                   <div class="actors-title">
                     <strong>В главных ролях</strong>
@@ -108,7 +108,7 @@
               </tr>
               <tr v-if="eventItem.language">
                 <td>Язык</td>
-                <td>{{ eventItem.language }}</td>
+                <td class="lowercase">{{ eventItem.language }}</td>
               </tr>
               <tr v-if="eventItem.subtitles != 'no'">
                 <td>Субтитры</td>
@@ -499,6 +499,7 @@ export default {
   position: relative;
   cursor: pointer;
   transition: color .3s linear;
+  white-space: nowrap;
 }
 .event-place:hover {
   color: #ff0025;

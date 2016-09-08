@@ -174,9 +174,9 @@ class EventCrudController extends CrudController
             'label'       => 'Носитель',
             'type'        => 'select_from_array',
             'options'     => [
-                'dcp'    => 'DCP',
-                '35mm'   => '35 мм',
-                'blurey' => 'Blu-ray',
+                'DCP'    => 'DCP',
+                '35 мм'   => '35 мм',
+                'blurey' => 'blurey',
             ],
             'allows_null' => true,
             'colspan'     => '2',

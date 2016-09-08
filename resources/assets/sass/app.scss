@@ -75,6 +75,13 @@ ul {
   padding: 0;
   list-style: none;
 }
+.normal-wrap {
+  white-space: normal !important;
+}
+.no-wrap {
+  white-space: nowrap !important;
+}
+
 /**
  * Header
  */
