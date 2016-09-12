@@ -26,6 +26,8 @@ class Place extends Model
         'place_email',
         'place_phone',
         'place_type',
+        'longitude',
+        'latitude',
     ];
     public $timestamps = true;
 

@@ -39,22 +39,10 @@ class PlaceCrudController extends CrudController
 
         // ------ CRUD FIELDS
         $this->crud->addField([
-            'name'    => 'published',
-            'type'    => 'checkbox',
-            'label'   => 'Опубликовано',
-            'colspan' => 4,
-        ]);
-        $this->crud->addField([
             'name'    => 'title',
             'type'    => 'text',
             'label'   => 'Название',
-            'colspan' => 4,
-        ]);
-        $this->crud->addField([
-            'name'    => 'metro',
-            'type'    => 'text',
-            'label'   => 'Метро',
-            'colspan' => 4,
+            'colspan' => 8,
         ]);
         $this->crud->addField([
             'name'     => 'place_type',
@@ -65,16 +53,29 @@ class PlaceCrudController extends CrudController
             'colspan'  => 4,
         ]);
         $this->crud->addField([
-            'name'    => 'description',
-            'type'    => 'summernote',
-            'label'   => 'Описание',
-            'colspan' => 6,
+            'name'    => 'address',
+            'type'    => 'text',
+            'label'   => 'Адрес',
+            'colspan' => 4,
         ]);
         $this->crud->addField([
-            'name'    => 'address',
-            'type'    => 'textarea',
-            'label'   => 'Адрес',
-            'colspan' => 6,
+            'name'    => 'metro',
+            'type'    => 'text',
+            'label'   => 'Метро',
+            'colspan' => 4,
+        ]);
+        $this->crud->addField([
+            'name'     => 'latitude',
+            'type'     => 'text',
+            'label'    => 'Широта (север)',
+            'colspan'  => 2,
+        ]);
+        $this->crud->addField([
+            'name'     => 'longitude',
+            'type'     => 'text',
+            'label'    => 'Долгота (востк)',
+            'colspan'  => 2,
+            // 'hint'     => 'Смотреть www.ya.ru',
         ]);
         $this->crud->addField([
             'name'     => 'place_site',
@@ -92,7 +93,13 @@ class PlaceCrudController extends CrudController
             'name'     => 'place_phone',
             'type'     => 'text',
             'label'    => 'Телефон',
-            'colspan'  => 4,
+            'colspan'  => 2,
+        ]);
+        $this->crud->addField([
+            'name'    => 'published',
+            'type'    => 'checkbox',
+            'label'   => 'Опубликовано',
+            'colspan' => 2,
         ]);
         // $this->crud->addField([
         //     'name'     => 'lat',
@@ -104,11 +111,17 @@ class PlaceCrudController extends CrudController
         //     'colspan'  => 4,
         // ]);
         $this->crud->addField([
-            'name'     => 'position',
-            'type'     => 'text',
-            'label'    => 'Координаты',
-            'colspan'  => 4,
+            'name'    => 'description',
+            'type'    => 'summernote',
+            'label'   => 'Описание',
+            'colspan' => 12,
         ]);
+        // $this->crud->addField([
+        //     'name'     => 'position',
+        //     'type'     => 'text',
+        //     'label'    => 'Координаты',
+        //     'colspan'  => 4,
+        // ]);
 
         // $this->crud->removeColumn('column_name'); // remove a column from the stack
         // $this->crud->removeColumns(['column_name_1', 'column_name_2']); // remove an array of columns from the stack

@@ -14,11 +14,8 @@
           <li v-for="(index, tab) in tabs"
             class="mdl-tabs__tab"
             v-show="1"
-          >
-            <a class="{{ this.activeTab == index ? 'active' : '' }}"
-              @click.prevent="clickTab(tab.name)">
-              {{ tab.title }}
-            </a>
+          ><a class="{{ this.activeTab == index ? 'active' : '' }}"
+            @click.prevent="clickTab(tab.name)">{{ tab.title }}</a>
           </li>
         </ul>
       </blocks-header>

@@ -107,16 +107,9 @@ let App = Vue.extend({
      * Записываем связанные объекты в места
      */
     this.places = places.map((p) => {
-      if(typeof p.position == 'string') {
-        p.position = JSON.parse(p.position)
-      }
-      if(typeof p.position == 'string') {
-        p.position = JSON.parse(p.position)
-      }
-      for(var k in p.position) {
-        if(p.position.hasOwnProperty(k)) {
-          p.position[k] = Number(p.position[k])
-        }
+      p.position = {
+        lat: Number(p.latitude) || 0,
+        lng: Number(p.longitude) || 0
       }
       return p
     })
