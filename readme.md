@@ -29,7 +29,7 @@ One page schedule app built with Laravel 5 and VueJS.
 
 ## Documentation
 
-App don't using vuex or any other store system. Eloquent don't calculate relations in db queries. PHP gives to Vue clean collections, without relations, but every page will have all this collections at one time after first load. Relations calculating by Vue (it's amazing fast, even we'll have difficult relations) at first load. Other routing is depends on VueRouter and so we can turn off WiFi (we'll not receive some images in this situation) and go on site serfing.
+App don't using vuex or any other store system. Eloquent don't calculate relations in db queries. PHP gives to Vue clean collections, without relations, but every page will have all this collections at one time after first load. Relations calculating by Vue (it's amazing fast, even we'll have difficult relations) at first load. Other routing is depends on VueRouter and so we can turn off WiFi (we'll not receive some images in this situation) and go on site surfing.
 
 ### Folder structure
 
